@@ -7,6 +7,8 @@ navbar:
     href: index.html
   - text: Protein Drinks
     href: protein_combined_120820.html
+  - text: Chewing Gum
+    href: ChewingGum_121620.html
   - text: About
     href: about.html
   - text: License
