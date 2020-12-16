@@ -573,16 +573,6 @@ figure_n <- fig_inc()
 
 <br clear="all" />
 
-
-```{r robFigure1_ph, echo = FALSE, out.width = 675, out.height = 300, fig.align = "left", dev = "svg"}
-knitr::include_graphics("figures/ph_rob_summary.svg")
-# figure_n <- fig_inc()
-```
-
-```{r robFigure2_ph, echo = FALSE, out.width = 700, out.height = 300, fig.align = "left", dev = "svg"}
-## Individual Trials  
-# <font size = 4> Figure `r figure_n`. Individual study risk of bias appraisals for included randomized controlled trials examining . </font>
-knitr::include_graphics("figures/ph_rob_traffic.svg")
 figure_n <- fig_inc()
 ```
 
