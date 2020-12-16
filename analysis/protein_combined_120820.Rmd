@@ -1,5 +1,5 @@
 ---
-title: "Protein/carbohydrate containing Drinks"
+title: "Protein/carbohydrate Containing Drinks"
 date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
   html_document:
