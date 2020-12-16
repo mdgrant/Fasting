@@ -10,6 +10,6 @@ All results are in draft form and not to be cited or used without permission of 
 
 <br>
 
-[Protein (carbohydrate) results](protein_combined_120820.html)
+[Protein/carbohydrate results](protein_combined_120820.html)
 
 [Chewing gum results](ChewingGum_121620.html)
