@@ -884,7 +884,8 @@ fasting_table <- fasting_table %>%
   group_by(study) %>% 
   # mutate(design = if_else(row_number() == 1, design, "")) %>% 
   mutate(year = ifelse(row_number() == 1, year, NA ),
-         study = if_else(row_number() == 1, study, "")) 
+         study = if_else(row_number() == 1, study, "")) %>% 
+  ungroup()
 
 ```
 

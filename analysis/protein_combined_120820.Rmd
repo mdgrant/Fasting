@@ -1,5 +1,5 @@
 ---
-title: "Protein-containing Drinks"
+title: "Protein/carbohydrate containing Drinks"
 date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
   html_document:
@@ -1309,15 +1309,55 @@ table_n <- tab_inc()
 ```
 
 ```{r bpKb, include = FALSE}
-bp <- contin.dat %>% 
+library(formattable)
+
+bp.dat <- contin.dat %>% 
   select(refid:age, arm_tx, arm_n, starts_with("sbp"), starts_with("dbp"), dpb_pval_1, dpb_pval_2) %>% 
   filter_at(vars(sbp_type_measure:sbp_iqr_up_2), any_vars(!is.na(.))) %>% 
   janitor::remove_empty(which = "cols") %>% 
-  arrange(age, desc(surg_nosurg), design, year, study)
+  rename(dbp_mean_2 = dbp_mean_22) %>% 
+  arrange(age, desc(surg_nosurg), design, year, study, arm_tx)
 
-write.csv(bp, "bp.csv", na = "")
+bp.dat$sbp_mean_1 <- color_bar("lightgreen")(bp.dat$sbp_mean_1)
+bp.dat$sbp_mean_2 <- color_bar("lightgreen")(bp.dat$sbp_mean_2)
+bp.dat$dbp_mean_1 <- color_bar("yellow")    (bp.dat$dbp_mean_1)
+bp.dat$dbp_mean_2 <- color_bar("yellow")    (bp.dat$dbp_mean_2)
 
+protein_row <- bp.dat %>% 
+  mutate(line = row_number()) %>% 
+  filter(arm_tx == "Protein") %>% 
+  pull(line)
 
+bp.dat %>% 
+  select(study, arm_tx, arm_n, sbp_time_1:dbp_sd_2) %>% 
+  select(!c(dbp_time_1, dbp_time_2)) %>% 
+  select(study:sbp_sd_1, dbp_mean_1, dbp_sd_1, sbp_time_2, sbp_mean_2, sbp_sd_2, dbp_mean_2, dbp_sd_2) %>%
+  mutate(sbp_sd_1 = str_c("(", sbp_sd_1, ")"),
+         sbp_sd_2 = str_c("(", sbp_sd_2, ")"),
+         dbp_sd_1 = str_c("(", dbp_sd_1, ")"),
+         dbp_sd_2 = str_c("(", dbp_sd_2, ")"),
+         sbp_time_2 = ifelse(study == "Singh 2015a", round_0(sbp_time_2), sbp_time_2)) %>% 
+  group_by(study) %>% mutate(study = ifelse(row_number() == 1, study, NA)) %>% ungroup() %>% 
+   kbl(booktabs = T, align =  c("llccllllcllll"), escape = FALSE,
+      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", "Hr", "SBP", "(SD)",  "DBP", "(SD)", "Hr", "SBP", "(SD)",
+                    "DBP", "(SD)")) %>%
+  add_header_above(c(" " = 3, "Time 1" = 5, "Time 2" = 5), line = TRUE) %>% 
+  kable_styling(bootstrap_options = opt_boot, full_width = TRUE, position = "left") %>% 
+  kable_classic(position = "left", full_width = FALSE, html_font = opt_font, "hover") %>% 
+  column_spec(1, width = "10em") %>%  
+  column_spec(2, width = "6em") %>% 
+  column_spec(3, width = "2em") %>% 
+  column_spec(c(4,6,8,11,13), width = "3em") %>% 
+  column_spec(c(5,7,9,10,12), width = "5em") %>% 
+  row_spec(protein_row, color = "brown") %>% 
+  pack_top(., "Adult, Surgical", 1, 4) %>% 
+  pack_sub(., "RCT", 1, 4) %>%
+  pack_sub(., "Nonradomized Studie of Interventions", 5, 8) %>%
+  footnote(general = "RCT: randomized controlled trial; Hr: hour; SBP: systolic blood pressure; DBP: diastolic blood pressure; SD: standard deviation.",
+           general_title = "", 
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
 ```
 
 <br>

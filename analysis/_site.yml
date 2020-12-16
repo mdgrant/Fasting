@@ -5,7 +5,7 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: Protein Drinks
+  - text: Protein/Carbohydrate Drinks
     href: protein_combined_120820.html
   - text: Chewing Gum
     href: ChewingGum_121620.html
