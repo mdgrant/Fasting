@@ -7,4 +7,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-Draft evidence tables. 
+Draft summary evidence tables. 

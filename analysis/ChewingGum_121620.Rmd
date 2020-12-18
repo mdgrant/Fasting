@@ -78,7 +78,6 @@ fig_inc <- function() {
 
 table_n <- 1
 figure_n <- 1
-
 ```
 
 ```{r filesRecent, include = FALSE}
@@ -149,7 +148,6 @@ study_char_gum.dat %>%
   pack_sub(., "RCT", 10, 10) %>%
   footnote(
     alphabet = c(
-      "Multiple publications of the same study.",
       "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
     general_title = "",
     footnote_as_chunk = FALSE)
@@ -162,6 +160,110 @@ table_n <- tab_inc()
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 # Outcomes
+
+## Patient Reported Outcomes
+
+<br>
+
+### Thirst
+
+<br>
+
+<font size = 4> Table `r table_n`. Summary and individual study risk of bias appraisals for pooled parallel randomized controlled trials (n = 4) examining residual gastric volume. </font>
+
+```{r thirstData, echo = FALSE}
+temp_thirst <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "thirst", range = "A7:H9") %>% 
+  janitor::clean_names()
+
+gum_thirst <- temp_thirst %>% 
+  filter(!is.na(refid)) %>% 
+  mutate(iqrl = as.numeric(str_split(iqr, " to ", simplify = TRUE)[,1]),
+         iqru = as.numeric(str_split(iqr, " to ", simplify = TRUE)[,2]),
+         study = str_replace(study, "\\(", ""),
+         study = str_replace(study, "\\)", ""),
+         tx = ifelse(str_detect(tx, "free"), "Gum sugarfree", tx),
+         tx = ifelse(str_detect(tx, "sugared"), "Gum sugared", tx),
+         iqr = str_c("(", round(iqrl, 1), "-", round(iqru, 1), ")"))
+
+gum_row <- gum_thirst %>% 
+  mutate(row = row_number()) %>% 
+  filter(str_detect(tx, "[Gg]um") == TRUE) %>% 
+  pull(row)
+```
+
+```{r thirstKable, echo = FALSE}
+gum_thirst %>% 
+  select(study:iqr) %>%
+  mutate(scale = "0➞10",
+         scale = ifelse(is.na(study), NA, scale)) %>% 
+  mutate(n = ifelse(is.na(n), "NR", n)) %>% 
+  kbl(booktabs = T, align = c("llcccccc"), escape = FALSE,
+  col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Treatment", "N", "Time (hr)^a^", "Chewing", "Median", "IQR", "Scale^b^")) %>%    
+  kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
+  row_spec(gum_row, color = "brown") %>% 
+  add_header_above(c(" " = 3, "Last Chewing" = 1, "Time" = 1, " " = 3)) %>% 
+  column_spec(1, width = "8em") %>% 
+  column_spec(2, width = "6em") %>% 
+  column_spec(3, width = "3em") %>%
+  column_spec(4, width = "3em") %>%
+  column_spec(5, width = "3em") %>%
+  column_spec(6, width = "3em") %>%
+  column_spec(7, width = "2em") %>%
+  column_spec(8, width = "3em") %>%
+  pack_top(., "Adult, Surgical", 1, 2) %>% 
+  pack_sub(., "RCT", 1, 2) %>% 
+  footnote(general = "Med: median; IQR: interquartile range; RCT: randomized controlled trial; NR: not reported.", 
+    general_title = "",
+    alphabet = c("Before induction", "Numeric rating scale: 0 (without thirst) to 10 (intense thirst)"),
+    footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Calculated mean difference in thirst scores in Garcia 2017 --- gum chewing versus fasting. </font>
+
+```{r thirstGumMeta, include = TRUE, echo = FALSE, fig.width = 9.75, fig.height = 2.5, fig.align = "top"}
+
+temp_thirst <- gum_thirst %>% 
+  select(study, tx, n, med, iqrl, iqru)
+
+thirst_meta.dat <- left_join(gum_thirst[c(1), ], gum_thirst[c(2), ], 
+                          by = c("refid"))
+  
+thirst_meta <- metacont(n.e = n.y, n.c = n.x, 
+         median.e = med.y, 
+         q1.e = iqrl.y, 
+         q3.e = iqru.y,
+         median.c = med.x, 
+         q1.c = iqrl.x, 
+         q3.c = iqru.x,
+         data = thirst_meta.dat,
+         sm = "MD",
+         studlab = study.x)
+
+forest(thirst_meta,
+       comb.fixed = FALSE,
+       lab.e = "Gum         ",
+       lab.c = "Fasting     ",
+       digits = 1,
+       digits.sd = 1,
+       digits.tau2 = 1,
+       prediction = TRUE,
+       rightlabs = c("MD","95% CI  ", "Weight"),
+       #xlim = c(-20, 30),
+       fs.xlab = 11,
+       xlab = "Thirst (0-10 NRS)\n Favors Gum             Favors Fasting")
+
+figure_n <- fig_inc()
+```
+
+<font size = 2> MD: mean difference; NRS: numeric rating scale. <br>Means calculated from medians and interquartile ranges. Authors reported standardized mean difference of 0.60 (p\< 0.001) obtained from p-value.</font>
+
+<br>
+
 
 ## Residual Gastric Volume
 
@@ -556,105 +658,6 @@ figure_n <- fig_inc()
 ```
 
 
-## Thirst
-
-<br>
-
-<font size = 4> Table `r table_n`. Summary and individual study risk of bias appraisals for pooled parallel randomized controlled trials (n = 4) examining residual gastric volume. </font>
-
-```{r thirstData, echo = FALSE}
-temp_thirst <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "thirst", range = "A7:H9") %>% 
-  janitor::clean_names()
-
-gum_thirst <- temp_thirst %>% 
-  filter(!is.na(refid)) %>% 
-  mutate(iqrl = as.numeric(str_split(iqr, " to ", simplify = TRUE)[,1]),
-         iqru = as.numeric(str_split(iqr, " to ", simplify = TRUE)[,2]),
-         study = str_replace(study, "\\(", ""),
-         study = str_replace(study, "\\)", ""),
-         tx = ifelse(str_detect(tx, "free"), "Gum sugarfree", tx),
-         tx = ifelse(str_detect(tx, "sugared"), "Gum sugared", tx),
-         iqr = str_c("(", round(iqrl, 1), "-", round(iqru, 1), ")"))
-
-gum_row <- gum_thirst %>% 
-  mutate(row = row_number()) %>% 
-  filter(str_detect(tx, "[Gg]um") == TRUE) %>% 
-  pull(row)
-```
-
-```{r thirstKable, echo = FALSE}
-gum_thirst %>% 
-  select(study:iqr) %>%
-  mutate(scale = "0➞10",
-         scale = ifelse(is.na(study), NA, scale)) %>% 
-  mutate(n = ifelse(is.na(n), "NR", n)) %>% 
-  kbl(booktabs = T, align = c("llcccccc"), escape = FALSE,
-  col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Treatment", "N", "Time (hr)^a^", "Chewing", "Median", "IQR", "Scale^b^")) %>%    
-  kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
-  kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
-  row_spec(gum_row, color = "brown") %>% 
-  add_header_above(c(" " = 3, "Last Chewing" = 1, "Time" = 1, " " = 3)) %>% 
-  column_spec(1, width = "8em") %>% 
-  column_spec(2, width = "6em") %>% 
-  column_spec(3, width = "3em") %>%
-  column_spec(4, width = "3em") %>%
-  column_spec(5, width = "3em") %>%
-  column_spec(6, width = "3em") %>%
-  column_spec(7, width = "2em") %>%
-  column_spec(8, width = "3em") %>%
-  pack_top(., "Adult, Surgical", 1, 2) %>% 
-  pack_sub(., "RCT", 1, 2) %>% 
-  footnote(general = "Med: median; IQR: interquartile range; RCT: randomized controlled trial; NR: not reported.", 
-    general_title = "",
-    alphabet = c("Before induction", "Numeric rating scale: 0 (without thirst) to 10 (intense thirst)"),
-    footnote_as_chunk = FALSE)
-
-table_n <- tab_inc()
-```
-
-<br>
-
-<font size = 4> Figure `r figure_n`. Calculated mean difference in thirst scores in Garcia 2017---gum chewing versus fasting. </font>
-
-```{r thirstGumMeta, include = TRUE, echo = FALSE, fig.width = 9.75, fig.height = 2.5, fig.align = "top"}
-
-temp_thirst <- gum_thirst %>% 
-  select(study, tx, n, med, iqrl, iqru)
-
-thirst_meta.dat <- left_join(gum_thirst[c(1), ], gum_thirst[c(2), ], 
-                          by = c("refid"))
-  
-thirst_meta <- metacont(n.e = n.y, n.c = n.x, 
-         median.e = med.y, 
-         q1.e = iqrl.y, 
-         q3.e = iqru.y,
-         median.c = med.x, 
-         q1.c = iqrl.x, 
-         q3.c = iqru.x,
-         data = thirst_meta.dat,
-         sm = "MD",
-         studlab = study.x)
-
-forest(thirst_meta,
-       comb.fixed = FALSE,
-       lab.e = "Gum         ",
-       lab.c = "Fasting     ",
-       digits = 1,
-       digits.sd = 1,
-       digits.tau2 = 1,
-       prediction = TRUE,
-       rightlabs = c("MD","95% CI  ", "Weight"),
-       #xlim = c(-20, 30),
-       fs.xlab = 11,
-       xlab = "Thirst (0-10 NRS)\n Favors Gum             Favors Fasting")
-
-figure_n <- fig_inc()
-```
-
-<font size = 2> MD: mean difference; NRS: numeric rating scale. <br>Means calculated from medians and interquartile ranges. Authors reported standardized mean difference of 0.60 (p\< 0.001) obtained from p-value.</font>
-
-<br>
-
 ## Safety
 
 <font size = 4> Shanmugam et al. (2016) reviewed 9 chewing gum incidents reported to the WebAIRS database between 2005 and 2016. Four patients were considered at high risk for aspirating gum, but none did. In 3 patients, gum was identified in the recovery room and in 1 near the vocal cords.
@@ -734,7 +737,7 @@ study_char_table %>%
   pack_sub(., "Case Series", 7, 7) %>% 
   pack_top(., "Adult, Non-surgical", 8, 9) %>% 
   pack_sub(., "Crossover", 8, 8) %>% 
-  pack_sub(., "Case Series", 9, 9) %>% 
+  pack_sub(., "Single Arm Trial", 9, 9) %>% 
   pack_top(., "Pediatric, Surgical", 10, 10) %>% 
   pack_sub(., "RCT", 10, 10) %>% 
   footnote(general = "Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory",
@@ -831,17 +834,21 @@ table_n <- tab_inc()
 ```{r createFastingTable, include = FALSE}
 fasting_table <- study_arm.dat %>% 
   filter(refid %in% gum_refids$refid) %>% 
+  mutate(arm_tx = factor(arm_tx,
+    levels = c("fasting", "water", "other", "gum_sugared", "gum_sugarfree"))) %>% 
   mutate(tx = str_replace(arm_tx, "_", " "),
     tx = str_to_title(tx), 
     tx = if_else(tx == "Cho", "CHO", tx, ""),
     tx = ifelse(refid == 6287 & tx == "Other", "Lollipop", tx),
     tx = ifelse(refid == 2009, "Gum (any)", tx)) %>% 
-  select(refid, tx, arm_n, fastsolid, fastliquid, type_of_liquid, timeingest1, amtingest1, timeingest2, amtingest2, age, surg_nosurg, design)
+  select(refid, tx, arm_n, fastsolid, fastliquid, type_of_liquid, timeingest1, amtingest1, timeingest2, amtingest2, age, surg_nosurg, design, arm_tx, year, study) %>% 
+  arrange(age, desc(surg_nosurg), design, year, study, arm_tx) %>% 
+  select(refid, study, year, design, everything())
 
-fasting_table <- left_join(fasting_table, study_names, by = "refid") %>% 
-  select(refid, study, year, design, everything()) %>% 
-  arrange(age, desc(surg_nosurg), design, year, study) %>%
-  group_by(study)
+#fasting_table <- left_join(fasting_table, study_names, by = "refid") %>% 
+  #select(refid, study, year, design, everything())
+  #arrange(age, desc(surg_nosurg), design, year, study) %>%
+  #group_by(study)
 
 temp <- read_csv("data/fasting_table_add_102720.csv")[,c(1,5,6,14,15)]
 
@@ -852,8 +859,7 @@ rm(temp)
 # write_csv(fasting_table, "/Users/mgrant/Documents/_projects01/asa/_preopFasting/5_analysis/_r/_data/fasting_table_add.csv")
 
 fasting_table <- fasting_table %>%
-  mutate(tx = factor(tx,
-    levels = c("Fasting", "Water", "Gum Sugared", "Gum Sugarfree", "Gum Nicotine", "Gum (any)", "Lollipop"))) %>% 
+  # mutate(tx = factor(tx, levels = c("Fasting", "Water", "Gum Sugared", "Gum Sugarfree", "Gum Nicotine", "Gum (any)", "Lollipop"))) %>% 
   mutate(timeingest1 = ifelse(timeingest1 == 99, 12, timeingest1)) %>% 
   mutate(amtingest1  = na_if(amtingest1, 0)) %>% 
   mutate(timeingest1 = round(timeingest1, 0)) %>% 
@@ -873,13 +879,15 @@ gum_row <- fasting_table  %>%
   filter(str_detect(tx, "[Gg]um") == TRUE) %>% 
   pull(row)
 
+# fasting_table$study <- ifelse(fasting_table$study == "Valencia 2019", cell_spec(fasting_table$study, color = "black"), fasting_table$study)
+
 fasting_table %>%
-  select(-(type_of_liquid:amtingest2), -refid, -design, -year, -age, -surg_nosurg) %>% 
+  select(study, tx, arm_n, fastsolid, fastliquid, start_gum_oth, stop_gum_oth) %>% 
   add_column(temp = NA) %>% 
   select(study:fastliquid, temp, everything()) %>% 
   kbl(booktabs = T, align = c("llccccll"),
-      col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Comparator", "N", "Solids", "Liquids", " ",  "Chewing or Time", "Gum Chewing")) %>% 
-  add_header_above(c(" " = 3, "Prescribed Fasting  (hr)" = 2, " " = 1,  "\\ \\ Start Gum" = 1, "\\ \\ Stop" = 1), align = "l", underline = FALSE) %>% 
+      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Comparator", "N", "Solids", "Liquids", " ",  "Chewing or Time", "Gum Chewing")) %>% 
+  add_header_above(c(" " = 3, "\\ \\ Prescribed Fasting (hr)" = 2, " " = 1,  "\\ \\ Start Gum" = 1, "\\ \\ Stop" = 1), align = "l", underline = FALSE) %>% 
   kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
   kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
   row_spec(gum_row, color = "brown") %>% 
@@ -892,7 +900,7 @@ fasting_table %>%
   pack_sub(., "Case Series", 20, 20) %>% 
   pack_top(., "Adult, Non-surgical", 21, 23) %>% 
   pack_sub(., "Crossover", 21, 22) %>% 
-  pack_sub(., "Case Series", 23, 23) %>% 
+  pack_sub(., "Single Arm Trial", 23, 23) %>% 
   pack_top(., "Pediatric, Surgical", 24, 26) %>% 
   pack_sub(., "RCT", 24, 26) %>%  
   footnote(general = "hr: hours",
@@ -915,6 +923,8 @@ fasting_table %>%
 ```{r createComparatorDetailTable, echo = FALSE}
 comparator_detail_table <- study_arm.dat %>% 
   filter(refid %in% gum_refids$refid) %>% 
+  mutate(arm_tx = factor(arm_tx,
+    levels = c("fasting", "water", "other", "gum_sugared", "gum_sugarfree"))) %>% 
   mutate(tx = str_replace(arm_tx, "_", " "),
          tx = str_replace(tx, "sugarless", "sugarfree"),
          tx = str_replace(tx, "Sugarless", "Sugarfree"),
@@ -925,8 +935,8 @@ comparator_detail_table <- study_arm.dat %>%
          tx_detail = firstup(tx_detail), 
          tx = factor(tx, 
            levels = c("Fasting", "Water", "Lollipop", "Gum Sugarfree", "Gum Sugared", "Gum (any)"))) %>% 
+  arrange(age, desc(surg_nosurg), design, year, study, arm_tx) %>% 
   select(refid, arm_n, tx, type_of_liquid, tx_detail, age, surg_nosurg, design, year, study) %>% 
-  arrange(age, desc(surg_nosurg), design, year, study) %>% 
   group_by(study) %>% 
   mutate(year = ifelse(row_number() == 1, year, NA)) %>% 
   mutate(study = ifelse(row_number() == 1, study, NA)) %>% 
@@ -954,7 +964,7 @@ comparator_detail_table %>%
   pack_sub(., "Case Series", 20, 20) %>% 
   pack_top(., "Adult, Non-surgical", 21, 23) %>% 
   pack_sub(., "Crossover", 21, 22) %>% 
-  pack_sub(., "Case Series", 23, 23) %>% 
+  pack_sub(., "Single Arm Trial", 23, 23) %>% 
   pack_top(., "Pediatric, Surgical", 24, 26) %>% 
   pack_sub(., "RCT", 24, 26) %>%  
   footnote(general = "CHO: carbohydrate; g: grams; Osm: osmolality",

@@ -216,8 +216,8 @@ study_char_prot.dat %>%
   pack_sub(., "RCT", 30, 30) %>%
   footnote(
     alphabet = c(
-      "Multiple publications of the same study.",
       "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
+      "Multiple publications of the same study.",
     general_title = "",
     footnote_as_chunk = FALSE)
 
