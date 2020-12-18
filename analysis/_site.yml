@@ -11,12 +11,6 @@ navbar:
     href: ChewingGum_121620.html
   - text: About
     href: about.html
-  - text: License
-    href: license.html
-  right:
-  - icon: fa-github
-    text: Source code
-    href: https://github.com/mdgrant/Fasting
 output:
   workflowr::wflow_html:
     toc: yes
