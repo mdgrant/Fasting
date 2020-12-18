@@ -296,6 +296,7 @@ gum_rgv <- gum_rgv %>%
          # tx = ifelse(str_detect(tx, "sugared"), "Gum sugared", tx),
          range = str_c("(", round(rangel, 0), "-", round(rangeu, 0), ")"),
          iqr = str_c("(", round(iqrl, 0), "-", round(iqru, 0), ")"),
+         iqr = ifelse(refid == 4926, str_c("(", round(iqrl, 2), "-", round(iqru, 2), ")"), iqr), 
          mean_sd = paste0(formatC(mean, 2), " (", formatC(sd, 2), ")"),
          mean_sd = str_replace(mean_sd, "\\( ", "\\("), 
          mean_sd = str_trim(mean_sd),
@@ -328,16 +329,16 @@ gum_row <- gum_rgv %>%
 gum_rgv$study <- ifelse(gum_rgv$study == "Valencia 2019", cell_spec(gum_rgv$study, color = "black"), gum_rgv$study)
 
 gum_rgv %>% 
-  select(study:time_meas, mean_sd, med, range, iqr) %>%
+  select(study:time_meas, mean_sd, med, iqr, range) %>%
   mutate(n = ifelse(is.na(n), "NR", n)) %>% 
   kable(booktabs = T, align = c("llcccccccc"), escape = FALSE,
-  col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Treatment", "N", "Time (hr)^a^", "Measure", "\\ Measured", "Mean (SD)", "Median", "Range", "IQR")) %>%    
+  col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Treatment", "N", "Time (hr)^a^", "Measure", "\\ Measured", "Mean (SD)", "Median", "IQR", "Range")) %>%    
   add_header_above(c(" " = 3, "Chewing" = 1, " " = 1, "Time\\ \\ \\ \\ \\ " = 1, " " = 4), line = FALSE) %>% 
   add_header_above(c(" " = 4, "RGV" = 6), line = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
   kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
   row_spec(gum_row, color = "brown") %>% 
-  column_spec(1, width = "9em") %>% 
+  column_spec(1, width = "8em") %>% 
   column_spec(2, width = "6em") %>% 
   column_spec(3, width = "3em") %>%
   column_spec(4, width = "3em") %>%
@@ -345,8 +346,8 @@ gum_rgv %>%
   column_spec(6, width = "3em") %>%
   column_spec(7, width = "5em") %>%
   column_spec(8, width = "2em") %>%
-  column_spec(9, width = "3em") %>%
-  column_spec(10, width = "3em") %>%
+  column_spec(9, width = "4em") %>%
+  column_spec(10, width = "2em") %>%
   pack_top(., "Adult, Surgical", 1, 16) %>% 
   pack_sub(., "RCT", 1, 16) %>% 
   pack_top(., "Adult, Non-surgical", 17, 18) %>% 
