@@ -6,7 +6,7 @@ output:
     toc: false
 ---
 
-All results are in draft form and not to be cited or used without permission of <a href="mailto:mgrantmd@gmail.com">Mark Grant</a>.
+All results are in draft form and not for citation (contact <a href="mailto:mgrantmd@gmail.com">Mark Grant</a> for further detail).
 
 <br>
 

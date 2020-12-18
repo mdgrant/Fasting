@@ -1,5 +1,5 @@
 ---
-title: "Protein/carbohydrate Containing Drinks"
+title: "Protein/Carbohydrate Containing Drinks"
 date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
   html_document:
@@ -19,8 +19,10 @@ bibliography: protein.bib
 csl: jama.csl
 link-citations: yes
 workflowr:
-  suppress_report: TRUE    
+  suppress_report: TRUE
+nocite: '@*'
 ---
+
 
 #### 
 
@@ -48,7 +50,6 @@ display: none !important;
 }
 </style>
 ```
-# Data
 
 ```{r setupData, include = FALSE}
 ## preliminaries -----------------------------------------------------------
@@ -169,9 +170,9 @@ likert.dat <- likert.dat %>%
   select(-tx)
 ```
 
-# Included Studies \*\*\* [@Aguilar-Nascimento2014]
+# Included Studies 
 
-<font size = 4> Table `r table_n`. Included studies according to age, surgery, and design. </font>
+<font size = 4> Table `r table_n`. Included studies according to age, surgery, and design (see [References](#references) for citations). </font>
 
 ```{r studiesIncluded, echo = FALSE, include = TRUE}
 ## (updated 2020/12/13 09:53) studiesIncluded -----------------------------
@@ -250,51 +251,14 @@ study_char_prot.dat %>%
     general_title = "",
     footnote_as_chunk = FALSE)
 
-table_n <- tab_inc()
+#  table_n <- tab_inc()
 ```
 
-<br>
+<br><br>
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
-# Strength of Evidence
-
-<br>
-
-### GRADE Summary of Findings
-
-```{r, echo=FALSE}
-# htmltools::tags$iframe(title = "My embedded document", src = "gum_grade_112120 copy.html", width = "1000", height = "420", frameBorder = "0")
-```
-
-<br>
-
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-<br>
-
-```{=html}
-<style type="text/css">
-  td{
-      border: 0px solid #000;
-  }
-</style>
-```
-## GRADE
-
-## ACC/AHA
-
-## USPSTF
-
-# Summary of Results
-
-## Study Characteristics
-
-## Patient Characteristics
-
-## Outcomes
-
-# Patient Reported Outcomes
+# Patient Reported Outcomes 
 
 ## Surgical Studies
 
@@ -302,7 +266,7 @@ table_n <- tab_inc()
 
 <br>
 
-<font size = 4> Table `r table_n`. Patient-reported hunger, thirst, nausea, vomiting, and regurgitation in surgical studies.^a^ </font>
+<font size = 4> Table `r table_n`. Occurrence of hunger, thirst, nausea, vomiting, and regurgitation in surgical studies.^a^ </font>
 
 ```{r dichotProtData, include = FALSE}
 ## (updated 2020/12/13 09:55) dichotProtData ------------------------------
@@ -389,9 +353,13 @@ dichot_prot_htnvr %>%
             "Distilled water, 4 drops red dye, 2 drops sucrose."),
            general_title = "", 
            footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
 ```
 
-### Hunger (patient reported)
+<br>
+
+### Hunger
 
 <br>
 
@@ -406,7 +374,7 @@ likert_prot_hung.dat <- likert.dat %>%
   # filter_at(vars(hunger_m:hunger_pval), any_vars(!is.na(.))) # same
   select(refid:age, arm_n, arm_tx, likert_time_outcome, contains("ingest"), starts_with("hunger")) %>% 
   mutate(arm_tx = droplevels(arm_tx)) %>% 
-  arrange(age, desc(surg_nosurg), design, year, study)
+  arrange(age, desc(surg_nosurg), design, year, study, arm_tx)
   
 ```
 
@@ -439,7 +407,9 @@ likert_prot_hung_kbl.dat <- likert_prot_hung.dat %>%
   #    str_c("Postop ", time_outcome, " hrs"), time_outcome),
   #  time_outcome = ifelse(refid == 1315, str_c("At ", time_outcome, " hrs"), time_outcome)) %>%
   mutate(
-    hunger_med = str_c(hunger_med, " (", hunger_iqrl, "-", hunger_iqru, ")"),
+    hunger_med = paste0(hunger_med, " (", hunger_iqrl, "-", hunger_iqru, ")"),
+    hunger_med = ifelse(hunger_med == "NA (NA-NA)", NA, hunger_med),
+    hunger_med = gsub(" \\(NA-NA\\)", "", hunger_med),
     ranges = str_c("(", hunger_rl, "-", hunger_ru, ")"),
     mn_95_ci = str_c(round_1(hunger_m), " (", round_1(hunger95l), "-", round_1(hunger95u), ")"),
     mn_95_ci = ifelse(mn_95_ci == "NA (NA-NA)", NA, mn_95_ci),
@@ -464,6 +434,11 @@ likert_prot_hung_kbl.dat <- likert_prot_hung.dat %>%
 
 ```{r hungerAdultSurgKable, echo = FALSE}
 ## (updated 2020/12/13 13:48) hungerAdultSurgKable ------------------------
+protein_row <- likert_prot_hung_kbl.dat %>%
+  mutate(line = row_number()) %>%
+  filter(arm_tx == "Protein") %>%
+  pull(line)
+
 likert_prot_hung_kbl.dat %>%
   select(study, arm_tx, arm_n, hr_9, hr_58, hr_34, hr_2, time_outcome, hunger_scale, mn_95_ci, hunger_med, ranges) %>%
   kbl(booktabs = T, align = c("llcccccclll"), escape = FALSE,
@@ -483,12 +458,12 @@ likert_prot_hung_kbl.dat %>%
   column_spec(12, width = "4em") %>%
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   kable_styling(bootstrap_options = opt_boot) %>%
-  row_spec(c(2, 4, 6, 8, 10, 12), color = "brown") %>%
+  row_spec(protein_row, color = "brown") %>%
   pack_top(., "Adult, Surgical", 1, 6) %>%
   pack_sub(., "RCT", 1, 6) %>%
   pack_sub(., "Nonrandomized Studies of Interventions", 7, 10) %>%
   pack_top(., "Pediatric, Nonsurgical (age 8-14 years)", 11, 13) %>%
-  pack_rows("0 hr", 11, 13, label_row_css = "padding-left:46%; border-bottom: 0px solid;", underline = TRUE, bold = FALSE) %>%
+  pack_rows("0 hr", 11, 13, label_row_css = "padding-left:46.5%; border-bottom: 0px solid;", underline = TRUE, bold = FALSE) %>%
   footnote(
     general = "RCT: randomized controlled trial; M: mean; Med: median; IQR: interquartile range; NRS: numeric rating scale.",
     alphabet = c(
@@ -506,13 +481,12 @@ table_n <- tab_inc()
 
 <br>
 
-<hr style="height:2px;border-width:0;color:black;background-color:gray">
 
-### Thirst (patient reported)
+### Thirst
 
 <br>
 
-<font size = 4> Table `r table_n`. Comparative thirst ratings in included studies according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Comparative thirst ratings according to fasting, liquid and volume. </font>
 
 ```{r thirstAdultSurg, echo = FALSE}
 ## (updated 2020/12/14 05:50) thirstLikData -------------------------------
@@ -585,8 +559,7 @@ likert_prot_thirst_kbl.dat %>%
   select(study, arm_tx, arm_n, hr_9, hr_58, hr_34, hr_2, time_outcome, thirst_scale, mn_95_ci, thirst_med, ranges) %>%
   kbl(booktabs = T, align = c("llcccccclll"), escape = FALSE,
     col.names = c(
-      "\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", ">8", "8-5", "4-3", "2", "\\ \\ \\ Time (hr)^a^", "Scale^b^", "Mn (95% CI)",
-      "Med (IQR)", "Range")) %>%
+      "\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", ">8", "8-5", "4-3", "2", "\\ \\ \\ Time (hr)^a^", "Scale^b^", "Mn (95% CI)", "Med (IQR)", "Range")) %>%
   add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 4, "Thirst Rating" = 5)) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
@@ -595,8 +568,8 @@ likert_prot_thirst_kbl.dat %>%
   column_spec(8, width = "4em") %>%
   column_spec(9, width = "4em") %>%
   column_spec(10, width = "5em") %>%
-  column_spec(11, width = "5em") %>%
-  column_spec(12, width = "5em") %>%
+  column_spec(11, width = "7em") %>%
+  column_spec(12, width = "6em") %>%
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   kable_styling(bootstrap_options = opt_boot) %>%
   row_spec(protein_row, color = "brown") %>%
@@ -617,11 +590,11 @@ table_n <- tab_inc()
 
 <br>
 
-### Pain & Comfort (patient reported)
+### Pain & Comfort
 
 <br>
 
-<font size = 4> Table `r table_n`. Pain and comfort ratings in included studies according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Pain and comfort ratings according to fasting, liquid and volume. </font>
 
 ```{r comfortData, include = FALSE}
 ## (updated 2020/12/14` 14:32) comfortData ---------------------------------
@@ -681,7 +654,7 @@ likert_prot_comfort.dat %>%
     scale_com = ifelse(row_number() == 1, scale_com, NA)) %>%
   ungroup() %>%
   mutate(scale_com = ifelse(arm_tx == "CHO" & arm_n == 43, "12→60", scale_com)) %>% 
-  kbl(booktabs = T, align = c("llcccccclcc"), escape = FALSE,
+  kbl(booktabs = T, align = c("llcccccclll"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", ">8", "8-5", "4-3", "2", "Time^a^", "Scale^b^", "Mean (95% CI)", "Med (IQR)")) %>%
   add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 4, "Comfort/Pain" = 4)) %>%
   column_spec(1, width = "8em") %>%
@@ -713,10 +686,13 @@ rm(protein_row)
 table_n <- tab_inc()
 ```
 
-### Pooled Nausea (occurrence)
+<br>
 
-<font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- protein-containing drinks compared with fasting in adult surgical patients. </font>
+### Occurence of Nausea --- Pooled
 
+<br>
+
+<font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- randomized trial comparing protein-containing drinks compared with fasting in adult surgical patients. </font>
 ```{r nauseaMeta, echo = FALSE, fig.width = 10, fig.height = 4.5, fig.align = "center"}
 ## (updated 2020/12/13 09:57) nauseaMeta ----------------------------------
 # data
@@ -764,6 +740,25 @@ forest(nvra_meta,
   subgroup = FALSE,
   xlab = "Favors Protein              Favors Fasting")
   
+figure_n <- fig_inc()
+```
+
+### Risk of Bias --- Nausea, RCTs
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Summary and individual study risk of bias appraisal for pooled randomized controlled trials reporting nausea. </font>
+
+<img src="assets/meta_nausea_dichot_rob_summary.svg" style="width:600px;" align="left" />
+
+<br clear="all" />
+<br>
+
+<img src="assets/meta_nausea_dichot_rob_traffic.svg" style="width:600px;" align="left" />
+
+<br clear="all" />
+
+```{r robFigure_nausea, echo = FALSE, out.width = 700, out.height = 300, fig.align = "left", dev = "svg"}
 figure_n <- fig_inc()
 ```
 
@@ -819,9 +814,9 @@ dichot_prot_cross %>%
 
 <br><br>
 
-# Residual Gastric Volume, pH
+# Residual Gastric Volume, pH 
 
-## Surgical Studies
+## Surgical Studies 
 
 <br>
 
@@ -890,7 +885,7 @@ protein_row <- rgv_surg %>%
   pull(line)
 
 rgv_surg %>%
-  kable(booktabs = T, align = c("llccccccccc"), escape = FALSE,
+  kable(booktabs = T, align = c("llcccccclll"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Liquid", "N", ">8", "8-5", "4-3", "2", "Measure", "M (SD)", 
       "Med (IQR)", "Range")) %>%
   add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 4, "RGV" = 1, "RGV (mL)" = 3), line = TRUE) %>%
@@ -914,7 +909,9 @@ rgv_surg %>%
 table_n <- tab_inc()
 ```
 
-## Nonsurgical Studies
+<br>
+
+## Nonsurgical Studies 
 
 <br>
 
@@ -1044,7 +1041,7 @@ rgv_no_table %>%
 
 <br>
 
-## Pooled Results -- Surgical
+## Pooled Results -- Surgical 
 
 <font size = 4> Figure `r figure_n`. Forest plot for pooled mean difference estimate of residual gastric volume in randomized and non-randomized trials of adult surgical patients -- fasted and those given protein-containing drinks. </font>
 
@@ -1082,7 +1079,7 @@ rgv_meta <- metacont(n.e = arm_n.x, n.c = arm_n.y,
 
 forest(rgv_meta, 
        comb.random = FALSE,
-       lab.e = "Protein Liguid",
+       lab.e = "Protein Liquid",
        lab.c = "Fasting     ",
        digits = 2,
        digits.sd = 2,
@@ -1101,9 +1098,111 @@ Mean differences estimated from from reported medians, interquartile and overall
 
 <br>
 
+### Risk of Bias -- Crossover Trials 
+
 <br>
 
-## RGV \> 25 ml and pH \< 2.5
+<font size = 4> Figure `r figure_n`. Individual study and summary risk of bias appraisals for randomized controlled trials examining residual gastric volume. </font>
+
+<img src="assets/rgv_rob_summary.svg" style="width:600px;" align="left" />
+
+<br clear="all" />
+<br>
+
+<img src="assets/rgv_rob_traffic.svg" style="width:600px;" align="left" />
+
+<br clear="all" />
+
+<br>
+
+## Pooled Results --- Non-surgical 
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Forest plot for pooled mean difference estimate of residual gastric volume in crossover trials of adult nonsurgical patients at2 hours --- protein and carbohydrate versus carbohydrate drinks. </font>
+  
+```{r metaForestNonsurg, echo = FALSE, fig.width = 10, fig.height = 3.5, fig.align = "center"} 
+# 1 hour
+
+rgv_no_2hr <- rgv_no_table %>% 
+  filter(age == "Adult", design == "crossover") %>% 
+  filter(arm != 3) %>% 
+  select(refid, study, year, age, design, arm_tx, arm_n, m_2, sd_2, med_2, range_low_2, range_up_2) %>% 
+  mutate(study = ifelse(study == "Nakamura 2014", "Nakamura 2014ᵇ", study),
+         study = ifelse(study == "Lobo 2009", "Lobo 2009ª", study))
+
+rgv_meta.dat <- left_join(rgv_no_2hr[c(2,4,6,8,10), ], rgv_no_2hr[c(1,3,5,7,9), ], by = c("refid", "study", "year"))
+
+rgv_meta <- metacont(n.e = arm_n.x, n.c = arm_n.y, 
+         median.e = med_2.x, 
+         mean.e = m_2.x,
+         sd.e = sd_2.x,
+         #q2.e = iqr_low_2.x, 
+         #q3.e = iqr_up_2.x,
+         min.e = range_low_2.x,
+         max.e = range_up_2.x,
+         mean.c = m_2.y,
+         sd.c = sd_2.y,
+         median.c = med_2.y, 
+         #q2.c = iqr_low_2.y, 
+         #q3.c = iqr_up_2.y,
+         min.c = range_low_2.y,
+         max.c = range_up_2.y,
+         data = rgv_meta.dat,
+         # byvar = Hour,
+         method.tau = "REML",
+         studlab = study)
+
+forest(rgv_meta, 
+       comb.random = FALSE,
+       lab.e = "Protein",
+       lab.c = "Carbohydrate     ",
+       digits = 1,
+       digits.sd = 1,
+       print.I2 = TRUE,
+       print.tau2 = TRUE,
+       digits.tau2 = 0,
+       print.I2.ci = TRUE,
+       print.pval.Q = TRUE,
+       overall = TRUE,
+       xlim = c(-50, 350),
+       at = c(-50, 0, 100, 200, 300),
+       print.byvar = FALSE,
+       col.diamond.fixed = "red",
+       fs.xlab = 11,
+       xlab = "RGV (mL)\n Favors Protein          Favors Carbohydrate")
+
+figure_n <- figure_n + 1
+# TODO:  Compared with a carbohydrate drink, at 2 hours the residual gastric volume in non-surgical healthy adults appeared higher (MD 41.6, 95% CI: 36.7--46.5, I^2 = 99%, 4 crossover studies, 61 patients) but accompanied by large heterogeneity. 
+```
+
+^a^ Lobo 2009 included the protein comparison arm with the highest residual gastric volume. 
+
+^b^ Nakamura 2014 did not report exact 2-hour volumes --- median and range were estimated from figures. Following carbohydrate drink residual gastric volumes were exceedingly low. 
+
+<br>
+
+### Risk of Bias -- Crossover Trials 
+
+<br>
+
+<font size = 4> Figure `r figure_n`.  Individual study and summary risk of bias appraisals for crossover trials examining residual gastric volume in non-surgical patients.. </font>
+
+<img src="assets/rgv_nonsurg_rob_summary.svg" style="width:600px;" align="left" />
+
+<br clear="all" />
+<br>
+
+<img src="assets/rgv_nonsurg_rob_traffic.svg" style="width:600px;" align="left" />
+
+<br clear="all" />
+
+```{r}
+figure_n <- fig_inc()
+```
+
+
+## RGV \> 25 ml and pH \< 2.5 
 
 <br>
 
@@ -1157,7 +1256,7 @@ table_n <- tab_inc()
 
 <br>
 
-## pH
+## Gastric pH 
 
 <br>
 
@@ -1212,7 +1311,9 @@ ph.dat %>%
 table_n <- tab_inc()
 ```
 
-# Complications, Length of Stay
+<br>
+
+# Complications, Length of Stay 
 
 <br>
 
@@ -1220,7 +1321,7 @@ table_n <- tab_inc()
 
 <br>
 
-<font size = 4> Table `r table_n`. Reported complications in surgical studies. </font>
+<font size = 4> Table `r table_n`. Complication rates reported in surgical studies. </font>
 
 ```{r complicationsKbl, include = TRUE}
 ## (updated 2020/12/15 16:08) complicationsKb -----------------------------
@@ -1263,8 +1364,13 @@ prot_compl.dat %>%
 table_n <- tab_inc()
 ```
 
+<br>
+
 ## Length of Stay
 
+<br>
+
+<font size = 4> Table `r table_n`. Length of stay reported in surgical studies. </font>
 ```{r losKbl, include = TRUE}
 ## (updated 2020/12/15 16:26) losKbl --------------------------------------
 los.dat <- contin.dat %>% 
@@ -1288,8 +1394,8 @@ protein_row <- los.dat%>%
 
 los.dat %>% 
    group_by(study) %>% mutate(study = ifelse(row_number() == 1, study, NA)) %>% ungroup() %>% 
-   kbl(booktabs = T, align =  c("llcccc"), escape = FALSE,
-      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", "Mean (SD)", "Median (IQR)", "Ragnge")) %>%
+   kbl(booktabs = T, align =  c("llclll"), escape = FALSE,
+      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", "Mean (SD)", "Median (IQR)", "Range")) %>%
   add_header_above(c(" " = 3, "Length of Stay" = 3), line = TRUE) %>% 
   kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>% 
   kable_classic(position = "left", full_width = FALSE, html_font = opt_font, "hover") %>% 
@@ -1308,7 +1414,15 @@ los.dat %>%
 table_n <- tab_inc()
 ```
 
-```{r bpKb, include = FALSE}
+<br>
+
+## Blood Pressure
+
+<br>
+
+<font size = 4> Table `r table_n`. Blood pressure at, and following, induction in Singh 2015 and Oyama 2015. </font>
+
+```{r bpKb, include = TRUE}
 library(formattable)
 
 bp.dat <- contin.dat %>% 
@@ -1332,10 +1446,14 @@ bp.dat %>%
   select(study, arm_tx, arm_n, sbp_time_1:dbp_sd_2) %>% 
   select(!c(dbp_time_1, dbp_time_2)) %>% 
   select(study:sbp_sd_1, dbp_mean_1, dbp_sd_1, sbp_time_2, sbp_mean_2, sbp_sd_2, dbp_mean_2, dbp_sd_2) %>%
-  mutate(sbp_sd_1 = str_c("(", sbp_sd_1, ")"),
-         sbp_sd_2 = str_c("(", sbp_sd_2, ")"),
-         dbp_sd_1 = str_c("(", dbp_sd_1, ")"),
-         dbp_sd_2 = str_c("(", dbp_sd_2, ")"),
+  mutate(sbp_sd_1 = as.character(round_0(sbp_sd_1)),
+         sbp_sd_2 = round_0(sbp_sd_2),
+         dbp_sd_1 = round_0(dbp_sd_1),
+         dbp_sd_2 = round_0(dbp_sd_2),
+         sbp_sd_1 = str_c("(", sbp_sd_1, "\\)"),
+         sbp_sd_2 = str_c("(", sbp_sd_2, "\\)"),
+         dbp_sd_1 = str_c("(", dbp_sd_1, "\\)"),
+         dbp_sd_2 = str_c("(", dbp_sd_2, "\\)"),
          sbp_time_2 = ifelse(study == "Singh 2015a", round_0(sbp_time_2), sbp_time_2)) %>% 
   group_by(study) %>% mutate(study = ifelse(row_number() == 1, study, NA)) %>% ungroup() %>% 
    kbl(booktabs = T, align =  c("llccllllcllll"), escape = FALSE,
@@ -1347,12 +1465,13 @@ bp.dat %>%
   column_spec(1, width = "10em") %>%  
   column_spec(2, width = "6em") %>% 
   column_spec(3, width = "2em") %>% 
-  column_spec(c(4,6,8,11,13), width = "3em") %>% 
+  column_spec(c(4,6,11), width = "5em") %>% 
+  column_spec(c(8,13), width = "3em") %>% 
   column_spec(c(5,7,9,10,12), width = "5em") %>% 
   row_spec(protein_row, color = "brown") %>% 
   pack_top(., "Adult, Surgical", 1, 4) %>% 
   pack_sub(., "RCT", 1, 4) %>%
-  pack_sub(., "Nonradomized Studie of Interventions", 5, 8) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 5, 8) %>%
   footnote(general = "RCT: randomized controlled trial; Hr: hour; SBP: systolic blood pressure; DBP: diastolic blood pressure; SD: standard deviation.",
            general_title = "", 
            footnote_as_chunk = FALSE)
@@ -1363,8 +1482,7 @@ table_n <- tab_inc()
 <br>
 
 # Study/Participant Detail
-
-## Study Characteristics
+## Study Characteristics 
 
 <font size = 4> Table `r table_n`. Characteristics of 29 included studies examining protein-containing drinks. </font>
 
@@ -1449,7 +1567,7 @@ table_n <- tab_inc()
 
 <br><br>
 
-## Sample Characteristics
+## Sample Characteristics 
 
 <font size = 4> Table `r table_n`. Characteristics of patients in included studies. </font>
 
@@ -1526,7 +1644,7 @@ table_n <- tab_inc()
 
 <br><br>
 
-## Fasting, Liquid Timing and Amounts
+## Fasting, Liquid Timing and Amounts 
 
 <font size = 4> Table `r table_n`. Liquid consumption prior to surgery or outcome measurement and amounts according to study arm. </font>
 
@@ -1598,7 +1716,7 @@ table_n <- tab_inc()
 
 <br><br>
 
-## Protein-containing Drinks
+## Protein-containing Drinks 
 
 <font size = 4> Table `r table_n`. Composition of protein-containing liquids and brands. </font>
 
@@ -1758,7 +1876,7 @@ table_n <- tab_inc()
 
 <br>
 
-## Funding
+## Funding 
 
 <font size = 4> Table `r table_n`. Reported funding sources. </font>
 
@@ -1796,7 +1914,7 @@ study_fund_table %>%
   column_spec(1, width = "16em") %>% 
   column_spec(c(2,3,4,5), width = "4em") %>% 
   column_spec(6, width = "23em") %>%
-  add_header_above(c(" " = 1, "Reported Funding Source(s)" = 4, " " = 2)) %>% 
+  add_header_above(c(" " = 1, "Reported Funding Source(s)" = 4, " " = 2), line = TRUE) %>% 
   # add_header_above(c(" " = 3, "Prescribed Fasting  (hr)" = 2, "Treat Liquid 1" = 2, "Treat Liquid 2" = 2)) %>% 
   # add_header_above(c(" " = 3, "Prescribed Fasting  (hr)" = 2, "Treat Liquid 1" = 2, "Treat Liquid 2" = 2)) %>% 
   pack_top(., "Adult, Surgical", 1, 17) %>% 
@@ -1818,3 +1936,24 @@ table_n <- tab_inc()
 ```
 
 <br>
+
+# Risk of Bias 
+
+### Patient Reported Outcomes
+
+<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisal for randomized controlled trials including patient reported outcomes --- nausea, hunger, thirst, comfort, satisfaction. </font>
+
+<img src="assets/hunger_dichot_rob_traffic.svg" style="width:600px;" align="left" />
+
+<br clear="all" />
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<br>
+
+# References 
+
+<br>
+

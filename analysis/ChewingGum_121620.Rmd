@@ -19,6 +19,13 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '3'
+bibliography: gum.bib
+csl: jama.csl
+link-citations: yes
+workflowr:
+  suppress_report: TRUE
+nocite: '@*'    
+    
 ---
 #### 
 
@@ -99,9 +106,10 @@ gum_refids <- gum_refids %>%
 
 # Included Studies
 
-<font size = 4> Table `r table_n`. Included studies. </font>
+<font size = 4> Table `r table_n`. Included studies according to age, surgery, and design (see [References](#references) for citations). </font>
 
 ```{r studies, echo = FALSE, include = TRUE}
+## (updated 2020/12/17 20:31) studies -------------------------------------
 # list of studies, age, surgical/non surgical, design
 study_char_gum.dat %>% 
   mutate(
@@ -136,7 +144,7 @@ study_char_gum.dat %>%
   pack_sub(., "Case Series", 7, 7) %>% 
   pack_top(., "Adult, Non-surgical", 8, 9) %>% 
   pack_sub(., "Crossover", 8, 8) %>% 
-  pack_sub(., "Case Series", 9, 9) %>% 
+  pack_sub(., "Single Arm Trial", 9, 9) %>% 
   pack_top(., "Pediatric, Surgical", 10, 10) %>% 
   pack_sub(., "RCT", 10, 10) %>%
   footnote(
@@ -149,79 +157,22 @@ study_char_gum.dat %>%
 table_n <- tab_inc()
 ```
 
-<br>
+<br><br>
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-# Strength of Evidence
-
-### GRADE Summary of Findings
-
-```{r, echo = FALSE}
-#htmltools::tags$iframe(title = "My embedded document", src = "figures/gum_grade_112120.html", width = "1000", height = "420", frameBorder = "0")
-```
-
-### Strenght of Evidence Ratings
-
-<font size = 4> Table `r table_n`. Strength of evidence ratings for outcomes and net benefit. </font>
-
-```{r soeKable, echo = FALSE}
-# read data
-soe.dat <- readxl::read_xlsx("data/gum_soe_112120.xlsx", range = "A1:E8", sheet = "soe") %>% 
-  janitor::clean_names()
-
-soe.dat %>% 
-  mutate(acc_aha = ifelse(outcome == "adults", str_c(acc_aha, "$^a$"), acc_aha)) %>% 
-  kbl(booktabs = T, align = c("lcccc"),
-      col.names = c(" ", "RCTs (n)", "GRADE", "ACC/AHA", "USPSTF")) %>%
-  kable_classic(full_width = FALSE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
-  kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
-  column_spec(1, width = "11em") %>% 
-  column_spec(2, width = "6em") %>% 
-  column_spec(c(3,4,5), width = "9em") %>% 
-  pack_top(., "Outcome", 1, 3) %>% 
-  pack_sub(., "Adults", 1, 3) %>% 
-  pack_sub(., "Children", 4, 5) %>% 
-  pack_top(., "Overall net benefit", 6, 7) %>% 
-  add_header_above(c(" " = 2, "System" = 3)) %>% 
-    footnote(general = "RCT: randomized controlled trial; GRADE: Grades of Recommendation, Assessment, Development, and Evaluation; ACC/AHA: American College of Cardiology/American Heart Association; USPSTF: U.S. Preventive Services Task Force",
-    general_title = "",
-    alphabet = c("Benefit ≥ Risk"),
-    footnote_as_chunk = FALSE)
-
-table_n <- tab_inc()
-```
-
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-# Key Points and Summary
-
-<font size = 4>
-
--   One
--   Two
-
-<br>
-
-Summary Text
-
-</font>
-
-<br>
-
-<hr style="height:3px;border-width:0;color:gray;background-color:gray">
-
-<br>
 
 # Outcomes
 
 ## Residual Gastric Volume
 
-### Tabular
+### Randomized Trials
 
-<font size = 4> Table `r table_n`. Residual gastric volumes at induction in randomized controlled trials of adult patients undergoing surgery according to fasting, liquid and volume. </font>
+<br>
+
+<font size = 4> Table `r table_n`. Residual gastric volumes at induction in randomized controlled trials of adult patients undergoing surgery according to fasting and gum chewing. </font>
 
 ```{r rgvData, echo = FALSE}
+## (updated 2020/12/17 20:43) rgvData -------------------------------------
 # Hamid 2012
 # combine_contin(30, 30, 25, 27, 27, 27)
 # Dubin 1994 arms 2, 3
@@ -251,10 +202,11 @@ gum_rgv <- gum_rgv %>%
          mean_sd = str_trim(mean_sd),
          mean_sd = na_if(mean_sd, "NA (NA)"),
          mean_sd = ifelse(refid == 2364, str_c(mean_sd, "^c^"), mean_sd),
-         med     = ifelse(refid == 4926, str_c(med, "^d^"), med),
-         iqr     = ifelse(refid == 4926, str_c(iqr, "^d^"), iqr),
+         med     = ifelse(refid == 4926, str_c(med, "^cde^"), med),
+         iqr     = ifelse(refid == 4926, str_c(iqr, "^cde^"), iqr),
          tx      = ifelse(refid == 8584 & n %in% c(21, 23), str_c(tx, "^b^"), tx))
 
+# smaller GFV as compared with children who chewed sugared and sugarless gum (0.35 [0.2– 0.5] mL/kg versus 0.88 [0.6 –1.4] mL/kg versus 0.69 [0.4 –1.6] mL/kg; P  0.0001). Also, a significantly smaller proportion of subjects who did not chew gum had a GFV of more than 0.8 mL/kg as compared with subjects who chewed sugared and sugarless gum (6.3% versus 66.7% versus 40%; P  0.002).
 # merge with design and age
 gum_rgv <- left_join(gum_rgv,
   study_char_gum.dat[, c("refid", "year", "age", "design", "surg_nosurg")],
@@ -264,6 +216,7 @@ gum_rgv <- left_join(gum_rgv,
 ```
 
 ```{r rgvKable, echo = FALSE}
+## (updated 2020/12/17 20:43) rgvKable ------------------------------------
 # cell_spec(gum_rgv[study == "Valencia 2019", 2], color = "black")
 
 # gum rows to highlight
@@ -280,10 +233,11 @@ gum_rgv %>%
   mutate(n = ifelse(is.na(n), "NR", n)) %>% 
   kable(booktabs = T, align = c("llcccccccc"), escape = FALSE,
   col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Treatment", "N", "Time (hr)^a^", "Measure", "\\ Measured", "Mean (SD)", "Median", "Range", "IQR")) %>%    
+  add_header_above(c(" " = 3, "Chewing" = 1, " " = 1, "Time\\ \\ \\ \\ \\ " = 1, " " = 4), line = FALSE) %>% 
+  add_header_above(c(" " = 4, "RGV" = 6), line = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
   kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
   row_spec(gum_row, color = "brown") %>% 
-  add_header_above(c(" " = 3, " " = 1, "RGV" = 1, "Time\\ \\ \\ \\ \\ " = 1, " " = 4)) %>% 
   column_spec(1, width = "9em") %>% 
   column_spec(2, width = "6em") %>% 
   column_spec(3, width = "3em") %>%
@@ -298,15 +252,16 @@ gum_rgv %>%
   pack_sub(., "RCT", 1, 16) %>% 
   pack_top(., "Adult, Non-surgical", 17, 18) %>% 
   pack_sub(., "Crossover", 17, 18) %>% 
-  pack_sub(., "Case Series", 19, 19) %>% 
+  pack_sub(., "Single Arm Trial", 19, 19) %>% 
   pack_top(., "Pediatric, Surgical", 20, 22) %>% 
   pack_sub(., "RCT", 20, 22) %>% 
   footnote(general = "RGV: residual gastric volume; SD: standard deviation; IQR: interquartile range; RCT: randomized controlled trial; Bicarb: bicarbonate; Asp: aspiration; US: ultra- sound; NR: not reported.", 
     general_title = "",
-    alphabet = c("Before induction", 
-                 "Smokers",
-                 "mL/kg",
-                 "2 hr after ingestion of 250 mL and gum chewing"),
+    alphabet = c("Before induction.", 
+                 "Smokers.",
+                 "mL/kg.",
+                 "2 hr after ingestion of 250 mL and gum chewing.",
+                 "p < 0.001 for comparison with fasting."),
     footnote_as_chunk = FALSE)
 
 table_n <- table_n + 1
@@ -315,6 +270,8 @@ table_n <- table_n + 1
 <br>
 
 ### Pooled Results
+
+<br>
 
 <font size = 4> Figure `r figure_n`. Forest plot for pooled mean difference for residual gastric volume in randomized controlled trials of adult surgical patients --- gum chewing versus fasting. </font>
 
@@ -387,11 +344,12 @@ figure_n <- fig_inc()
 
 ### Risk of Bias --- RGV, RCTs
 
-
-
 <font size = 4> Figure `r figure_n`. Summary and individual study risk of bias appraisal for pooled randomized controlled trials examining residual gastric volume. </font>
 
 <img src="assets/gum_rgv_rob_summary.svg" style="width:600px;" align="left" />
+
+<br clear="all" />
+<br>
 
 <img src="assets/gum_rgv_rob_traffic.svg" style="width:600px;" align="left" />
 
@@ -405,9 +363,10 @@ figure_n <- fig_inc()
 
 ## Gastric pH
 
-### Tabular
+### Randomized Trials
 
 ```{r phData, echo = FALSE}
+## (updated 2020/12/17 20:49) phData --------------------------------------
 # Hamid 2012
 # combine_contin(30, 30, 3, 5, 5, 5)
 temp_ph <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "pH", range = "A8:L39") %>% 
@@ -447,6 +406,7 @@ gum_ph <- left_join(gum_ph,
 <font size = 4> Table `r table_n`. Gastric pH at induction in randomized controlled trials of patients undergoing surgery according to fasting, liquid and volume. </font>
 
 ```{r phKable, echo = FALSE}
+## (updated 2020/12/17 20:50) phKable -------------------------------------
 # cell_spec(gum_rgv[study == "Valencia 2019", 2], color = "black")
 
 # gum rows to highlight
@@ -459,7 +419,7 @@ gum_row <- gum_ph %>%
 gum_ph %>% 
   select(study:time, time_meas, mean_sd, med, range, iqr) %>%
   mutate(n = ifelse(is.na(n), "NR", n)) %>% 
-  kable(booktabs = T, align = c("llccccccc"), escape = FALSE,
+  kable(booktabs = T, align = c("llcccllll"), escape = FALSE,
   col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Treatment", "N", "Time (hr)^a^", "\\ Measured", "Mean (SD)", "Median", "Range", "IQR")) %>%    
   kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
   kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
@@ -471,9 +431,9 @@ gum_ph %>%
   column_spec(4, width = "3em") %>%
   column_spec(5, width = "3em") %>%
   column_spec(6, width = "3em") %>%
-  column_spec(7, width = "2em") %>%
+  column_spec(7, width = "3em") %>%
   column_spec(8, width = "3em") %>%
-  column_spec(9, width = "4em") %>%
+  column_spec(9, width = "3em") %>%
   pack_top(., "Adult, Surgical", 1, 16) %>% 
   pack_sub(., "RCT", 1, 16) %>% 
   pack_top(., "Pediatric, Surgical", 17, 19) %>% 
@@ -490,6 +450,8 @@ table_n <- tab_inc()
 <br>
 
 ### Pooled Results
+
+<br>
 
 <font size = 4> Figure `r figure_n`. Forest plot for pooled mean difference for pH in randomized controlled trials of adult surgical patients --- gum chewing versus fasting. </font>
 
@@ -574,11 +536,16 @@ figure_n <- fig_inc()
 
 ### Risk of Bias --- pH, RCTs
 
+<br>
+
 <font size = 4> Figure `r figure_n`. Summary and individual study risk of bias appraisals for pooled parallel randomized controlled trials (n = 4) examining residual gastric volume. </font>
 
-<img src="assets/gum_ph_rob_summary.svg" style="width:600px;" align="left" />
+<img src="assets/gum_ph_rob_pooled_summary.svg" style="width:600px;" align="left" />
 
-<img src="assets/gum_ph_rob_traffic.svg" style="width:600px;" align="left" />
+<br clear="all" />
+<br>
+
+<img src="assets/gum_ph_rob_pooled_traffic.svg" style="width:600px;" align="left" />
 
 <br clear="all" />
 
@@ -590,6 +557,10 @@ figure_n <- fig_inc()
 
 
 ## Thirst
+
+<br>
+
+<font size = 4> Table `r table_n`. Summary and individual study risk of bias appraisals for pooled parallel randomized controlled trials (n = 4) examining residual gastric volume. </font>
 
 ```{r thirstData, echo = FALSE}
 temp_thirst <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "thirst", range = "A7:H9") %>% 
@@ -637,6 +608,8 @@ gum_thirst %>%
     general_title = "",
     alphabet = c("Before induction", "Numeric rating scale: 0 (without thirst) to 10 (intense thirst)"),
     footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
 ```
 
 <br>
@@ -698,8 +671,9 @@ The authors concluded, "We recommend that patients should be specifically advise
 
 ## Study Characteristics
 
-<font size = 4> Table `r table_n`. Characteristics of included studies examining chewing gum. </font>
+<br>
 
+<font size = 4> Table `r table_n`. Characteristics of included studies examining chewing gum. </font>
 ```{r createStudyCharTable, include = FALSE}
 # add footnote by refid, variable
 # mutate(ifelse(refid == refid_foo, variable = str_c(variable, foot), variable))
@@ -775,8 +749,9 @@ table_n <- tab_inc()
 
 ## Sample Characteristics
 
-<font size = 4> Table `r table_n`. Characteristics of patients in included studies. </font>
+<br>
 
+<font size = 4> Table `r table_n`. Characteristics of patients in included studies. </font>
 ```{r createPtCharTable, include = FALSE}
 pt_char_table <- study_arm_gum.dat %>% 
   group_by(refid) %>% 
@@ -846,10 +821,13 @@ pt_char_table %>%
 table_n <- tab_inc()
 ```
 
+<br>
+
 ## Fasting and Gum Timing
 
-<font size = 4> Table `r table_n`. Fasting times and gum chewing protocols according to study arm. </font>
+<br>
 
+<font size = 4> Table `r table_n`. Fasting times and gum chewing protocols according to study arm. </font>
 ```{r createFastingTable, include = FALSE}
 fasting_table <- study_arm.dat %>% 
   filter(refid %in% gum_refids$refid) %>% 
@@ -930,6 +908,8 @@ fasting_table %>%
 
 ## Comparator Detail
 
+<br>
+
 <font size = 4> Table `r table_n`. Comparator details.</font>
 
 ```{r createComparatorDetailTable, echo = FALSE}
@@ -990,8 +970,9 @@ table_n <- tab_inc()
 
 ## Funding
 
-<font size = 4> Table `r table_n`. Reported funding sources. </font>
+<br>
 
+<font size = 4> Table `r table_n`. Reported funding sources. </font>
 ```{r createFundingTable, include = FALSE}
 study_fund_table <- study_char_gum.dat %>%
   mutate(
@@ -1023,4 +1004,19 @@ study_fund_table %>%
 table_n <- tab_inc()
 ```
 
-<br><br>
+<br>
+
+# Risk of Bias 
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisal for randomized controlled trials. </font>
+
+<img src="assets/gum_all_rob_traffic.svg" style="width:600px;" align="left" />
+
+<br clear="all" />
+
+
+# References 
+
+<br>
