@@ -1079,7 +1079,7 @@ rgv_meta <- metacont(n.e = arm_n.x, n.c = arm_n.y,
 
 forest(rgv_meta, 
        comb.random = FALSE,
-       lab.e = "Protein Liquid",
+       lab.e = "Protein     ",
        lab.c = "Fasting     ",
        digits = 2,
        digits.sd = 2,
@@ -1119,7 +1119,7 @@ Mean differences estimated from from reported medians, interquartile and overall
 
 <br>
 
-<font size = 4> Figure `r figure_n`. Forest plot for pooled mean difference estimate of residual gastric volume in crossover trials of adult nonsurgical patients at2 hours --- protein and carbohydrate versus carbohydrate drinks. </font>
+<font size = 4> Figure `r figure_n`. Forest plot for pooled mean difference in residual gastric volume in crossover trials of adult nonsurgical patients at 2 hours --- protein and carbohydrate versus carbohydrate drinks. </font>
   
 ```{r metaForestNonsurg, echo = FALSE, fig.width = 10, fig.height = 3.5, fig.align = "center"} 
 # 1 hour
@@ -1155,7 +1155,7 @@ rgv_meta <- metacont(n.e = arm_n.x, n.c = arm_n.y,
 
 forest(rgv_meta, 
        comb.random = FALSE,
-       lab.e = "Protein",
+       lab.e = "Protein      ",
        lab.c = "Carbohydrate     ",
        digits = 1,
        digits.sd = 1,
