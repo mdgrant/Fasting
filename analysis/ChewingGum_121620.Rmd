@@ -159,13 +159,11 @@ table_n <- tab_inc()
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
-# Outcomes
-
-## Patient Reported Outcomes
+# Patient Reported Outcomes
 
 <br>
 
-### Thirst
+## Thirst
 
 <br>
 
@@ -264,10 +262,9 @@ figure_n <- fig_inc()
 
 <br>
 
+# Residual Gastric Volume
 
-## Residual Gastric Volume
-
-### Randomized Trials
+## Randomized Trials
 
 <br>
 
@@ -371,7 +368,7 @@ table_n <- table_n + 1
 
 <br>
 
-### Pooled Results
+## Pooled Results
 
 <br>
 
@@ -444,7 +441,7 @@ figure_n <- fig_inc()
 
 <br>
 
-### Risk of Bias --- RGV, RCTs
+## Risk of Bias --- RGV, RCTs
 
 <font size = 4> Figure `r figure_n`. Summary and individual study risk of bias appraisal for pooled randomized controlled trials examining residual gastric volume. </font>
 
@@ -463,9 +460,9 @@ figure_n <- fig_inc()
 
 <br>
 
-## Gastric pH
+# Gastric pH
 
-### Randomized Trials
+## Randomized Trials
 
 ```{r phData, echo = FALSE}
 ## (updated 2020/12/17 20:49) phData --------------------------------------
@@ -551,7 +548,7 @@ table_n <- tab_inc()
 
 <br>
 
-### Pooled Results
+## Pooled Results
 
 <br>
 
@@ -636,7 +633,7 @@ figure_n <- fig_inc()
 
 <br>
 
-### Risk of Bias --- pH, RCTs
+## Risk of Bias --- pH, RCTs
 
 <br>
 
@@ -658,7 +655,7 @@ figure_n <- fig_inc()
 ```
 
 
-## Safety
+# Safety
 
 <font size = 4> Shanmugam et al. (2016) reviewed 9 chewing gum incidents reported to the WebAIRS database between 2005 and 2016. Four patients were considered at high risk for aspirating gum, but none did. In 3 patients, gum was identified in the recovery room and in 1 near the vocal cords.
 
