@@ -1001,6 +1001,8 @@ rgv_no_table %>%
   mutate(
     msd1 = str_c(round_1(m_1), " (", round_1(sd_1), ")"),
     msd2 = str_c(round_1(m_2), " (", round_1(sd_2), ")"),
+    msd1 = ifelse(refid == 1315, str_c(round_2(m_1), " (", round_2(sd_1), ")"), msd1),
+    msd2 = ifelse(refid == 1315, str_c(round_2(m_2), " (", round_2(sd_2), ")"), msd2),
     msd3 = str_c(round_1(m_3), " (", round_1(sd_3), ")"),
     med1 = str_c(round(med_1, 0), " (", round(iqr_low_1, 0), "-", round(iqr_up_1, 0), ")"),
     msd1 = ifelse(refid == 2703, med1, msd1),
@@ -1027,7 +1029,7 @@ rgv_no_table %>%
   pack_top(., "Adult, Nonsurgical", 1, 2) %>%
   pack_sub(., "RCT", 1, 2) %>%
   pack_sub(., "Crossover", 3, 13) %>%
-  pack_top(., "Pedatric, Surgical", 14, 16) %>%
+  pack_top(., "Pedatric, Nonsurgical", 14, 16) %>%
   pack_rows("Proportion of Baseline Gastric Antral CSA", 14, 16, label_row_css = "padding-left:61%", bold = FALSE) %>%
   pack_sub(., "RCT", 14, 16) %>%
   row_spec(protein_row, color = "brown") %>%
@@ -1154,7 +1156,8 @@ rgv_meta <- metacont(n.e = arm_n.x, n.c = arm_n.y,
          studlab = study)
 
 forest(rgv_meta, 
-       comb.random = FALSE,
+       comb.random = TRUE,
+       comb.fixed = FALSE,
        lab.e = "Protein      ",
        lab.c = "Carbohydrate     ",
        digits = 1,
