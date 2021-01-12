@@ -56,14 +56,7 @@ display: none !important;
 </style>
 ```
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = TRUE, options(knitr.kable.NA = '', dev = 'svg'))
-library(kableExtra)
-library(countrycode)
-library(Cairo)
-library(tidyverse)
-suppressMessages(library(meta))
-settings.meta(CIbracket = "(", CIseparator = ", ")
-
+## (updated 2021/01/06 11:34) preliminaries -------------------------------
 # functions
 now <- function() {str_replace_all(format(Sys.time(), "%m %d %y_%H-%M"), " ", "_")}
 # replace_mg <- function(a, b) {if_else(is.na(a) & !is.na(b), b, a)}

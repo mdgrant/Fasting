@@ -5,6 +5,7 @@ output:
   html_document:
     font: Source Sans Pro
     theme: cosmo
+    anchor_sections: TRUE 
     toc: yes
     toc_depth: 3
     toc_float: 
@@ -22,7 +23,6 @@ workflowr:
   suppress_report: TRUE
 nocite: '@*'
 ---
-
 
 #### 
 
@@ -52,16 +52,7 @@ display: none !important;
 ```
 
 ```{r setupData, include = FALSE}
-## preliminaries -----------------------------------------------------------
-knitr::opts_chunk$set(echo = FALSE, options(knitr.kable.NA = ''), knitr.graphics.error = FALSE)
-library(kableExtra)
-library(countrycode)
-library(Cairo)
-library(tidyverse)
-library(naniar)
-suppressMessages(library(meta))
-settings.meta(CIbracket = "(", CIseparator = ",")
-
+## (updated 2021/01/06 11:34) preliminaries -------------------------------
 # functions
 now <- function() {str_replace_all(format(Sys.time(), "%m %d %y_%H-%M"), " ", "_")}
 # replace_mg <- function(a, b) {if_else(is.na(a) & !is.na(b), b, a)}
@@ -111,7 +102,7 @@ dichot.dat <- dichot.dat %>%
     Other = "other",
     CHO = "cho",
     Milk = "milk",
-    Protein = "protein"),
+    "Prot/CHO" = "protein"),
     arm_tx = tx) %>%
   select(-tx)
 
@@ -136,7 +127,7 @@ contin.dat <- contin.dat %>%
     Other = "other",
     CHO = "cho",
     Milk = "milk",
-    Protein = "protein"),
+    "Prot/CHO" = "protein"),
     arm_tx = tx) %>%
   select(-tx)
 
@@ -165,7 +156,7 @@ likert.dat <- likert.dat %>%
     Clear = "other_clear",
     CHO = "cho",
     Milk = "milk",
-    Protein = "protein"),
+    "Prot/CHO" = "protein"),
     arm_tx = tx) %>%
   select(-tx)
 ```
@@ -260,7 +251,7 @@ study_char_prot.dat %>%
 
 # Patient Reported Outcomes 
 
-## Surgical Studies
+## Surgical Studies 
 
 ### Hunger, Thirst, Nausea, Vomiting
 
@@ -311,7 +302,7 @@ dichot_prot_htnvr <- dichot_prot.dat %>%
   select(!c(year, age, surg_nosurg), study, arm_n:vomit_np) %>%
   mutate(
     arm_tx = as.character(arm_tx),
-    arm_tx = ifelse(grepl("Marquini", study) & arm_tx != "Protein", "Water^c^", arm_tx)) %>%
+    arm_tx = ifelse(grepl("Marquini", study) & arm_tx != "Prot/CHO", "Water^c^", arm_tx)) %>%
   group_by(study) %>%
   mutate(
     study = ifelse(row_number() == 1, study, NA),
@@ -326,7 +317,7 @@ dichot_prot_htnvr <- dichot_prot.dat %>%
 protein_row <- dichot_prot_htnvr %>% 
   filter(design != "crossover") %>% 
   mutate(line = row_number()) %>% 
-  filter(arm_tx == "Protein") %>% 
+  filter(arm_tx == "Prot/CHO") %>% 
   pull(line)
 
 dichot_prot_htnvr %>% 
@@ -436,7 +427,7 @@ likert_prot_hung_kbl.dat <- likert_prot_hung.dat %>%
 ## (updated 2020/12/13 13:48) hungerAdultSurgKable ------------------------
 protein_row <- likert_prot_hung_kbl.dat %>%
   mutate(line = row_number()) %>%
-  filter(arm_tx == "Protein") %>%
+  filter(arm_tx == "Prot/CHO") %>%
   pull(line)
 
 likert_prot_hung_kbl.dat %>%
@@ -551,7 +542,7 @@ likert_prot_thirst_kbl.dat <- likert_prot_thirst.dat %>%
 ## (updated 2020/12/14 09:51) thirstAdultSurgKable ------------------------
 protein_row <- likert_prot_thirst_kbl.dat %>%
   mutate(line = row_number()) %>%
-  filter(arm_tx == "Protein") %>%
+  filter(arm_tx == "Prot/CHO") %>%
   pull(line)
 
 likert_prot_thirst_kbl.dat %>%
@@ -634,7 +625,7 @@ likert_prot_comfort.dat <- likert.dat %>%
 ## (updated 2020/12/14 14:31) comfortKable --------------------------------
 protein_row <- likert_prot_comfort.dat %>% 
   mutate(line = row_number()) %>% 
-  filter(arm_tx == "Protein") %>% 
+  filter(arm_tx == "Prot/CHO") %>% 
   pull(line)
 
 likert_prot_comfort.dat %>%
@@ -726,7 +717,7 @@ nvra_meta <- metabin(nausea_n.y, arm_n.y, nausea_n.x, arm_n.x,
 
 forest(nvra_meta,
   comb.fixed = FALSE,
-  lab.e = "Protein",
+  lab.e = "Prot/CHO",
   lab.c = "Fasting",
   digits = 2,
   digits.tau2 = 1,
@@ -764,7 +755,7 @@ figure_n <- fig_inc()
 
 <br>
 
-## Nonsurgical Studies
+## Nonsurgical Studies 
 
 ### Nausea
 
@@ -786,7 +777,7 @@ dichot_prot_cross <- dichot_prot.dat %>%
 
 protein_row <- dichot_prot_cross %>% 
   mutate(line = row_number()) %>% 
-  filter(arm_tx == "Protein") %>% 
+  filter(arm_tx == "Prot/CHO") %>% 
   pull(line)
 
 dichot_prot_cross %>% 
@@ -881,7 +872,7 @@ rgv_surg <- rgv.dat %>%
 
 protein_row <- rgv_surg %>% 
   mutate(line = row_number()) %>% 
-  filter(arm_tx == "Protein") %>% 
+  filter(arm_tx == "Prot/CHO") %>% 
   pull(line)
 
 rgv_surg %>%
@@ -987,7 +978,7 @@ rgv_no_table <- rgv_nonsurg.dat %>%
 ## (updated 2020/12/15 10:24) rgvNonsurgKable -----------------------------
 protein_row <- rgv_no_table %>% 
   mutate(line = row_number()) %>% 
-  filter(arm_tx == "Protein") %>% 
+  filter(arm_tx == "Prot/CHO") %>% 
   pull(line)
 
 rgv_no_table %>%
@@ -1052,7 +1043,7 @@ rgv_no_table %>%
 rgv_meta.dat <- contin.dat %>%
   arrange(design, year, study) %>% 
   filter(refid %in% protein_refids$refid, surg_nosurg == "surgical") %>%
-  filter(arm_tx == "Fasting" | arm_tx == "Protein") %>%
+  filter(arm_tx == "Fasting" | arm_tx == "Prot/CHO") %>%
   filter(!is.na(rgv_us) | !is.na(rgv_imag) | !is.na(rgv_asp)) %>%
   mutate(design = ifelse(design == "nrsi", "Non-randomized", "RCT")) %>%
   select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1) 
@@ -1081,7 +1072,7 @@ rgv_meta <- metacont(n.e = arm_n.x, n.c = arm_n.y,
 
 forest(rgv_meta, 
        comb.random = FALSE,
-       lab.e = "Protein     ",
+       lab.e = "Prot/CHO     ",
        lab.c = "Fasting     ",
        digits = 2,
        digits.sd = 2,
@@ -1091,7 +1082,7 @@ forest(rgv_meta,
        print.byvar = FALSE,
        overall = FALSE,
        fs.xlab = 11,
-       xlab = "RGV (mL)\n Favors Protein              Favors Fasting")
+       xlab = "RGV (mL)\n Favors Prot/CHO              Favors Fasting")
 
 figure_n <- fig_inc()
 ```
@@ -1158,7 +1149,7 @@ rgv_meta <- metacont(n.e = arm_n.x, n.c = arm_n.y,
 forest(rgv_meta, 
        comb.random = TRUE,
        comb.fixed = FALSE,
-       lab.e = "Protein      ",
+       lab.e = "Prot/CHO      ",
        lab.c = "Carbohydrate     ",
        digits = 1,
        digits.sd = 1,
@@ -1316,7 +1307,7 @@ table_n <- tab_inc()
 
 <br>
 
-# Complications, Length of Stay 
+# Complications, Length of Stay, BP 
 
 <br>
 
@@ -1342,7 +1333,7 @@ ungroup() %>%
 
 protein_row <- prot_compl.dat%>% 
   mutate(line = row_number()) %>% 
-  filter(arm_tx == "Protein") %>% 
+  filter(arm_tx == "Prot/CHO") %>% 
   pull(line)
 
 prot_compl.dat %>% 
@@ -1392,7 +1383,7 @@ los.dat <- contin.dat %>%
 
 protein_row <- los.dat%>% 
   mutate(line = row_number()) %>% 
-  filter(arm_tx == "Protein") %>% 
+  filter(arm_tx == "Prot/CHO") %>% 
   pull(line)
 
 los.dat %>% 
@@ -1442,7 +1433,7 @@ bp.dat$dbp_mean_2 <- color_bar("yellow")    (bp.dat$dbp_mean_2)
 
 protein_row <- bp.dat %>% 
   mutate(line = row_number()) %>% 
-  filter(arm_tx == "Protein") %>% 
+  filter(arm_tx == "Prot/CHO") %>% 
   pull(line)
 
 bp.dat %>% 
@@ -1460,8 +1451,7 @@ bp.dat %>%
          sbp_time_2 = ifelse(study == "Singh 2015a", round_0(sbp_time_2), sbp_time_2)) %>% 
   group_by(study) %>% mutate(study = ifelse(row_number() == 1, study, NA)) %>% ungroup() %>% 
    kbl(booktabs = T, align =  c("llccllllcllll"), escape = FALSE,
-      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", "Hr", "SBP", "(SD)",  "DBP", "(SD)", "Hr", "SBP", "(SD)",
-                    "DBP", "(SD)")) %>%
+      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", "Hr", "SBP", "(SD)",  "DBP", "(SD)", "Hr", "SBP", "(SD)", "DBP", "(SD)")) %>%
   add_header_above(c(" " = 3, "Time 1" = 5, "Time 2" = 5), line = TRUE) %>% 
   kable_styling(bootstrap_options = opt_boot, full_width = TRUE, position = "left") %>% 
   kable_classic(position = "left", full_width = FALSE, html_font = opt_font, "hover") %>% 
@@ -1484,7 +1474,7 @@ table_n <- tab_inc()
 
 <br>
 
-# Study/Participant Detail
+# Study/Participant Detail 
 ## Study Characteristics 
 
 <font size = 4> Table `r table_n`. Characteristics of 29 included studies examining protein-containing drinks. </font>
@@ -1562,7 +1552,7 @@ study_char_table %>%
   pack_sub(., "RCT", 30, 30) %>% 
   footnote(general_title = "",
     general = "Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; TKA: total knee arthroplasty; THA: total hip arthroplasty.",
-    alphabet = c("Multiple publications from he same study."),
+    alphabet = c("Multiple publications from the same study."),
     footnote_as_chunk = FALSE) # %>% 
 
 table_n <- tab_inc()
@@ -1667,7 +1657,7 @@ fasting_table <- left_join(fasting_table, study_names, by = "refid") %>%
 
 fasting_table <- fasting_table %>%
   mutate(tx = factor(tx,
-    levels = c("Fasting", "Water", "Placebo", "Other Clear", "Protein", "CHO", "Milk", "Other"))) %>% 
+    levels = c("Fasting", "Water", "Placebo", "Other Clear", "Prot/CHO", "CHO", "Milk", "Other"))) %>% 
   mutate(timeingest1 = ifelse(timeingest1 == 99, 12, timeingest1)) %>% 
   mutate(amtingest1  = na_if(amtingest1, 0)) %>% 
   mutate(timeingest1 = round(timeingest1, 0)) %>% 
@@ -1837,7 +1827,7 @@ rm(temp)
 
 comparator_detail_table <- comparator_detail_table %>%
   mutate(tx = factor(tx,
-    levels = c("Fasting", "Water", "Placebo", "Other Clear", "Protein", "CHO", "Milk", "Other"))) %>% 
+    levels = c("Fasting", "Water", "Placebo", "Other Clear", "Prot/CHO", "CHO", "Milk", "Other"))) %>% 
   arrange(age, desc(surg_nosurg), design, year, study, arm) %>% 
   group_by(study) %>% 
   # mutate(design = if_else(row_number() == 1, design, "")) %>% 
