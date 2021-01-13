@@ -337,7 +337,7 @@ study_char_cho.dat %>%
     general_title = "", 
     footnote_as_chunk = FALSE)
 
-table_n <- tab_inc()
+# table_n <- tab_inc()
 ```
 
 <br><br>
@@ -350,7 +350,7 @@ table_n <- tab_inc()
 
 <br>
 
-```{r dichotProtDataSurgical, include = FALSE}
+```{r dichotChoDataSurgical, include = FALSE}
 ## (updated 2021/01/12 09:26) dichotProtDataSurgical ----------------------
 dichot_cho.dat <- dichot.dat %>%
   mutate(
@@ -393,9 +393,13 @@ dichot_cho.dat <- dichot.dat %>%
 
 ```
 
-<font size = 4> Table `r table_n`. Occurrence of hunger, thirst, nausea, vomiting, and regurgitation in surgical randomized controlled trials. </font>
+<br>
 
 ### Hunger
+
+<br>
+
+<font size = 4> Table `r table_n`. Comparative hunger ratings according to fasting, liquid and volume. </font>
 
 ```{r hungerTableOr, include = TRUE}
 ## (updated 2021/01/12 09:42) hungerTableOr -------------------------------
@@ -480,6 +484,9 @@ dichot_hunger %>%
                         "Hunger present or absent."),
            general_title = "",  
            footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+
 ```
 
 ```{r hungerLikert, include = TRUE}
@@ -639,6 +646,8 @@ dichot_thirst %>%
                         "Thirst present or absent."),
            general_title = "",  
            footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
 ```
 
 <br>
@@ -681,6 +690,241 @@ forest(thirst_meta,
 figure_n <- fig_inc()
 
 ```
+
+<br>
+
+### Nausea
+
+<br>
+
+<font size = 4> Table `r table_n`. Comparative nausea ratings according to fasting, liquid and volume. </font>
+
+```{r nauseaTableOr, include = TRUE}
+## (updated 2021/01/13 08:52) nauseaTableOr -------------------------------
+dichot_format <- function(x) (x/100)
+
+# odds ratios
+# exclude single arm studies
+# select refid, study, arm_tx, arm_n, outcome_n
+dichot_nausea_or <- dichot_cho.dat %>% 
+  filter(!is.na(nausea_np)) %>%
+  select(refid, study, arm_tx, arm_n, nausea_n) %>% 
+  group_by(refid) %>% 
+  filter(n() > 1)
+
+or_nausea <- with(or_join(dichot_nausea_or, "nausea"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2))
+
+```
+
+```{r nauseaTable, include = TRUE}
+## (updated 2021/01/12 18:04) hungerTable ---------------------------------
+dichot_nausea <- dichot_cho.dat %>% 
+  filter(!is.na(nausea_np)) %>%
+  arrange(age, desc(surg_nosurg), design, year, study) %>% 
+  select(refid:time_outcome, nausea_np, nausea_per, nausea_n)
+
+dichot_nausea <- left_join(dichot_nausea, or_nausea, by = "refid") %>% 
+  group_by(study) %>%
+  mutate(
+    study = ifelse(row_number() == 1, study, NA),
+    or_ci = ifelse(row_number() == 1, or_ci, NA),
+    time_outcome = ifelse(row_number() == 1, time_outcome, NA)) %>%
+  ungroup() %>% 
+  mutate(nausea_per = round(nausea_per, 0)) %>% 
+  select(refid, arm, design, age, study, arm_n, arm_tx, starts_with("hr"), time_outcome, nausea_np, nausea_per, or_ci)
+
+# correct Hausel 2005 odds ratios
+# CHO vs fasting, placebo
+temp <- dichot_nausea_or %>% filter(refid == 5091)
+a <- with(or_join(temp[c(1,3),], "nausea"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+b <- with(or_join(temp[c(2,3),], "nausea"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+# correct Askura 2015 odds ratios
+temp <- dichot_nausea_or %>% filter(refid == 2234)
+# CHO vs fasting, placebo
+c <- with(or_join(temp[c(1,3),], "nausea"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+d <- with(or_join(temp[c(2,3),], "nausea"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+# correct Singh 2015 odds ratios
+temp <- dichot_nausea_or %>% filter(refid == 2172)
+# CHO vs fasting, placebo
+e <- with(or_join(temp[c(1,3),], "nausea"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+f <- with(or_join(temp[c(2,3),], "nausea"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+
+dichot_nausea <- dichot_nausea %>% 
+  mutate(or_ci = ifelse(refid == 5091 & arm == 1, a, or_ci),
+         or_ci = ifelse(refid == 5091 & arm == 2, b, or_ci),
+         or_ci = ifelse(refid == 2234 & arm == 1, c, or_ci),
+         or_ci = ifelse(refid == 2234 & arm == 2, d, or_ci),
+         or_ci = ifelse(refid == 2172 & arm == 1, e, or_ci),
+         or_ci = ifelse(refid == 2172 & arm == 2, f, or_ci),
+         or_ci = ifelse(or_ci == "NA (NA, NA)", "", or_ci))
+
+rm(a, b, c, d, e, f)
+
+cho_row <- dichot_nausea %>%
+  mutate(line = row_number()) %>%
+  filter(grepl("CHO", arm_tx)) %>%
+  pull(line)
+
+dichot_nausea$nausea_bar <- NA
+dichot_nausea$nausea_bar <- ifelse(grepl("CHO", dichot_nausea$arm_tx),
+  color_bar("tomato", fun = dichot_format)(dichot_nausea$nausea_per),
+  color_bar("lightgray", fun = dichot_format)(dichot_nausea$nausea_per))
+
+dichot_nausea  <- dichot_nausea %>% 
+  # add_foot(study, "Feguri 2012", "b") %>% #                  'Reported nausea'.
+  # add_foot(study, "Koeppe 2013", "c") %>% #           'Did you feel nausea during the fasting period?
+  # add_foot(study, "Yildiz 2013", "d") %>% #                  'Based on VAS scores.'
+  # add_foot(study, "Panebianco 2020", "e") %>% #       'None vs. a little or alot.'
+  # add_foot(study, "Labuschagne 2017", "f") %>% #             'Yes vs. no.'
+  # add_foot(study, "Taniguchi 2011", "g") %>% #        'Did you have a dry mouth before surgery?'
+  # add_foot(study, "Tudor-Drobjewski 2018", "h") %>% # 'Present or absent.'
+mutate(nausea_bar = str_replace(nausea_bar, ">0", ">"),
+       nausea_bar = str_replace(nausea_bar, ">[0-9]{1,}", ">&nbsp;"))
+       # study = ifelse(study == "Taniguchi 2011^g^", cell_spec(study, color = "black"), study))
+  
+dichot_nausea %>% 
+  select(!c(refid, arm, design, age, nausea_per)) %>% 
+  select(study:nausea_np, nausea_bar, or_ci) %>% 
+  kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
+    col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "nausea" = 2, "OR (95% CI)"), line = TRUE) %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
+  kable_styling(bootstrap_options = opt_boot) %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "3em") %>% 
+  column_spec(3, width = "4em") %>% 
+  column_spec(c(4,6), width = "1em") %>% 
+  column_spec(5, width = "3em") %>% 
+  column_spec(7, width = "3em") %>% 
+  column_spec(8, width = "2em") %>% 
+  column_spec(9, width = "5em") %>% 
+  column_spec(10, width = "5em") %>% 
+  row_spec(cho_row, color = "brown") %>% 
+  pack_top(., "Adult, Surgical", 1, 45) %>% 
+  pack_sub(., "RCT", 1, 41) %>%
+  pack_sub(., "Retrospective Cohort", 42, 43) %>%
+  pack_sub(., "Before-After", 44, 45) %>%
+  # pack_sub(., "Nonrandomized Studies of Interventions", 9, 10) %>%
+  pack_top(., "Pedatric, Surgical", 46, 50) %>% 
+  pack_sub(., "RCT", 46, 49) %>%
+  footnote(general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.",
+           alphabet = c("When outcome assessed relative to surgery where 0 is prior to induction."),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
+```{r nauseaMetaDichot, include = TRUE,  fig.width = 10, fig.height = 6.5, fig.align = "center"}
+## (updated 2021/01/13 09:48)  --------------------------------------------
+# data
+# cho vs fasting
+nausea_meta.dat <- or_join(dichot_nausea_or, "nausea") %>% 
+  filter(c_tx == "Fasting") %>% 
+  filter(!refid %in% c(5091, 2172))
+
+# Hausel
+temp <- dichot_nausea_or %>% filter(refid == 5091)
+a <- or_join(temp[c(1,3),], "nausea")
+temp <- dichot_nausea_or %>% filter(refid == 2172)
+b <- or_join(temp[c(1,3),], "nausea")
+
+nausea_meta.dat <- bind_rows(nausea_meta.dat, a, b)
+rm(a, b)
+
+# add age, design, year
+nausea_meta.dat <- left_join(nausea_meta.dat, study_char.dat %>% select(refid, year, design, age), by = "refid") %>% 
+  filter(c_tx == "Fasting", age == "Adult", design == "rct") %>% 
+  arrange(year)
+
+nausea_meta <- metabin(event_e, n_e, event_c, n_c,
+  data = nausea_meta.dat,
+  studlab = study,
+  byvar = tx,
+  sm = "OR",
+  method = "Inverse",
+  digits = 2)
+
+forest(nausea_meta,
+  comb.fixed = FALSE,
+  lab.e = "CHO     ",
+  lab.c = "Fasting    ",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  # xlim = c(.002, 2),
+  # at = c(0.01, 0.1, .4,  1, 2, 2),
+  print.subgroup.labels = TRUE,
+  print.byvar = FALSE,
+  test.subgroup = FALSE,
+  subgroup = TRUE,
+  xlab = "Favors CHO           Favors Fasting")
+  
+figure_n <- fig_inc()
+
+```
+
+<br>
+<font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
+
+```{r nauseaMetaDichotPlacWater, include = TRUE,  fig.width = 10, fig.height = 4, fig.align = "center"}
+## (updated 2021/01/13 09:48)  --------------------------------------------
+# data
+# cho vs fasting
+nausea_meta.dat <- or_join(dichot_nausea_or, "nausea") %>% 
+  filter(c_tx %in% c("Water", "Placebo")) %>% 
+  filter(!refid %in% c(5091, 2172))
+
+# Hausel
+temp <- dichot_nausea_or %>% filter(refid == 5091)
+a <- or_join(temp[c(2,3),], "nausea")
+# Singh
+temp <- dichot_nausea_or %>% filter(refid == 2172)
+b <- or_join(temp[c(2,3),], "nausea")
+
+nausea_meta.dat <- bind_rows(nausea_meta.dat, a, b)
+rm(a, b)
+
+# add age, design, year
+nausea_meta.dat <- left_join(nausea_meta.dat, study_char.dat %>% select(refid, year, design, age), by = "refid") %>% 
+  arrange(year)
+
+nausea_meta <- metabin(event_e, n_e, event_c, n_c,
+  data = nausea_meta.dat,
+  studlab = study,
+  sm = "OR",
+  method = "Inverse",
+  digits = 2)
+
+forest(nausea_meta,
+  comb.fixed = FALSE,
+  lab.e = "CHO     ",
+  lab.c = "Fasting    ",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  # xlim = c(.002, 2),
+  # at = c(0.01, 0.1, .4,  1, 2, 2),
+  print.subgroup.labels = FALSE,
+  print.byvar = FALSE,
+  test.subgroup = FALSE,
+  subgroup = FALSE,
+  xlab = "Favors CHO           Favors Fasting")
+  
+figure_n <- fig_inc()
+
+```
+
 
 <br><br>
 
