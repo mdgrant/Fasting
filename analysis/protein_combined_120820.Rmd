@@ -473,7 +473,7 @@ table_n <- tab_inc()
 <br>
 
 
-### Thirst
+### Thirst 
 
 <br>
 
@@ -683,7 +683,7 @@ table_n <- tab_inc()
 
 <br>
 
-<font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- randomized trial comparing protein-containing drinks compared with fasting in adult surgical patients. </font>
+<font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- randomized trials comparing protein-containing drinks with fasting in adult surgical patients. </font>
 ```{r nauseaMeta, echo = FALSE, fig.width = 10, fig.height = 4.5, fig.align = "center"}
 ## (updated 2020/12/13 09:57) nauseaMeta ----------------------------------
 # data
@@ -721,7 +721,7 @@ forest(nvra_meta,
   lab.c = "Fasting",
   digits = 2,
   digits.tau2 = 1,
-  overall.hetstat = FALSE,
+  overall.hetstat = TRUE,
   print.I2.ci = TRUE,
   prediction = FALSE,
   fs.xlab = 11,

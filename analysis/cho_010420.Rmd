@@ -1,5 +1,5 @@
 ---
-title: "cho_010420"
+title: "Carbohydrate Drinks"
 date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
   html_document:
@@ -395,7 +395,7 @@ dichot_cho.dat <- dichot.dat %>%
 
 <font size = 4> Table `r table_n`. Occurrence of hunger, thirst, nausea, vomiting, and regurgitation in surgical randomized controlled trials. </font>
 
-### Hunger Occurrence
+### Hunger
 
 ```{r hungerTableOr, include = TRUE}
 ## (updated 2021/01/12 09:42) hungerTableOr -------------------------------
@@ -410,30 +410,12 @@ dichot_hunger_or <- dichot_cho.dat %>%
   group_by(refid) %>% 
   filter(n() > 1)
 
-or_join <- function(a_tbl, outcome) {
-  left_join(a_tbl %>% filter(row_number() == 1), a_tbl %>% filter(row_number() == 2), by = "refid") %>%
-    select(-study.y) %>%
-    rename(
-      c_tx = arm_tx.x, tx = arm_tx.y, study = study.x,
-      n_c = arm_n.x, event_c = str_c(outcome, "_n.x"),
-      n_e = arm_n.y, event_e = str_c(outcome, "_n.y"))
-}
-
-odds_ratio <- function(event1, n1, event2, n2, refid, digits = 2) {
-  a <- meta::metabin(event1, n1, event2, n2)
-  a <- with(a, paste0(
-    sprintf(paste0("%.", digits, "f"), round(exp(TE), digits)), " (",
-    sprintf(paste0("%.", digits, "f"), round(exp(lower), digits)), ", ",
-    sprintf(paste0("%.", digits, "f"), round(exp(upper), digits)), ")"))
-  tibble(refid, a) %>% 
-    rename(or_ci = a)
-}
-
 or_hunger <- with(or_join(dichot_hunger_or, "hunger"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2))
 
 ```
 
 ```{r hungerTable, include = TRUE}
+## (updated 2021/01/12 18:04) hungerTable ---------------------------------
 dichot_hunger <- dichot_cho.dat %>% 
   filter(!is.na(hunger_np)) %>%
   arrange(age, desc(surg_nosurg), design, year, study) %>% 
@@ -471,14 +453,15 @@ dichot_hunger %>%
   select(!c(refid, arm, design, age, hunger_per)) %>% 
   select(study:hunger_np, hunger_bar, or_ci) %>% 
   kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
-    col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", ">6", "6 to >2", "≤2", "(hr)", "N (%)", "\\ \\ 0% &nbsp; ⟶ &nbsp; 100%", "OR (95% CI)")) %>% 
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Hunger" = 3), line = TRUE) %>% 
+    col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Fasting")) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Hunger" = 2, "OR (95% CI)"), line = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
-  column_spec(1, width = "10em") %>%  
+  column_spec(1, width = "9em") %>%  
   column_spec(2, width = "3em") %>% 
   column_spec(3, width = "4em") %>% 
-  column_spec(c(4:6), width = "1em") %>% 
+  column_spec(c(4,6), width = "1em") %>% 
+  column_spec(5, width = "3em") %>% 
   column_spec(7, width = "3em") %>% 
   column_spec(8, width = "2em") %>% 
   column_spec(9, width = "5em") %>% 
@@ -489,22 +472,23 @@ dichot_hunger %>%
   pack_sub(., "Retrospective Cohort", 5, 5) %>%
   pack_top(., "Pedatric, Surgical", 6, 7) %>% 
   pack_sub(., "RCT", 6, 7) %>%
-  footnote(general = "RCT: randomized controlled trial",
+  footnote(general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.",
            alphabet = c("When outcome assessed relative to surgery where 0 is prior to induction.", 
-                        "Did you feel hunger during the fasting period?",
+                        "'Did you feel hunger during the fasting period?'",
                         "Reported no hunger.",
-                        "Oral rehydration consumed between 5 and 2 hours prior to surgery. Did you feel hungry before surgery?",
+                        "Oral rehydration consumed between 5 and 2 hours prior to surgery. 'Did you feel hungry before surgery?' ",
                         "Hunger present or absent."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 ```
 
 ```{r hungerLikert, include = TRUE}
+## (updated 2021/01/13 05:51) hungerLikert --------------------------------
 likert_cho_hung.dat <- likert.dat %>% 
   filter(refid %in% cho_refids$refid) %>% 
   filter(hunger_l == "hunger_l") %>% 
   # filter_at(vars(hunger_m:hunger_pval), any_vars(!is.na(.))) # 1290 not incpuded as RR in notes field
-  select(refid:age, arm_n, arm_tx, likert_time_outcome, contains("ingest"), starts_with("hunger")) %>% 
+  select(refid:age, arm_n, arm_tx, likert_time_outcome, contains("ingest"), starts_with("hunger"), out_l_notes) %>% 
   mutate(arm_tx = droplevels(arm_tx)) %>% 
   arrange(age, desc(surg_nosurg), design, year, study, arm_tx)
 
@@ -556,6 +540,151 @@ likert_cho_hung_kbl.dat <- likert_cho_hung.dat %>%
 
 ```
 
+<br>
+
+### Thirst
+
+<br>
+
+<font size = 4> Table `r table_n`. Comparative thirst ratings according to fasting, liquid and volume. </font>
+
+```{r thirstTableOr, include = TRUE}
+## (updated 2021/01/13 08:52) thirstTableOr -------------------------------
+dichot_format <- function(x) (x/100)
+
+# odds ratios
+# exclude single arm studies
+# select refid, study, arm_tx, arm_n, outcome_n
+dichot_thirst_or <- dichot_cho.dat %>% 
+  filter(!is.na(thirst_np)) %>%
+  select(refid, study, arm_tx, arm_n, thirst_n) %>% 
+  group_by(refid) %>% 
+  filter(n() > 1)
+
+or_thirst <- with(or_join(dichot_thirst_or, "thirst"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2))
+
+```
+
+```{r thirstTable, include = TRUE}
+## (updated 2021/01/12 18:04) hungerTable ---------------------------------
+dichot_thirst <- dichot_cho.dat %>% 
+  filter(!is.na(thirst_np)) %>%
+  arrange(age, desc(surg_nosurg), design, year, study) %>% 
+  select(refid:time_outcome, thirst_np, thirst_per, thirst_n)
+
+dichot_thirst <- left_join(dichot_thirst, or_thirst, by = "refid") %>% 
+  group_by(study) %>%
+  mutate(
+    study = ifelse(row_number() == 1, study, NA),
+    or_ci = ifelse(row_number() == 1, or_ci, NA),
+    time_outcome = ifelse(row_number() == 1, time_outcome, NA)) %>%
+  ungroup() %>% 
+  mutate(thirst_per = round(thirst_per, 0)) %>% 
+  select(refid, arm, design, age, study, arm_n, arm_tx, starts_with("hr"), time_outcome, thirst_np, thirst_per, or_ci)
+
+cho_row <- dichot_thirst %>%
+  mutate(line = row_number()) %>%
+  filter(grepl("CHO", arm_tx)) %>%
+  pull(line)
+
+dichot_thirst$thirst_bar <- NA
+dichot_thirst$thirst_bar <- ifelse(grepl("CHO", dichot_thirst$arm_tx),
+  color_bar("tomato", fun = dichot_format)(dichot_thirst$thirst_per),
+  color_bar("lightgray", fun = dichot_format)(dichot_thirst$thirst_per))
+
+dichot_thirst  <- dichot_thirst %>% 
+  add_foot(study, "Feguri 2012", "b") %>% #                  'Reported thirst'.
+  add_foot(study, "Koeppe 2013", "c") %>% #           'Did you feel thirst during the fasting period?
+  add_foot(study, "Yildiz 2013", "d") %>% #                  'Based on VAS scores.'
+  add_foot(study, "Panebianco 2020", "e") %>% #       'None vs. a little or alot.'
+  add_foot(study, "Labuschagne 2017", "f") %>% #             'Yes vs. no.'
+  add_foot(study, "Taniguchi 2011", "g") %>% #        'Did you have a dry mouth before surgery?'
+  add_foot(study, "Tudor-Drobjewski 2018", "h") %>% # 'Present or absent.'
+mutate(thirst_bar = str_replace(thirst_bar, ">[0-9][0-9]", ">&nbsp;"),
+       thirst_bar = str_replace(thirst_bar, ">0", ">"),
+       study = ifelse(study == "Taniguchi 2011^g^", cell_spec(study, color = "black"), study))
+  
+dichot_thirst %>% 
+  select(!c(refid, arm, design, age, thirst_per)) %>% 
+  select(study:thirst_np, thirst_bar, or_ci) %>% 
+  kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
+    col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Thirst" = 2, "OR (95% CI)"), line = TRUE) %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
+  kable_styling(bootstrap_options = opt_boot) %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "3em") %>% 
+  column_spec(3, width = "4em") %>% 
+  column_spec(c(4,6), width = "1em") %>% 
+  column_spec(5, width = "3em") %>% 
+  column_spec(7, width = "3em") %>% 
+  column_spec(8, width = "2em") %>% 
+  column_spec(9, width = "5em") %>% 
+  column_spec(10, width = "5em") %>% 
+  row_spec(cho_row, color = "brown") %>% 
+  pack_top(., "Adult, Surgical", 1, 11) %>% 
+  pack_sub(., "RCT", 1, 8) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 9, 10) %>%
+  pack_sub(., "Retrospective Cohort", 11, 11) %>%
+  pack_top(., "Pedatric, Surgical", 12, 13) %>% 
+  pack_sub(., "RCT", 12, 13) %>%
+  footnote(general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.",
+           alphabet = c("When outcome assessed relative to surgery where 0 is prior to induction.", 
+                        "Reported thirst.",
+                        "'Did you feel thirst during the fasting period?' (prior to endoscopy)",
+                        "Based on VAS scores'",
+                        "'None vs. a little or alot.'",
+                        "Yes vs. no.",
+                        "'Did you have a dry mouth before surgery?'",
+                        "Thirst present or absent."),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+```
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Pooled incidence of thirst --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
+```{r thirstMetaDichot, include = TRUE,  fig.width = 10, fig.height = 3, fig.align = "center"}
+## (updated 2021/01/13 09:48)  --------------------------------------------
+# data
+thirst_meta.dat <- or_join(dichot_thirst_or, "thirst")
+# add age, design, year
+thirst_meta.dat <- left_join(thirst_meta.dat, study_char.dat %>% select(refid, year, design, age), by = "refid") %>% 
+  filter(c_tx == "Fasting", age == "Adult", design == "rct")
+
+thirst_meta <- metabin(event_e, n_e, event_c, n_c,
+  data = thirst_meta.dat,
+  studlab = study,
+  sm = "OR",
+  method = "Inverse",
+  digits = 2)
+
+forest(thirst_meta,
+  comb.fixed = TRUE,
+  lab.e = "CHO     ",
+  lab.c = "Fasting    ",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  xlim = c(.002, 2),
+  at = c(0.01, 0.1, .4,  1, 2, 2),
+  print.subgroup.labels = TRUE,
+  print.byvar = FALSE,
+  test.subgroup = FALSE,
+  subgroup = FALSE,
+  xlab = "Favors CHO           Favors Fasting")
+  
+figure_n <- fig_inc()
+
+```
+
+<br><br>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <br>
 
@@ -617,6 +746,7 @@ study_char_table <- study_char_cho.dat %>%
 ```
 
 ```{r studyCharKable, echo = FALSE} 
+## (updated 2021/01/12 19:27) ---------------------------------------------
 study_char_table %>%
   kbl(booktabs = T, align = c("lcccccccclc"), 
       # format = "latex",
@@ -952,12 +1082,12 @@ study_fund_table %>%
   kbl(booktabs = T, align = c("lcccclll"),
       col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Public", "Industry", "None", 
                     "Not Reported", "Funding description", "Brand")) %>%
+  add_header_above(c(" " = 1, "Reported Funding Source(s)" = 4, " " = 2), line = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "16em") %>% 
   column_spec(c(2,3,4,5), width = "4em") %>% 
   column_spec(6, width = "23em") %>%
-  add_header_above(c(" " = 1, "Reported Funding Source(s)" = 4, " " = 2), line = TRUE) %>% 
   pack_top(., "Adult, Surgical", 1, 90) %>% 
   pack_sub(., "RCT", 1, 78) %>%
   pack_sub(., "Nonrandomized Studies of Interventions", 79, 86) %>% 
