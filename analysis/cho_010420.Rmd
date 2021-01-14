@@ -7,15 +7,15 @@ output:
     theme: cosmo
     anchor_sections: TRUE 
     toc: yes
-    toc_depth: 4
+    toc_depth: 5
     toc_float: 
-      collapsed: no
+      collapsed: FALSE
       smooth_scroll: yes
     linkcolor: black
   latex_engine: xelatex
   pdf_document:
     toc: yes
-    toc_depth: '3'
+    toc_depth: '4'
 workflowr:
   suppress_report: TRUE
 ---
@@ -256,7 +256,7 @@ study_char_cho.dat %>%
   arrange(age, desc(surg_nosurg), design, year, study) %>%
   mutate(
     surg_nosurg = ifelse(surg_nosurg == "non-surgical", "None", surg_nosurg),
-    study = ifelse(grepl("Marquini", study), str_c(study, "^a^"), study),
+    study = ifelse(grepl("Marquini", study), str_c(study, "^b^"), study),
     country = ifelse(grepl("USA", country), "USA", country),
     country = ifelse(grepl("UK", country), "UK", country),
     country = ifelse(!is.na(non_vh_hdi), str_c(country, "^a^"), country),
@@ -264,7 +264,7 @@ study_char_cho.dat %>%
   select(refid, study, n_analyze, centers, country) %>%
   kbl(
     booktabs = T, align = c("llcll"), # format = "latex",
-    col.names = c("\\ \\ \\ \\ \\ \\ \\ \\ ID", "Study", "Analyzed (N)", "Centers", "Country^a^")) %>%
+    col.names = c("\\ \\ \\ \\ \\ \\ \\ \\ ID", "Study", "Analyzed (N)", "Centers", "[Country^a^](#footnote_hdi)")) %>%
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   kable_styling(bootstrap_options = opt_boot) %>%
   pack_top(., "Adult, Surgical", 1, 92) %>%
@@ -287,13 +287,15 @@ study_char_cho.dat %>%
   pack_sub(., "Crossover", 114, 114) %>%
   pack_sub(., "Prospective Cohort", 115, 115) %>%
   footnote(
-    alphabet = c("Multiple publications of the same study."),
+    alphabet = c(
+      "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
+      "Multiple publications of the same study.",
     general_title = "",
     footnote_as_chunk = FALSE)
 
 table_n <- tab_inc()
 ```
-
+<a id="footnote_hdi"></a> 
 ```{r studiesIncludedPlain, echo = FALSE, include = FALSE}
 ## (updated 2021/01/05 09:15) Included Studies ----------------------------
 # list of studies, age, surgical/non surgical, design 
@@ -442,7 +444,7 @@ cho_row <- dichot_hunger %>%
 
 dichot_hunger$hunger_bar <- 0
 dichot_hunger$hunger_bar <- ifelse(grepl("CHO", dichot_hunger$arm_tx),
-  color_bar("tomato", fun = dichot_format)(dichot_hunger$hunger_per),
+  color_bar("darksalmon", fun = dichot_format)(dichot_hunger$hunger_per),
   color_bar("lightgray", fun = dichot_format)(dichot_hunger$hunger_per))
 
 dichot_hunger  <- dichot_hunger %>% 
@@ -596,7 +598,7 @@ cho_row <- dichot_thirst %>%
 
 dichot_thirst$thirst_bar <- NA
 dichot_thirst$thirst_bar <- ifelse(grepl("CHO", dichot_thirst$arm_tx),
-  color_bar("tomato", fun = dichot_format)(dichot_thirst$thirst_per),
+  color_bar("darksalmon", fun = dichot_format)(dichot_thirst$thirst_per),
   color_bar("lightgray", fun = dichot_format)(dichot_thirst$thirst_per))
 
 dichot_thirst  <- dichot_thirst %>% 
@@ -651,6 +653,8 @@ table_n <- tab_inc()
 ```
 
 <br>
+
+### &nbsp;&nbsp; Pooled (adult RCTs)
 
 <font size = 4> Figure `r figure_n`. Pooled incidence of thirst --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
@@ -756,6 +760,8 @@ dichot_nausea <- dichot_nausea %>%
          or_ci = ifelse(refid == 2234 & arm == 2, d, or_ci),
          or_ci = ifelse(refid == 2172 & arm == 1, e, or_ci),
          or_ci = ifelse(refid == 2172 & arm == 2, f, or_ci),
+        # remove Panebianco 2020 274
+         or_ci = ifelse(refid == 274 & arm == 2, "", or_ci),
          or_ci = ifelse(or_ci == "NA (NA, NA)", "", or_ci))
 
 rm(a, b, c, d, e, f)
@@ -767,7 +773,7 @@ cho_row <- dichot_nausea %>%
 
 dichot_nausea$nausea_bar <- NA
 dichot_nausea$nausea_bar <- ifelse(grepl("CHO", dichot_nausea$arm_tx),
-  color_bar("tomato", fun = dichot_format)(dichot_nausea$nausea_per),
+  color_bar("darksalmon", fun = dichot_format)(dichot_nausea$nausea_per),
   color_bar("lightgray", fun = dichot_format)(dichot_nausea$nausea_per))
 
 dichot_nausea  <- dichot_nausea %>% 
@@ -816,6 +822,8 @@ table_n <- tab_inc()
 ```
 
 <br>
+
+### &nbsp;&nbsp; Pooled (adult RCTs)
 
 <font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
@@ -872,6 +880,7 @@ figure_n <- fig_inc()
 ```
 
 <br>
+
 <font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
 
 ```{r nauseaMetaDichotPlacWater, include = TRUE,  fig.width = 10, fig.height = 4, fig.align = "center"}
@@ -925,6 +934,248 @@ figure_n <- fig_inc()
 
 ```
 
+<br>
+
+### Vomiting
+
+<br>
+
+<font size = 4> Table `r table_n`. Comparative vomiting ratings according to fasting, liquid and volume. </font>
+
+```{r vomitTableOr, include = TRUE}
+## (updated 2021/01/13 08:52) vomitTableOr --------------------------------
+dichot_format <- function(x) (x/100)
+
+# odds ratios
+# exclude single arm studies
+# select refid, study, arm_tx, arm_n, outcome_n
+dichot_vomit_or <- dichot_cho.dat %>% 
+  filter(!is.na(vomit_np)) %>%
+  select(refid, study, arm_tx, arm_n, vomit_n) %>% 
+  group_by(refid) %>% 
+  filter(n() > 1)
+
+or_vomit <- with(or_join(dichot_vomit_or, "vomit"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2))
+
+```
+
+```{r vomitTable, include = TRUE}
+## (updated 2021/01/12 18:04) vomitTable ---------------------------------
+dichot_vomit <- dichot_cho.dat %>% 
+  filter(!is.na(vomit_np)) %>%
+  arrange(age, desc(surg_nosurg), design, year, study) %>% 
+  select(refid:time_outcome, vomit_np, vomit_per, vomit_n)
+
+dichot_vomit <- left_join(dichot_vomit, or_vomit, by = "refid") %>% 
+  group_by(study) %>%
+  mutate(
+    study = ifelse(row_number() == 1, study, NA),
+    or_ci = ifelse(row_number() == 1, or_ci, NA),
+    time_outcome = ifelse(row_number() == 1, time_outcome, NA)) %>%
+  ungroup() %>% 
+  mutate(vomit_per = round(vomit_per, 0)) %>% 
+  select(refid, arm, design, age, study, arm_n, arm_tx, starts_with("hr"), time_outcome, vomit_np, vomit_per, or_ci)
+
+# correct Hausel 2005 odds ratios
+# CHO vs fasting, placebo
+temp <- dichot_vomit_or %>% filter(refid == 5091)
+a <- with(or_join(temp[c(1,3),], "vomit"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+b <- with(or_join(temp[c(2,3),], "vomit"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+# correct Jiang 2018 odds ratios
+temp <- dichot_vomit_or %>% filter(refid == 1228)
+# CHO vs fasting, placebo
+c <- with(or_join(temp[c(1,3),], "vomit"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+d <- with(or_join(temp[c(2,3),], "vomit"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+# correct Singh 2015 odds ratios
+temp <- dichot_vomit_or %>% filter(refid == 2172)
+# CHO vs fasting, placebo
+e <- with(or_join(temp[c(1,3),], "vomit"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+f <- with(or_join(temp[c(2,3),], "vomit"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+
+dichot_vomit <- dichot_vomit %>% 
+  mutate(or_ci = ifelse(refid == 5091 & arm == 1, a, or_ci),
+         or_ci = ifelse(refid == 5091 & arm == 2, b, or_ci),
+         or_ci = ifelse(refid == 1228 & arm == 1, c, or_ci),
+         or_ci = ifelse(refid == 1228 & arm == 2, d, or_ci),
+         or_ci = ifelse(refid == 2172 & arm == 1, e, or_ci),
+         or_ci = ifelse(refid == 2172 & arm == 2, f, or_ci),
+         # remove Ravannni 2015 2256
+         or_ci = ifelse(refid == 2256 & arm == 2, "", or_ci),
+         or_ci = ifelse(or_ci == "NA (NA, NA)", "", or_ci))
+
+rm(a, b, c, d, e, f)
+
+cho_row <- dichot_vomit %>%
+  mutate(line = row_number()) %>%
+  filter(grepl("CHO", arm_tx)) %>%
+  pull(line)
+
+dichot_vomit$vomit_bar <- NA
+dichot_vomit$vomit_bar <- ifelse(grepl("CHO", dichot_vomit$arm_tx),
+  color_bar("darksalmon", fun = dichot_format)(dichot_vomit$vomit_per),
+  color_bar("lightgray", fun = dichot_format)(dichot_vomit$vomit_per))
+
+dichot_vomit  <- dichot_vomit %>% 
+  # add_foot(study, "Feguri 2012", "b") %>% #                  'Reported vomit'.
+  # add_foot(study, "Koeppe 2013", "c") %>% #           'Did you feel vomit during the fasting period?
+  # add_foot(study, "Yildiz 2013", "d") %>% #                  'Based on VAS scores.'
+  # add_foot(study, "Panebianco 2020", "e") %>% #       'None vs. a little or alot.'
+  # add_foot(study, "Labuschagne 2017", "f") %>% #             'Yes vs. no.'
+  # add_foot(study, "Taniguchi 2011", "g") %>% #        'Did you have a dry mouth before surgery?'
+  # add_foot(study, "Tudor-Drobjewski 2018", "h") %>% # 'Present or absent.'
+mutate(vomit_bar = str_replace(vomit_bar, ">0", ">"),
+       vomit_bar = str_replace(vomit_bar, ">[0-9]{1,}", ">&nbsp;"),
+       study = ifelse(study == "Taniguchi 2011", cell_spec(study, color = "black"), study),
+       study = ifelse(study == "Song 2016", cell_spec(study, color = "black"), study))
+  
+dichot_vomit %>% 
+  select(!c(refid, arm, design, age, vomit_per)) %>% 
+  select(study:vomit_np, vomit_bar, or_ci) %>% 
+  kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
+    col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "vomit" = 2, "OR (95% CI)"), line = TRUE) %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
+  kable_styling(bootstrap_options = opt_boot) %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "3em") %>% 
+  column_spec(3, width = "4em") %>% 
+  column_spec(c(4,6), width = "1em") %>% 
+  column_spec(5, width = "3em") %>% 
+  column_spec(7, width = "3em") %>% 
+  column_spec(8, width = "2em") %>% 
+  column_spec(9, width = "5em") %>% 
+  column_spec(10, width = "5em") %>% 
+  row_spec(cho_row, color = "brown") %>% 
+  pack_top(., "Adult, Surgical", 1, 43) %>% 
+  pack_sub(., "RCT", 1, 38) %>%
+  pack_sub(., "Prospective Cohort", 39, 39) %>%
+  pack_sub(., "Retrospective Cohort", 40, 41) %>%
+  pack_sub(., "Case-Control", 42, 43) %>%
+  # pack_sub(., "Nonrandomized Studies of Interventions", 9, 10) %>%
+  pack_top(., "Pedatric, Surgical", 44, 53) %>% 
+  pack_sub(., "RCT", 44, 52) %>%
+  pack_sub(., "Prospective Cohort", 53, 53) %>%
+  footnote(general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.",
+           alphabet = c("When outcome assessed relative to surgery where 0 is prior to induction."),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br>
+
+### &nbsp;&nbsp; Pooled (adult RCTs)
+
+<font size = 4> Figure `r figure_n`. Pooled incidence of vomiting --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
+```{r vomitMetaDichot, include = TRUE,  fig.width = 10, fig.height = 6.5, fig.align = "center"}
+## (updated 2021/01/13 09:48)  --------------------------------------------
+# data
+# cho vs fasting
+vomit_meta.dat <- or_join(dichot_vomit_or, "vomit") %>% 
+  filter(c_tx == "Fasting") %>% 
+  filter(!refid %in% c(5091, 2172))
+
+# Hausel
+temp <- dichot_vomit_or %>% filter(refid == 5091)
+a <- or_join(temp[c(1,3),], "vomit")
+temp <- dichot_vomit_or %>% filter(refid == 2172)
+b <- or_join(temp[c(1,3),], "vomit")
+
+vomit_meta.dat <- bind_rows(vomit_meta.dat, a, b)
+rm(a, b)
+
+# add age, design, year
+vomit_meta.dat <- left_join(vomit_meta.dat, study_char.dat %>% select(refid, year, design, age), by = "refid") %>% 
+  filter(c_tx == "Fasting", age == "Adult", design == "rct") %>% 
+  arrange(year)
+
+vomit_meta <- metabin(event_e, n_e, event_c, n_c,
+  data = vomit_meta.dat,
+  studlab = study,
+  byvar = tx,
+  sm = "OR",
+  method = "Inverse",
+  digits = 2)
+
+forest(vomit_meta,
+  comb.fixed = FALSE,
+  lab.e = "CHO     ",
+  lab.c = "Fasting    ",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  # xlim = c(.002, 2),
+  # at = c(0.01, 0.1, .4,  1, 2, 2),
+  print.subgroup.labels = TRUE,
+  print.byvar = FALSE,
+  test.subgroup = FALSE,
+  subgroup = TRUE,
+  xlab = "Favors CHO           Favors Fasting")
+  
+figure_n <- fig_inc()
+
+```
+
+<br>
+<font size = 4> Figure `r figure_n`. Pooled incidence of vomiting --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
+
+```{r vomitMetaDichotPlacWater, include = TRUE,  fig.width = 10, fig.height = 4, fig.align = "center"}
+## (updated 2021/01/13 09:48)  --------------------------------------------
+# data
+# cho vs fasting
+vomit_meta.dat <- or_join(dichot_vomit_or, "vomit") %>% 
+  filter(c_tx %in% c("Water", "Placebo")) %>% 
+  filter(!refid %in% c(5091, 2172))
+
+# Hausel
+temp <- dichot_vomit_or %>% filter(refid == 5091)
+a <- or_join(temp[c(2,3),], "vomit")
+# Singh
+temp <- dichot_vomit_or %>% filter(refid == 2172)
+b <- or_join(temp[c(2,3),], "vomit")
+
+vomit_meta.dat <- bind_rows(vomit_meta.dat, a, b)
+rm(a, b)
+
+# add age, design, year
+vomit_meta.dat <- left_join(vomit_meta.dat, study_char.dat %>% select(refid, year, design, age), by = "refid") %>% 
+  arrange(year)
+
+vomit_meta <- metabin(event_e, n_e, event_c, n_c,
+  data = vomit_meta.dat,
+  studlab = study,
+  sm = "OR",
+  method = "Inverse",
+  digits = 2)
+
+forest(vomit_meta,
+  comb.fixed = FALSE,
+  lab.e = "CHO     ",
+  lab.c = "Fasting    ",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  # xlim = c(.002, 2),
+  # at = c(0.01, 0.1, .4,  1, 2, 2),
+  print.subgroup.labels = FALSE,
+  print.byvar = FALSE,
+  test.subgroup = FALSE,
+  subgroup = FALSE,
+  xlab = "Favors CHO           Favors Fasting")
+  
+figure_n <- fig_inc()
+
+```
+
+<br>
 
 <br><br>
 
