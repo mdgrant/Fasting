@@ -1383,13 +1383,16 @@ dichot_complicate %>%
 table_n <- tab_inc()
 ```
 
-<br>
+
+
+```{r complicateMetaDichot, include = FALSE,  fig.width = 10, fig.height = 6.5, fig.align = "center"}
+# <br>
 
 ### &nbsp;&nbsp; Pooled (adult RCTs) 
 
-<font size = 4> Figure `r figure_n`. Pooled incidence of complicateing --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+# <font size = 4> Figure `r figure_n`. Pooled incidence of complicateing --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
-```{r complicateMetaDichot, include = TRUE,  fig.width = 10, fig.height = 6.5, fig.align = "center"}
+
 ## (updated 2021/01/13 09:48)  --------------------------------------------
 # data
 # cho vs fasting
@@ -1441,10 +1444,12 @@ figure_n <- fig_inc()
 
 ```
 
-<br>
-<font size = 4> Figure `r figure_n`. Pooled incidence of complications --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
 
-```{r complicateMetaDichotPlacWater, include = TRUE,  fig.width = 10, fig.height = 4, fig.align = "center"}
+
+```{r complicateMetaDichotPlacWater, include = FALSE,  fig.width = 10, fig.height = 4, fig.align = "center"}
+# <br>
+# <font size = 4> Figure `r figure_n`. Pooled incidence of complications --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
+
 ## (updated 2021/01/13 09:48)  --------------------------------------------
 # data
 # cho vs fasting
@@ -1496,19 +1501,6 @@ figure_n <- fig_inc()
 ```
 
 <br>
-
-<br><br>
-
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-<br>
-
-
-
-
-<br>
-
-
 
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
