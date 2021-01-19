@@ -1265,8 +1265,6 @@ table_n <- tab_inc()
 
 ### Complications
 
-<br>
-
 <font size = 4> Table `r table_n`. Reported complications according to fasting, liquid and volume. </font>
 
 ```{r complicateTableOr, include = TRUE}
@@ -1384,40 +1382,58 @@ table_n <- tab_inc()
 ```
 
 
-
-```{r complicateMetaDichot, include = FALSE,  fig.width = 10, fig.height = 6.5, fig.align = "center"}
-# <br>
-
 ### &nbsp;&nbsp; Pooled (adult RCTs) 
 
-# <font size = 4> Figure `r figure_n`. Pooled incidence of complicateing --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+<br>
 
-
+<font size = 4> Figure `r figure_n`. Pooled incidence of complications --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+```{r complicateMetaDichotDat, include = TRUE,  fig.width = 10, fig.height = 4.5, fig.align = "center"}
 ## (updated 2021/01/13 09:48)  --------------------------------------------
-# data
-# cho vs fasting
-complicate_meta.dat <- or_join(dichot_complicate_or, "complicate") %>% 
-  filter(c_tx == "Fasting") %>% 
-  filter(!refid %in% c(6530, 6529, 3367)) # observational
 
-# Hausel
-temp <- dichot_complicate_or %>% filter(refid == 5091)
-a <- or_join(temp[c(1,3),], "complicate")
-temp <- dichot_complicate_or %>% filter(refid == 2172)
-b <- or_join(temp[c(1,3),], "complicate")
+complicate_meta.dat <- dichot_cho.dat %>% 
+  filter(!is.na(complicate_np)) %>%
+  # Marquini b,c; nrsi Vigano 2012, Adamova 2017; cc Weledji 2017
+  filter(!refid %in% c(6446, 247, 3367, 6529, 6530)) %>% 
+  select(refid, study, arm_tx, arm_n, complicate_n, hr_gt6:hr_2) %>% 
+  mutate(h2 = ifelse(!is.na(hr_2), "≤2 hr", hr_2),
+         h26 = ifelse(!is.na(hr_26) & is.na(hr_2), ">2 to 6 hr", NA)) %>% 
+         # h6 = ifelse(!is.na(hr_gt6) & is.na(hr_2) & is.na(hr_26), ">6 hrs", NA)) %>% 
+  group_by(refid) %>% 
+  filter(n() > 1) %>% 
+  ungroup() %>% 
+  select(!hr_gt6:hr_2)
 
-complicate_meta.dat <- bind_rows(complicate_meta.dat, a, b)
-rm(a, b)
+complicate_meta.dat <- complicate_meta.dat %>%
+  select(!c(h2, h26)) %>% 
+  pivot_wider(
+    names_from = arm_tx,
+    values_from = c("arm_n", "complicate_n")) %>%
+  janitor::clean_names() %>% 
+  rename_at(vars(arm_n_placebo:arm_n_clear), ~ gsub("arm_", "", .)) %>% 
+  rename_at(vars(starts_with("comp")),  ~ gsub("complicate_n", "event", .)) %>% 
+  mutate(
+    n_wplclr = coalesce(n_placebo, n_water, n_clear),
+    e_wplclr = coalesce(event_placebo, event_water, event_clear),
+    n_choall = coalesce(n_cho, n_cho_prot),
+    e_choall = coalesce(event_cho, event_cho_prot),
+    cho_prot = ifelse(!is.na(n_cho_prot), "CHO/Prot", "CHO")) %>% 
+  rename(e_fasting = event_fasting) %>% 
+  select(!c("n_placebo", "n_water", "n_clear", "n_cho", "n_cho_prot", "event_placebo", "event_water", "event_clear", "event_cho", "event_cho_prot"))
 
 # add age, design, year
 complicate_meta.dat <- left_join(complicate_meta.dat, study_char.dat %>% select(refid, year, design, age), by = "refid") %>% 
-  filter(c_tx == "Fasting", age == "Adult", design == "rct") %>% 
   arrange(year)
+```
 
-complicate_meta <- metabin(event_e, n_e, event_c, n_c,
-  data = complicate_meta.dat,
+```{r complicateMetaDichotFast1, include = TRUE,  fig.width = 10, fig.height = 6.5, fig.align = "center"}
+meta.dat <- complicate_meta.dat %>% 
+  filter(!is.na(n_fasting)) %>% 
+  filter(e_fasting + e_choall != 0)
+
+complicate_meta <- metabin(e_choall, n_choall, e_fasting, n_fasting,
+  data = meta.dat,
   studlab = study,
-  byvar = tx,
+  byvar = cho_prot,
   sm = "OR",
   method = "Inverse",
   digits = 2)
@@ -1444,36 +1460,16 @@ figure_n <- fig_inc()
 
 ```
 
+<font size = 4> Figure `r figure_n`. Pooled incidence of complications --- randomized trials comparing carbohydrate drinks with water, placebo, or clear liquids in adult surgical patients. </font>
+```{r complicateMetaDichotFast, include = TRUE,  fig.width = 10, fig.height = 4, fig.align = "center"}
+meta.dat <- complicate_meta.dat %>% 
+  filter(!is.na(n_wplclr)) %>% 
+  filter(e_wplclr + e_choall != 0)
 
-
-```{r complicateMetaDichotPlacWater, include = FALSE,  fig.width = 10, fig.height = 4, fig.align = "center"}
-# <br>
-# <font size = 4> Figure `r figure_n`. Pooled incidence of complications --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
-
-## (updated 2021/01/13 09:48)  --------------------------------------------
-# data
-# cho vs fasting
-complicate_meta.dat <- or_join(dichot_complicate_or, "complicate") %>% 
-  filter(c_tx %in% c("Water", "Placebo")) %>% 
-  filter(!refid %in% c(5091, 2172))
-
-# Hausel
-temp <- dichot_complicate_or %>% filter(refid == 5091)
-a <- or_join(temp[c(2,3),], "complicate")
-# Singh
-temp <- dichot_complicate_or %>% filter(refid == 2172)
-b <- or_join(temp[c(2,3),], "complicate")
-
-complicate_meta.dat <- bind_rows(complicate_meta.dat, a, b)
-rm(a, b)
-
-# add age, design, year
-complicate_meta.dat <- left_join(complicate_meta.dat, study_char.dat %>% select(refid, year, design, age), by = "refid") %>% 
-  arrange(year)
-
-complicate_meta <- metabin(event_e, n_e, event_c, n_c,
-  data = complicate_meta.dat,
+complicate_meta <- metabin(e_choall, n_choall, e_wplclr, n_wplclr,
+  data = meta.dat,
   studlab = study,
+  # byvar = cho_prot, # no cho/prot studies
   sm = "OR",
   method = "Inverse",
   digits = 2)
@@ -1493,13 +1489,12 @@ forest(complicate_meta,
   print.subgroup.labels = FALSE,
   print.byvar = FALSE,
   test.subgroup = FALSE,
-  subgroup = FALSE,
+  subgroup = TRUE,
   xlab = "Favors CHO           Favors Fasting")
   
 figure_n <- fig_inc()
 
 ```
-
 <br>
 
 
