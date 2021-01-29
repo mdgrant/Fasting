@@ -1,0 +1,70 @@
+---
+title: "Strength of Evidence"
+date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
+output:
+  workflowr::wflow_html:
+    font: Source Sans Pro
+    theme: cosmo
+    anchor_sections: TRUE 
+    toc: yes
+    toc_depth: 5
+    toc_float: 
+      collapsed: FALSE
+      smooth_scroll: yes
+    linkcolor: black
+  latex_engine: xelatex
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+workflowr:
+  suppress_report: TRUE
+editor_options:
+  chunk_output_type: console     
+---
+
+#### 
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+</style>
+```
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, options(knitr.kable.NA = '', dev = 'svg'), knitr.graphics.error = FALSE,
+                      warning = FALSE, message = FALSE)
+library(kableExtra)
+library(janitor)
+library(countrycode)
+library(Cairo)
+library(tidyverse)
+library(naniar)
+library(formattable)
+temp <- readxl::read_xlsx("data/ProteinSOE_121620.xlsx", range = "B5:Q12") %>% 
+  clean_names()
+
+#temp %>% 
+#  select(grade_10) %>% 
+#  mutate(grade_10 = "\U2B55 \U2A01 \UFFEE \U1F534")
+#        kbl()
+```
+

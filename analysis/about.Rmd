@@ -3,8 +3,35 @@ title: "About"
 output:
   workflowr::wflow_html:
     toc: false
-editor_options:
-  chunk_output_type: console
+  editor_options:
+    chunk_output_type: console
 ---
 
-Draft summary evidence tables. 
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+</style>
+```
+
+Included are draft summary evidence tables, pooled results,  and strength of evidence ratings.
+
+<br>

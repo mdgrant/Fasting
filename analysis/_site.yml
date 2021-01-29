@@ -5,13 +5,15 @@ navbar:
   left:
   - text: Home
     href: index.html
+  - text: Strength of Evidence
+    href: soe.html
   - text: Carbohydrate Drinks
     href: cho_010420.html
   - text: Protein/Carbohydrate Drinks
-    href: protein_combined_120820.html
+    href: protein_012621.html
   - text: Chewing Gum
-    href: ChewingGum_121620.html
-  - text: About
+    href: chewing_gum_121620.html
+  - text: About and How to Use
     href: about.html
 output:
   workflowr::wflow_html:

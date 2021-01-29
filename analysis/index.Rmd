@@ -3,15 +3,50 @@ title: "Home"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
+    font: Source Sans Pro
+    theme: cosmo
     toc: false
 ---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+</style>
+```
 
 All summary evidence tables are in draft form and not for citation (contact <a href="mailto:mgrantmd@gmail.com">Mark Grant</a> for further detail).
 
 <br>
 
-[Carbohydrate drinks results](cho_010420.html)
+<font size = 6> Strength of Evidence Ratings </font>
 
-[Protein/carbohydrate results](protein_combined_120820.html)
+[<font size = 4> Summary of Findings Tables </font>](soe.html)
 
-[Chewing gum results](ChewingGum_121620.html)
+<br><br>
+
+<font size = 6> Evidence Tables and Pooled Results </font>
+
+[<font size = 4> Carbohydrate drinks (partial) </font>](cho_010420.html)
+
+[<font size = 4> Protein/carbohydrate drinks  </font>](protein_012621.html)
+
+[<font size = 4> Chewing gum  </font>](chewing_gum_121620.html)
