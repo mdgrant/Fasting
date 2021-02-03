@@ -32,6 +32,6 @@ display: none !important;
 </style>
 ```
 
-Included are draft summary evidence tables, pooled results,  and strength of evidence ratings.
+Included are draft summary evidence tables, pooled results, and strength of evidence ratings.
 
 <br>

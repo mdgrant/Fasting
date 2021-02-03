@@ -13,7 +13,7 @@ navbar:
     href: protein_012621.html
   - text: Chewing Gum
     href: chewing_gum_121620.html
-  - text: About and How to Use
+  - text: About
     href: about.html
 output:
   workflowr::wflow_html:
