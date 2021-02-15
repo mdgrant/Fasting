@@ -744,7 +744,9 @@ likert_cho_hung_kbl.dat %>%
 <br>
 
 <font size = 4> Figure `r figure_n`. Pooled incidence from randomized trials reporting occurrence of hunger comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
 <br>
+
 ```{r hungerMetaDichotDat, include = TRUE, fig.width = 10, fig.height = 3, fig.align = "center"}
 ## (updated 2021/01/13 09:48)  --------------------------------------------
 hunger_meta.dat <- dichot_hunger %>% 
@@ -788,7 +790,9 @@ figure_n <- fig_inc()
 <br>
 
 <font size = 4> Figure `r figure_n`. Pooled hunger ratings (VAS or NRS) from randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
 <br>
+
 ```{r hungerAdultLikertMeta, echo = FALSE, fig.width = 11, fig.height = 5.5, fig.align = "center"}
 hung_lik_meta.dat <- likert_cho_hung_kbl.dat %>% 
   filter(age == "Adult", design == "rct") %>% 
@@ -862,6 +866,7 @@ forest(temp,
 
 # metabias(temp, method = "linreg")
 # radial(temp, level = 0.95)
+figure_n <- fig_inc()
 
 ```
 Results from 4 studies were not included in the meta-analysis. dNaguib 2001 and Mellis 2006 did not report sufficient data to estimate effects. Estimated standard errors from ranges reported in Yagmudrur 2011 were exceedingly small yielding an outlier effect. Reported IQR from Zhang 2019 carbohydrate arm did not allow variance estimation. 
@@ -869,10 +874,13 @@ Results from 4 studies were not included in the meta-analysis. dNaguib 2001 and 
 <br>
 
 <font size = 4> Figure `r figure_n`. Funnel plot with 90%, 95%, and 99% contours --- consistent with small study effects (noting limitations with respect to SMD[@Zwetsloot2017]). </font>
+
 ```{r hungerAdultLikertFunnel, echo = FALSE, fig.width = 6, fig.height = 4, fig.align = "center"}
 par(bty = "n", xaxt = "l", yaxt = "l")
 funnel(temp, contour = c(0.9, 0.95, 0.99), xlim = c(-3, 1))
+figure_n <- fig_inc()
 ```
+
 <br>
 
 ### Thirst
@@ -994,11 +1002,11 @@ table_n <- tab_inc()
 
 <br>
 
-### &nbsp;&nbsp; Pooled (adult RCTs) <a id="fig1"></a>
+### &ensp; Pooled (adult RCTs) <a id="fig1"></a>
 
 <br>
 
-<font size = 4> Figure `r figure_n`. Pooled incidence of thirst --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+<font size = 4> Figure `r figure_n`. Pooled rates of thirst --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
 ```{r thirstMetaDichot, include = TRUE,  fig.width = 10, fig.height = 3.5, fig.align = "center"}
 ## (updated 2021/01/13 09:48)  --------------------------------------------
@@ -1035,7 +1043,6 @@ forest(thirst_meta,
   xlab = "Favors CHO           Favors Fasting")
   
 figure_n <- fig_inc()
-
 ```
 
 <br>
@@ -1482,6 +1489,7 @@ likert_cho_satis_kbl.dat %>%
 
 table_n <- tab_inc()
 ```
+
 <br>
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
@@ -1516,7 +1524,7 @@ dichot_cho.dat %>%
   janitor::adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>% 
   kbl(booktabs = T, align =  c("lccccccr"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Fasting", "Water", "Placebo", "Clear", "CHO", "CHO/Prot", "Total")) %>% 
-  add_header_above(c(" " = 1, "Liquid" = 6, " " = 1), line = TRUE) %>%
+  add_header_above(c(" " = 1, "Liquid and Participants Receiving" = 6, " " = 1), line = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% 
   column_spec(1, width = "13em") %>%  
@@ -1566,7 +1574,7 @@ dichot_cho.dat %>%
   janitor::adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>% 
   kbl(booktabs = T, align =  c("lccccccr"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Fasting", "Water", "Placebo", "Clear", "CHO", "CHO/Prot", "Total")) %>% 
-  add_header_above(c(" " = 1, "Liquid" = 6, " " = 1), line = TRUE) %>%
+  add_header_above(c(" " = 1, "Liquid and Participants Receiving" = 6, " " = 1), line = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% 
   column_spec(1, width = "13em") %>%  
@@ -2086,6 +2094,7 @@ complicate_data %>%
            # alphabet = c(""),
            general_title = "",  
            footnote_as_chunk = FALSE)
+table_n <- tab_inc()
 ```
 
 <br>

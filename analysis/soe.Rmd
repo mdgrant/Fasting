@@ -118,9 +118,7 @@ cho_soe_summary <- cho_soe.dat %>%
     grade = case_when(
       grade == "very low" ~ "⨁",
       grade == "low" ~ "⨁⨁",
-      grade == "moderate" ~ "⨁⨁⨁"
-    )
-  ) %>%
+      grade == "moderate" ~ "⨁⨁⨁")) %>%
   # table links
   mutate(
     result_table = ifelse(outcome == "Hunger (occurrence)", "[Table 3](cho_010420.html#Hunger), [Figure 1](cho_010420.html#fig1)", result_table),
@@ -129,11 +127,7 @@ cho_soe_summary <- cho_soe.dat %>%
     result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
     result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
     result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
-    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
-    
-    
-    
-  )
+    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table))
 
 cho_soe_summary %>% 
   filter(comparison == "CHO_fasting") %>% 
