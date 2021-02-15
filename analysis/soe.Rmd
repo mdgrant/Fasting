@@ -7,7 +7,7 @@ output:
     theme: cosmo
     anchor_sections: TRUE 
     toc: yes
-    toc_depth: 5
+    toc_depth: 3
     toc_float: 
       collapsed: FALSE
       smooth_scroll: yes
@@ -66,18 +66,18 @@ library(tidyverse)
 library(naniar)
 library(formattable)
 
-soe.dat <- readxl::read_xlsx("data/ProteinSOE_013121.xlsx", range = "A5:Q21", sheet = "data") %>% 
-  clean_names()
-
-soe_summary <- soe.dat %>% 
-  select(compare, outcome, grade, uspstf_ahrq, acc_aha, importance) %>% 
-  mutate(grade = case_when(
-    grade == "Low" ~ '⨁⨁<span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯</span>',
-    grade == "Very Low" ~ '<span style="font-size: 12px; margin: 0px 0px 0px -11px; position: absolute;" >⨁</span><span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯◯</span>'))
-    #grade == "Very Low" ~ '⨁<span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯◯</span>'))
-
-domain_summary <- soe.dat %>% 
-  select(compare, outcome, design_n_pts, rob, consistency, directness, precision, other)
+# soe.dat <- readxl::read_xlsx("data/ProteinSOE_013121.xlsx", range = "A5:Q21", sheet = "data") %>% 
+#   clean_names()
+# 
+# soe_summary <- soe.dat %>% 
+#   select(compare, outcome, grade, uspstf_ahrq, acc_aha, importance) %>% 
+#   mutate(grade = case_when(
+#     grade == "Low" ~ '⨁⨁<span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯</span>',
+#     grade == "Very Low" ~ '<span style="font-size: 12px; margin: 0px 0px 0px -11px; position: absolute;" >⨁</span><span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯◯</span>'))
+#     #grade == "Very Low" ~ '⨁<span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯◯</span>'))
+# 
+# domain_summary <- soe.dat %>% 
+#   select(compare, outcome, design_n_pts, rob, consistency, directness, precision, other)
 
 opt_font <-  c("Source Sans Pro")
 opt_boot <- c("striped", "hover", "condensed")
@@ -85,13 +85,134 @@ opt_boot <- c("striped", "hover", "condensed")
 tab_inc <- function() {
   table_n <- table_n + 1
   table_n}
+
 fig_inc <- function() {
   figure_n <- figure_n + 1
   figure_n}
+
 table_n <- 1
 figure_n <- 1
 
 ```
+
+# Carbohydrate Drinks
+
+<br>
+
+## Ratings
+
+<br>
+
+<font size = 4> Table `r table_n`. Strength of evidence in studies comparing carbohydrate drinks with fasting in adults.  </font>
+
+```{r chofasting, include = TRUE}
+# soe_summary$grade_graphic <- cell_spec(soe_summary$grade_graphic, font_size = 4)
+
+cho_soe.dat <- readxl::read_xlsx("data/SOE_CHO_021121.xlsx", range = "A1:Z15", sheet = "data_transpose") %>% 
+  clean_names()
+
+cho_soe_summary <- cho_soe.dat %>%
+  select(comparison, outcome, grade, uspstf, acc, out_import, result_summary, result_table) %>%
+  mutate(
+    # outcome = tools::toTitleCase(outcome),
+    grade = case_when(
+      grade == "very low" ~ "⨁",
+      grade == "low" ~ "⨁⨁",
+      grade == "moderate" ~ "⨁⨁⨁"
+    )
+  ) %>%
+  # table links
+  mutate(
+    result_table = ifelse(outcome == "Hunger (occurrence)", "[Table 3](cho_010420.html#Hunger), [Figure 1](cho_010420.html#fig1)", result_table),
+    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
+    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
+    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
+    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
+    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
+    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
+    
+    
+    
+  )
+
+cho_soe_summary %>% 
+  filter(comparison == "CHO_fasting") %>% 
+  select(!comparison) %>% 
+    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
+    col.names = c("Outcome", "\\ \\ \\ GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "Summary", "Detail")) %>% 
+  add_header_above(c(" " = 1, "Strength of Evidence" = 3, "Outcome" = 1, " " = 2), line = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "13em") %>%  
+  column_spec(c(2:4), width = "5em") %>% 
+  column_spec(5, width = "4em") %>% 
+  column_spec(6, width = "20em") %>% 
+  column_spec(7, width = "15em") %>% 
+  footnote(general = "RGV: residual gastric volume; C-LD: Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.",
+           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+
+```
+
+<br>
+
+## GRADE Domains
+
+<br>
+
+<font size = 4> Table `r table_n`. Domains for strength of evidence ratings in studies comparing carbohydrate drinks with fasting in adults. </font>
+
+<br>
+
+
+```{r chofastingDomain, include = TRUE, eval = TRUE}
+domain_summary <- cho_soe.dat %>% 
+  select(comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot")) %>% 
+  mutate(design = toupper(design))
+
+# add footnotes
+foot_list <- domain_summary %>% 
+  select(comparison, outcome, ends_with("_foot"))
+
+domain_summary <- domain_summary %>% 
+  mutate(
+    consist = ifelse(comparison == "CHO_fasting" & outcome == "Hunger (occurrence)", paste0(consist, "^a^"), consist),
+    prec = ifelse(comparison == "CHO_fasting" & outcome == "Hunger (occurrence)", paste0(prec, "^b^"), prec))
+
+footnotes <- c(
+  "Heterogeneity may be considerable (I^2^ = 90%).",
+  "Wide confidence intervals indicate uncertainty concerning results."
+)
+
+domain_summary %>% 
+  filter(comparison == "CHO_fasting", outcome == "Hunger (occurrence)") %>% 
+  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
+  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
+    kbl(booktabs = T, align = c("lccccccc"), escape = FALSE, padding = 10, 
+    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Consistency", "Directness", "Precision", "Other")) %>% 
+  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "4em") %>%  
+  column_spec(2, width = "12em") %>% 
+  column_spec(3, width = "12em") %>% 
+  column_spec(4:8, width = "8em") %>% 
+  footnote(general = "RCT: randomized controlled trials.",
+           alphabet = footnotes,
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br>
 
 # Carbohydrate/Protein Evidence
 
@@ -99,7 +220,7 @@ figure_n <- 1
 
 <font size = 4> Table `r table_n`. Strength of evidence in studies comparing protein/carbohydrate drinks versus fasting in adults.   </font>
 
-```{r protVfasting, include = TRUE}
+```{r protVfasting, include = FALSE, eval = FALSE}
 #soe_summary$grade_graphic <- cell_spec(soe_summary$grade_graphic, font_size = 4)
 
 soe_summary %>% 
@@ -128,8 +249,21 @@ table_n <- tab_inc()
 
 <font size = 4> Table `r table_n`. Domains for strength of evidence ratings in studies comparing protein/carbohydrate drinks versus fasting in adults. </font>
 
-```{r protVfastingDomain, include = TRUE}
+```{r protVfastingDomain, include = FALSE, eval = FALSE}
 #soe_summary$grade_graphic <- cell_spec(soe_summary$grade_graphic, font_size = 4)
+
+soe.dat <- readxl::read_xlsx("data/ProteinSOE_013121.xlsx", range = "A5:Q21", sheet = "data") %>%
+  clean_names()
+
+soe_summary <- soe.dat %>%
+  select(compare, outcome, grade, uspstf_ahrq, acc_aha, importance) %>%
+  mutate(grade = case_when(
+    grade == "Low" ~ '⨁⨁<span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯</span>',
+    grade == "Very Low" ~ '<span style="font-size: 12px; margin: 0px 0px 0px -11px; position: absolute;" >⨁</span><span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯◯</span>'))
+    #grade == "Very Low" ~ '⨁<span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯◯</span>'))
+
+domain_summary <- soe.dat %>%
+  select(compare, outcome, design_n_pts, rob, consistency, directness, precision, other)
 
 domain_summary %>% 
   filter(compare == "prot_fasting", outcome == "RGV") %>% 
@@ -158,8 +292,11 @@ table_n <- tab_inc()
 ```
 
 
-see [RGV result](protein_combined_012621.html#Residual_Gastric_Volume)
+
+see [Table 3](cho_010420.html#Hunger)
 
 see [RGV result](https://mdgrant.github.io/Fasting/protein_combined_120820.html#Residual_Gastric_Volume,_pH)
 
 
+
+ 
