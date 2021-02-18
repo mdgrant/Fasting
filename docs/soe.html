@@ -409,7 +409,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Strength of Evidence</h1>
-<h4 class="date">18 February, 2021 (13:53)</h4>
+<h4 class="date">18 February, 2021 (13:57)</h4>
 
 </div>
 
@@ -1305,15 +1305,72 @@ none
 <p><br></p>
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 <p><br></p>
-</div>
-</div>
-<div id="carbohydrateprotein-evidence" class="section level1">
-<h1>Carbohydrate/Protein Evidence</h1>
-<p><br></p>
-<p><font size = 4> Table 3. Strength of evidence in studies comparing protein/carbohydrate drinks versus fasting in adults. </font></p>
-<p><font size = 4> Table 3. Domains for strength of evidence ratings in studies comparing protein/carbohydrate drinks versus fasting in adults. </font></p>
-<p>see <a href="cho_010420.html#Hunger">Table 3</a></p>
-<p>see <a href="https://mdgrant.github.io/Fasting/protein_combined_120820.html#Residual_Gastric_Volume,_pH">RGV result</a></p>
+<!-- # Carbohydrate/Protein Evidence -->
+<!-- <br> -->
+<!-- <font size = 4> Table 3. Strength of evidence in studies comparing protein/carbohydrate drinks versus fasting in adults.   </font> -->
+<!-- ```{r protVfasting, include = FALSE, eval = FALSE} -->
+<!-- #soe_summary$grade_graphic <- cell_spec(soe_summary$grade_graphic, font_size = 4) -->
+<!-- soe_summary %>%  -->
+<!--   filter(compare == "prot_fasting", outcome == "RGV") %>%  -->
+<!--   group_by(outcome) %>%  -->
+<!--   slice(1) %>%  -->
+<!--   ungroup() %>%  -->
+<!--   select(!compare) %>%  -->
+<!--     kbl(booktabs = T, align = c("lcccc"), escape = FALSE, -->
+<!--     col.names = c("Outcome", "\\ \\ \\ GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance")) %>%  -->
+<!--   add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1), line = TRUE) %>% -->
+<!--   kable_styling(bootstrap_options = opt_boot, position = "left") %>%  -->
+<!--   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% -->
+<!--   column_spec(1, width = "4em") %>%   -->
+<!--   column_spec(2, width = "4em") %>%  -->
+<!--   column_spec(3, width = "4em") %>%  -->
+<!--   column_spec(4, width = "4em") %>%  -->
+<!--   column_spec(5, width = "3em") %>%  -->
+<!--   footnote(general = "RGV: residual gastric volume; CHO: carbohydrate; C-LD: Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.", -->
+<!--            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"), -->
+<!--            general_title = "",   -->
+<!--            footnote_as_chunk = FALSE) -->
+<!-- table_n <- tab_inc() -->
+<!-- ``` -->
+<!-- <font size = 4> Table 3. Domains for strength of evidence ratings in studies comparing protein/carbohydrate drinks versus fasting in adults. </font> -->
+<!-- ```{r protVfastingDomain, include = FALSE, eval = FALSE} -->
+<!-- #soe_summary$grade_graphic <- cell_spec(soe_summary$grade_graphic, font_size = 4) -->
+<!-- soe.dat <- readxl::read_xlsx("data/ProteinSOE_013121.xlsx", range = "A5:Q21", sheet = "data") %>% -->
+<!--   clean_names() -->
+<!-- soe_summary <- soe.dat %>% -->
+<!--   select(compare, outcome, grade, uspstf_ahrq, acc_aha, importance) %>% -->
+<!--   mutate(grade = case_when( -->
+<!--     grade == "Low" ~ '⨁⨁<span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯</span>', -->
+<!--     grade == "Very Low" ~ '<span style="font-size: 12px; margin: 0px 0px 0px -11px; position: absolute;" >⨁</span><span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯◯</span>')) -->
+<!--     #grade == "Very Low" ~ '⨁<span style="font-size: 11px; margin: 2px 0px 0px 0px; position: absolute;" >◯◯◯</span>')) -->
+<!-- domain_summary <- soe.dat %>% -->
+<!--   select(compare, outcome, design_n_pts, rob, consistency, directness, precision, other) -->
+<!-- domain_summary %>%  -->
+<!--   filter(compare == "prot_fasting", outcome == "RGV") %>%  -->
+<!--   group_by(outcome) %>%  -->
+<!--   slice(1) %>%  -->
+<!--   ungroup() %>%  -->
+<!--   select(!compare) %>%  -->
+<!--     kbl(booktabs = T, align = c("lcccccc"), escape = FALSE, -->
+<!--     col.names = c("Outcome", "Design: N (pts)", "Bias", "Consistency", "Directness", "Precision", "Other")) %>%  -->
+<!--   add_header_above(c(" " = 1, "Studies", "Domains" = 5), line = TRUE) %>% -->
+<!--   kable_styling(bootstrap_options = opt_boot, position = "left") %>%  -->
+<!--   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% -->
+<!--   column_spec(1, width = "4em") %>%   -->
+<!--   column_spec(2, width = "12em") %>%  -->
+<!--   column_spec(3:7, width = "8em") %>%  -->
+<!--   # column_spec(4, width = "4em") %>%  -->
+<!--   # column_spec(5, width = "3em") %>%  -->
+<!--   footnote(general = "RGV: residual gastric volume; RCT: randomized controlled trials.", -->
+<!--            alphabet = c("Strength of causal relationship with aspiration unclear.", -->
+<!--                         "Small sample sizes."), -->
+<!--                         # "High heterogeneity"), -->
+<!--            general_title = "",   -->
+<!--            footnote_as_chunk = FALSE) -->
+<!-- table_n <- tab_inc() -->
+<!-- ``` -->
+<!-- see [Table 3](cho_010420.html#Hunger) -->
+<!-- see [RGV result](https://mdgrant.github.io/Fasting/protein_combined_120820.html#Residual_Gastric_Volume,_pH) -->
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1357,6 +1414,7 @@ loaded via a namespace (and not attached):
 [49] ellipsis_0.3.1    generics_0.1.0    vctrs_0.3.6       tools_4.0.3      
 [53] glue_1.4.2        hms_1.0.0         yaml_2.2.1        colorspace_2.0-0 
 [57] rvest_0.3.6       knitr_1.31        haven_2.3.1      </code></pre>
+</div>
 </div>
 </div>
 
