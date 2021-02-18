@@ -259,6 +259,7 @@ mutate(
   kbl(
     booktabs = T, align = c("lllr"),
     col.names = c("\\ \\ \\ \\ \\ \\ \\ \\ Age", "Patients", "Design", "N")) %>%
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   kable_styling(bootstrap_options = opt_boot)
 
@@ -290,7 +291,8 @@ study_char_cho.dat %>%
       design == "Total" ~ "Total")) %>% 
   kbl(
     booktabs = T, align = c("lcccc"), col.names = c("Design", "Surgical", "Non-surgical", "Surgical", "Non-surgical")) %>%
-  add_header_above(c(" " = 1, "Adult" = 2, "Pediatric" = 2), line = TRUE) %>% 
+  add_header_above(c(" " = 1, "Adult" = 2, "Pediatric" = 2), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "12em") %>%  
@@ -346,6 +348,7 @@ study_char_cho.dat %>%
   kbl(
     booktabs = T, align = c("llccll"), # format = "latex",
     col.names = c("\\ \\ \\ \\ \\ \\ \\ \\ ID", "Study", "Analyzed (N)", "Centers", "Country^a^", "Surgery")) %>%
+  row_spec(0, bold = TRUE) %>% 
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "6em") %>%  
@@ -562,7 +565,8 @@ dichot_hunger %>%
   select(study:hunger_np, hunger_bar, or_ci) %>%
   kbl(booktabs = T, align = c("lclccccrlc"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6→2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>%
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Hunger" = 2, "OR (95% CI)"), line = TRUE) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Hunger" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>% 
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "13em") %>%
@@ -577,7 +581,7 @@ dichot_hunger %>%
   pack_top(., "Adult, Surgical", 1, 12) %>%
   pack_sub(., "RCT", 1, 11) %>%
   pack_sub(., "Prospective Cohort", 12, 12) %>%
-  pack_top(., "Pedatric, Surgical", 13, 14) %>%
+  pack_top(., "Pediatric, Surgical", 13, 14) %>%
   pack_sub(., "RCT", 13, 14) %>%
   footnote(
     general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.",
@@ -591,6 +595,53 @@ dichot_hunger %>%
     footnote_as_chunk = FALSE)
 
 table_n <- tab_inc()
+```
+<br>
+
+### &ensp; Pooled (adult RCTs, rates) <a id="fig1"></a>
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Pooled results from randomized trials reporting rates of hunger comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
+```{r hungerMetaDichotDat, include = TRUE, fig.width = 10, fig.height = 3, fig.align = "center"}
+## (updated 2021/01/13 09:48)  --------------------------------------------
+hunger_meta.dat <- dichot_hunger %>% 
+  filter(age == "Adult", design == "rct") %>% 
+  filter(str_detect(arm_tx, "CHO|Fast")) %>% 
+  mutate(arm_tx = as.character(arm_tx),
+    arm_tx = ifelse(arm_tx == "CHO/Prot", "CHO", arm_tx),
+    n = as.numeric(str_extract(hunger_np, "^\\d{1,2}"))) %>% 
+  select(refid, study, arm_tx, n, arm_n) %>% 
+  group_by(refid) %>% 
+  fill(study) %>% 
+  ungroup() %>% 
+  pivot_wider(id_cols = c("refid", "study"), names_from = "arm_tx", values_from = c("n", "arm_n"), values_fn = sum) %>% 
+  rename(fast_e = n_Fasting, fast_n = arm_n_Fasting, cho_e = n_CHO, cho_n = arm_n_CHO) %>% 
+  select(refid, study, fast_e, fast_n, cho_e, cho_n) %>% 
+  mutate(study = str_replace(study, "\\^[a-z]\\^", ""))
+
+hunger_meta <- metabin(cho_e, cho_n, fast_e, fast_n,
+  data = hunger_meta.dat,
+  studlab = study,
+  sm = "OR",
+  method = "Inverse",
+  digits = 2)
+
+forest(hunger_meta,
+  comb.fixed = TRUE,
+  lab.e = "CHO     ",
+  lab.c = "Fasting    ",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  pooled.events = TRUE,
+  xlab = "Favors CHO           Favors Fasting")
+  
+figure_n <- fig_inc()
 ```
 
 <a id="hunger_ratings"></a>
@@ -698,7 +749,8 @@ likert_cho_hung_kbl.dat %>%
       col.names = c(
         "\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N",  "> 6", "6→2", "≤ 2", "Time (hr)^a^", "Scale^b^", "M (SD)",
         "Med (IQR)", "Range")) %>%
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Hunger Rating" = 5), line = TRUE) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Hunger Rating" = 5), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>% 
   # NOTE: footnote a: includes at 2.5 hours
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
@@ -715,6 +767,8 @@ likert_cho_hung_kbl.dat %>%
   pack_top(., "Adult, Surgical", 1, 70) %>%
   pack_sub(., "RCT", 1, 64) %>% 
   pack_sub(., "Nonrandomized Studies of Interventions", 65, 70) %>% 
+    pack_rows("No detected differences", 69, 69, label_row_css = "padding-left:78%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>% 
+  pack_rows("Difference  p < 0.0001", 71, 71, label_row_css = "padding-left:78%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>% 
   pack_top(., "Adult, Non-surgical", 71, 72) %>%
   pack_sub(., "Crossover", 71, 72) %>% 
   pack_top(., "Pediatric, Non-surgical", 73, 77) %>%
@@ -739,61 +793,16 @@ likert_cho_hung_kbl.dat %>%
 
 <br>
 
-### &ensp; Pooled (adult RCTs) <a id="fig1"></a>
+### &ensp; Pooled (adult RCTs, ratings) <a id="fig2"></a>
 
-<br>
-
-<font size = 4> Figure `r figure_n`. Pooled incidence from randomized trials reporting occurrence of hunger comparing carbohydrate drinks with fasting in adult surgical patients. </font>
-
-<br>
-
-```{r hungerMetaDichotDat, include = TRUE, fig.width = 10, fig.height = 3, fig.align = "center"}
-## (updated 2021/01/13 09:48)  --------------------------------------------
-hunger_meta.dat <- dichot_hunger %>% 
-  filter(age == "Adult", design == "rct") %>% 
-  filter(str_detect(arm_tx, "CHO|Fast")) %>% 
-  mutate(arm_tx = as.character(arm_tx),
-    arm_tx = ifelse(arm_tx == "CHO/Prot", "CHO", arm_tx),
-    n = as.numeric(str_extract(hunger_np, "^\\d{1,2}"))) %>% 
-  select(refid, study, arm_tx, n, arm_n) %>% 
-  group_by(refid) %>% 
-  fill(study) %>% 
-  ungroup() %>% 
-  pivot_wider(id_cols = c("refid", "study"), names_from = "arm_tx", values_from = c("n", "arm_n"), values_fn = sum) %>% 
-  rename(fast_e = n_Fasting, fast_n = arm_n_Fasting, cho_e = n_CHO, cho_n = arm_n_CHO) %>% 
-  select(refid, study, fast_e, fast_n, cho_e, cho_n) %>% 
-  mutate(study = str_replace(study, "\\^[a-z]\\^", ""))
-
-hunger_meta <- metabin(cho_e, cho_n, fast_e, fast_n,
-  data = hunger_meta.dat,
-  studlab = study,
-  sm = "OR",
-  method = "Inverse",
-  digits = 2)
-
-forest(hunger_meta,
-  comb.fixed = TRUE,
-  lab.e = "CHO     ",
-  lab.c = "Fasting    ",
-  digits = 2,
-  digits.tau2 = 1,
-  overall.hetstat = TRUE,
-  print.I2.ci = TRUE,
-  prediction = FALSE,
-  fs.xlab = 11,
-  pooled.events = TRUE,
-  xlab = "Favors CHO           Favors Fasting")
-  
-figure_n <- fig_inc()
-```
-
-<br>
+<br><br>
 
 <font size = 4> Figure `r figure_n`. Pooled hunger ratings (VAS or NRS) from randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
 <br>
 
 ```{r hungerAdultLikertMeta, echo = FALSE, fig.width = 11, fig.height = 5.5, fig.align = "center"}
+## (updated 2021/02/16 11:15) hungerAdultLikertMeta ----------------------------
 hung_lik_meta.dat <- likert_cho_hung_kbl.dat %>% 
   filter(age == "Adult", design == "rct") %>% 
   # remove Naguib Melis lacking data to pool
@@ -887,7 +896,7 @@ figure_n <- fig_inc()
 
 <br>
 
-<font size = 4> Table `r table_n`. Occurrence of thirst according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Rates of thirst according to fasting, liquid and volume. </font>
 
 ```{r thirstTableOr, include = TRUE}
 ## (updated 2021/01/13 08:52) thirstTableOr -------------------------------
@@ -967,7 +976,8 @@ dichot_thirst %>%
   select(study:thirst_np, thirst_bar, or_ci) %>% 
   kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Thirst" = 2, "OR (95% CI)"), line = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Thirst" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "13em") %>%
@@ -1002,7 +1012,7 @@ table_n <- tab_inc()
 
 <br>
 
-### &ensp; Pooled (adult RCTs) <a id="fig1"></a>
+### &ensp; Pooled (adult RCTs) <a id="fig4"></a>
 
 <br>
 
@@ -1016,11 +1026,16 @@ thirst_meta.dat <- or_join(dichot_thirst_or, "thirst")
 thirst_meta.dat <- left_join(thirst_meta.dat, study_char.dat %>% select(refid, year, design, age), by = "refid") %>% 
   filter(c_tx == "Fasting", age == "Adult", design == "rct")
 
+# TODO: for thirst used PM and HAKN
+
 thirst_meta <- metabin(event_e, n_e, event_c, n_c,
   data = thirst_meta.dat,
   studlab = study,
   sm = "OR",
-  method = "Inverse",
+  method = "MH",
+  method.tau= "PM",
+  hakn = TRUE,
+  prediction = TRUE,
   digits = 2)
 
 forest(thirst_meta,
@@ -1031,7 +1046,7 @@ forest(thirst_meta,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  prediction = FALSE,
+  prediction = TRUE,
   fs.xlab = 11,
   xlim = c(.002, 2),
   at = c(0.01, 0.1, .4,  1, 2, 2),
@@ -1045,13 +1060,15 @@ forest(thirst_meta,
 figure_n <- fig_inc()
 ```
 
+Paule-Mandel estimator for between-study variance and Hartung-Knapp method for random effects. 
+
 <br>
 
 ### Nausea 
 
 <br>
 
-<font size = 4> Table `r table_n`. Occurrence of nausea according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Incidence of nausea according to fasting, liquid and volume. </font>
 
 ```{r nauseaTableOr, include = TRUE}
 ## (updated 2021/01/13 08:52) nauseaTableOr -------------------------------
@@ -1070,7 +1087,7 @@ or_nausea <- with(or_join(dichot_nausea_or, "nausea"), odds_ratio(event_e, n_e, 
 ```
 
 ```{r nauseaTable, include = TRUE}
-## (updated 2021/01/12 18:04) hungerTable ---------------------------------
+## (updated 2021/01/12 18:04) nauseaTable ---------------------------------
 dichot_nausea <- dichot_cho.dat %>% 
   filter(!is.na(nausea_np)) %>%
   arrange(age, desc(surg_nosurg), design, year, study) %>% 
@@ -1137,13 +1154,14 @@ mutate(nausea_bar = str_replace(nausea_bar, ">0", ">"),
   study = ifelse(study == "Song 2016", cell_spec(study, color = "black"), study),
   or_ci = ifelse(refid == 2234 & arm_n == 46, cell_spec(or_ci, color = "black"), or_ci))
   
-## (updated 2021/02/13 08:44) hungerKable ---------------------------------
+## (updated 2021/02/13 08:44) nauseaKable ---------------------------------
 dichot_nausea %>% 
   select(!c(refid, arm, design, age, nausea_per, surg_nosurg)) %>% 
   select(study:nausea_np, nausea_bar, or_ci) %>% 
   kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "nausea" = 2, "OR (95% CI)"), line = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "nausea" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "9em") %>%  
@@ -1174,7 +1192,7 @@ table_n <- tab_inc()
 
 <br>
 
-### &ensp; Pooled (adult RCTs) 
+### &ensp; Pooled (adult RCTs) <a id="fig5"></a>
 
 <br>
 
@@ -1200,7 +1218,8 @@ rm(a, b)
 # add age, design, year
 nausea_meta.dat <- left_join(nausea_meta.dat, study_char.dat %>% select(refid, year, design, age), by = "refid") %>% 
   filter(c_tx == "Fasting", age == "Adult", design == "rct") %>% 
-  arrange(year)
+  arrange(year) %>% 
+  filter(!(event_c == 0 & event_e ==0))
 
 nausea_meta <- metabin(event_e, n_e, event_c, n_c,
   data = nausea_meta.dat,
@@ -1269,7 +1288,7 @@ nausea_meta <- metabin(event_e, n_e, event_c, n_c,
 forest(nausea_meta,
   comb.fixed = FALSE,
   lab.e = "CHO     ",
-  lab.c = "Fasting    ",
+  lab.c = "Water/Placebo",
   digits = 2,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
@@ -1282,7 +1301,7 @@ forest(nausea_meta,
   print.byvar = FALSE,
   test.subgroup = FALSE,
   subgroup = FALSE,
-  xlab = "Favors CHO           Favors Fasting")
+  xlab = "Favors CHO    Favors Water/Placebo")
   
 figure_n <- fig_inc()
 
@@ -1351,7 +1370,8 @@ dichot_comfort %>%
   select(study:comfort_np, comfort_bar, or_ci) %>% 
   kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Comfort" = 2, "OR (95% CI)"), line = TRUE) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Comfort" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "9em") %>%  
@@ -1454,7 +1474,8 @@ likert_cho_satis_kbl.dat %>%
       col.names = c(
         "\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N",  "> 6", "6→2", "≤ 2", "Time (hr)^a^", "Scale^b^", "M (SD)",
         "Med (IQR)", "Range")) %>%
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Satisfaction Rating\n *(Between-group Comparison)*" = 5), line = TRUE) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Satisfaction Rating\n *(Between-group Comparison)*" = 5), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>% 
   # NOTE: footnote a: includes at 2.5 hours
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
@@ -1471,8 +1492,8 @@ likert_cho_satis_kbl.dat %>%
   pack_top(., "Adult, Surgical", 1, 7) %>%
   pack_sub(., "RCT", 1, 7) %>%
    pack_rows("P = 0.01; MD^f^\\ 1.76 (95% CI, 1.59 to 1.93)", 8, 8, label_row_css = "padding-left:68%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>% 
-  pack_rows("CHO vs Water:\\  \\ MD^f^ 2.00 (95% CI, 1.66-2.34)", 4, 4, label_row_css = "padding-left:68%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>% 
-  pack_rows("CHO vs Fasting: MD^f^ 4.00 (95% CI, 3.71-4.29)", 4, 4, label_row_css = "padding-left:68%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>% 
+  pack_rows("CHO vs Water:\\  \\ MD^f^ 2.00 (95% CI, 1.66-2.34) CHO vs Fasting:\\ MD^f^ 4.00 (95% CI, 3.71-4.29)", 4, 4, label_row_css = "padding-left:68%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>% 
+  #pack_rows("CHO vs Fasting: MD^f^ 4.00 (95% CI, 3.71-4.29)", 4, 4, label_row_css = "padding-left:68%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>% 
   pack_top(., "Pediatric, Surgical", 8, 8) %>%
   pack_sub(., "Prospective Cohort", 8, 8) %>%
   footnote(
@@ -1524,10 +1545,11 @@ dichot_cho.dat %>%
   janitor::adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>% 
   kbl(booktabs = T, align =  c("lccccccr"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Fasting", "Water", "Placebo", "Clear", "CHO", "CHO/Prot", "Total")) %>% 
-  add_header_above(c(" " = 1, "Liquid and Participants Receiving" = 6, " " = 1), line = TRUE) %>%
+  add_header_above(c(" " = 1, "Liquid and Participants Receiving" = 6, " " = 1), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>% 
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% 
-  column_spec(1, width = "13em") %>%  
+  column_spec(1, width = "15em") %>%  
   column_spec(2:7, width = "5em") %>% 
   column_spec(8, width = "5em") %>% 
   row_spec(47, bold = TRUE) %>% 
@@ -1550,7 +1572,7 @@ table_n <- tab_inc()
 
 <br>    
 
-### &ensp; Not Reported
+### &ensp; Not Reported <a id="aspirate2"></a>
 
 <br>
 
@@ -1574,22 +1596,23 @@ dichot_cho.dat %>%
   janitor::adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>% 
   kbl(booktabs = T, align =  c("lccccccr"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Fasting", "Water", "Placebo", "Clear", "CHO", "CHO/Prot", "Total")) %>% 
-  add_header_above(c(" " = 1, "Liquid and Participants Receiving" = 6, " " = 1), line = TRUE) %>%
+  add_header_above(c(" " = 1, "Liquid and Participants Receiving" = 6, " " = 1), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>% 
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% 
-  column_spec(1, width = "13em") %>%  
+  column_spec(1, width = "15em") %>%  
   column_spec(2:7, width = "5em") %>% 
   column_spec(8, width = "5em") %>% 
-  row_spec(29, bold = TRUE) %>% 
+  row_spec(30, bold = TRUE) %>% 
   column_spec(8, bold = TRUE) %>% 
-  pack_top(., "Adult, Surgical", 1, 28) %>% 
-  pack_sub(., "RCT", 1, 22) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 23, 24) %>%
-  pack_sub(., "Prospective Cohort", 25, 25) %>%
-  pack_sub(., "Retrospective Cohort", 26, 27) %>%
-  pack_sub(., "Before-After", 28, 28) %>%
-  pack_top(., "Pediatric, Surgical", 29, 30) %>% 
-  pack_sub(., "RCT", 29, 30) %>%
+  pack_top(., "Adult, Surgical", 1, 27) %>% 
+  pack_sub(., "RCT", 1, 21) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 22, 23) %>%
+  pack_sub(., "Prospective Cohort", 24, 24) %>%
+  pack_sub(., "Retrospective Cohort", 25, 26) %>%
+  pack_sub(., "Before-After", 27, 27) %>%
+  pack_top(., "Pediatric, Surgical", 28, 29) %>% 
+  pack_sub(., "RCT", 28, 29) %>%
   footnote(general = "CHO: carbohydrate; Prot: protein.",
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1660,13 +1683,18 @@ dichot_regurg  <- dichot_regurg %>%
   # add totals
   add_row(regurg_np = paste0(23, " (", round_2(23/tot_n), ")"), arm_n = tot_n, study = "Total")
 
+# dichot_regurg %>% 
+#   filter(grepl("CHO", arm_tx) | arm_tx == "Fasting") %>% 
+#   filter(design == "rct") %>% 
+#   summarize(tot_n = sum(arm_n))
 
 dichot_regurg %>% 
   select(!c(refid, arm, design, age, regurg_per)) %>% 
   select(study:regurg_np, regurg_bar, or_ci) %>% 
   kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6→2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Fasting")) %>% 
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Regurgitation" = 2, "OR (95% CI)"), line = TRUE) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Regurgitation" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% 
   column_spec(1, width = "13em") %>%  
@@ -1783,7 +1811,8 @@ dichot_vomit %>%
   select(study:vomit_np, vomit_bar, or_ci) %>% 
   kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "vomit" = 2, "OR (95% CI)"), line = TRUE) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "vomit" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "9em") %>%  
@@ -1815,7 +1844,7 @@ table_n <- tab_inc()
 
 <br>
 
-### &ensp; Pooled (adult RCTs) 
+### &ensp; Pooled (adult RCTs) <a id="fig7"></a>
 
 <br>
 
@@ -1939,6 +1968,7 @@ figure_n <- fig_inc()
 <br>
 
 <font size = 4> Table `r table_n`. Reported complications according to fasting, liquid and volume in adults (unreported in pediatric studies). </font>
+
 ```{r complicateTableOr, include = TRUE}
 ## (updated 2021/01/13 08:52) complicateTableOr --------------------------------
 dichot_format <- function(x) (x/100)
@@ -2034,7 +2064,8 @@ dichot_complicate %>%
   select(study:complicate_np, complicate_bar, or_ci) %>% 
   kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Complications" = 2, "OR (95% CI)"), line = TRUE) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Complications" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "9em") %>%  
@@ -2061,11 +2092,14 @@ dichot_complicate %>%
 table_n <- tab_inc()
 ```
 
-<br>
+<a id="tab14"></a>
+
+<br><br>
 
 <font size = 4> Table `r table_n`. Types of complications ascertained according to study (categorized according to Anderson [@Anderson2013] ). </font>
 
 ```{r ccomplicateTypes, include = TRUE}
+## (updated 2021/02/16 11:19) ccomplicateTypes ----------------------------
 complicate_data <- readxl::read_xlsx("data/CHOComplicationList_012521.xlsx", range = "A5:P35") %>% 
   clean_names() %>% 
   mutate(across(c(ssi:pulm, rena:anastomotic_leak, bleed:oth_infect), ~ recode(., X = "\U00D7")))
@@ -2104,6 +2138,7 @@ table_n <- tab_inc()
 <br>
 
 <font size = 4> Figure `r figure_n`. Pooled incidence of complications --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
 ```{r complicateMetaDichotDat, include = TRUE}
 ## (updated 2021/01/13 09:48)  --------------------------------------------
 complicate_meta.dat <- dichot_cho.dat %>% 
@@ -2312,7 +2347,8 @@ rgv_surg %>%
   select(-refid) %>% 
   kable(booktabs = T, align = c("llccccclll"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Liquid", "N",  "> 6", "6 → 2", "≤ 2", "(hr)", "Med (IQR)", "M (SD)", "\\ \\ M or Med (0-30)")) %>%
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "RGV (mL)" = 3), line = TRUE) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "RGV (mL)" = 3), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   kable_styling(bootstrap_options = opt_boot) %>%
   row_spec(cho_row, color = "brown") %>%
@@ -2406,9 +2442,61 @@ Mean differences estimated from from reported medians, interquartile and overall
 
 <br>
 
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+### Length of Stay
+
+<font size = 4> Table `r table_n`. Reported length of stay according to liquid or fasting. </font>
+
+```{r losKbl, include = TRUE}
+## (updated 2020/12/15 16:26) losKbl --------------------------------------
+los.dat <- contin.dat %>% 
+  select(refid:age, arm_n, arm_tx, starts_with("los")) %>% 
+  filter_at(vars(los:los_pval), any_vars(!is.na(.))) %>% 
+  arrange(age, desc(surg_nosurg), design, year, study, arm_tx) %>% 
+  mutate(
+    los_iqr = str_c("(", los_iqr_low_1, "-", los_iqr_up_1, ")"),
+    los_range = str_c("(", los_range_low_1, "-", los_range_up_1, ")"),
+    #los_mean_1 = round(los_mean_1, 1),
+    los_mean = ifelse(!is.na(los_sd_1) & !is.na(los_mean_1), str_c(round_1(los_mean_1), " (", los_sd_1, ")"), round_1(los_mean_1)),
+    los_med = str_c(los_median_1, str_replace_na(los_iqr, "NA"), sep = " "),
+    los_mean = na_if(los_mean, "NA"),
+    los_med = gsub(" NA", "", los_med)) %>% 
+  select(study, arm_tx, arm_n, los_mean, los_med, los_range)
+
+cho_row <- los.dat %>% 
+  mutate(line = row_number()) %>% 
+  filter(grepl("CHO", arm_tx)) %>% 
+  pull(line)
+
+los.dat %>% 
+   group_by(study) %>% mutate(study = ifelse(row_number() == 1, study, NA)) %>% ungroup() %>% 
+   kbl(booktabs = T, align =  c("llcccc"), escape = FALSE,
+      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", "Mean (SD)", "Median (IQR)", "Range")) %>%
+  add_header_above(c(" " = 3, "Length of Stay" = 3), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>% 
+  kable_classic(position = "left", full_width = FALSE, html_font = opt_font, "hover") %>% 
+  row_spec(0, bold = TRUE) %>% 
+  column_spec(1, width = "12em") %>%  
+  column_spec(2, width = "6em") %>% 
+  column_spec(3, width = "3em") %>% 
+  column_spec(c(4:6), width = "7em") %>% 
+  row_spec(cho_row, color = "brown") %>% 
+  pack_top(., "Adult, Surgical", 1, 11) %>% 
+  pack_sub(., "RCT", 1, 9) %>%
+  pack_sub(., "Retrospective Cohort", 10, 11) %>%
+  footnote(general = "RCT: randomized controlled trial.",
+           # alphabet = c("Only Pexe-Machado 2013 reported a difference between arms in length of stay (p = 0.04)."),
+           general_title = "", 
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
 
 <br>
+
+
+
 
 # **Study/Participant Detail** 
 
@@ -2480,7 +2568,8 @@ study_char_table %>%
       # format = "latex",
       col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Dates", "Country", " (N\\) ", "Pilot", 
                     "Setting", "Gen", "Reg", "Sed", "Type of Surgery", "Registered")) %>%
-  add_header_above(c(" " = 3, "Enrolled" = 1, " " = 2, "Anesthetic" = 3, " " = 2)) %>% 
+  add_header_above(c(" " = 3, "Enrolled" = 1, " " = 2, "Anesthetic" = 3, " " = 2), bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "15em") %>% 
@@ -2570,7 +2659,8 @@ pt_char_table %>%
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Analyzed", "I", "II", "I-II", "III", "(%)",
       "Mean", "Med", "White", "Black", "Asian", "Mean", "Med", "DM (%)")) %>%
   add_header_above(c(" " = 1, "N" = 1, "\\ \\ \\ ASA Classs (%)" = 4, "Female" = 1, "Age" = 2,
-    "Race (%)" = 3, "BMI (kg/m^2^)" = 2, " " = 1), line = TRUE) %>%
+    "Race (%)" = 3, "BMI (kg/m^2^)" = 2, " " = 1), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "15em") %>%
@@ -2650,7 +2740,8 @@ fasting_table %>%
   kbl(booktabs = T, align = c("llccccccc"),
       col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "\\ \\ Liquid", "N", "Solids", "Liquids",  "Time^a^ (hr)", "Amount (mL)", 
       "Time^a^ (hr)", "Amount (mL)")) %>%
-  add_header_above(c(" " = 3, "Prescribed Fasting  (hr)" = 2, "Treat Liquid 1" = 2, "Treat Liquid 2" = 2), line = TRUE) %>% 
+  add_header_above(c(" " = 3, "Prescribed Fasting  (hr)" = 2, "Treat Liquid 1" = 2, "Treat Liquid 2" = 2), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "15em") %>% 
@@ -2742,7 +2833,8 @@ cho_drink_table %>%
   select(-tx_detail) %>% 
   kbl(booktabs = T, align = c("llllll"),
       col.names = linebreak(c("\\ \\ \\ \\ \\ \\ \\ Author", "CHO, g", "Protein, g", "CHO, g", "Protein, g", "Brand")), escape = FALSE) %>%
-  add_header_above(c(" " = 1, "Per 100 mL" = 2, "Total" = 2, " " = 1), line = TRUE) %>%  
+  add_header_above(c(" " = 1, "Per 100 mL" = 2, "Total" = 2, " " = 1), line = TRUE, bold = TRUE) %>%  
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "10em") %>% 
@@ -2815,7 +2907,8 @@ study_fund_table %>%
   kbl(booktabs = T, align = c("lcccclll"),
       col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "Public", "Industry", "None", 
                     "Not Reported", "Funding description", "Brand")) %>%
-  add_header_above(c(" " = 1, "Reported Funding Source(s)" = 4, " " = 2), line = TRUE) %>% 
+  add_header_above(c(" " = 1, "Reported Funding Source(s)" = 4, " " = 2), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "16em") %>% 

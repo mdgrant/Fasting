@@ -47,6 +47,26 @@ display: none;
 display: none !important; 
 }
 
+@font-face {
+    font-family: "GRADE-quality";
+    src: url();
+    src: url('https://gradepro.org/fonts/GRADE-quality.eot');
+    src: url('https://gradepro.org/fonts/GRADE-quality.eot?#iefix')
+        format('embedded-opentype'),
+      url('https://gradepro.org/fonts/GRADE-quality.woff') format('woff'),
+      url('https://gradepro.org/fonts/GRADE-quality.ttf') format('truetype'),
+      url('https://gradepro.org/fonts/GRADE-quality.svg#GRADE-quality')
+        format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+.quality-sign {
+      font-family: 'GRADE-quality', Cambria, Helvetica, Arial;
+      font-size: 10px;
+      vertical-align: text-top;
+    }
+
 span { font-size: 3em;}
 
 span b { font-size: 60%; font-weight: normal }
@@ -93,6 +113,24 @@ fig_inc <- function() {
 table_n <- 1
 figure_n <- 1
 
+pack_sub <- function(kable_input, name, a, b) {
+  pack_rows(kable_input, name,
+            start_row = a, end_row = b,
+            label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = FALSE
+  )
+}
+
+pack_top <- function(kable_input, name, a, b) {
+  pack_rows(kable_input, name,
+            start_row = a, end_row = b,
+            label_row_css = "border-top: 1px solid;", color = "black", background = "#EBEBEB"
+  )
+}
+
+firstup <- function(x) {
+  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+  x
+}
 ```
 
 # Carbohydrate Drinks
@@ -108,41 +146,62 @@ figure_n <- 1
 ```{r chofasting, include = TRUE}
 # soe_summary$grade_graphic <- cell_spec(soe_summary$grade_graphic, font_size = 4)
 
-cho_soe.dat <- readxl::read_xlsx("data/SOE_CHO_021121.xlsx", range = "A1:Z15", sheet = "data_transpose") %>% 
-  clean_names()
+cho_soe.dat <- readxl::read_xlsx("data/SOE_CHO_021821.xlsx", range = "A1:AA19", sheet = "data_transpose") %>% 
+  clean_names() %>% 
+   mutate(
+    n = paste0(n, outcome),
+    # outcome = tools::toTitleCase(outcome),
+    out_import = case_when(
+      out_import == "Limited" ~ "Limited Importance",
+      out_import == "Important" ~ "Important Not Critical",
+      out_import == "Critical" ~ "Critical"))
 
 cho_soe_summary <- cho_soe.dat %>%
-  select(comparison, outcome, grade, uspstf, acc, out_import, result_summary, result_table) %>%
+  select(n, comparison, outcome, grade, uspstf, acc, out_import, result_summary, result_table) %>%
   mutate(
-    # outcome = tools::toTitleCase(outcome),
     grade = case_when(
-      grade == "very low" ~ "⨁",
-      grade == "low" ~ "⨁⨁",
-      grade == "moderate" ~ "⨁⨁⨁")) %>%
+    # grade == "very low" ~ "⨁", grade == "low" ~ "⨁⨁", grade == "moderate" ~ "⨁⨁⨁", grade == "high" ~ "⨁⨁⨁")
+      grade == "very low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "moderate" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span>',
+	  grade == "high" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span>',  # )%>% 
+      TRUE ~ grade)) %>%
   # table links
   mutate(
-    result_table = ifelse(outcome == "Hunger (occurrence)", "[Table 3](cho_010420.html#Hunger), [Figure 1](cho_010420.html#fig1)", result_table),
-    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
-    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
-    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
-    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
-    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table),
-    result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table))
+    uspstf = firstup(uspstf),
+    result_table = ifelse(n == "1Hunger", "[Table 3](cho_010420.html#Hunger) <br>  [Figure 1](cho_010420.html#fig1)", result_table),
+    result_table = ifelse(grepl("2Hung", n), "[Table 4](cho_010420.html#hunger_ratings) <br> [Figures 2 & 3](cho_010420.html#fig2)", result_table),
+      result_table = ifelse(grepl("3Hunger", n), "[Table 4](cho_010420.html#hunger_ratings)", result_table),
+    result_table = ifelse(n == "4Thirst", "[Table 5](cho_010420.html#Thirst) <br> [Figure 4](cho_010420.html#fig4)", result_table),
+    result_table = ifelse(n == "5Nausea", "[Table 6](cho_010420.html#Nausea) <br> [Figure 5](cho_010420.html#fig5)", result_table),
+    result_table = ifelse(grepl("6Discom", n), "[Table 7](cho_010420.html#Discomfort)", result_table),
+    result_table = ifelse(grepl("7Satisf", n), "[Table 8](cho_010420.html#Patient_Satisfaction)", result_table),
+    result_table = ifelse(grepl("8Aspir", n), "[Table 9](cho_010420.html#__Reported) <br> [Table 10](cho_010420.html#aspirate2)", result_table),
+    result_table = ifelse(grepl("9Regurg", n), "[Table 11](cho_010420.html#Regurgitation)", result_table),
+    result_table = ifelse(grepl("10Regurg", n), "[Table 11](cho_010420.html#Regurgitation)", result_table),
+    result_table = ifelse(grepl("11Vomit", n), "[Table 12](cho_010420.html#Vomiting) <br> [Figure 7](cho_010420.html#fig7)", result_table),
+    result_table = ifelse(grepl("12Compl", n), "[Table 13](cho_010420.html#Complications) <br> [Table 14](cho_010420.html#tab14) <br> [Figure 9](cho_010420.html#__Pooled_(adult_RCTs))", result_table),
+    result_table = ifelse(grepl("13Resi", n), "[Table 15](cho_010420.html#Residual_Gastric_Volume) <br> [Figure 11](cho_010420.html#__Pooled_(adult_RCTs)23)", result_table)
+    #result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table)
+    )
 
 cho_soe_summary %>% 
   filter(comparison == "CHO_fasting") %>% 
-  select(!comparison) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", "\\ \\ \\ GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "Summary", "Detail")) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, "Outcome" = 1, " " = 2), line = TRUE) %>%
+  select(!c(comparison, n)) %>% 
+    kbl(booktabs = T, align = c("llcclll"), escape = FALSE,
+    col.names = c("Outcome", "\\ GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
+  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "13em") %>%  
-  column_spec(c(2:4), width = "5em") %>% 
-  column_spec(5, width = "4em") %>% 
-  column_spec(6, width = "20em") %>% 
-  column_spec(7, width = "15em") %>% 
-  footnote(general = "RGV: residual gastric volume; C-LD: Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.",
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "12em") %>%  
+  column_spec(c(2:4), width = "6em") %>% 
+  column_spec(5, width = "7em") %>% 
+  column_spec(6, width = "26em") %>% 
+  column_spec(7, width = "9em") %>% 
+  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
+  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; SMD: standardized mean difference; PI: prediction interval; C-LD: Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -161,11 +220,11 @@ table_n <- tab_inc()
 
 <br>
 
-
 ```{r chofastingDomain, include = TRUE, eval = TRUE}
 domain_summary <- cho_soe.dat %>% 
-  select(comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot")) %>% 
-  mutate(design = toupper(design))
+  select(n, comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot")) %>% 
+  mutate(design = toupper(design)) %>% 
+  filter(comparison == "CHO_fasting")
 
 # add footnotes
 foot_list <- domain_summary %>% 
@@ -173,28 +232,67 @@ foot_list <- domain_summary %>%
 
 domain_summary <- domain_summary %>% 
   mutate(
-    consist = ifelse(comparison == "CHO_fasting" & outcome == "Hunger (occurrence)", paste0(consist, "^a^"), consist),
-    prec = ifelse(comparison == "CHO_fasting" & outcome == "Hunger (occurrence)", paste0(prec, "^b^"), prec))
+    consist = ifelse(grepl("1Hung", n), paste0(consist, "^1a^"),   consist),
+    prec =    ifelse(grepl("1Hung", n), paste0(prec,    "^1b^"),   prec),
+    consist = ifelse(grepl("2Hung", n), paste0(consist, "^2a2b^"), consist),
+    consist = ifelse(grepl("3Hung", n), paste0(consist, "^3a^"),   consist),
+    consist = ifelse(grepl("4Thir", n), paste0(consist, "^4a^"),   consist),
+    prec =    ifelse(grepl("4Thir", n), paste0(prec,    "^4b^"),   prec),
+    consist = ifelse(grepl("5Naus", n), paste0(consist, "^5a^"),   consist),
+    consist = ifelse(grepl("6Disc", n), paste0(consist, "^6a^"),   consist),
+    prec =    ifelse(grepl("6Disc", n), paste0(prec,    "^6b^"),   prec),
+    consist = ifelse(grepl("7Sati", n), paste0(consist, "^7a^"),   consist),
+    prec =    ifelse(grepl("7Sati", n), paste0(prec,    "^7b^"),   prec),    
+    consist = ifelse(grepl("10Vom", n), paste0(consist, "^8a^"),   consist),
+    rob =     ifelse(grepl("9Regu", n), paste0(rob,     "^9a^"),   rob),
+    consist = ifelse(grepl("9Regu", n), paste0(consist, "^9b^"),   consist),
+    prec =    ifelse(grepl("9Regu", n), paste0(prec,    "^9c^"),   prec),    
+    consist = ifelse(grepl("10Reg", n), paste0(consist, "^10a^"),  consist),
+    prec =    ifelse(grepl("10Reg", n), paste0(prec,    "^10b^"),  prec),   
+    consist = ifelse(grepl("11Vom", n), paste0(consist, "^11a^"),  consist),
+    consist = ifelse(grepl("12Com", n), paste0(consist, "^12a^"),  consist),
+    direct  = ifelse(grepl("13Res", n), paste0(direct,  "^13a^"),  direct)
+    )
 
 footnotes <- c(
-  "Heterogeneity may be considerable (I^2^ = 90%).",
-  "Wide confidence intervals indicate uncertainty concerning results."
-)
+  "1a Considerable heterogeneity (*I^2^* = 90%).",
+  "1b Wide confidence intervals consistent with either carbohydrate or fasting being accompanied by a lower risk of hunger.",
+  "2a Considerable heterogeneity (*I^2^* = 90%) yielding a prediction interval consistent with lower hunger ratings after  either CHO or fasting.", 
+  "2b Measurements taken at different times.",
+  "3a Studies reported inconsistent results.",
+  "4a Considerable heterogeneity (*I^2^* = 86%).",
+  "4b Wide confidence intervals consistent with either CHO or fasting being accompanied by a lower risk of thirst.",
+  "5a Measurement taken at different times; considerable heterogeneity (*I^2^* = 75%).",
+  "6a Single study, cannot assess consistency.",
+  "6b Wide confidence interval.",
+  "7a Studies report inconsistent results and measurement taken at different times.",
+  "7b Assuming both studies used a 10-point scale, the pooled estimate was  accompanied by considerable uncertainty — MD 1.00 (95% CI, -0.96 to 2.96).",
+  "9a Unclear ascertainment accuracy or if Koeppe 2013 assessment exceedingly sensitive.",
+  "9b A single RCT reported any regurgitation, consistency cannot be assessed.",
+  "9c Single RCT (98 patients) with wide confidence interval.",
+  "10a Single study, cannot assess consistency.",
+  "10b 1 event, precision unclear.",
+  "11a Measurements taken at different times and substantial heterogeneity (*I^2^* = 63%).",
+  "12a Varied definitions of complication.",
+  "13a Strength of relationship with aspiration unclear, but for comparative purposes may be considered direct.")
+  # "Wide confidence interval(s) indicate uncertainty concerning results.",
+  # "Studies report inconsistent results and measurement taken at different times."
 
 domain_summary %>% 
-  filter(comparison == "CHO_fasting", outcome == "Hunger (occurrence)") %>% 
+  filter(comparison == "CHO_fasting") %>% 
   mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
   select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
-    kbl(booktabs = T, align = c("lccccccc"), escape = FALSE, padding = 10, 
+    kbl(booktabs = T, align = c("lcllllll"), escape = FALSE, padding = 10, 
     col.names = c("Outcome", "Design", "N (pts)", "Bias", "Consistency", "Directness", "Precision", "Other")) %>% 
-  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE) %>%
+  row_spec(0, bold = TRUE) %>% 
+  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "4em") %>%  
-  column_spec(2, width = "12em") %>% 
-  column_spec(3, width = "12em") %>% 
+  column_spec(1, width = "13em") %>%  
+  column_spec(2, width = "4em") %>% 
+  column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials.",
+  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
            alphabet = footnotes,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -233,7 +331,7 @@ soe_summary %>%
   column_spec(3, width = "4em") %>% 
   column_spec(4, width = "4em") %>% 
   column_spec(5, width = "3em") %>% 
-  footnote(general = "RGV: residual gastric volume; C-LD: Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.",
+  footnote(general = "RGV: residual gastric volume; CHO: carbohydrate; C-LD: Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
