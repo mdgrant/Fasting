@@ -438,7 +438,6 @@ study_char_cho.dat %>%
 
 # **Patient Reported Outcomes**
 
-## Surgical/Endoscopy Studies
 
 ```{r dichotChoDataSurgical, include = FALSE}
 ## (updated 2021/01/12 09:26) dichotProtDataSurgical ----------------------
@@ -485,7 +484,7 @@ dichot_cho.dat <- dichot.dat %>%
 
 <br>
 
-### Hunger
+## Hunger
 
 <br>
 
@@ -598,7 +597,7 @@ table_n <- tab_inc()
 ```
 <br>
 
-### &ensp; Pooled (adult RCTs, rates) <a id="fig1"></a>
+## &ensp; Pooled (adult RCTs, rates) <a id="fig1"></a>
 
 <br>
 
@@ -793,7 +792,7 @@ likert_cho_hung_kbl.dat %>%
 
 <br>
 
-### &ensp; Pooled (adult RCTs, ratings) <a id="fig2"></a>
+## &ensp; Pooled (adult RCTs, ratings) <a id="fig2"></a>
 
 <br><br>
 
@@ -801,7 +800,7 @@ likert_cho_hung_kbl.dat %>%
 
 <br>
 
-```{r hungerAdultLikertMeta, echo = FALSE, fig.width = 11, fig.height = 5.5, fig.align = "center"}
+```{r hungerAdultLikertMeta, echo = FALSE, fig.width = 11, fig.height = 5, fig.align = "center"}
 ## (updated 2021/02/16 11:15) hungerAdultLikertMeta ----------------------------
 hung_lik_meta.dat <- likert_cho_hung_kbl.dat %>% 
   filter(age == "Adult", design == "rct") %>% 
@@ -878,13 +877,92 @@ forest(temp,
 figure_n <- fig_inc()
 
 ```
-Results from 4 studies were not included in the meta-analysis. dNaguib 2001 and Mellis 2006 did not report sufficient data to estimate effects. Estimated standard errors from ranges reported in Yagmudrur 2011 were exceedingly small yielding an outlier effect. Reported IQR from Zhang 2019 carbohydrate arm did not allow variance estimation. 
+Results from 4 studies were not included in the meta-analysis. Naguib 2001 and Mellis 2006 did not report sufficient data to estimate effects. Estimated standard errors from ranges reported in Yagmudrur 2011 were exceedingly small yielding an outlier effect. Reported IQR from Zhang 2019 carbohydrate arm did not allow variance estimation. 
 
-<br>
 
-<font size = 4> Figure `r figure_n`. Funnel plot with 90%, 95%, and 99% contours --- consistent with small study effects (noting limitations with respect to SMD[@Zwetsloot2017]). </font>
+<a id="fig3"></a>
+<br><br>
 
-```{r hungerAdultLikertFunnel, echo = FALSE, fig.width = 6, fig.height = 4, fig.align = "center"}
+<font size = 4> Figure `r figure_n`. Pooled hunger ratings (VAS or NRS) from randomized trials comparing carbohydrate drinks with clear liquids or water in adult surgical patients. </font>
+
+```{r hungerAdultLikertMetaClear, echo = FALSE, fig.width = 11, fig.height = 4.5, fig.align = "center"}
+hung_lik_meta.dat <- likert_cho_hung_kbl.dat %>%
+  filter(age == "Adult", design == "rct") %>%
+  # remove Naguib Melis lacking data to pool
+  # Results from 4 studies were not included in the meta-analysis. dNaguib 2001 and Mellis 2006 did not report sufficient data to estimate effects. Estimated standard errors from ranges reported in Yagmudrur 2011 were exceedingly small yielding an outlier effect. Reported IQR from Zhang 2019 carbohydrate arm did not allow variance estimation.
+  filter(!refid %in% c(5803, 4952, 1290)) %>%
+  # Yagmudrur 2011 outlier; Zhang 2019 numerical
+  filter(!refid %in% c(3553, 743)) %>%
+  select(refid, study, arm_tx, arm_n, hunger_m, hunger_sd, hung_md, hunger_iqrl, hunger_iqru, hunger_rl, hunger_ru) %>%
+  group_by(refid) %>%
+  fill(study) %>%
+  ungroup() %>%
+  mutate(hunger_m = ifelse(study == "Savluk 2017" & arm_tx == "CHO", 2.675, hunger_m),
+         arm_n = ifelse(study == "Savluk 2017" & arm_tx == "CHO", 113, arm_n),
+         hunger_sd = ifelse(study == "Savluk 2017" & arm_tx == "CHO", 1.227, hunger_sd),
+         hunger_iqrl = ifelse(study == "Canbay 2014", NA, hunger_iqrl),
+         hunger_iqru = ifelse(study == "Canbay 2014", NA, hunger_iqru),
+         hunger_iqrl = ifelse(study == "Zhang 2019" & arm_tx == "CHO", 9, hunger_iqrl),
+         hunger_iqru = ifelse(study == "Zhang 2019" & arm_tx == "CHO", 11, hunger_iqru))
+
+# fasting
+clear_meta.dat <- hung_lik_meta.dat %>%
+  filter(arm_tx %in% c("Clear", "Water", "CHO", "CHO/Prot", "Placebo")) %>%
+  group_by(refid) %>%
+  filter(n() > 1) %>%
+  #filter(row_number() < 3) %>%
+  ungroup() %>%
+  filter(refid != 1274) %>%
+  mutate(arm_tx = ifelse(grepl("CHO", arm_tx), "CHO", "Clear")) %>%
+  select(-refid) %>%
+  pivot_wider(id_cols = "study", names_from = "arm_tx", values_from = arm_n:hunger_ru)
+
+temp <- metacont(
+  n.e = arm_n_CHO, n.c = arm_n_Clear,
+  comb.fixed = TRUE,
+  mean.e = hunger_m_CHO,
+  sd.e = hunger_sd_CHO,
+  median.e = hung_md_CHO,
+  q1.e = hunger_iqrl_CHO,
+  q3.e = hunger_iqru_CHO,
+  min.e = hunger_rl_CHO,
+  max.e = hunger_ru_CHO,
+  mean.c = hunger_m_Clear,
+  sd.c = hunger_sd_Clear,
+  median.c = hung_md_Clear,
+  q1.c = hunger_iqrl_Clear,
+  q3.c = hunger_iqru_Clear,
+  min.c = hunger_rl_Clear,
+  max.c = hunger_ru_Clear,
+  data = clear_meta.dat,
+  sm = "SMD",
+  hakn = TRUE,
+  prediction = TRUE,
+  studlab = study
+)
+
+forest(temp,
+       comb.random = TRUE,
+       lab.e = "CHO     ",
+       lab.c = "Clear/Water   ",
+       digits = 1,
+       digits.sd = 1,
+       digits.tau2 = 1,
+       overall.hetstat = TRUE,
+       print.I2.ci = TRUE,
+       print.byvar = FALSE,
+       #overall = FALSE,
+       fs.xlab = 11,
+       sortvar = -TE,
+       xlim = c(-4, 1),
+       rightcols = c("effect", "ci"),
+       xlab = "Favors CHO                  Favors Clear/Water")
+
+figure_n <- fig_inc()
+```
+
+```{r hungerAdultLikertFunnel, echo = FALSE, fig.width = 6, fig.height = 4, fig.align = "center", include = FALSE, eval = FALSE}
+# <font size = 4> Figure `r figure_n`. Funnel plot with 90%, 95%, and 99% contours --- consistent with small study effects (noting limitations with respect to Zwetsloot2017). </font>
 par(bty = "n", xaxt = "l", yaxt = "l")
 funnel(temp, contour = c(0.9, 0.95, 0.99), xlim = c(-3, 1))
 figure_n <- fig_inc()
@@ -892,7 +970,7 @@ figure_n <- fig_inc()
 
 <br>
 
-### Thirst
+## Thirst
 
 <br>
 
@@ -983,13 +1061,15 @@ dichot_thirst %>%
   column_spec(1, width = "13em") %>%
   column_spec(2, width = "3em") %>%
   column_spec(3, width = "7em") %>%
-  column_spec(c(4:6), width = "3em") %>%
+  column_spec(c(4), width = "3em") %>%
+  column_spec(c(5), width = "5em") %>%
+  column_spec(c(6), width = "3em") %>%
   column_spec(7, width = "3em") %>%
   column_spec(8, width = "5em") %>%
   column_spec(9, width = "5em") %>%
   column_spec(10, width = "11em") %>%
   row_spec(cho_row, color = "brown") %>% 
-  pack_top(., "Adult, Surgical", 1, 11) %>% 
+  pack_top(., "Adult, Surgical", 1, 18) %>% 
   pack_sub(., "RCT", 1, 15) %>%
   pack_sub(., "Nonrandomized Studies of Interventions", 16, 17) %>%
   pack_sub(., "Prospective Cohort", 18, 18) %>%
@@ -1012,7 +1092,7 @@ table_n <- tab_inc()
 
 <br>
 
-### &ensp; Pooled (adult RCTs) <a id="fig4"></a>
+## &ensp; Pooled (adult RCTs) <a id="fig4"></a>
 
 <br>
 
@@ -1064,7 +1144,7 @@ Paule-Mandel estimator for between-study variance and Hartung-Knapp method for r
 
 <br>
 
-### Nausea 
+## Nausea 
 
 <br>
 
@@ -1161,7 +1241,7 @@ dichot_nausea %>%
   kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "nausea" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Nausea" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "9em") %>%  
@@ -1170,7 +1250,7 @@ dichot_nausea %>%
   column_spec(c(4,6), width = "1em") %>% 
   column_spec(5, width = "3em") %>% 
   column_spec(7, width = "3em") %>% 
-  column_spec(8, width = "2em") %>% 
+  column_spec(8, width = "5em") %>% 
   column_spec(9, width = "5em") %>% 
   column_spec(10, width = "5em") %>% 
   row_spec(cho_row, color = "brown") %>% 
@@ -1192,13 +1272,13 @@ table_n <- tab_inc()
 
 <br>
 
-### &ensp; Pooled (adult RCTs) <a id="fig5"></a>
+## &ensp; Pooled (adult RCTs) <a id="fig5"></a>
 
 <br>
 
 <font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
-```{r nauseaMetaDichot, include = TRUE,  fig.width = 10, fig.height = 6.5, fig.align = "center"}
+```{r nauseaMetaDichot, include = TRUE,  fig.width = 10, fig.height = 5.5, fig.align = "center"}
 ## (updated 2021/01/13 09:48)  --------------------------------------------
 # data
 # cho vs fasting
@@ -1252,7 +1332,9 @@ figure_n <- fig_inc()
 
 ```
 
-<br>
+<a id="fig6"></a>
+
+<br><br>
 
 <font size = 4> Figure `r figure_n`. Pooled incidence of nausea --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
 
@@ -1309,7 +1391,7 @@ figure_n <- fig_inc()
 
 <br>
 
-### Discomfort 
+## Discomfort 
 
 <br>
 
@@ -1396,7 +1478,7 @@ table_n <- tab_inc()
 
 <br>
 
-### Patient Satisfaction
+## Patient Satisfaction
 
 <br>
 
@@ -1519,9 +1601,9 @@ table_n <- tab_inc()
 
 <br>
 
-### Aspiration
+## Aspiration
 
-### &ensp; Reported
+## &ensp; Reported
 
 <br>
 
@@ -1572,7 +1654,7 @@ table_n <- tab_inc()
 
 <br>    
 
-### &ensp; Not Reported <a id="aspirate2"></a>
+## &ensp; Not Reported <a id="aspirate2"></a>
 
 <br>
 
@@ -1623,7 +1705,7 @@ table_n <- tab_inc()
 
 <br>
 
-### Regurgitation
+## Regurgitation
 
 <br>
 
@@ -1721,11 +1803,11 @@ table_n <- tab_inc()
 
 <br>
 
-### Vomiting 
+## Vomiting 
 
 <br>
 
-<font size = 4> Table `r table_n`. Comparative vomiting ratings according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Rates of vomiting according to fasting, liquid and volume. </font>
 
 ```{r vomitTableOr, include = TRUE}
 ## (updated 2021/01/13 08:52) vomitTableOr --------------------------------
@@ -1811,17 +1893,19 @@ dichot_vomit %>%
   select(study:vomit_np, vomit_bar, or_ci) %>% 
   kbl(booktabs = T, align =  c("lclccccrlc"), escape = FALSE,
     col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "\\ \\ \\ N", "Liquid", "> 6", "6 → 2", "≤ 2", "(hr)", "N (%)", " ", "CHO vs. Comparator")) %>% 
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "vomit" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time^a^" = 1, "Vomiting" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
   row_spec(0, bold = TRUE) %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "3em") %>% 
   column_spec(3, width = "4em") %>% 
-  column_spec(c(4,6), width = "1em") %>% 
+  column_spec(c(4), width = "2em") %>% 
+  column_spec(c(5), width = "4em") %>% 
+  column_spec(c(6), width = "2em") %>% 
   column_spec(5, width = "3em") %>% 
   column_spec(7, width = "3em") %>% 
-  column_spec(8, width = "2em") %>% 
+  column_spec(8, width = "4em") %>% 
   column_spec(9, width = "5em") %>% 
   column_spec(10, width = "5em") %>% 
   row_spec(cho_row, color = "brown") %>% 
@@ -1844,13 +1928,13 @@ table_n <- tab_inc()
 
 <br>
 
-### &ensp; Pooled (adult RCTs) <a id="fig7"></a>
+## &ensp; Pooled (adult RCTs) <a id="fig7"></a>
 
 <br>
 
-<font size = 4> Figure `r figure_n`. Pooled incidence of vomiting --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+<font size = 4> Figure `r figure_n`. Pooled rates of vomiting --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
-```{r vomitMetaDichot, include = TRUE,  fig.width = 10, fig.height = 6.5, fig.align = "center"}
+```{r vomitMetaDichot, include = TRUE,  fig.width = 10, fig.height = 5.5, fig.align = "center"}
 ## (updated 2021/01/13 09:48)  --------------------------------------------
 # data
 # cho vs fasting
@@ -1904,9 +1988,11 @@ figure_n <- fig_inc()
 
 ```
 
-<br>
+<a id="fig8"></a>
 
-<font size = 4> Figure `r figure_n`. Pooled incidence of vomiting --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
+<br><br>
+
+<font size = 4> Figure `r figure_n`. Pooled rates of vomiting --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
 
 ```{r vomitMetaDichotPlacWater, include = TRUE,  fig.width = 10, fig.height = 4, fig.align = "center"}
 ## (updated 2021/01/13 09:48)  --------------------------------------------
@@ -1940,8 +2026,8 @@ vomit_meta <- metabin(event_e, n_e, event_c, n_c,
 
 forest(vomit_meta,
   comb.fixed = FALSE,
-  lab.e = "CHO     ",
-  lab.c = "Fasting    ",
+  lab.e = "CHO   ",
+  lab.c = "Water/Clear",
   digits = 2,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
@@ -1955,7 +2041,7 @@ forest(vomit_meta,
   test.subgroup = FALSE,
   subgroup = FALSE,
   pooled.events = TRUE,
-  xlab = "Favors CHO           Favors Fasting")
+  xlab = "Favors CHO       Favors Water/Clear")
   
 figure_n <- fig_inc()
 
@@ -1963,7 +2049,7 @@ figure_n <- fig_inc()
 
 <br>
 
-### Complications
+## Complications
 
 <br>
 
@@ -2133,11 +2219,11 @@ table_n <- tab_inc()
 
 <br>
 
-### &ensp; Pooled (adult RCTs) 
+## &ensp; Pooled (adult RCTs) 
 
 <br>
 
-<font size = 4> Figure `r figure_n`. Pooled incidence of complications --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+<font size = 4> Figure `r figure_n`. Pooled complications rates --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
 ```{r complicateMetaDichotDat, include = TRUE}
 ## (updated 2021/01/13 09:48)  --------------------------------------------
@@ -2213,9 +2299,11 @@ figure_n <- fig_inc()
 
 ```
 
-<br>
+<a id="fig10"></a>
 
-<font size = 4> Figure `r figure_n`. Pooled incidence of complications --- randomized trials comparing carbohydrate drinks with water, placebo, or clear liquids in adult surgical patients. </font>
+<br><br>
+
+<font size = 4> Figure `r figure_n`. Pooled complications rates --- randomized trials comparing carbohydrate drinks with water, placebo, or clear liquids in adult surgical patients. </font>
 
 ```{r complicateMetaDichotFast, include = TRUE,  fig.width = 10, fig.height = 4, fig.align = "center"}
 ## (updated 2021/01/22 15:17) complicateMetaDichotFast --------------------
@@ -2255,7 +2343,7 @@ figure_n <- fig_inc()
 <br>
 
 
-### Residual Gastric Volume
+## Residual Gastric Volume
 
 <br>
 
@@ -2356,8 +2444,8 @@ rgv_surg %>%
   column_spec(2, width = "4em") %>%
   column_spec(c(3:6), width = "2em") %>%
   column_spec(7, width = "3em") %>%
-  column_spec(8, width = "3em") %>%
-  column_spec(9, width = "3em") %>%
+  column_spec(8, width = "5em") %>%
+  column_spec(9, width = "5em") %>%
   column_spec(10, width = "4em") %>%
   pack_top(., "Adult, Surgical", 1, 37) %>%
   pack_sub(., "RCT", 1, 33) %>%
@@ -2375,7 +2463,7 @@ table_n <- tab_inc()
 
 <br>
 
-### &ensp; Pooled (adult RCTs) 
+## &ensp; Pooled (adult RCTs) 
 
 <br>
 
@@ -2442,7 +2530,7 @@ Mean differences estimated from from reported medians, interquartile and overall
 
 <br>
 
-### Length of Stay
+## Length of Stay
 
 <font size = 4> Table `r table_n`. Reported length of stay according to liquid or fasting. </font>
 
