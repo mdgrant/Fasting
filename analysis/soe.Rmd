@@ -170,7 +170,7 @@ cho_soe_summary <- cho_soe.dat %>%
     result_table = ifelse(grepl("10Regurg", n), "[Table 11](cho_010420.html#Regurgitation)", result_table),
     result_table = ifelse(grepl("11Vomit", n), "[Table 12](cho_010420.html#Vomiting) <br> [Figure 7](cho_010420.html#fig7)", result_table),
     result_table = ifelse(grepl("12Compl", n), "[Table 13](cho_010420.html#Complications) <br> [Table 14](cho_010420.html#tab14) <br> [Figure 9](cho_010420.html#__Pooled_(adult_RCTs))", result_table),
-    result_table = ifelse(grepl("13Resi", n), "[Table 15](cho_010420.html#Residual_Gastric_Volume) <br> [Figure 11](cho_010420.html#__Pooled_(adult_RCTs)23)", result_table)
+    result_table = ifelse(grepl("13Resi", n), "[Table 15](cho_010420.html#Residual_Gastric_Volume) <br> [Figure 11](cho_010420.html#__Pooled_(adult_RCTs)21)", result_table)
     #result_table = ifelse(outcome == "Hunger (rating)", "[Table 4](cho_010420.html#hunger_ratings)", result_table)
     )
 
