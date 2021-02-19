@@ -597,7 +597,7 @@ table_n <- tab_inc()
 ```
 <br>
 
-## &ensp; Pooled (adult RCTs, rates) <a id="fig1"></a>
+## &ensp; Pooled (adult RCTs) <a id="fig1"></a>
 
 <br>
 
@@ -791,7 +791,7 @@ likert_cho_hung_kbl.dat %>%
 ```
 
 <br>
-
++
 ## &ensp; Pooled (adult RCTs, ratings) <a id="fig2"></a>
 
 <br><br>
@@ -2526,9 +2526,77 @@ figure_n <- fig_inc()
 
 ```
 
-Mean differences estimated from from reported medians, interquartile and overall ranges.
+Mean differences estimated from means, standard deviations, medians, interquartile and overall ranges.
 
-<br>
+<a id="fig12"></a>
+
+<br><br>
+
+<font size = 4> Figure `r figure_n`. Pooled residual gastric volume from randomized trials comparing carbohydrate drinks with water or clear liquids in adult surgical patients. </font>
+
+```{r rgvChoMetaClear, include = TRUE, include = TRUE,  fig.width = 10, fig.height = 3.5, fig.align = "center"}
+## (updated 2021/01/22 15:19) rgvChoMeta ----------------------------------
+rgv_meta.dat <- contin.dat %>%
+  arrange(design, year, study) %>% 
+  filter(refid %in% cho_refids$refid, surg_nosurg == "surgical") %>%
+  filter(arm_tx %in% c("Water", "Clear") | grepl("CHO", arm_tx)) %>%
+  filter(!is.na(rgv_us) | !is.na(rgv_imag) | !is.na(rgv_asp)) %>%
+  filter(design == "rct", age == "Adult") %>% 
+  group_by(refid) %>%
+  filter(n() > 1) %>%
+  # filter(row_number() < 3) %>%
+  ungroup() %>%
+  select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1) %>% 
+  filter(!refid %in% c(5803, 3823, 3282)) %>% 
+  # Naugib
+  add_row(refid = 5803, year = 2011, study = "DNascimento 2011", arm_tx = "Water/Clear", rgv_mean_1 = 30.66, rgv_sd_1 = 16.18, arm_n = 150) %>% 
+  add_row(refid = 5803, year = 2011, study = "DNascimento 2011", arm_tx = "CHO", rgv_mean_1 = 28.46, rgv_sd_1 = 16.91, arm_n = 150) %>% 
+  # DN 2011
+  add_row(refid = 3823, year = 2001, study = "Naguib 2001", arm_tx = "Water", rgv_mean_1 = 29.35, rgv_sd_1 = 38.76, arm_n = 12) %>% 
+  add_row(refid = 3823, year = 2001, study = "Naguib 2001", arm_tx = "CHO", rgv_mean_1 = 10.503, rgv_sd_1 = 11.87, arm_n = 26) %>% 
+  arrange(refid, year) %>% 
+  select(-design)
+
+rgv_meta.dat <- left_join(rgv_meta.dat[c(1,3,5,7,9), ], rgv_meta.dat[c(2,4,6,8,10), ], 
+                          by = c("refid", "study", "year"))
+
+rgv_meta <- metacont(n.e = arm_n.x, n.c = arm_n.y, 
+                     median.e = rgv_median_1.x, 
+                     mean.e = rgv_mean_1.x,
+                     sd.e = rgv_sd_1.x,
+                     q1.e = rgv_iqr_low_1.x, 
+                     q3.e = rgv_iqr_up_1.x,
+                     min.e = rgv_range_low_1.x,
+                     max.e = rgv_range_up_1.x,
+                     mean.c = rgv_mean_1.y,
+                     sd.c = rgv_sd_1.y,
+                     median.c = rgv_median_1.y, 
+                     q1.c = rgv_iqr_low_1.y, 
+                     q3.c = rgv_iqr_up_1.y,
+                     min.c = rgv_range_low_1.y,
+                     max.c = rgv_range_up_1.y,
+                     data = rgv_meta.dat,
+                     studlab = study)
+
+forest(rgv_meta, 
+       comb.random = FALSE,
+       lab.e = "CHO     ",
+       lab.c = "Fasting     ",
+       digits = 1,
+       digits.sd = 1,
+       digits.tau2 = 1,
+       overall.hetstat = TRUE,
+       print.I2.ci = TRUE,
+       print.byvar = FALSE,
+       overall = TRUE,
+       fs.xlab = 11,
+       xlab = "RGV (mL)\n Favors CHO           Favors Fasting")
+
+figure_n <- fig_inc()
+```
+
+Mean differences estimated from means, standard deviations, medians, interquartile and overall ranges.
+
 
 ## Length of Stay
 
@@ -2564,14 +2632,20 @@ los.dat %>%
   kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>% 
   kable_classic(position = "left", full_width = FALSE, html_font = opt_font, "hover") %>% 
   row_spec(0, bold = TRUE) %>% 
-  column_spec(1, width = "12em") %>%  
+  column_spec(1, width = "15em") %>%  
   column_spec(2, width = "6em") %>% 
   column_spec(3, width = "3em") %>% 
   column_spec(c(4:6), width = "7em") %>% 
   row_spec(cho_row, color = "brown") %>% 
-  pack_top(., "Adult, Surgical", 1, 11) %>% 
-  pack_sub(., "RCT", 1, 9) %>%
-  pack_sub(., "Retrospective Cohort", 10, 11) %>%
+  pack_top(., "Adult, Surgical", 1, 95) %>% 
+  pack_sub(., "RCT", 1, 79) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 80, 85) %>%
+  pack_sub(., "Prospective Cohort", 86, 86) %>%
+  pack_sub(., "Retrospective Cohort", 87, 91) %>%
+  pack_sub(., "Case Control", 92, 93) %>%
+  pack_sub(., "Before-After", 94, 95) %>%
+  pack_top(., "Pediatric, Surgical", 96, 99) %>% 
+  pack_sub(., "RCT", 96, 99) %>%
   footnote(general = "RCT: randomized controlled trial.",
            # alphabet = c("Only Pexe-Machado 2013 reported a difference between arms in length of stay (p = 0.04)."),
            general_title = "", 

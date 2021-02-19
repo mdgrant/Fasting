@@ -45,7 +45,7 @@ All summary evidence tables are in draft form and not for citation (contact <a h
 
 <font size = 6> Evidence Tables and Pooled Results </font>
 
-[<font size = 4> Carbohydrate drinks (partial) </font>](cho_010420.html)
+[<font size = 4> Carbohydrate drinks </font>](cho_010420.html)
 
 [<font size = 4> Protein/carbohydrate drinks  </font>](protein_012621.html)
 

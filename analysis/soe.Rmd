@@ -219,54 +219,55 @@ foot_list <- domain_summary %>%
 
 domain_summary <- domain_summary %>% 
   mutate(
-    consist = ifelse(grepl("1Hung", n), paste0(consist, "^1a^"),   consist),
-    prec =    ifelse(grepl("1Hung", n), paste0(prec,    "^1b^"),   prec),
-    consist = ifelse(grepl("2Hung", n), paste0(consist, "^2a^"),   consist),
-    other =   ifelse(grepl("2Hung", n), "none^2b^",     other),
-    consist = ifelse(grepl("3Hung", n), paste0(consist, "^3a^"),   consist),
-    consist = ifelse(grepl("4Thir", n), paste0(consist, "^4a^"),   consist),
-    prec =    ifelse(grepl("4Thir", n), paste0(prec,    "^4b^"),   prec),
-    consist = ifelse(grepl("5Naus", n), paste0(consist, "^5a^"),   consist),
-    prec =    ifelse(grepl("5Naus", n), paste0(prec, "^5b^"),      prec),
-    consist = ifelse(grepl("6Disc", n), paste0(consist, "^6a^"),   consist),
-    prec =    ifelse(grepl("6Disc", n), paste0(prec,    "^6b^"),   prec),
-    consist = ifelse(grepl("7Sati", n), paste0(consist, "^7a^"),   consist),
-    prec =    ifelse(grepl("7Sati", n), paste0(prec,    "^7b^"),   prec),    
-    consist = ifelse(grepl("10Vom", n), paste0(consist, "^8a^"),   consist),
-    rob =     ifelse(grepl("9Regu", n), paste0(rob,     "^9a^"),   rob),
-    consist = ifelse(grepl("9Regu", n), paste0(consist, "^9b^"),   consist),
-    prec =    ifelse(grepl("9Regu", n), paste0(prec,    "^9c^"),   prec),    
-    consist = ifelse(grepl("10Reg", n), paste0(consist, "^10a^"),  consist),
-    prec =    ifelse(grepl("10Reg", n), paste0(prec,    "^10b^"),  prec),   
-    consist = ifelse(grepl("11Vom", n), paste0(consist, "^11a^"),  consist),
-    prec =    ifelse(grepl("11Vom", n), paste0(prec,    "^11b^"),  prec),
-    consist = ifelse(grepl("12Com", n), paste0(consist, "^12a^"),  consist),
-    direct  = ifelse(grepl("13Res", n), paste0(direct,  "^13a^"),  direct)
+    consist = ifelse(grepl("1Hung", n), paste0(consist, "^a^"),   consist),
+    prec =    ifelse(grepl("1Hung", n), paste0(prec,    "^b^"),   prec),
+    consist = ifelse(grepl("2Hung", n), paste0(consist, "^c^"),   consist),
+    other =   ifelse(grepl("2Hung", n), "none^d^",     other),
+    consist = ifelse(grepl("3Hung", n), paste0(consist, "^e^"),   consist),
+    consist = ifelse(grepl("4Thir", n), paste0(consist, "^f^"),   consist),
+    prec =    ifelse(grepl("4Thir", n), paste0(prec,    "^g^"),   prec),
+    consist = ifelse(grepl("5Naus", n), paste0(consist, "^h^"),   consist),
+    prec =    ifelse(grepl("5Naus", n), paste0(prec, "^i^"),      prec),
+    consist = ifelse(grepl("6Disc", n), paste0(consist, "^j^"),   consist),
+    prec =    ifelse(grepl("6Disc", n), paste0(prec,    "^k^"),   prec),
+    consist = ifelse(grepl("7Sati", n), paste0(consist, "^l^"),   consist),
+    prec =    ifelse(grepl("7Sati", n), paste0(prec,    "^m^"),   prec),    
+    # consist = ifelse(grepl("10Vom", n), paste0(consist, "^8a^"),   consist),
+    rob =     ifelse(grepl("9Regu", n), paste0(rob,     "^o^"),   rob),
+    consist = ifelse(grepl("9Regu", n), paste0(consist, "^p^"),   consist),
+    prec =    ifelse(grepl("9Regu", n), paste0(prec,    "^q^"),   prec),    
+    consist = ifelse(grepl("10Reg", n), paste0(consist, "^r^"),  consist),
+    prec =    ifelse(grepl("10Reg", n), paste0(prec,    "^s^"),  prec),   
+    consist = ifelse(grepl("11Vom", n), paste0(consist, "^t^"),  consist),
+    prec =    ifelse(grepl("11Vom", n), paste0(prec,    "^u^"),  prec),
+    prec =    ifelse(grepl("12Com", n), paste0(prec,    "^v^"),  prec),
+    direct  = ifelse(grepl("13Res", n), paste0(direct,  "^w^"),  direct)
     )
 
 footnotes <- c(
-  "1a Considerable heterogeneity (*I*^2^ = 90%).",
-  "1b Wide confidence intervals consistent with either carbohydrate or fasting being accompanied by a lower risk of hunger.",
-  "2a Considerable heterogeneity (*I*^2^ = 90%).", 
-  "2b Potential small study effects but not downgraded owing to use of SMD as effect measure.", 
-  "3a Studies reported inconsistent results.",
-  "4a Considerable heterogeneity (*I*^2^ = 86%).",
-  "4b Wide confidence intervals consistent with either CHO or fasting being accompanied by a lower risk of thirst.",
-  "5a Considerable heterogeneity (*I*^2^ = 75%).",
-  "5b Wide confidence interval.",
-  "6a Single study, cannot assess consistency.",
-  "6b Wide confidence interval and small number of events.",
-  "7a Studies report inconsistent results and measurement taken at different times.",
-  "7b Assuming both studies used a 10-point scale, the pooled estimate was accompanied by considerable uncertainty — MD 1.00 (95% CI, -0.96 to 2.96).",
-  "9a Unclear ascertainment accuracy or if Koeppe 2013 assessment exceedingly sensitive.",
-  "9b A single RCT reported any regurgitation, consistency cannot be assessed.",
-  "9c Single RCT (98 patients) with wide confidence interval.",
-  "10a Single study, cannot assess consistency.",
-  "10b 1 event, precision unclear.",
-  "11a Substantial heterogeneity (*I^2^* = 63%).",
-  "11b 6b Wide confidence interval and small number of events.",
-  "12a Varied definitions of complication.",
-  "13a Strength of relationship with aspiration unclear, but for comparative purposes may be considered direct.")
+  "Considerable heterogeneity (*I*^2^ = 90%).",
+  "Wide confidence intervals consistent with either carbohydrate or fasting being accompanied by a lower risk of hunger.",
+  "Considerable heterogeneity (*I*^2^ = 90%).", 
+  "Potential small study effects but not downgraded owing to use of SMD as effect measure.", 
+  "Studies reported inconsistent results.",
+  "Considerable heterogeneity (*I*^2^ = 86%).",
+  "Wide confidence intervals consistent with either CHO or fasting being accompanied by a lower risk of thirst.",
+  "Considerable heterogeneity (*I*^2^ = 75%).",
+  "Wide confidence interval.",
+  "Single study, cannot assess consistency.",
+  "Wide confidence interval and small number of events.",
+  "Studies report inconsistent results and measurement taken at different times.",
+  "Assuming both studies used a 10-point scale, the pooled estimate was accompanied by considerable uncertainty — MD 1.00 (95% CI, -0.96 to 2.96).",
+  "No events in any study so not appraised.",
+  "Unclear ascertainment accuracy or if Koeppe 2013 assessment exceedingly sensitive.",
+  "A single RCT reported any regurgitation, consistency cannot be assessed.",
+  "Single RCT (98 patients) with wide confidence interval.",
+  "Single study, cannot assess consistency.",
+  "One event, precision unclear.",
+  "Substantial heterogeneity (*I^2^* = 63%).",
+  "Wide confidence interval and small number of events.",
+  "Wide confidence interval and number of events limits the ability to exclude a difference between CHO and fasting.",
+  "Strength of relationship with aspiration unclear, but for comparative purposes may be considered direct.")
 
 domain_summary %>% 
   filter(comparison == "CHO_fasting") %>% 
@@ -335,10 +336,9 @@ cho_soe_summary <- cho_soe.dat %>%
     result_table = ifelse(grepl("18Satisf", n), "[Table 8](cho_010420.html#Patient_Satisfaction)", result_table),
     result_table = ifelse(grepl("19Aspir", n), "[Table 9](cho_010420.html#__Reported) <br> [Table 10](cho_010420.html#aspirate2)", result_table),
     result_table = ifelse(grepl("20Regurg", n), "[Table 11](cho_010420.html#Regurgitation)", result_table),
-    result_table = ifelse(grepl("21Vomit", n), "[Table 12](cho_010420.html#Vomiting) <br> [Figure 7](cho_010420.html#fig8)", result_table),
+    result_table = ifelse(grepl("21Vomit", n), "[Table 12](cho_010420.html#Vomiting) <br> [Figure 8](cho_010420.html#fig8)", result_table),
     result_table = ifelse(grepl("22Compl", n), "[Table 13](cho_010420.html#Complications) <br> [Table 14](cho_010420.html#tab14) <br> [Figure 10](cho_010420.html#fig10)", result_table),
-    # result_table = ifelse(grepl("13Resi", n), "[Table 15](cho_010420.html#Residual_Gastric_Volume) <br> [Figure 11](cho_010420.html#__Pooled_(adult_RCTs)23)", result_table)
-    )
+    result_table = ifelse(grepl("23Resi", n), "[Table 15](cho_010420.html#Residual_Gastric_Volume) <br> [Figure 12](cho_010420.html#fig12)", result_table))
 
 cho_soe_summary %>% 
   filter(comparison == "CHO_clear") %>% 
@@ -383,18 +383,19 @@ foot_list <- domain_summary %>%
 
 domain_summary <- domain_summary %>%
   mutate(
-    consist = ifelse(grepl("14Hung", n), paste0(consist, "^14a^"),   consist),
-    prec =    ifelse(grepl("14Hung", n), paste0(prec,    "^14b^"),   prec),
-    consist = ifelse(grepl("15Hung", n), paste0(consist, "^15a^"),   consist),
-    prec =    ifelse(grepl("15Hung", n), paste0(prec,    "^15b^"),   prec),    
-    consist = ifelse(grepl("16Thir", n), paste0(consist, "^16a^"),   consist),
-    prec =    ifelse(grepl("16Thir", n), paste0(prec,    "^16b^"),   prec),  
-    consist = ifelse(grepl("17Naus", n), paste0(consist, "^17a^"),   consist),
-    prec =    ifelse(grepl("17Naus", n), paste0(prec,    "^17a^"),   prec),
-    consist = ifelse(grepl("18Sati", n), paste0(consist, "^18a^"),   consist),
-    prec =    ifelse(grepl("21Vomi", n), paste0(prec,    "^21a^"),   prec),
+    consist = ifelse(grepl("14Hung", n), paste0(consist, "^a^"),   consist),
+    prec =    ifelse(grepl("14Hung", n), paste0(prec,    "^b^"),   prec),
+    consist = ifelse(grepl("15Hung", n), paste0(consist, "^c^"),   consist),
+    prec =    ifelse(grepl("15Hung", n), paste0(prec,    "^d^"),   prec),    
+    consist = ifelse(grepl("16Thir", n), paste0(consist, "^e^"),   consist),
+    prec =    ifelse(grepl("16Thir", n), paste0(prec,    "^f^"),   prec),  
+    consist = ifelse(grepl("17Naus", n), paste0(consist, "^g^"),   consist),
+    prec =    ifelse(grepl("17Naus", n), paste0(prec,    "^h^"),   prec),
+    consist = ifelse(grepl("18Sati", n), paste0(consist, "^i^"),   consist),
+    prec =    ifelse(grepl("21Vomi", n), paste0(prec,    "^k^"),   prec),
     # consist = ifelse(grepl("22Comp", n), paste0(consist, "^22a^"),   consist),  # NOTE CHANGE
-    prec =    ifelse(grepl("22Comp", n), paste0(prec,    "^21a^"),   prec),
+    prec =    ifelse(grepl("22Comp", n), paste0(prec,    "^k^"),   prec),
+    direct  = ifelse(grepl("23Res", n), paste0(direct,  "^l^"),  direct)
 #     consist = ifelse(grepl("10Vom", n), paste0(consist, "^8a^"),   consist),
 #     rob =     ifelse(grepl("9Regu", n), paste0(rob,     "^9a^"),   rob),
 #     consist = ifelse(grepl("9Regu", n), paste0(consist, "^9b^"),   consist),
@@ -404,22 +405,22 @@ domain_summary <- domain_summary %>%
 #     consist = ifelse(grepl("11Vom", n), paste0(consist, "^11a^"),  consist),
 #     prec =    ifelse(grepl("11Vom", n), paste0(prec,    "^11b^"),  prec),
 #     consist = ifelse(grepl("12Com", n), paste0(consist, "^12a^"),  consist),
-#     direct  = ifelse(grepl("13Res", n), paste0(direct,  "^13a^"),  direct)
 )
 
 footnotes <- c(
-  "14a Single study, cannot assess consistency.",
-  "14b Wide confidence intervals; number of events not substantial.",
-  "15a Considerable heterogeneity (*I*^2^ = 90%).", 
-  "15b Wide confidence intervals consistent with either CHO or clear liquids accompanied by lower hunger ratings.",
-  "16a Studies report inconsistent and discrepant results.",
-  "16b  Wide confidence intervals.",
-  "17a Substantial heterogeneity (*I*^2^ = 59%).",
-  "17b Wide confidence intervals consistent with either CHO or clear liquids accompanied by lower rates of nausea.",
-  "18a Meaurements taken at different times and unclear if same measuring tool was used by the two studies.",
+  "Single study, cannot assess consistency.",
+  "Wide confidence intervals; number of events not substantial.",
+  "Considerable heterogeneity (*I*^2^ = 90%).", 
+  "Wide confidence intervals consistent with either CHO or clear liquids accompanied by lower hunger ratings.",
+  "Studies report inconsistent and discrepant results.",
+  "Wide confidence intervals.",
+  "Substantial heterogeneity (*I*^2^ = 59%).",
+  "Wide confidence intervals consistent with either CHO or clear liquids accompanied by lower rates of nausea.",
+  "Meaurements taken at different times and unclear if same measuring tool was used by the two studies.",
+  "No events in any study so not appraised.",
   "21a Wide confidence interval and number of events limits the ability to exclude a difference between liquids.",
   # "22a Differing definitions of complications.",
-  "placeholder")
+  "Strength of relationship with aspiration unclear, but for comparative purposes may be considered direct.")
   
   
   
@@ -468,14 +469,81 @@ table_n <- tab_inc()
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <br>
-
+  
 # Ratings Reference
 
 ## GRADE
 
-## USPSTF
+<br>
+<font size = 4> 
+**High** --- We are very confident that the true effect lies close to that of the estimate of the effect.
+
+**Moderate** ---  We are moderately confident in the effect estimate: The true effect is likely to be close to the estimate of the effect, but there is a possibility that it is substantially different.
+
+**Low** --- Our confidence in the effect estimate is limited: The true effect may be substantially different from the estimate of the effect.
+
+**Very Low** ---  We have very little confidence in the effect estimate: The true effect is likely to be substantially different from the estimate of effect. 
+
+</font>
+
+### Domains (downgrading)
+<font size = 3>
+
+*Bias* --- Systematic error (eg, selection bias, confounding bias, measurement bias).
+
+*Inconsistency* --- Unexplained heterogeneity of results; studies find effect estimates that differ widely.
+
+*Imprecision* --- The range of plausible effects estimated from relevant studies.
+
+*Indirectness* --- Direct evidence consists of research that directly compares the interventions which we are interested in, delivered to the populations in which we are interested, and measures the outcomes important to patients.
+
+*Other (eg, publication bias)* Selective publication or reporting of results (typically of positive results).
+
+### Domains (updgrading)
+
+*Effect Size*
+
+*Dose-response*
+
+*Plausible Residual Confounding*
+
+</font>
+
+<br>
+
+## USPSTF/AHRQ
+
+<font size = 3>
+**High** --- We are very confident that the estimate of effect lies close to the true effect for this outcome. The body of evidence has few or no deficiencies. We believe that the findings are stable, i.e., another study would not change the conclusions.
+
+**Moderate** --- We are moderately confident that the estimate of effect lies close to the true effect for this outcome. The body of evidence has some deficiencies. We believe that the findings are likely to be stable, but some doubt remains.
+
+**Low** --- We have limited confidence that the estimate of effect lies close to the true effect for this outcome. The body of evidence has major or numerous deficiencies (or both). We believe that additional evidence is needed before concluding either that the findings are stable or that the estimate of effect is close to the true effect.
+
+**Insufficient** --- We have no evidence, we are unable to estimate an effect, or we have no confidence in the estimate of effect for this outcome. No evidence is available or the body of evidence has unacceptable deficiencies, precluding reaching a conclusion. 
+
+<br>
 
 ## ACC/AHA
+
+**Level A** --- High-quality evidence from more than 1 RCTs. Meta-analyses of high-quality RCTs. One or more RCTs corroborated by high-quality registry studies.
+
+**Level B-R** --- Moderate-quality evidence from 1 or more randomized controlled trials. Meta-analyses of moderate-quality RCTs.
+
+**Level B-NR** --- Moderate-quality evidence from 1 or more well-designed, well-executed nonrandomized studies, observational studies, or registry studies. Meta-analyses of such studies.
+
+**Level C-LD** --- Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.
+
+**Level C-EO** --- Consensus of expert opinion based on clinical experience when evidence is insufficient, vague, or conflicting. 
+
+</font>
+
+<font size = 3> RCT: randomized controlled trial; NR: nonrandomized; LD: limited data; EO: expert opinion </font>
+
+
+
+
+
 
 
 
