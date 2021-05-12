@@ -7,9 +7,9 @@ output:
     theme: cosmo
     anchor_sections: TRUE
     toc_float: 
-      collapsed: false
+      collapsed: true
       smooth_scroll: TRUE
-    toc_depth: 4
+    toc_depth: 3
     linkcolor: blue
   latex_engine: xelatex
   pdf_document:
@@ -306,9 +306,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<br/>
-
-## Adult Surgical
+## *Adult Surgical*
 
 <br/>
 
@@ -379,11 +377,11 @@ included_studies %>%
   column_spec(6, width = "12em") %>%
   # pack_top(., "Adult, Surgical", 1, 100) %>%
   pack_top(., "RCT", 1, 85) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 86, 93) %>%
-  pack_sub(., "Prospective Cohort", 94, 96) %>%
-  pack_sub(., "Retrospective Cohort", 97, 98) %>%
-  pack_sub(., "Case-Control", 99, 99) %>%
-  pack_sub(., "Before-After", 100, 100) %>%
+  pack_top(., "Nonrandomized Studies of Interventions", 86, 93) %>%
+  pack_top(., "Prospective Cohort", 94, 96) %>%
+  pack_top(., "Retrospective Cohort", 97, 98) %>%
+  pack_top(., "Case-Control", 99, 99) %>%
+  pack_top(., "Before-After", 100, 100) %>%
   footnote(
     alphabet = c(
       "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."
@@ -396,11 +394,11 @@ included_studies %>%
 table_n <- tab_inc()
 ```
 
-<br>
+<br/>
 
-## Adult Nonsurgical
+## *Adult Nonsurgical*
 
-<br>
+<br/>
 
 <font size = 4> Table `r table_n`. Studies of healthy adults not undergoing surgery (see [References](#references) for citations). </font>
 
@@ -437,9 +435,9 @@ included_studies %>%
 table_n <- tab_inc()
 ```
 
-<br>
+<br/>
 
-## Pediatric Surgical
+## *Pediatric Surgical*
 
 <br>
 
@@ -479,7 +477,7 @@ table_n <- tab_inc()
 
 <br>
 
-## Pediatric Nonsurgical
+## *Pediatric Nonsurgical*
 
 <br/>
 
@@ -591,9 +589,9 @@ cho_amts <- study_arm_cho.dat %>%
 
 <br/>
 
-## Preop Hunger 
+## *Preoperative Hunger* 
 
-## &ensp; Rates (surgical)
+### Rates (surgical)
 
 <a id="choHungRates6"></a>
 
@@ -721,7 +719,7 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Patient-rated (surgical)
+### Patient-rated (surgical)
 
 <a id="choHungRating7"></a>
 
@@ -883,7 +881,7 @@ likert_cho_hung_kbl.dat %>%
 
 <br/>
 
-## &ensp; Patient-rated (nonsurgical)
+### Patient-rated (nonsurgical)
 
 <a id="choHungRating8"></a>
 
@@ -968,7 +966,9 @@ likert_cho_hung_kbl.dat %>%
 
 <br/>
 
-## &ensp; Pooled (adult RCTs, rates) <a id="choHungFig1"></a> 
+### Pooled (adult RCTs, rates)
+
+<a id="choHungFig1"></a> 
 
 <br/>
 
@@ -1027,7 +1027,9 @@ Too few studies to examine small-study effects.
 
 <br>
 
-## &ensp; Pooled (adult RCTs, ratings) <a id="choHungFig2"></a> 
+### Pooled (adult RCTs, patient-rated) 
+
+<a id="choHungFig2"></a> 
 
 <br>
 
@@ -1157,7 +1159,7 @@ Some indications of small-study effects in funnel plot, but not supported by Pus
 
 <a id="choHungFig3"></a>
 
-<br>
+<br/>
 
 <font size = 4> Figure `r figure_n`. Pooled hunger ratings (standardized mean differences in VAS or NRS) from randomized trials comparing carbohydrate drinks with clear liquids or water in adult surgical patients. </font>
 
@@ -1257,15 +1259,15 @@ metansue::forest(temp_meta)
 
 ```
 
-Tsutsumi 2016 mean estimated from median and range, standard deviation from reported p-value (0.001). 
+Tsutsumi 2016 mean estimated from median and range, standard deviation, and P-value (.001). 
 Naguib 2001 reported only non-signficant results and could not be included in the meta-analysis; a sensitivity analysis using multiple imputation to add that result yielded a random effects estimate for the SMD of -0.527 (95% CI, -0.51, -0.03; *I*^2^ = 51%). 
 Although limited number of studies to assess small-study effects and potential outliers, no indication by Pustejovsky's test of asymmetry, P = .45.
 
 <br/>
   
-## Preop Thirst 
+## *Preoperative Thirst* 
 
-## &ensp; Rates (surgical)
+### Rates (surgical)
 
 <a id="choThirstRates9"></a>
 
@@ -1412,7 +1414,7 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Patient-rated (surgical)
+### Patient-rated (surgical)
 
 <a id="choThirstRating10"></a>
 
@@ -1569,7 +1571,7 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Patient-rated (nonsurgical)
+### Patient-rated (nonsurgical)
 
 <a id="choThirstRating11"></a>
 
@@ -1638,7 +1640,9 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Pooled (adult RCTs, rates) <a id="choThirstFig4"></a> 
+### Pooled (adult RCTs, rates) 
+
+<a id="choThirstFig4"></a> 
 
 <br/>
 
@@ -1718,7 +1722,9 @@ Too few studies to examine small-study effects.
 
 <br>
 
-## &ensp; Pooled (adult RCTs, ratings) <a id="choThirstFig5"></a> 
+### Pooled (adult RCTs, patient-rated) 
+
+<a id="choThirstFig5"></a> 
 
 <br/>
 
@@ -1910,9 +1916,9 @@ Too few studies to examine small-study effects.
 
 <br/>
 
-## Preop Nausea 
+## *Preoperative Nausea* 
 
-## &ensp; Rates (surgical)
+### Rates (surgical)
 
 <a id="choNauseaRates12"></a>
 
@@ -2051,9 +2057,9 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Rates (nonsurgical)
+### Rates (nonsurgical)
 
-<a id="choNauseaRatesXX"></a>
+<a id="choNauseaRates13"></a>
 
 <br/>
 
@@ -2122,13 +2128,14 @@ dichot_nonsurg_nausea %>%
     general_title = "",
     footnote_as_chunk = FALSE)
 
+table_n <- tab_inc()
 ```
 
 <br/>
 
-## &ensp; Patient-rated (surgical)
+### Patient-rated (surgical)
 
-<a id="choNauseaRates13"></a> 
+<a id="choNauseaRates14"></a> 
 
 <br/>
 
@@ -2296,7 +2303,9 @@ likert_cho_nausea_preop_kbl.dat %>%
 
 <br/>
 
-## &ensp; Pooled (adult RCTs, rates) <a id="choThirstFig7"></a> 
+### Pooled (adult RCTs, rates) 
+
+<a id="choThirstFig7"></a> 
 
 <br/>
 
@@ -2348,11 +2357,11 @@ figure_n <- fig_inc()
 
 <br/>
 
-## Pain 
+## *Pain* 
 
-## &ensp; Rates 
+### Rates 
 
-<a id="comfort_ratings"></a>
+<a id="pain_ratings15"></a>
 
 <br/>
 
@@ -2361,9 +2370,6 @@ figure_n <- fig_inc()
 ```{r comfortTableOr, include = TRUE}
 ##  (updated 2021/01/13 08:52) comfortTableOr --------------------------------
 dichot_format <- function(x) (x/100)
-# odds ratios
-# exclude single arm studies
-# select refid, study, arm_tx, arm_n, outcome_n
 dichot_comfort_or <- dichot_cho.dat %>% 
   filter(!is.na(comfort_np)) %>%
   select(refid, study, arm_tx, arm_n, comfort_n) %>% 
@@ -2444,9 +2450,9 @@ table_n <- tab_inc()
 
 <br>
 
-## &ensp; Patient-rated 
+### Patient-rated 
 
-<a id="pain_ratings"></a>
+<a id="pain_ratings16"></a>
 
 <br/>
 
@@ -2495,7 +2501,7 @@ likert_cho_comfort.dat <- likert_cho.dat %>%
 # write_csv(likert_cho_comfort.dat, "/Users/mgrant/Desktop/likert_comfort.csv", na = "")
 ```
 
-<font size = 4> Table `r table_n`. Pain ratings according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Preoperative pain ratings according to fasting, liquid and volume. </font>
 
 ```{r comfortKable, echo = FALSE, includ = FALSE, eval=FALSE}
 ## (updated 2020/12/14 14:31) comfortKable --------------------------------
@@ -2598,9 +2604,16 @@ likert_cho_comfort_kbl.dat %>%
 table_n <- tab_inc()
 ```
 
+```{r}
+table_n <- tab_inc()
+```
+
+
 <br/>
 
-## &ensp; Pooled (adult RCTs, ratings) <a id="figY"></a> 
+### Pooled (adult RCTs, patient-rated) 
+
+<a id="choPainFig8"></a> 
 
 <br/>
 
@@ -2695,17 +2708,134 @@ No indication of small-study effects in funnel plot or by Pustejovsky’s test o
 
 <br/>
 
+
+## *Patient Satisfaction* 
+
+<a id="choSatis17"></a> 
+
+<br/>
+
+<font size = 4> Table `r table_n`. Patient satisfaction ratings according to fasting, liquid and volume. </font>
+
+```{r satisLikert, include = TRUE}
+## (updated 2021/01/29 08:30) satisLikert ---------------------------------
+# no subgroup data
+likert_satis.dat <- likert_cho.dat %>%
+  filter(refid %in% cho_refids) %>%
+  # delete Asakura 2234 and Lee 2018 as abstracted QoR emotional
+  filter(pt_satis_l == "pt_satis_l", !refid %in% c(2234, 926)) %>%
+  # filter_at(vars(satis_m:satis_pval), any_vars(!is.na(.))) # same
+  select(refid:age, arm_n, arm_tx, likert_time_outcome, contains("ingest"), contains("satis")) %>%
+  mutate(arm_tx = droplevels(arm_tx)) %>%
+  arrange(age, desc(surg_nosurg), design, year, study, arm_tx)
+
+likert_satis_kbl.dat <- likert_satis.dat %>%
+  rename(time_outcome = likert_time_outcome) %>%
+  mutate(
+    # surgical studies (note none have times 0 or negative)
+    # hr_2 is ≤ 2; hr_26 is (2, 6] >2 to 6; hr_gt6 is >6
+    hr_2 = 0, hr_26 = 0, hr_gt6 = 0,
+    hr_2 =   if_else(timeingest1 <= 2 & timeingest1 > 0, amtingest1, hr_2, missing = 0),
+    hr_26 =  if_else(timeingest1 > 2 & timeingest1 < 6, amtingest1, hr_26, missing = 0),
+    hr_gt6 = if_else(timeingest1 >= 6, amtingest1, hr_gt6, missing = 0),
+    hr_2 =   if_else(hr_2 == 0 & timeingest2 <= 2 & timeingest2 > 0, amtingest2, hr_2, missing = 0),
+    hr_26 =  if_else(hr_26 == 0 & timeingest2 > 2 & timeingest2 < 6, amtingest2, hr_26, missing = 0),
+    hr_gt6 = if_else(hr_gt6 == 0 & timeingest2 >= 6, amtingest2, hr_gt6, missing = 0),
+    hr_gt6 = if_else(grepl("also received 300", type_ingest_1), 500, hr_gt6),  # Oyama PM
+    arm_tx = as.character(arm_tx),
+    arm_tx = ifelse(study == "Du 2017" & arm_tx == "Clear", "Juice^e^", arm_tx),
+    arm_tx = ifelse(study == "Marquini 2020c" & arm_tx == "Clear", "Water^c^", arm_tx)) %>%
+  replace_with_na_at(.vars = c("hr_gt6", "hr_26", "hr_2"), condition = ~ .x == 0) %>%
+  # Footnote: distilled water, 4 drops red dye, 2 drops sucrose
+  select(refid:arm_tx, hr_gt6, hr_26, hr_2, time_outcome, satisfaction_scale, satis_m:satis_iqru) %>%
+  mutate(
+    satis_med = paste0(satis_med, " (", satis_iqrl, "-", satis_iqru, ")"),
+    satis_med = ifelse(satis_med == "NA (NA-NA)", NA, satis_med),
+    satis_med = gsub(" \\(NA-NA\\)", "", satis_med),
+    ranges = str_c("(", satis_rl, "-", satis_ru, ")"),
+    mn_95_ci = str_c(round_1(satis_m), " (", round_1(satis95l), "-", round_1(satis95u), ")"),
+    mn_95_ci = ifelse(mn_95_ci == "NA (NA-NA)", NA, mn_95_ci),
+    mn_95_ci = str_replace(mn_95_ci, "\\(NA-NA\\)", ""), 
+    satisfaction_scale = ifelse(study == "Ajuzieogu 2016", "NRS^b^", satisfaction_scale),
+    # NOTE: footnote e: satis Satiety Scale
+    satisfaction_scale = ifelse(satisfaction_scale == "VAS, 0 to 10", "0→10", satisfaction_scale),
+    satisfaction_scale = ifelse(satisfaction_scale == "0-10 scale", "0←10", satisfaction_scale),
+    ) %>% 
+  # remove second line study identifier
+  arrange(age, desc(surg_nosurg), design, year, study) %>%
+  group_by(study) %>%
+  mutate(
+    study = ifelse(row_number() == 1, study, NA),
+    study = ifelse(study == "Song 2016", "Song 2016^c^", study),
+    satisfaction_scale = ifelse(row_number() == 1, satisfaction_scale, NA),
+    time_outcome = ifelse(row_number() == 1, time_outcome, NA)) %>%
+  ungroup()
+```
+
+```{r satisAdultSurgKable, echo = FALSE}
+## (updated 2021/01/29 08:30) satisAdultSurgKable -------------------------
+cho_row <- likert_satis_kbl.dat %>%
+  mutate(line = row_number()) %>%
+  filter(grepl("CHO", arm_tx))  %>%
+  pull(line)
+
+likert_satis_kbl.dat %>%
+  mutate(study = ifelse(study == "Song 2016^c^", cell_spec(study, color = "black"), study)) %>% 
+  select(study, arm_tx, arm_n, hr_gt6, hr_26, hr_2, satisfaction_scale, mn_95_ci, satis_med, ranges) %>%
+  add_row() %>% 
+  kbl(booktabs = T, align = c("llcccclccc"), escape = FALSE,
+      col.names = c(
+        "        Study", "Liquid", "N",  "> 6", "6→2", "≤ 2",  "Scale^a^", "M (95% CI)", "Med", "Range")) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Satisfaction Rating\n *(Between-group Comparison)*" = 4), line = TRUE) %>%
+  # NOTE: footnote a: includes at 2.5 hours
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(2, width = "7em") %>%
+  column_spec(3, width = "3em") %>%
+  column_spec(4, width = "3em") %>%
+  column_spec(5, width = "4em") %>%
+  column_spec(6, width = "4em") %>%
+  column_spec(7, width = "6em") %>%
+  column_spec(8, width = "6em") %>%
+  column_spec(9, width = "7em") %>%
+  column_spec(10, width = "6em") %>%
+  row_spec(cho_row, color = "brown") %>%
+  pack_top(., "Adult", 1, 7) %>%
+  pack_sub(., "RCT", 1, 7) %>%
+  result_pack("P = .03; higher satisfaction in CHO arm", 3, padding = 62) %>% 
+  result_pack("No difference detected in satisfaction", 5, padding = 62) %>% 
+  result_pack("P = .01; MD^d^\\ 1.76 (95% CI, 1.59 to 1.93)", 8, padding = 62) %>% 
+
+  pack_top(., "Pediatric", 8, 8) %>% 
+  pack_sub(., "Prospective Cohort", 8, 8) %>% 
+  footnote(
+    general = "RCT: randomized controlled trial; M: mean; Med: median; MD: mean difference.",
+    alphabet = c(
+      "Visual analogue scale with arrow (→) indicating low to high patient satisfaction.",
+      "Range unspecified.",
+      "Parental satisfaction (lower is better).",
+      "Calculated from means and confidence intervals."),
+    general_title = "",
+    footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br/>
+
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
 
 # **Clinical Outcomes** 
 
 <br/>
 
-## Aspiration
+## *Aspiration*
 
-## &ensp; None Reported (Adult)
+### None Reported (Adult)
 
-<a id="choAspAdult"></a> 
+<a id="choNoAspAdult18"></a> 
 
 <br/>
 
@@ -2760,7 +2890,7 @@ table_n <- tab_inc()
 
 <br/> 
 
-## &ensp; None Reported (Pediatric)
+### None Reported (Pediatric)
 
 <a id="choNoAspPeds"></a>
 
@@ -2811,9 +2941,9 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Unreported (Adult)
+### Unreported (Adult)
 
-<a id="choNoAspAdult"></a>
+<a id="choUnrepAspAdult"></a>
 
 <br>
 
@@ -2870,9 +3000,9 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Unreported (Pediatric)
+### Unreported (Pediatric)
 
-<a id="choNoAspPeds"></a>
+<a id="choUnrepAspPeds"></a>
 
 <br>
 
@@ -2921,11 +3051,11 @@ table_n <- tab_inc()
 
 <br/>
 
-## Regurgitation
+## *Regurgitation*
 
-## &ensp; Adults (surgical)
+### Adults (surgical)
 
-<a id="choRegurgAdult"></a>
+<a id="choRegurgAdult22"></a>
 
 <br/>
 
@@ -3015,7 +3145,7 @@ table_n <- tab_inc()
 
 <br/>
 
-## Vomiting 
+## *Vomiting* 
 
 
 ```{r vomitTablesData, include = TRUE}
@@ -3130,7 +3260,9 @@ dichot_vomit_peds <- dichot_vomit %>%
 
 ```
 
-## &ensp; Rates, Adults (preop)
+### Rates, Adults (preop)
+
+<a id="choVomitPreopAdult23"></a>
 
 <br/>
 
@@ -3181,7 +3313,9 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Rates, Adults (postop)
+### Rates, Adults (postop)
+
+<a id="choVomitPreopAdult24"></a>
 
 <br/>
 
@@ -3228,11 +3362,13 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Rates, Pediatric (preop, postop)
+### Rates, Pediatric (preop, postop)
+
+<a id="choVomitPeds25"></a>
 
 <br/>
 
-<font size = 4> Table `r table_n`. Rates of pre- and postoperative vomiting among pediatric patients according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Rates of pre- and post-operative vomiting among pediatric patients according to fasting, liquid and volume. </font>
 
 ```{r vomitPeds, include = TRUE}
 ## (updated 2021/05/07 14:49) tables --------------------------------------
@@ -3277,11 +3413,13 @@ table_n <- tab_inc()
 
 <br/>
 
-## Residual Gastric Volume
 
-## &ensp; Adults (surgical) 
 
-<a id="choRgv23"></a>
+## *Residual Gastric Volume* 
+
+### Adults (surgical) 
+
+<a id="choRgv26"></a>
 
 <br/>
 
@@ -3415,9 +3553,9 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Pediatric (surgical) 
+### Pediatric (surgical) 
 
-<a id="choRgv23"></a>
+<a id="choRgv27"></a>
 
 <br/>
 
@@ -3467,9 +3605,9 @@ table_n <- tab_inc()
 
 <br/>
 
-## &ensp; Nonsurgical Studies 
+### Nonsurgical Studies 
 
-<a id="choRgv24"></a>
+<a id="choRgv28"></a>
 
 <br/>
 
@@ -3609,12 +3747,19 @@ rgv_no_table %>%
     alphabet = c("Authors reported similar clearances of all 3 liquids in terminal emptying phase (eg, 120 to 180 minutes)."),
     footnote_as_chunk = FALSE) 
 
- table_n <- tab_inc()
+table_n <- tab_inc()
 ```
+
+```{r}
+table_n <- tab_inc()
+```
+
 
 <br/>
 
-## &ensp; Pooled (adult RCTs) 
+### Pooled (adult RCTs) 
+
+<a id="choRgvFig9"></a>
 
 <br/>
 
@@ -3724,13 +3869,13 @@ temp <- metacont(
 Mean differences estimated from means, standard deviations, medians, interquartile and overall ranges.
 Owing to skewed distributions of RGV, conducted sensitivity analysis on a log scale with consistent results. 
 
-<a id="fig12"></a>
+<a id="choRgvFig10"></a>
 
-<br><br>
+<br/><br/>
 
 <font size = 4> Figure `r figure_n`. Pooled residual gastric volume from randomized trials comparing carbohydrate drinks (excludes protein-containing drinks) with water or clear liquids in adult surgical patients. </font>
 
-```{r rgvChoMetaClear, include = TRUE, eval = TRUE,  fig.width = 10, fig.height = 3.5, fig.align = "center"}
+```{r rgvChoMetaClear, include = TRUE, eval = TRUE, fig.width = 10, fig.height = 3.5, fig.align = "center"}
 ## (updated 2021/01/22 15:19) rgvChoMeta ----------------------------------
 rgv_meta.dat <- contin_cho.dat %>%
   arrange(design, year, study) %>%
@@ -3852,13 +3997,806 @@ Mean differences estimated from means, standard deviations, medians, interquarti
 Combined similar arms for Naguib 2001 and Dock-Nascimento 2011.
 Owing to skewed distributions of RGV, conducted sensitivity analysis on a log scale with consistent results. 
 
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+<br/>
+
+## *pH* 
+
+<a id="choPh29"></a>
+
+<br/>
+
+<font size = 4> Table `r table_n`. Gastric pH in randomized trials according to fasting, liquid and volume. </font>
+
+```{r pHcho, include = TRUE}
+## (updated 2021/05/10 18:33) ph data -------------------------------------
+ph.dat <- contin_cho.dat %>%
+  filter(refid %in% cho_refids) %>%
+  select(refid:age, arm_n, arm_tx, hr_gt6, hr_26, hr_2, starts_with("ph"), notes_continuous) %>%
+  rename(notes = notes_continuous) %>% 
+  # filter(surg_nosurg == "surgical") %>%
+  filter_at(vars(starts_with("ph")), any_vars(!is.na(.))) %>% 
+  mutate(
+    ph_mean = paste0(round_2(ph_mean_1), " (", round_2(ph_sd_1), ")"),
+    ph_mean = str_replace(ph_mean, "\\( NA\\)", ""),
+    ph_med = paste0(round_2(ph_median_1), " (", round_2(ph_iqr_low_1), "-", round_2(ph_iqr_up_1), ")"),
+    ph_med = str_replace(ph_med, "\\( NA.*|NA.*", ""),
+  ) %>% 
+  arrange(age, year, design, study, arm_tx) %>% 
+  add_foot(study, "Yilmaz 2013", "a") %>% 
+  add_foot(study, "Joshi 2020", "b") 
+
+cho_row <- ph.dat %>%
+  filter(age == "Adult") %>% 
+  mutate(line = row_number()) %>%
+  filter(grepl("CHO", arm_tx)) %>%
+  pull(line)
+  
+ph.dat %>% 
+  # filter(age == "Adult") %>% 
+  group_by(study) %>% 
+  mutate(
+    id = row_number(),
+    study = ifelse(id > 1, NA, study)) %>% 
+  ungroup() %>% 
+  select(study, arm_tx, arm_n, hr_gt6:hr_2, ph_mean, ph_med, -id) %>% 
+  mutate(
+    arm_tx = as.character(arm_tx),
+  ) %>%
+    kbl(
+    booktabs = T, align = c("llccccll"), escape = FALSE,
+    col.names = c(
+      "        Study", "Liquid", "N", "> 6", "6→2", "≤ 2", "     M (SD)", "     Med (IQR)"
+    )
+  ) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "pH" = 2), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(2, width = "7em") %>%
+  column_spec(3, width = "3em") %>%
+  column_spec(c(4,6), width = "3em") %>%
+  column_spec(5, width = "4em") %>%
+  column_spec(7, width = "8em") %>%
+  column_spec(8, width = "8em") %>%
+  row_spec(cho_row, color = "brown") %>% 
+  pack_top(., "Adult, Surgical", 1, 20) %>%
+  pack_sub(., "RCT", 1, 20) %>%
+  pack_top(., "Pediatric, Surgical", 21, 24) %>%
+  pack_sub(., "RCT", 21, 24) %>%
+  footnote(
+    general = "RGV: residual gastric volumne; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; CHO: carbohydrate; Simp: simple; Comp: complex; Prot: protein; RCT: randomized controlled trial.",
+    alphabet = c("Used urine pH test scripts.",
+                 "During the intraoperative period"),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+### Pooled (adult RCTs)
+
+<a id="choPhFig11"></a>
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled gastric pH from randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
+```{r metaPh, include = TRUE, fig.width = 10, fig.height = 3.5, fig.align = "center"}
+
+ph_meta.dat <- ph.dat %>% 
+  filter(age == "Adult") %>% 
+  arrange(design, year, study) %>%
+  filter(arm_tx == "Fasting" | grepl("CHO", arm_tx)) %>%
+  filter(!(refid == 5803 & arm == 3)) %>%  # honey arm Naguib
+  mutate(arm_tx = ifelse(grepl("CHO", arm_tx), "cho", "fasting")) %>% 
+  group_by(refid) %>% 
+  filter(n() > 1, refid != 2985, refid != 7990) %>% # Joshi 2020 ph over intraop period
+  ungroup() %>% 
+  select(study, arm_tx, arm_n, ph_mean_1, ph_sd_1, ph_median_1, ph_iqr_low_1, ph_iqr_up_1) %>% 
+  rename_with(~str_replace(., "_1", "")) %>% 
+  rename_with(~str_replace(., "ph_", "")) %>% 
+  pivot_wider(id_cols = "study", names_from = "arm_tx", values_from = c("arm_n", "mean", "sd", "median", "iqr_low", "iqr_up"))
+
+ph_meta <- metacont(
+  data = ph_meta.dat,
+  n.e = arm_n_cho,
+  n.c = arm_n_fasting,
+  mean.e = mean_cho,
+  mean.c = mean_fasting,
+  sd.e = sd_cho,
+  sd.c = sd_fasting,
+  median.e = median_cho,
+  median.c = median_fasting,
+  q1.e = iqr_low_cho,
+  q1.c = iqr_low_fasting,
+  q3.e = iqr_up_cho,
+  q3.c = iqr_up_fasting,
+  method.tau = "REML",
+  hakn = TRUE,
+  studlab = study
+)
+  
+forest(ph_meta,
+  comb.random = TRUE,
+  lab.e = "CHO     ",
+  lab.c = "Fasting     ",
+  digits = 2,
+  digits.sd = 1,
+  digits.mean = 1,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  print.byvar = FALSE,
+  overall = TRUE,
+  fs.xlab = 11,
+  rightcols = c("effect", "ci"),
+  xlab = "pH\n Favors CHO           Favors Fasting"
+)
+
+figure_n <- fig_inc()
+
+```
+
+<br/>
+
+## *Complications* 
+
+### Adults 
+
+<a id="choCompl30"></a>
+
+<br/>
+
+<font size = 4> Table `r table_n`. Reported complications according to procedure type, fasting, liquid and volume in adults (unreported in pediatric studies). </font>
+
+```{r complicateTableOr, include = TRUE}
+## (updated 2021/01/13 08:52) complicateTableOr --------------------------------
+dichot_format <- function(x) (x/100)
+dichot_complicate_or <- dichot_cho.dat %>% 
+  filter(!is.na(complicate_np)) %>%
+  select(refid, study, arm_tx, arm_n, complicate_n) %>% 
+  group_by(refid) %>% 
+  filter(n() > 1)
+
+or_complicate <- with(or_join(dichot_complicate_or, "complicate"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2))
+
+```
+
+```{r surgCategories}
+## (updated 2021/05/11 08:57) surgery categories --------------------------
+surg_cat <- study_char_cho.dat %>%
+  select(refid, study, year, age, surg_nosurg, design, surg_type) %>%
+  arrange(age, desc(surg_nosurg), design, year, study) %>%
+  mutate(surg = case_when(
+      str_detect(surg_type, "[Gg]yn|[Hh]ysterectomy") ~ "Gyn",
+      str_detect(surg_type, "craniotomy") ~ "Neurosurgical",
+      str_detect(surg_type, "maxillofacial") ~ "Maxillofacial",
+      str_detect(surg_type, "[Hh]ernia|herniorrhaphy") ~ "Herniorrhaphy",
+      str_detect(surg_type, "prostatectomy") ~ "prostatectomy",
+      str_detect(surg_type, "ariety") ~ "Various",
+      str_detect(surg_type, "various|Hirschsprung's") ~ "Various",
+      str_detect(surg_type, "CABG|[Cc]oronary artery bypass surgery") ~ "CABG",
+      str_detect(surg_type, "[Cc]olorectal|[Bb]owel|colon resection") ~ "Colorectal",
+      str_detect(surg_type, "[Tt]hyroid|hip joint") ~ "Thyroid",
+      str_detect(surg_type, "[Oo]rthopedic|discectomy") ~ "Orthopedic",
+      str_detect(surg_type, "total hip or total knee replacement|[Tt]otal hip|[Tt]otal knee|Hip joint|hip replacement") ~ "TKA/THA",
+      str_detect(surg_type, "cholecystectomy") ~ "Cholecystectomy",
+      str_detect(surg_type, "pancreaticoduodenectomy") ~ "Whipple",
+      str_detect(surg_type, "[Gg]ast|Bowel") ~ "Other GI",
+      str_detect(surg_type, "not appli") ~ "None (healthy)",
+      str_detect(surg_type, "oral") ~ "Oral",
+      str_detect(surg_type, "minor") ~ "Misc minor",
+      str_detect(surg_type, "None") ~ "None (healthy)",
+      str_detect(surg_type, "abdomin") ~ "Other GI",
+      str_detect(surg_type, "[Cc]esarean|labor") ~ "Cesarean/vaginal birth",
+      str_detect(surg_type, "thoracotomy") ~ "Thoracic",
+      str_detect(surg_type, "healthy") ~ "None (healthy)",
+      str_detect(surg_type, "Elective") ~ "Elective",
+      str_detect(surg_type, "adenotonsillectomy") ~ "Adenotonsillectomy",
+      str_detect(surg_type, "[Bb]reast") ~ "Breast",
+      str_detect(surg_type, "Endso|endoscopic|colonoscopy") ~ "Endoscopic")) %>% 
+  select(refid, surg)
+
+```
+
+```{r complicateTable, include = TRUE}
+## (updated 2021/01/12 18:04) complicateTable ---------------------------------
+dichot_complicate <- dichot_cho.dat %>% 
+  filter(!is.na(complicate_np), age == "Adult") %>%
+  arrange(design, year, study) %>% 
+  select(refid:time_outcome, complicate_np, complicate_per, complicate_n) %>% 
+  filter(!study %in% c("Marquini 2020b", "Marquini 2020c")) %>% # all the same study
+  mutate(study = ifelse(study == "Marquini 2020a", "Marquini 2020", study),
+  # fix Breuer arms NOTE: not ideal but so doesn't break other code
+  arm = ifelse(refid == 4766 & arm_n == 44, 1, arm),
+  arm = ifelse(refid == 4766 & arm_n == 60, 2, arm),
+  arm = ifelse(refid == 4766 & arm_n == 56, 3, arm))
+
+dichot_complicate <- left_join(dichot_complicate, surg_cat, by = "refid") %>% 
+  arrange(age, design, surg, year, study)
+
+dichot_complicate <- left_join(dichot_complicate, or_complicate, by = "refid") %>% 
+  group_by(study) %>%
+  mutate(
+    study = ifelse(row_number() == 1, study, NA),
+    or_ci = ifelse(row_number() == 1, or_ci, NA),
+    surg_cat = ifelse(row_number() == 1, surg_cat, NA),
+    time_outcome = ifelse(row_number() == 1, time_outcome, NA)) %>%
+  ungroup() %>% 
+  mutate(complicate_per = round(complicate_per, 0)) %>% 
+  select(refid, arm, surg, design, age, study, arm_n, arm_tx, starts_with("hr"), time_outcome, complicate_np, complicate_per, or_ci)
+
+# correct odds ratios for multiarm studies
+# Breuer 2006
+temp <- dichot_complicate_or %>% filter(refid == 4766)
+a <- with(or_join(temp[c(1,3),], "complicate"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+b <- with(or_join(temp[c(2,3),], "complicate"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+# DNascimento 2012a 3282
+# CHO vs fasting, placebo
+temp <- dichot_complicate_or %>% filter(refid == 3282)
+c <- with(or_join(temp[c(1,3),], "complicate"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+d <- with(or_join(temp[c(2,3),], "complicate"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+# Ljunggren 2012 3371
+# CHO vs fasting, placebo
+temp <- dichot_complicate_or %>% filter(refid == 3371)
+e <- with(or_join(temp[c(1,3),], "complicate"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+f <- with(or_join(temp[c(2,3),], "complicate"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+# Talutis 2020 147
+temp <- dichot_complicate_or %>% filter(refid == 147)
+g <- with(or_join(temp[c(1,3),], "complicate"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+h <- with(or_join(temp[c(2,3),], "complicate"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2)) %>% pull(or_ci)
+
+dichot_complicate <- dichot_complicate %>%
+  mutate(
+    or_ci = ifelse(refid == 4766 & arm == 1, a, or_ci),
+    or_ci = ifelse(refid == 4766 & arm == 2, b, or_ci),
+    or_ci = ifelse(refid == 3282 & arm == 1, c, or_ci),
+    or_ci = ifelse(refid == 3282 & arm == 2, d, or_ci),
+    or_ci = ifelse(refid == 3371 & arm == 1, e, or_ci),
+    or_ci = ifelse(refid == 3371 & arm == 2, f, or_ci),
+    or_ci = ifelse(refid == 147 & arm == 1, g, or_ci),
+    or_ci = ifelse(refid == 147 & arm == 2, h, or_ci),
+    or_ci = ifelse(or_ci == "NA (NA-NA)", "", or_ci),
+    or_ci = ifelse(grepl("NA", or_ci), "", or_ci)
+  )
+
+rm(a, b, c, d, e, f, g, h)
+
+cho_row <- dichot_complicate %>%
+  mutate(line = row_number()) %>%
+  filter(grepl("CHO", arm_tx)) %>%
+  pull(line)
+
+dichot_complicate$complicate_bar <- NA
+dichot_complicate$complicate_bar <- ifelse(grepl("CHO", dichot_complicate$arm_tx),
+  color_bar("darksalmon", fun = dichot_format)(dichot_complicate$complicate_per),
+  color_bar("lightgray", fun = dichot_format)(dichot_complicate$complicate_per))
+
+dichot_complicate <- dichot_complicate %>% 
+mutate(
+  complicate_bar = str_replace(complicate_bar, ">0", ">"),
+  complicate_bar = str_replace(complicate_bar, ">[0-9]{1,}", ">&nbsp;"),
+  study = ifelse(study == "Alimena 2020", cell_spec(study, color = "black"), study),
+  study = ifelse(study %in% c("Song 2016", "Karimian 2020"), cell_spec(study, color = "black"), study),
+  or_ci = ifelse(refid == 147 & arm_n == 80,  cell_spec(or_ci, color = "black"), or_ci),
+  or_ci = ifelse(or_ci == "0.55 (0.10-2.89)",  cell_spec(or_ci, color = "black"), or_ci))
+  
+dichot_complicate %>% 
+  select(!c(refid, arm, design, age, complicate_per)) %>% 
+  select(study, arm_tx, arm_n, hr_gt6:hr_2, complicate_np, complicate_bar, or_ci) %>% 
+  kbl(booktabs = T, align =  c("llccccrlc"), escape = FALSE,
+    col.names = c("        Study", "Liquid", "N", "> 6", "6 → 2", "≤ 2", "N (%)", " ", "CHO vs. Comparator")) %>% 
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Complications" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(2, width = "7em") %>%
+  column_spec(3, width = "3em") %>%
+  column_spec(c(4, 6), width = "3em") %>%
+  column_spec(5, width = "4em") %>%
+  column_spec(7, width = "5em") %>%
+  column_spec(8, width = "5em") %>%
+  column_spec(9, width = "8em") %>%
+  row_spec(cho_row, color = "brown") %>%
+  pack_top(., "Retrospective Cohort", 70, 72) %>%
+  pack_top(., "Prospective Cohort", 69, 69) %>%
+  pack_top(., "Nonrandomized Studies of Interventions", 65, 68) %>%
+  pack_top(., "Case-Control", 73, 74) %>%
+  pack_top(., "RCT, Adult", 1, 64) %>% 
+  result_pack(., "CABG", 1, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Cholecystectomy", 10, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Colorectal", 25, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Gyn", 36, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Herniorrhaphy", 40, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Maxillofacial", 42, padding = 2, bold = TRUE, color = "black") %>% 
+  result_pack(., "Neurosurgical", 46, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Other GI", 48, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "TKA/THA", 60, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Colorectal", 65, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Other GI", 67, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Gyn", 69, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Other GI", 70, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Various Procedures", 73, padding = 2, bold = TRUE, color = "black") %>%
+  # pack_top(., "Adult, RCT", 1, 64) %>% 
+  # pack_sub(., "CABG", 1, 9) %>% 
+  # pack_sub(., "Cholecystectomy", 10, 24) %>% 
+  # pack_sub(., "Colorectal", 25, 35) %>% 
+  # pack_sub(., "Gyn", 36, 39) %>% 
+  # pack_sub(., "Herniorrhaphy", 40, 41) %>% 
+  # pack_sub(., "Maxillofacial", 42, 45) %>% 
+  # pack_sub(., "Neurosurgical", 46, 47) %>% 
+  # pack_sub(., "Other GI", 48, 59) %>%
+  # pack_sub(., "TKA/THA", 60, 64) %>% 
+  # pack_top(., "Nonrandomized Studies of Interventions", 65, 68) %>%
+  # pack_sub(., "Colorectal", 65, 66) %>% 
+  # pack_sub(., "Other GI", 67, 68) %>% 
+  # pack_top(., "Prospective Cohort", 69, 69) %>%
+  # pack_sub(., "Gyn", 69, 69) %>% 
+  # pack_top(., "Retrospective Cohort", 70, 72) %>%
+  # pack_sub(., "Other GI", 70, 72) %>% 
+  # pack_top(., "Case-Control", 73, 74) %>%
+  # pack_sub(., "Various Procedures", 73, 74) %>% 
+  footnote(general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.",
+           alphabet = c("When outcome assessed relative to surgery where 0 is prior to induction."),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+### &ensp; Complication Types
+
+<a id="tab14"></a>
+
+<br/>
+
+<font size = 4> Table `r table_n`. Types of complications ascertained according to study (categorized according to Anderson [@Anderson2013] ). </font>
+
+```{r complicateTypes, include = TRUE}
+## (updated 2021/02/16 11:19) ccomplicateTypes ----------------------------
+complicate_data <- readxl::read_xlsx("data/CHOComplicationList_012521.xlsx", range = "A5:P35") %>% 
+  clean_names() %>% 
+  mutate(across(c(ssi:pulm, rena:anastomotic_leak, bleed:oth_infect), ~ recode(., X = "\U00D7")))
+
+compl_names <- c("SSI", "GU", "CV", "GI", "Pulm", "Anes", "Renal", "Meds", "Leak", "Op", "Bleed", "TE", "CVD", "Infect")
+cats <-  c("Surgical Site Infection", "Genitourinary", "Cardiovascular", "Gastrointestinal", "Respiratory", "Anesthesia", "Fluid/electrolyte/renal", "Medication", "Anastomotic leak", "Intraoperative", "Bleeding", "Thromboembolic", "Cerebrovascular", "Other infection")
+compl_foot <- paste0(compl_names, ": ", tolower(cats), collapse = "; ")
+compl_foot <- paste0(compl_foot, ".")
+
+complicate_data %>% 
+  select(-design) %>% 
+   kbl(booktabs = T, align =  c("l", rep("c", 14)), escape = FALSE,
+    col.names = c("Study", rep(" ", 14))) %>% 
+  #add_header_above(c(" " = 1, "Surgical Site Infection" = 1, "Genitourinary" = 1, "Cardiovascular" = 1, "Gastrointestinal" = 1, "Respiratory" = 1, "Anesthesia" = 1, "Fluid/electrolyte/renal" = 1, "Medication" = 1, "Anastomotic leak" = 1, "Intraoperative" = 1, "Bleeding" =1, "Thromboembolic" = 1, "Cerebrovascular" = 1, 	"Other infection" = 1), line = FALSE, angle = -90, align = "initial", line_sep = 20) %>% 
+  add_header_above(c(" " = 1, compl_names), line = FALSE, angle = -45, align = "c", line_sep = 1) %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "right", "hover") %>% 
+  kable_styling(bootstrap_options = opt_boot) %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2:15, width = "2em") %>% 
+  pack_top(., "Adult, Surgical", 1, 30) %>% 
+  pack_sub(., "RCT", 1, 26) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 27, 28) %>%
+  pack_sub(., "Prospective Cohort", 29, 29) %>%
+  pack_sub(., "Case-Control", 30, 30) %>%
+  footnote(general = compl_foot,
+           # alphabet = c(""),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+table_n <- tab_inc()
+```
+
+<br/>
+
+### Pooled (CHO vs. fasting) 
+
+<a id="choComplFig12"></a>
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled complications rates by type of surgery --- randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
+```{r complicateMetaDichotDat, include = TRUE}
+## (updated 2021/01/13 09:48)  --------------------------------------------
+complicate_meta.dat <- dichot_cho.dat %>%
+  filter(!is.na(complicate_np)) %>%
+  # Marquini b,c; nrsi Vigano 2012, Adamova 2017; cc Weledji 2017, coh Talutis 2020, Huang 2020
+  filter(!refid %in% c(6446, 247, 3367, 6529, 6530, 147, 7747)) %>%
+  select(refid, study, arm_tx, arm_n, complicate_n) %>%
+  # , hr_gt6:hr_2) %>%
+  # mutate(h2 = ifelse(!is.na(hr_2), "≤2 hr", hr_2),
+  #  h26 = ifelse(!is.na(hr_26) & is.na(hr_2), ">2 to 6 hr", NA)) %>%
+  #  h6 = ifelse(!is.na(hr_gt6) & is.na(hr_2) & is.na(hr_26), ">6 hrs", NA)) %>%
+  group_by(refid) %>%
+  filter(n() > 1) %>%
+  ungroup() %>%
+  # cho, clear/water, fasting
+  mutate(
+    arm_tx = tolower(as.character(arm_tx)),
+    prot = ifelse(grepl("prot", arm_tx), "prot", "no_prot"),
+    arm_tx = ifelse(grepl("cho", arm_tx), "cho", arm_tx),
+    arm_tx = ifelse(arm_tx %in% c("water", "placebo"), "water_plac", arm_tx)
+  )
+
+comp_prot_refids <- complicate_meta.dat %>% 
+  filter(prot == "prot") %>% 
+  select(refid) %>% 
+  unique() %>% 
+  pull(refid)
+
+```
+
+```{r complicateMetaFast, include = TRUE, fig.width = 10, fig.height = 6.5, fig.align = "center"}
+## (updated 2021/05/11 10:14) cho vs fasting ------------------------------
+cho_fast_refids <- complicate_meta.dat %>% 
+  filter(arm_tx == "fasting") %>% 
+  select(refid) %>% 
+  unique() %>% 
+  pull(refid)
+
+comp_meta_fast <- complicate_meta.dat %>%
+  filter(refid %in% cho_fast_refids, arm_tx != "water_plac") %>%
+  pivot_wider(
+    id_cols = c("refid", "study"),
+    names_from = "arm_tx",
+    values_from = c("arm_n", "complicate_n"),
+    values_fn = sum
+  ) %>%
+  left_join(., surg_cat, by = "refid") %>%
+  rename_all(~ str_replace(., "complicate", "comp")) %>%
+  mutate(year = str_extract(study, "\\d{4}")) %>%
+  arrange(surg, year)
+
+temp <- metabin(
+  event.e = comp_n_cho,
+  n.e = arm_n_cho,
+  event.c = comp_n_fasting,
+  n.c = arm_n_fasting,
+  hakn = TRUE,
+  sm = "OR",
+  method.tau = "PM",
+  method = "MH",
+  byvar = surg,
+  print.byvar = TRUE,
+  studlab = study,
+  allstudies = FALSE,
+  data = comp_meta_fast
+)
+
+forest(temp,
+  comb.fixed = TRUE,
+  comb.random = FALSE,
+  lab.e = "CHO     ",
+  lab.c = "Fasting    ",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  print.subgroup.labels = TRUE,
+  print.byvar = FALSE,
+  test.subgroup = FALSE,
+  subgroup = TRUE,
+  addrow.subgroups = FALSE,
+  resid.hetstat = FALSE,
+  hetstat = FALSE,
+  pooled.events = TRUE,
+  rightcols = c("effect", "ci"),
+  print.Q.subgroup = FALSE,
+  fs.fixed.labels = 10,
+  allstudies = FALSE,
+  xlab = "Favors CHO          Favors Fasting")
+  
+figure_n <- fig_inc()
+
+```
+
+<br/>
+
+### Pooled (CHO vs. water/placebo) 
+
+<a id="protComplFig14"></a>
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled complications rates by type of surgery --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
+
+```{r complicateMetaWaterPlac, include = TRUE, fig.width = 10, fig.height = 5.8, fig.align = "center"}
+## (updated 2021/05/11 10:16) cho vs water/plac ---------------------------
+cho_water_plac_refids <- complicate_meta.dat %>% 
+  filter(arm_tx == "water_plac") %>% 
+  select(refid) %>% 
+  unique() %>% 
+  pull(refid)
+
+comp_meta_water <- complicate_meta.dat %>%
+  filter(refid %in% cho_water_plac_refids, arm_tx != "fasting") %>%
+  pivot_wider(
+    id_cols = c("refid", "study"),
+    names_from = "arm_tx",
+    values_from = c("arm_n", "complicate_n"),
+    values_fn = sum
+  ) %>%
+  left_join(., surg_cat, by = "refid") %>%
+  rename_all(~ str_replace(., "complicate", "comp")) %>%
+  mutate(year = str_extract(study, "\\d{4}")) %>%
+  arrange(surg, year)
+
+temp <- metabin(
+  event.e = comp_n_cho,
+  n.e = arm_n_cho,
+  event.c = comp_n_water_plac,
+  n.c = arm_n_water_plac,
+  hakn = TRUE,
+  sm = "OR",
+  method.tau = "PM",
+  method = "MH",
+  byvar = surg,
+  print.byvar = TRUE,
+  studlab = study,
+  allstudies = FALSE,
+  data = comp_meta_water
+)
+
+forest(temp,
+  comb.fixed = TRUE,
+  comb.random = FALSE,
+  lab.e = "CHO     ",
+  lab.c = "Water/Placebo",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  addrow.subgroups = FALSE,
+  print.subgroup.labels = TRUE,
+  print.byvar = FALSE,
+  test.subgroup = FALSE,
+  subgroup = TRUE,
+  resid.hetstat = FALSE,
+  hetstat = FALSE,
+  pooled.events = TRUE,
+  print.Q.subgroup = FALSE,
+  fs.fixed.labels = 10,
+  allstudies = FALSE,
+  xlab = "Favors CHO          Favors Water/Placebo")
+  
+figure_n <- fig_inc()
+
+
+```
+
+### Pooled (protein)
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled complications rates by type of surgery --- randomized trials comparing carbohydrate drinks with protein with fasting in adult surgical patients. </font>
+
+```{r complicateMetaFastProt, include = TRUE, fig.width = 10, fig.height = 2, fig.align = "center"}
+## (updated 2021/05/11 10:14) cho vs fasting ------------------------------
+temp <- metabin(
+  event.e = comp_n_cho,
+  n.e = arm_n_cho,
+  event.c = comp_n_fasting,
+  n.c = arm_n_fasting,
+  hakn = TRUE,
+  sm = "OR",
+  method.tau = "PM",
+  method = "MH",
+  # byvar = surg,
+  # print.byvar = TRUE,
+  studlab = study,
+  allstudies = FALSE,
+  subset = refid %in% comp_prot_refids,
+  data = comp_meta_fast
+)
+
+forest(temp,
+  sortvar = year,
+  comb.fixed = TRUE,
+  comb.random = FALSE,
+  lab.e = "CHO/Prot ",
+  lab.c = "Fasting ",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  test.subgroup = FALSE,
+  subgroup = TRUE,
+  resid.hetstat = FALSE,
+  hetstat = FALSE,
+  pooled.events = TRUE,
+  print.Q.subgroup = FALSE,
+  fs.fixed.labels = 10,
+  allstudies = FALSE,
+  xlab = "Favors CHO          Favors Fasting")
+  
+figure_n <- fig_inc()
+
+```
+
+<br/>
+
+
+## *Length of Stay* 
+
+### Adults
+
+<a id="choLosl32"></a>
+
+<br/>
+
+<font size = 4> Table `r table_n`. Reported length of stay in adult patients by surgical category according to liquid or fasting. </font>
+
+<br/>
+
+```{r losKbl, include = TRUE}
+## (2021/05/11 15:27) losKbl ----------------------------------------------
+los.dat <- contin_cho.dat %>% 
+  select(refid:age, arm_n, arm_tx, starts_with("los")) %>% 
+  filter_at(vars(los:los_pval), any_vars(!is.na(.))) %>% 
+  left_join(., surg_cat, by = "refid") %>% 
+  mutate(surg = ifelse(surg == "Orthopedic", "TK Orthopedic", surg)) %>% 
+  arrange(age, desc(surg_nosurg), design, surg, year, study, arm_tx) %>% 
+  mutate(
+    los_bar = ifelse(!is.na(los_median_1), los_median_1, los_mean_1),
+    los_iqr = str_c("(", los_iqr_low_1, "-", round(los_iqr_up_1, 1), ")"),
+    los_range = str_c("(", los_range_low_1, "-", los_range_up_1, ")"),
+    #los_mean_1 = round(los_mean_1, 1),
+    los_mean = ifelse(!is.na(los_sd_1) & !is.na(los_mean_1), str_c(round_1(los_mean_1), " (", round_1(los_sd_1), ")"), round_1(los_mean_1)),
+    los_med = str_c(los_median_1, str_replace_na(los_iqr, "NA"), sep = " "),
+    los_mean = na_if(los_mean, "NA"),
+    los_med = gsub(" NA", "", los_med)) %>% 
+  select(surg, refid, study, age, design, arm_tx, arm_n, los_mean, los_med, los_range, los_bar) 
+
+cts_format <- function(x) (x/20)
+
+los.dat <- los.dat %>%
+  mutate(los_bar = case_when(
+    grepl("CHO", arm_tx)~ color_bar("darksalmon", fun = cts_format)(formattable::percent(los_bar)),
+    !grepl("CHO", arm_tx) ~ color_bar("lightgray", fun = cts_format)(formattable::percent(los_bar))),
+    los_bar = str_replace(los_bar, ">.*<", ">&nbsp;<")
+    )
+
+## (updated 2021/05/12 06:07) kable los -----------------------------------
+cho_row <- los.dat %>% 
+  filter(age == "Adult") %>% 
+  mutate(line = row_number()) %>% 
+  filter(grepl("CHO", arm_tx)) %>% 
+  pull(line)
+
+los.dat %>%
+  filter(age == "Adult") %>%
+  select(study, arm_tx, arm_n, los_mean, los_med, los_range, los_bar) %>%
+  group_by(study) %>%
+  mutate(
+    study = cell_spec(study, color = "black"),
+    study = ifelse(row_number() == 1, study, NA)
+  ) %>%
+  ungroup() %>%
+  kbl(
+    booktabs = T, align = c("llccccl"), escape = FALSE,
+    col.names = c(
+      "       Study", "Liquid", "N", "Mean (SD)", "Median (IQR)", "Range", "Median or Mean"
+    )
+  ) %>%
+  add_header_above(c(" " = 3, "LOS (days)" = 4), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(2, width = "7em") %>%
+  column_spec(3, width = "3em") %>%
+  column_spec(c(4:6), width = "7em") %>%
+  column_spec(7, width = "8em") %>%
+  row_spec(cho_row, color = "brown") %>%
+  pack_top(., "RCT", 1, 81) %>%
+  pack_top(., "Nonrandomized Studies of Interventions", 82, 87) %>%
+  pack_top(., "Prospective Cohort", 88, 88) %>%
+  pack_top(., "Retrospective Cohort", 89, 93) %>%
+  pack_top(., "Case Control", 94, 95) %>%
+  pack_top(., "Retrospective Cohort", 96, 97) %>%
+  result_pack(., "CABG", 1, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Cholecystectomy", 16, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Colorectal", 25, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Endoscopic Submucosal Dissection", 46, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Gyn", 48, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Herniorrhaphy", 50, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Neurosurgical", 52, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Other GI", 54, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Orthopedic", 64, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "TKA/THA", 66, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Various", 77, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Whipple", 80, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Colorectal", 82, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Gyn", 84, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Other GI", 86, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Gyn", 88, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Other GI", 89, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "TKA/THA", 92, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Various", 94, padding = 2, bold = TRUE, color = "black") %>%
+  result_pack(., "Thoracic", 96, padding = 2, bold = TRUE, color = "black") %>%
+  footnote(
+    general = "RCT: randomized controlled trial.",
+    # alphabet = c(""),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+
+```
+
+
+### Pediatric
+
+<a id="choLosl33"></a>
+
+<br/>
+
+<font size = 4> Table `r table_n`. Reported length of stay in pediatric patients  according to liquid or fasting. </font>
+
+```{r losPeds, include = TRUE}
+## (updated 2021/05/12 06:07) kable los -----------------------------------
+cho_row <- los.dat %>% 
+  filter(age == "Pediatric") %>% 
+  mutate(line = row_number()) %>% 
+  filter(grepl("CHO", arm_tx)) %>% 
+  pull(line)
+
+los.dat %>%
+  filter(age == "Pediatric") %>%
+  select(study, arm_tx, arm_n, los_mean, los_med, los_range, los_bar) %>%
+  group_by(study) %>%
+  mutate(
+    study = cell_spec(study, color = "black"),
+    study = ifelse(row_number() == 1, study, NA)
+  ) %>%
+  ungroup() %>%
+  kbl(
+    booktabs = T, align = c("llccccl"), escape = FALSE,
+    col.names = c(
+      "       Study", "Liquid", "N", "Mean (SD)", "Median (IQR)", "Range", "Median or Mean"
+    )
+  ) %>%
+  add_header_above(c(" " = 3, "LOS (days)" = 4), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(2, width = "7em") %>%
+  column_spec(3, width = "3em") %>%
+  column_spec(c(4:6), width = "7em") %>%
+  column_spec(7, width = "8em") %>%
+  row_spec(cho_row, color = "brown") %>%
+  pack_top(., "RCT", 1, 4) %>%
+  result_pack(., "Various Procedures", 1, padding = 2, bold = TRUE, color = "black") %>%
+  footnote(
+    general = "RCT: randomized controlled trial.",
+    # alphabet = c(""),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+
+```
+
+
+<br>
 
 # **Study/Participant Detail** 
 
 <br/>
 
-### Study Characteristics 
+### *Study Characteristics* 
 
 <br>
 
@@ -3895,6 +4833,7 @@ study_char_table <- study_char_cho.dat %>%
       str_detect(surg_type, "[Cc]olorectal|[Bb]owel|colon resection") ~ "Colorectal",
       str_detect(surg_type, "[Tt]hyroid|hip joint") ~ "Thyroid",
       str_detect(surg_type, "[Oo]rthopedic|discectomy") ~ "Orthopedic",
+      str_detect(surg_type, "pancreaticoduodenectomy") ~ "Whipple",
       str_detect(surg_type, "total hip or total knee replacement|[Tt]otal hip|[Tt]otal knee|Hip joint|hip replacement") ~ "TKA/THA",
       str_detect(surg_type, "cholecystectomy") ~ "Cholecystectomy",
       str_detect(surg_type, "[Gg]ast|Bowel") ~ "Other GI",
@@ -3959,7 +4898,7 @@ table_n <- tab_inc()
 
 <br><br>
 
-### Sample Characteristics 
+### *Sample Characteristics* 
 
 <br>    
 
@@ -4050,7 +4989,7 @@ table_n <- tab_inc()
 
 <br><br>
 
-### Fasting, Liquid Timing and Amounts 
+### *Fasting, Liquid Timing and Amounts* 
 
 <br>
 
@@ -4133,7 +5072,7 @@ table_n <- tab_inc()
 
 <br><br>
 
-### Carbohydrate Drink Amounts
+### *Carbohydrate Drink Amounts*
 
 <br>
 
@@ -4228,7 +5167,7 @@ table_n <- tab_inc()
 
 <br>
 
-### Funding 
+### *Funding* 
 
 <br>
 
@@ -4305,9 +5244,13 @@ table_n <- tab_inc()
 
 <br>
 
-# **Risk of Bias**
 
-### Patient Reported Outcomes
+
+
+
+# **Risk of Bias** 
+
+### *Patient Reported Outcomes*
 
 <br>
 
@@ -4333,7 +5276,7 @@ figure_n <- fig_inc()
 
 <br>
 
-### Clinical Outcomes
+### *Clinical Outcomes*
 
 <br>
 
@@ -4361,7 +5304,7 @@ figure_n <- fig_inc()
 <br>
 
 
-# References 
+# References {#references} 
 
 <br/>
 
