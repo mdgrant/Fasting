@@ -2448,13 +2448,15 @@ dichot_comfort %>%
 table_n <- tab_inc()
 ```
 
-<br>
+<br/>
 
 ### Patient-rated 
 
 <a id="pain_ratings16"></a>
 
 <br/>
+
+<font size = 4> Table `r table_n`. Preoperative pain ratings according to fasting, liquid and volume. </font>
 
 ```{r comfortData, include = FALSE}
 ## (updated 2020/12/14` 14:32) comfortData ---------------------------------
@@ -2500,8 +2502,6 @@ likert_cho_comfort.dat <- likert_cho.dat %>%
 
 # write_csv(likert_cho_comfort.dat, "/Users/mgrant/Desktop/likert_comfort.csv", na = "")
 ```
-
-<font size = 4> Table `r table_n`. Preoperative pain ratings according to fasting, liquid and volume. </font>
 
 ```{r comfortKable, echo = FALSE, includ = FALSE, eval=FALSE}
 ## (updated 2020/12/14 14:31) comfortKable --------------------------------
