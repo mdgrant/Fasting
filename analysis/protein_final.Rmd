@@ -1450,7 +1450,7 @@ dichot_comfort %>%
   select(!c(refid, arm, design, age, comfort_per)) %>% 
   select(study, arm_tx, arm_n, hr_gt6:comfort_np, comfort_bar, or_ci) %>% 
   kbl(booktabs = T, align =  c("llcccccrlc"), escape = FALSE,
-    col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Liquid", "N", "> 6", "6 → 2", "≤ 2", "", "N (%)", " ", "CHO vs. Comparator")) %>% 
+    col.names = c("        Study", "Liquid", "N", "> 6", "6 → 2", "≤ 2", "", "N (%)", " ", "CHO vs. Comparator")) %>% 
   add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Time" = 1, "Discomfort" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>% 
   row_spec(0, bold = TRUE) %>% 
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
@@ -1564,8 +1564,9 @@ likert_prot_satis_kbl.dat %>%
   kbl(booktabs = T, align = c("llcccccccc"), escape = FALSE,
       col.names = c(
         "        Study", "Liquid", "N",  "> 6", "6→2", "≤ 2", "Time (hr)^a^", "Scale^b^", "M (95% CI)", "Med", "Range")) %>%
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Satisfaction Rating\n *(Between-group Comparison)*" = 5), line = TRUE) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Satisfaction Rating\n *(Between-group Comparison)*" = 5), bold = TRUE, line = TRUE) %>%
   # NOTE: footnote a: includes at 2.5 hours
+  row_spec(0, bold = TRUE) %>% 
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "14em") %>%
@@ -2258,7 +2259,7 @@ rgv_no_table %>%
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled residual gastric volume from randomized trials comparing carbohydrate drinks (excludes protein containing) with fasting in adult surgical patients. </font>
+<font size = 4> Figure `r figure_n`. Pooled residual gastric volume from randomized trials comparing carbohydrate/protein drinks with fasting in adult surgical patients. </font>
 
 ```{r rgvChoMeta, include = TRUE, fig.width = 10, fig.height = 3.1, fig.align = "left"}
 ## (updated 2021/01/22 15:19) rgvChoMeta ------------------- ---------------

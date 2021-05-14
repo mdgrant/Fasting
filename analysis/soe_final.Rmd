@@ -1,0 +1,360 @@
+---
+title: "Strength of Evidence"
+date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
+output:
+  workflowr::wflow_html:
+    font: Source Sans Pro
+    theme: cosmo
+    anchor_sections: TRUE 
+    toc: yes
+    toc_depth: 3
+    toc_float: 
+      collapsed: FALSE
+      smooth_scroll: yes
+    linkcolor: black
+  latex_engine: xelatex
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+workflowr:
+  suppress_report: TRUE
+editor_options:
+  chunk_output_type: console     
+---
+
+#### 
+
+```{=html} 
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+
+@font-face {
+    font-family: "GRADE-quality";
+    src: url();
+    src: url('https://gradepro.org/fonts/GRADE-quality.eot');
+    src: url('https://gradepro.org/fonts/GRADE-quality.eot?#iefix')
+        format('embedded-opentype'),
+      url('https://gradepro.org/fonts/GRADE-quality.woff') format('woff'),
+      url('https://gradepro.org/fonts/GRADE-quality.ttf') format('truetype'),
+      url('https://gradepro.org/fonts/GRADE-quality.svg#GRADE-quality')
+        format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+.quality-sign {
+      font-family: 'GRADE-quality', Cambria, Helvetica, Arial;
+      font-size: 10px;
+      vertical-align: text-top;
+    }
+
+span { font-size: 3em;}
+
+span b { font-size: 60%; font-weight: normal }
+
+
+</style>
+```
+
+```{r, include = FALSE}
+## (updated 2021/05/13 11:47) preliminaries -------------------------------
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  options(knitr.kable.NA = "", dev = "svg"), 
+  knitr.graphics.error = FALSE,
+  warning = FALSE, message = FALSE
+)
+
+library(kableExtra)
+library(janitor)
+library(countrycode)
+library(Cairo)
+library(tidyverse)
+library(naniar)
+library(formattable)
+
+opt_font <-  c("Source Sans Pro")
+opt_boot <- c("striped", "hover", "condensed")
+
+tab_inc <- function() {
+  table_n <- table_n + 1
+  table_n}
+
+fig_inc <- function() {
+  figure_n <- figure_n + 1
+  figure_n}
+
+table_n <- 1
+figure_n <- 1
+
+pack_sub <- function(kable_input, name, a, b) {
+  pack_rows(kable_input, name,
+            start_row = a, end_row = b,
+            label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = FALSE
+  )
+}
+
+pack_top <- function(kable_input, name, a, b) {
+  pack_rows(kable_input, name,
+            start_row = a, end_row = b,
+            label_row_css = "border-top: 1px solid;", color = "black", background = "#EBEBEB"
+  )
+}
+
+firstup <- function(x) {
+  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+  x
+}
+```
+
+```{r soeData, include = TRUE}
+## (updated 2021/05/13 11:45) soeData -------------------------------------
+soe.dat <- readxl::read_xlsx("data/SOE_CHO_021921_edit.xlsx", range = "A1:AB88", sheet = "soe_050521") %>%
+  clean_names() %>%
+  mutate(
+    n = paste0(n, outcome),
+    # outcome = tools::toTitleCase(outcome) %>%
+    outcome = ifelse(outcome == "Ph", "pH", outcome),
+    outcome = str_to_sentence(outcome),
+    out_import = case_when(
+      out_import == "Limited" ~ "●○○",
+      out_import == "Important" ~ "●●○",
+      out_import == "Critical" ~ "●●●"
+    )
+  )
+## other importance ####
+# out_import = case_when(
+# out_import == "Limited" ~ "Limited Importance",
+# out_import == "Important" ~ "Important Not Critical",
+# out_import == "Critical" ~ "Critical"))
+
+## (updated 2021/05/13 13:48) soe_summary ---------------------------------
+soe_summary <- soe.dat %>%
+  select(n, comparison, outcome, grade, uspstf, acc, out_import, result_summary, result_links) %>%
+  mutate(
+    grade = case_when(
+      grade == "very low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "moderate" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span>',
+      grade == "high" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span>', # )%>%
+      TRUE ~ grade
+    )
+  )
+
+## (updated 2021/05/14 06:08) domain_summary ------------------------------
+domain_summary <- soe.dat %>% 
+  select(n, comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot")) %>% 
+  mutate(design = str_to_sentence(design),
+         consist_foot = ifelse(!grepl("\\.$", consist_foot) & !is.na(consist_foot), paste0(consist_foot, "."), consist_foot),
+         direct_foot  = ifelse(!grepl("\\.$", direct_foot ) & !is.na(direct_foot ), paste0(direct_foot , "."), direct_foot ),
+         prec_foot    = ifelse(!grepl("\\.$", prec_foot   ) & !is.na(prec_foot   ), paste0(prec_foot   , "."), prec_foot   ),
+         rob_foot     = ifelse(!grepl("\\.$", rob_foot    ) & !is.na(rob_foot    ), paste0(rob_foot    , "."), rob_foot    ),
+         other_foot   = ifelse(!grepl("\\.$", other_foot  ) & !is.na(other_foot  ), paste0(other_foot  , "."), other_foot  ),
+         across(ends_with("foot"), firstup)
+         ) 
+
+```
+
+# Carbohydrate Drinks 
+
+<br>
+
+## **Comparator --- Fasting**
+
+### Strength of Evidence Ratings
+
+<br>
+
+<font size = 4> Table `r table_n`. Strength of evidence in studies comparing carbohydrate drinks with fasting in adults.  </font>
+
+```{r chofasting, include = TRUE}
+soe_summary %>% 
+  filter(comparison == "CHO_fasting") %>% 
+  select(!c(comparison, n)) %>% 
+    kbl(booktabs = T, align = c("llcclll"), escape = FALSE,
+    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
+  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "12em") %>%  
+  column_spec(c(2:4), width = "6em") %>% 
+  column_spec(5, width = "7em") %>% 
+  column_spec(6, width = "26em") %>% 
+  column_spec(7, width = "9em") %>% 
+  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
+  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+
+```
+
+<br>
+
+### GRADE Domains
+
+<br>
+
+<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in studies comparing carbohydrate drinks with fasting in adults. </font>
+
+```{r chofastingDomain, include = FALSE, eval = FALSE }
+cho_domain_summary <- domain_summary %>% 
+  filter(comparison == "CHO_fasting")
+
+# add footnotes
+foot_list <- domain_summary %>% 
+  select(comparison, outcome, ends_with("_foot"))
+
+temp_foot <- foot_list %>% select(ends_with("foot"))
+temp_foot <- unlist(c(temp_foot[,1], temp_foot[,2], temp_foot[,3], temp_foot[,5], temp_foot[,5]))
+temp_foot <- temp_foot[!is.na(temp_foot)]
+temp <- sort(table(temp_foot))
+
+
+temp <- cho_domain_summary %>% 
+  slice(1:20) %>% 
+  select(ends_with("foot")) %>% 
+  unlist(use.names = FALSE) %>% 
+  discard(is.na)
+
+temp[1]
+
+letters[match(temp[1], temp)]
+
+unique(temp)
+
+
+
+for (i in 1:nrow(temp)){
+  for (j in 1:5){
+    temp[i,j] =  ifelse(!is.na(temp[i,j + 6]), paste0(temp[i,j], "^", letters[x], "^"), temp[i,j])
+    temp[i,j + 6] =  ifelse(!is.na(temp[i,j + 6]), paste0(letters[x], "_", temp[i,j + 6]), temp[i,j + 6])
+    x = ifelse(!is.na(temp[i,j + 6]), x + 1, x)
+  }
+}
+
+x <- 1
+for (i in 1:nrow(temp)){
+  for (j in 1:5){
+    temp[i,j] =  ifelse(!is.na(temp[i,j + 6]), paste0(temp[i,j], "^", letters[x], "^"), temp[i,j])
+    temp[i,j + 6] =  ifelse(!is.na(temp[i,j + 6]), paste0(letters[x], "_", temp[i,j + 6]), temp[i,j + 6])
+    x = ifelse(!is.na(temp[i,j + 6]), x + 1, x)
+  }
+}
+
+sort(temp %>% select(ends_with("foot")) %>% 
+  unlist(use.names = FALSE) %>% 
+  discard(is.na))
+
+
+
+letters[1]
+
+temp[1, 8]
+
+
+# add footnotes
+cho_domain_summary <- cho_domain_summary %>% 
+  mutate(
+    consist = ifelse(grepl("1Hung", n), paste0(consist, "^a^"),   consist),
+    prec =    ifelse(grepl("1Hung", n), paste0(prec,    "^b^"),   prec),
+    # consist = ifelse(grepl("2Hung", n), paste0(consist, "^c^"),   consist),
+    # other =   ifelse(grepl("2Hung", n), "none^d^",     other),
+    # consist = ifelse(grepl("3Hung", n), paste0(consist, "^e^"),   consist),
+    # consist = ifelse(grepl("4Thir", n), paste0(consist, "^f^"),   consist),
+    # prec =    ifelse(grepl("4Thir", n), paste0(prec,    "^g^"),   prec),
+    # consist = ifelse(grepl("5Naus", n), paste0(consist, "^h^"),   consist),
+    # prec =    ifelse(grepl("5Naus", n), paste0(prec, "^i^"),      prec),
+    # consist = ifelse(grepl("6Disc", n), paste0(consist, "^j^"),   consist),
+    # prec =    ifelse(grepl("6Disc", n), paste0(prec,    "^k^"),   prec),
+    # consist = ifelse(grepl("7Sati", n), paste0(consist, "^l^"),   consist),
+    # prec =    ifelse(grepl("7Sati", n), paste0(prec,    "^m^"),   prec),    
+    # # consist = ifelse(grepl("10Vom", n), paste0(consist, "^8a^"),   consist),
+    # rob =     ifelse(grepl("9Regu", n), paste0(rob,     "^o^"),   rob),
+    # consist = ifelse(grepl("9Regu", n), paste0(consist, "^p^"),   consist),
+    # prec =    ifelse(grepl("9Regu", n), paste0(prec,    "^q^"),   prec),    
+    # consist = ifelse(grepl("10Reg", n), paste0(consist, "^r^"),  consist),
+    # prec =    ifelse(grepl("10Reg", n), paste0(prec,    "^s^"),  prec),   
+    # consist = ifelse(grepl("11Vom", n), paste0(consist, "^t^"),  consist),
+    # prec =    ifelse(grepl("11Vom", n), paste0(prec,    "^u^"),  prec),
+    # prec =    ifelse(grepl("12Com", n), paste0(prec,    "^v^"),  prec),
+    # direct  = ifelse(grepl("13Res", n), paste0(direct,  "^w^"),  direct)
+    )
+
+footnotes <- c(
+  "Considerable heterogeneity (*I*^2^ = 90%).",
+  "Wide confidence intervals consistent with either carbohydrate or fasting being accompanied by a lower risk of hunger.",
+  "Considerable heterogeneity (*I*^2^ = 90%).", 
+  "Potential small study effects but not downgraded owing to use of SMD as effect measure.", 
+  "Studies reported inconsistent results.",
+  "Considerable heterogeneity (*I*^2^ = 86%).",
+  "Wide confidence intervals consistent with either CHO or fasting being accompanied by a lower risk of thirst.",
+  "Considerable heterogeneity (*I*^2^ = 75%).",
+  "Wide confidence interval.",
+  "Single study, cannot assess consistency.",
+  "Wide confidence interval and small number of events.",
+  "Studies report inconsistent results and measurement taken at different times.",
+  "Assuming both studies used a 10-point scale, the pooled estimate was accompanied by considerable uncertainty — MD 1.00 (95% CI, -0.96 to 2.96).",
+  "No events in any study so not appraised.",
+  "Unclear ascertainment accuracy or if Koeppe 2013 assessment exceedingly sensitive.",
+  "A single RCT reported any regurgitation, consistency cannot be assessed.",
+  "Single RCT (98 patients) with wide confidence interval.",
+  "Single study, cannot assess consistency.",
+  "One event, precision unclear.",
+  "Substantial heterogeneity (*I^2^* = 63%).",
+  "Wide confidence interval and small number of events.",
+  "Wide confidence interval and number of events limits the ability to exclude a difference between CHO and fasting.",
+  "Strength of relationship with aspiration unclear, but for comparative purposes may be considered direct.")
+
+cho_domain_summary %>% 
+  filter(comparison == "CHO_fasting") %>% 
+  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
+  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
+    kbl(booktabs = T, align = c("lcllllll"), escape = FALSE, padding = 10, 
+    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "13em") %>%  
+  column_spec(2, width = "4em") %>% 
+  column_spec(3, width = "10em") %>% 
+  column_spec(4:8, width = "8em") %>% 
+  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+           alphabet = footnotes,
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br>
+
+

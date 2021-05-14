@@ -39,7 +39,7 @@ All summary evidence tables are in draft form and not for citation (contact <a h
 
 <font size = 6> Strength of Evidence Ratings </font>
 
-[<font size = 4> Summary of Findings Tables </font>](soe.html)
+[<font size = 4> Summary of Findings Tables </font>](soe_final.html)
 
 <br><br>
 
