@@ -47,9 +47,11 @@ All summary evidence tables are in draft form and not for citation (contact <a h
 
 [<font size = 5> Carbohydrate drinks </font>](cho_final.html)
 
+[<font size = 5> Carbohydrate Network </font>](nma_final.html)
+
 [<font size = 5> Protein/carbohydrate drinks  </font>](protein_final.html)
 
-[<font size = 5> Chewing gum  </font>](chewing_gum_121620.html)
+[<font size = 5> Chewing gum  </font>](gum_final.html)
 
 <br/><br/>
 

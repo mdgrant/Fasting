@@ -1,0 +1,23 @@
+name: Fasting
+output_dir: ../docs
+navbar:
+  title: Fasting
+  left:
+  - text: Home
+    href: index.html
+  - text: Carbohydrate Drinks
+    href: cho_010420.html
+  - text: Protein/Carbohydrate Drinks
+    href: protein_combined_120820.html
+  - text: Chewing Gum
+    href: ChewingGum_121620.html
+  - text: About
+    href: about.html
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    collapsed: no
+    theme: cosmo
+    highlight: textmate
+    font: Source Sans Pro

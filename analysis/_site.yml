@@ -9,10 +9,12 @@ navbar:
     href: soe_final.html
   - text: Carbohydrate Drinks
     href: cho_final.html
+  - text: Carbohydrate Network
+    href: nma_final.html
   - text: Protein/Carbohydrate Drinks
     href: protein_final.html
   - text: Chewing Gum
-    href: chewing_gum_121620.html
+    href: gum_final.html
   - text: Appendix
     href: appendix.html
   - text: About

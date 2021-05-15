@@ -190,8 +190,12 @@ domain_summary <- soe.dat %>%
 ```
 
 
-# **Strength of Evidence (Supplemental)**
 
+<a id="supplSoe"></a>
+
+<br/>
+
+# **Strength of Evidence (Supplemental)** 
 
 ## **Carbohydrate Drinks** 
 
@@ -421,7 +425,7 @@ table_n <- tab_inc()
 
 ### *Carbohydrate vs. Fasting*
 
-### &ensp;&ensp; Strength of Evidence Ratings
+### &ensp;&ensp; Strength of Evidence Ratings 
 
 <br/>
 

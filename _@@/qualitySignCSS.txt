@@ -1,0 +1,10 @@
+    .quality-sign {
+      font-family: 'GRADE-quality', Cambria, Helvetica, Arial;
+      font-size: 14px;
+    }
+
+  <td data-col-no="7" data-property="quality" class="quality not-editable-cell ">
+    <div class="cell-content">
+      <span><span class="quality-sign">⨁⨁◯◯</span><br><span class="quality-text">LOW</span></span>
+    </div>
+  </td>

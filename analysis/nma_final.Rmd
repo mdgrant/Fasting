@@ -1,0 +1,795 @@
+---
+title: "Network Meta-Analyses — Carbohydrates"
+date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
+output:
+  html_document:
+    font: Source Sans Pro
+    theme: cosmo
+    anchor_sections: TRUE
+    toc_float: 
+      collapsed: true
+      smooth_scroll: TRUE
+    toc_depth: 3
+    linkcolor: blue
+  latex_engine: xelatex
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+bibliography: cho.bib
+csl: jama.csl
+link-citations: yes
+workflowr:
+  suppress_report: false
+# nocite: '@*'
+---
+
+#### 
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+</style>
+```
+
+```{r setupData, include = FALSE}
+## * (updated 2021/01/06 11:34) preliminaries -------------------------------
+library(multinma)
+library(BUGSnet)
+# functions
+now <- function() {str_replace_all(format(Sys.time(), "%m %d %y_%H-%M"), " ", "_")}
+m_table <- function(data, x){
+  group_by(data, arm_tx) %>%
+    summarise(tx_count = n())
+}
+# replace_mg <- function(a, b) {if_else(is.na(a) & !is.na(b), b, a)}
+tab_inc <- function() {
+  table_n <- table_n + 1
+  table_n}
+fig_inc <- function() {
+  figure_n <- figure_n + 1
+  figure_n}
+table_n <- 1
+figure_n <- 1
+
+## * get current files; select cho refids; directory must have unique ####
+source("code/readFiles_120220_wfr.R")
+
+# study char cho refs 
+study_char_cho.dat <- study_char.dat %>% 
+  filter(refid %in% cho_refids)
+
+# study arm protein refs 
+study_arm_cho.dat <- study_arm.dat %>%
+  filter(refid %in% cho_refids) %>%
+  # remove Awad other, no "other" category
+  filter(arm_tx != "other") %>%
+  # remove duplicate arms tewari 2019 (refid 716)
+  filter(!(refid == 716 & arm_n == 8)) %>%
+  mutate(
+    study = ifelse(refid == 2564 & grepl("colorectal", notes_arm), paste(study, "(CR)"), study),
+    study = ifelse(refid == 2564 & grepl("cholecystectomy", notes_arm), paste(study, "(CH)"), study),
+    study = ifelse(refid == 1926 & grepl("general", notes_arm), paste(study, "(gen)"), study),
+    study = ifelse(refid == 1926 & grepl("epidural", notes_arm), paste(study, "(epi)"), study)
+  ) %>%
+  mutate(tx = factor(arm_tx,
+    levels = c(
+      "fasting",
+      "water",
+      "placebo",
+      "other_clear",
+      "milk",
+      "prot",
+      "prot_simp",
+      "prot_comp",
+      "cho_simp",
+      "cho_comp"
+    )
+  )) %>%
+  mutate(
+    tx = fct_recode(tx,
+      Fasting = "fasting",
+      Water = "water",
+      Placebo = "placebo",
+      Clear = "other_clear",
+      Milk = "milk",
+      "Prot" = "prot",
+      "CHO/Comp/Prot" = "prot_comp",
+      "CHO/Simp/Prot" = "prot_simp",
+      "CHO/Simp" = "cho_simp",
+      "CHO/Comp" = "cho_comp",
+    ),
+    arm_tx = tx
+  ) %>%
+  select(-tx) 
+
+# tewari 2019
+study_arm_cho_tewari.dat <- study_arm.dat %>% 
+  filter(refid == 716)
+
+## * dichot factor treatment arm outcome type for ordering (updated 2020/12/12 12:04) ####
+# save dichot.dat 
+dichot_cho.dat <- dichot.dat %>% 
+  filter(refid %in% cho_refids) %>% 
+  # remove Awad other, no "other" category
+  filter(arm_tx != "other") %>% 
+  # factor arm_tx levels for cho studies
+  mutate(tx = factor(arm_tx,
+  levels = c(
+    "fasting",
+    "water",
+    "placebo",
+    "other_clear",
+    "milk",
+    "prot",
+    "prot_simp",
+    "prot_comp",
+    "cho_simp",
+    "cho_comp"))) %>%
+  mutate(tx = fct_recode(tx,
+    Fasting = "fasting",
+    Water = "water",
+    Placebo = "placebo",
+    Clear = "other_clear",
+    Milk = "milk",
+    "Prot" = "prot",
+    "CHO/Simp/Prot" = "prot_simp",
+    "CHO/Comp/Prot" = "prot_comp",
+    "CHO/Simp" = "cho_simp",
+    "CHO/Comp" = "cho_comp",),
+    arm_tx = tx) %>%
+  select(-tx)
+
+dichot_cho.dat %>% tabyl(arm_tx)
+
+## * contin factor treatment arm outcome type for ordering (updated 2020/12/12 12:04) ####
+contin_cho.dat <- contin.dat %>% 
+  filter(refid %in% cho_refids) %>% 
+  # remove Awad other, no "other" category
+  filter(arm_tx != "other") %>%
+  # factor arm_tx levels for cho studies
+  mutate(tx = factor(arm_tx,
+  levels = c(
+    "fasting",
+    "water",
+    "placebo",
+    "other_clear",
+    "milk",
+    "prot",
+    "prot_simp",
+    "prot_comp",
+    "cho_simp",
+    "cho_comp"))) %>%
+  mutate(tx = fct_recode(tx,
+    Fasting = "fasting",
+    Water = "water",
+    Placebo = "placebo",
+    Clear = "other_clear",
+    Milk = "milk",
+    "Prot" = "prot",
+    "CHO/Simp/Prot" = "prot_simp",
+    "CHO/Comp/Prot" = "prot_comp",
+    "CHO/Simp" = "cho_simp",
+    "CHO/Comp" = "cho_comp",),
+    arm_tx = tx) %>%
+  select(-tx)
+
+contin_cho.dat %>% tabyl(arm_tx)
+
+## * likert factor treatment arm outcome type for ordering (updated 2020/12/12 12:04) ####
+likert_cho.dat <- likert.dat %>% 
+  filter(refid %in% cho_refids) %>% 
+  # remove Awad other, no "other" category
+  filter(arm_tx != "other") %>%
+  # factor arm_tx levels for cho studies
+  mutate(tx = factor(arm_tx,
+  levels = c(
+    "fasting",
+    "water",
+    "placebo",
+    "other_clear",
+    "milk",
+    "prot",
+    "prot_simp",
+    "prot_comp",
+    "cho_simp",
+    "cho_comp"))) %>%
+  mutate(tx = fct_recode(tx,
+    Fasting = "fasting",
+    Water = "water",
+    Placebo = "placebo",
+    Clear = "other_clear",
+    Milk = "milk",
+    "Prot" = "prot",
+    "CHO/Simp/Prot" = "prot_simp",
+    "CHO/Comp/Prot" = "prot_comp",
+    "CHO/Simp" = "cho_simp",
+    "CHO/Comp" = "cho_comp",),
+    arm_tx = tx) %>%
+  select(-tx)
+
+likert_cho.dat %>% tabyl(arm_tx)
+
+## * divide Sada 2014 and Celiksular 2016 into 2 studies ------------------
+likert_cho.dat <- likert_cho.dat %>%
+  mutate(
+    study = ifelse(study == "Sada 2014" & grepl("cholecystectomy", out_l_notes), "Sada 2014 (CH)", study),
+    study = ifelse(study == "Sada 2014" & !grepl("cholecystectomy", out_l_notes), "Sada 2014 (CR)", study),
+    study = ifelse(study == "Celiksular 2016" & grepl("general", out_l_notes), "Celiksular 2016 (G)", study),
+    study = ifelse(study == "Celiksular 2016" & grepl("epidural", out_l_notes), "Celiksular 2016 (E)", study)
+  )
+
+contin_cho.dat <- contin_cho.dat %>%
+  mutate(
+    study = ifelse(study == "Sada 2014" & grepl("cholecystectomy", notes_continuous), "Sada 2014 (CH)", study),
+    study = ifelse(study == "Sada 2014" & !grepl("cholecystectomy", notes_continuous), "Sada 2014 (CR)", study),
+    study = ifelse(study == "Celiksular 2016" & grepl("general", notes_continuous), "Celiksular 2016 (G)", study),
+    study = ifelse(study == "Celiksular 2016" & grepl("epidural", notes_continuous), "Celiksular 2016 (E)", study)
+  )
+
+dichot_cho.dat <- dichot_cho.dat %>%
+  mutate(
+    study = ifelse(study == "Sada 2014" & grepl("cholecystectomy", out_dichot_notes), "Sada 2014 (CH)", study),
+    study = ifelse(study == "Sada 2014" & !grepl("cholecystectomy", out_dichot_notes), "Sada 2014 (CR)", study),
+    study = ifelse(study == "Celiksular 2016" & grepl("general", out_dichot_notes), "Celiksular 2016 (G)", study),
+    study = ifelse(study == "Celiksular 2016" & grepl("epidural", out_dichot_notes), "Celiksular 2016 (E)", study)
+  )
+
+
+```
+
+```{r rgvData, include = TRUE}
+## base arm_tx levels ####
+# "Fasting"      
+# "Water"        
+# "Placebo"      
+# "Clear"        
+# "Milk"         
+# "Prot"         
+# "CHO/Simp/Prot"
+# "CHO/Comp/Prot"
+# "CHO/Simp"     
+# "CHO/Comp"
+
+## (updated 2021/05/15 07:21) rgv_meta.dat --------------------------------
+rgv_meta.dat <- contin_cho.dat %>%
+  arrange(design, year, study) %>%
+  filter(refid %in% cho_refids, surg_nosurg == "surgical") %>%
+  filter(!is.na(rgv_us) | !is.na(rgv_imag) | !is.na(rgv_asp)) %>%
+  filter(design == "rct", age == "Adult") %>%
+  select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1, hr_gt6:hr_2) %>%
+  # Yilmaz 2013 estimate sd smd.bwgrpS(21.85, 19.15, 20, 20, .77),
+  # Yildiz 2013 smd.bwgrpS(18.1, 9.3, 30, 30, .05)
+  # Wang 2019 smd.bwgrpS(24.86, 29.63, 37, 36, .238)
+  mutate(
+    rgv_sd_1 = ifelse(refid == 2985, 29.0, rgv_sd_1),
+    rgv_sd_1 = ifelse(refid == 3154, 17.0, rgv_sd_1)
+  ) %>%
+  arrange(refid, arm_tx)
+
+# use calc_mn_sd function (relies on meta) to calculate missing mean, sd, and log transformed
+rgv_meta.dat <- calc_mn_sd(
+  "arm_n",
+  "rgv_mean_1",
+  "rgv_sd_1",
+  "rgv_median_1",
+  "rgv_iqr_low_1",
+  "rgv_iqr_up_1",
+  "rgv_range_low_1",
+  "rgv_range_up_1",
+  "study",
+  "arm_tx",
+  refid = "refid",
+  log_trans = TRUE,
+  data = rgv_meta.dat) %>%
+  bind_cols(., rgv_meta.dat %>% select(hr_gt6:hr_2))
+
+# combine naguib 2001 CHO arms, plain and log
+naguib <- c(combine_contin(75, 75, 27.08, 23.38, 20.35, 11.547), 
+            combine_contin(75, 75, 3.074936, 3.042742, 0.6691179, 0.4672016)[2:3])
+rgv_meta.dat[36, c(3:7)] <- naguib
+rm(naguib)
+# delete arm used to combine
+rgv_meta.dat <- as_tibble(rgv_meta.dat) %>% 
+  filter(!(arm_tx == "CHO/Simp" & n == 75))
+
+## (updated 2021/05/15 07:56) add ingestion time ----------------------------
+rgv_meta.dat <- rgv_meta.dat %>%
+  mutate(
+    arm_tx = fct_drop(arm_tx),
+    hr_2_liq = ifelse(!is.na(hr_2), "-2", "-gt2"),
+    temp_arm = as.character(arm_tx),
+    arm_tx_time = ifelse(arm_tx %in% c("CHO/Comp", "CHO/Simp", "CHO/Comp/Prot", "CHO/Simp/Prot", "Clear", "Water"),
+      paste0(temp_arm, hr_2_liq), temp_arm),
+    arm_tx_time = factor(arm_tx_time,
+      levels = c(
+        "Fasting",
+        "Water-2",
+        "Clear-2",
+        # "Placebo",
+        "CHO/Simp-2",
+        "CHO/Comp/Prot-2",
+        # "CHO/Simp/Prot-2",
+        "CHO/Comp-2",
+        "CHO/Simp-gt2",
+        "CHO/Comp/Prot-gt2",
+        "CHO/Comp-gt2"
+      )
+    ),
+    # arm_tx_sim_com = fct_collapse(arm_tx, "Protein" = c("CHO/Simp/Prot", "CHO/Comp/Prot")),
+    arm_tx_cho_prot = fct_collapse(arm_tx, # 3 categories
+      "CHO" = c("CHO/Simp", "CHO/Comp"),
+      "Protein" = c("CHO/Comp/Prot")),
+    arm_tx_time_no_prot = fct_collapse(arm_tx_time, # 3 categories
+      # Fasting = "Fasting",
+      # Water = "Water",
+      # Placebo = "Placebo",
+      # "CHO/Simp"   = c("CHO/Simp-2", "CHO/Simp-gt2"),
+      # "CHO/Comp-2"   = c("CHO/Comp-2", "CHO/Comp/Prot-2"),
+      # "CHO/Comp-gt2" = c("CHO/Comp-gt2", "CHO/Comp/Prot-gt2")
+      "CHO-gt2"   = c("CHO/Comp/Prot-gt2", "CHO/Simp-gt2", "CHO/Comp-gt2"),
+      "CHO-2"   = c("CHO/Simp-2", "CHO/Comp-2", "CHO/Comp/Prot-2")
+    ),
+    arm_tx_time2 = fct_collapse(arm_tx_time, # 2 categories
+      # Fasting = "Fasting",
+      # Water = "Water",
+      # Placebo = "Placebo",
+      # "CHO/Simp"   = c("CHO/Simp-2", "CHO/Simp-gt2", "CHO/Simp/Prot-2"),
+      "CHO 2hr"   = c("CHO/Comp-2", "CHO/Simp-2"),
+      "CHO >2hr" = c("CHO/Comp-gt2", "CHO/Simp-gt2"),
+      "Protein" = c("CHO/Comp/Prot-gt2", "CHO/Comp/Prot-2")
+    )
+  ) %>% 
+  select(-c(hr_2_liq, temp_arm))
+
+## (updated 2021/05/15 07:25) for pairwise not run ------------------------
+# rgv_meta.dat <- rgv_meta.dat %>%
+#   mutate(arm_tx = ifelse(grepl("CHO", arm_tx), "CHO", "Fasting")) %>%
+#   pivot_wider(
+#     id_cols = c("study"),
+#     names_from = c("arm_tx"),
+#     values_from = c("n", "mean", "sd", "mean_log", "sd_log")
+#   )
+```
+
+
+# **Residual Gastric Volume**
+
+## *Network Characteristics*
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Network plot of comparators in included studies. </font>
+
+```{r rgvNMA, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 6, fig.height = 5}
+## (updated 2021/05/15 08:48) network characteristics ---------------------
+# par(mfrow = c(1, 3))
+# for (outcome in c("arm_tx", "arm_tx_cho_prot", "arm_tx_time2")){
+# rgv.data <- data.prep(
+#   arm.data = rgv_meta.dat,
+#   varname.t = outcome,
+#   varname.s = "study"
+# )
+# 
+# net.plot(rgv.data,
+#   node.scale = 3,
+#   edge.scale = 1.5,
+#   label.offset2 = 1,
+#   label.offset1 = 0,
+#   study.counts = TRUE,
+#   node.lab.cex = 1.6,
+#   edge.lab.cex = 1.8
+# )
+# }
+
+#### (updated 2021/05/15 10:30) ----------------------------
+
+## (updated 2021/03/16 07:13) rgvSimpComp BUGSnet -------------------------
+# BUGSnet
+rgv.data <- data.prep(
+  arm.data = rgv_meta.dat,
+  varname.t = "arm_tx",
+  varname.s = "study"
+)
+
+net.plot(rgv.data,
+  node.scale = 3,
+  edge.scale = 1.5,
+  label.offset2 = 1,
+  label.offset1 = 4,
+  study.counts = TRUE,
+  node.lab.cex = 1,
+  edge.lab.cex = 1
+)
+```
+
+<font size = 4> Table `r table_n`. Network characteristics. </font>
+
+```{r netTableRgv}
+net_table <- net.tab(rgv.data,
+  outcome = "mean",
+  N = "n",
+  type.outcome = "continuous"
+)
+
+net_table$network %>%
+  kbl(booktabs = T, align =  c("lr"), escape = FALSE, col.names = c("Characteristic", "Value")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "30em") %>%
+  column_spec(2, width = "6em")
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. Number of studies and patients in comparisons represented in the network. </font>
+
+```{r}
+net_table$comparison %>%
+  kbl(booktabs = T, align =  c("lcc"), escape = FALSE, col.names = c("Comparison", "Studies", "Patients")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "20em") %>%
+  column_spec(c(2,3), width = "6em")
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. Mean and ranges of residual gastric volumes across included studies. </font>
+
+```{r}
+net_table$intervention %>%
+  mutate(across(min.outcome:av.outcome, ~ round(., 1))) %>% 
+  kbl(booktabs = T, align =  c("lccccc"), escape = FALSE, col.names = c("Liquid", "Studies", "Patients", "RGV min", "RGV max", "Mean RGV")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(c(2:5), width = "6em")
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+## *Results Summary*
+
+```{r rgvNMAmodel, include = FALSE, echo = FALSE, messages = FALSE}
+rgv_re <- nma.model(
+  data = rgv.data,
+  outcome = "mean",
+  N = "n",
+  sd = "sd",
+  reference = "Fasting",
+  family = "normal",
+  link = "identity",
+  effects = "random",
+  type = "consistency"
+)
+
+re_results <- nma.run(rgv_re,
+  n.adapt = 101,
+  n.burnin = 20000,
+  n.iter = 50000
+)
+
+## (updated 2021/05/15 10:38) not run sucra and league --------------------
+# nma.diag(re_results)
+# temp <- nma.diag(re_results)
+# temp$gelman.rubin
+#       Point est. Upper C.I.
+# d[2]   1.0001634  1.0006036
+# d[3]   1.0000197  1.0000737
+# d[4]   0.9999903  0.9999998
+# d[5]   1.0000211  1.0000850
+# d[6]   1.0000268  1.0001322
+# sigma  0.9999996  1.0000330
+# rm(temp)
+# SUCRA Plot
+# (sucra.out <- nma.rank(re_results, largerbetter = FALSE, sucra.palette = "Set1"))
+# League table
+df <- nma.league(re_results,
+  central.tdcy = "median",
+  # order = sucra.out$order,
+  log.scale = FALSE,
+  low.colour = "springgreen4",
+  mid.colour = "white",
+  high.colour = "red"
+)
+
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. Estimated mean differences in residual gastric volume comapred with complex carbohydrate containing liquids. </font>
+
+```{r rgvKable, include = TRUE}
+## (updated 2021/05/15 10:44) table of estimates with cho_complex ---------
+order_dat <- tibble(Treatment = c("CHO/Simp", "CHO/Comp/Prot", "Clear", "Water", "Fasting"))
+
+temp <- df$heatplot$data %>%
+  filter(Comparator == "CHO/Comp") %>%
+  as_tibble()
+
+rgv_table_kbl <- left_join(order_dat, temp, by = "Treatment") %>%
+  mutate(across(c(ct.stat:uci), ~ format(round(.x, 1), nsmall = 1)),
+    cri = paste0("(", lci, " to ", uci, ")"),
+    # md_cri = paste0(ct.stat, " (", lci, " to ", uci, ")"),
+    cri = str_replace(cri, "\\( ", "\\("),
+    compared = paste0(Treatment, " vs. ", Comparator)
+  ) %>%
+  select(compared, ct.stat, cri)
+
+rgv_table_kbl %>%
+  kbl(
+    booktabs = T, align = c("lcl"), escape = FALSE,
+    col.names = c("Comparison", "MD (mL)", "  (95% CrI)")
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(2, width = "6em") %>%
+  column_spec(3, width = "7em") %>%
+  footnote(
+    general = "MD: mean difference; CrI: credible interval; CHO: carbohydrate; Comp: complex; Prot: Protein",
+    # alphabet = c(),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<font size = 2> A sensitivity analysis with residual gastric volumes transformed to the log scale to account for skewed distributions yielded consistent results.  </font>
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Forest plot of estimated mean differences in residual gastric volume comapred with complex carbohydrate containing liquids. </font>
+
+```{r rgvForest, include = TRUE, fig.align = 'left', fig.width = 7, fig.height = 4}
+## (updated 2021/05/15 10:44) forest plot ---------------------------------
+nma.forest(re_results, comparator = "CHO/Comp") +
+  theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+
+```
+
+# **Residual Gastric Volume Time** 
+```{r rgvTimeNMAmodel, include = TRUE, echo = FALSE, messages = FALSE}
+## (updated 2021/05/15 13:47) TimeNMAmodel --------------------------------
+rgv_meta_time.dat <- rgv_meta.dat %>% 
+  filter(!study %in% c("Braga 2012","Karimian 2020"))
+
+rgv_time.data <- data.prep(
+  arm.data = rgv_meta_time.dat,
+  varname.t = "arm_tx_time_no_prot",
+  varname.s = "study"
+)
+
+net.plot(rgv_time.data,
+  node.scale = 3,
+  edge.scale = 1.5,
+  label.offset2 = 1,
+  label.offset1 = 4,
+  study.counts = TRUE,
+  node.lab.cex = 1,
+  edge.lab.cex = 1
+)
+
+rgv_re <- nma.model(
+  data = rgv_time.data,
+  outcome = "mean",
+  N = "n",
+  sd = "sd",
+  reference = "Fasting",
+  family = "normal",
+  link = "identity",
+  effects = "random",
+  type = "consistency"
+)
+
+re_results <- nma.run(rgv_re,
+  n.adapt = 101,
+  n.burnin = 20000,
+  n.iter = 50000
+)
+
+df <- nma.league(re_results,
+  central.tdcy = "median",
+  # order = sucra.out$order,
+  log.scale = FALSE,
+  low.colour = "springgreen4",
+  mid.colour = "white",
+  high.colour = "red"
+)
+
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. Estimated mean differences in residual gastric volume compared with complex carbohydrate containing liquids. </font>
+
+```{r rgvTimeKable, include = TRUE}
+## (updated 2021/05/15 10:44) table of estimates with cho_complex ---------
+order_dat <- tibble(Treatment = c("CHO-gt2", "Clear-2", "Water-2", "Fasting"))
+
+temp <- df$heatplot$data %>%
+  filter(Comparator == "CHO-2") %>%
+  as_tibble()
+
+rgv_table_kbl <- left_join(order_dat, temp, by = "Treatment") %>%
+  mutate(across(c(ct.stat:uci), ~ format(round(.x, 1), nsmall = 1)),
+    cri = paste0("(", lci, " to ", uci, ")"),
+    # md_cri = paste0(ct.stat, " (", lci, " to ", uci, ")"),
+    cri = str_replace(cri, "\\( ", "\\("),
+    compared = paste0(Treatment, " vs. ", Comparator)
+  ) %>%
+  select(compared, ct.stat, cri)
+
+rgv_table_kbl %>%
+  kbl(
+    booktabs = T, align = c("lcl"), escape = FALSE,
+    col.names = c("Comparison", "MD (mL)", "  (95% CrI)")
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(2, width = "6em") %>%
+  column_spec(3, width = "7em") %>%
+  footnote(
+    general = "MD: mean difference; CrI: credible interval; CHO: carbohydrate; Comp: complex; Prot: Protein",
+    # alphabet = c(),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Forest plot of estimated mean differences in residual gastric volume comapred with complex carbohydrate containing liquids. </font>
+
+```{r rgvTimeForest, include = TRUE, fig.align = 'left', fig.width = 7, fig.height = 4}
+## (updated 2021/05/15 10:44) forest plot ---------------------------------
+nma.forest(re_results, comparator = "CHO-2") +
+  theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+
+```
+
+
+## *Network Characteristics*
+
+<br/>
+
+<font size = 4> Table `r table_n`. Network characteristics. </font>
+
+```{r netTableTimeRgv}
+net_table <- net.tab(rgv_time.data,
+  outcome = "mean",
+  N = "n",
+  type.outcome = "continuous"
+)
+
+net_table$network %>%
+  kbl(booktabs = T, align =  c("lr"), escape = FALSE, col.names = c("Characteristic", "Value")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "30em") %>%
+  column_spec(2, width = "6em")
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. Number of studies and patients in comparisons represented in the network. </font>
+
+```{r}
+net_table$comparison %>%
+  kbl(booktabs = T, align =  c("lcc"), escape = FALSE, col.names = c("Comparison", "Studies", "Patients")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "20em") %>%
+  column_spec(c(2,3), width = "6em")
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. Mean and ranges of residual gastric volumes across included studies. </font>
+
+```{r}
+net_table$intervention %>%
+  mutate(across(min.outcome:av.outcome, ~ round(., 1))) %>% 
+  kbl(booktabs = T, align =  c("lccccc"), escape = FALSE, col.names = c("Liquid", "Studies", "Patients", "RGV min", "RGV max", "Mean RGV")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(c(2:5), width = "6em")
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+
+# Liquid Detail 
+
+## Carbohydrate Amounts
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Total carbohydrate consumed prior to surgery according to type and combined with protein in adult trials. </font>
+
+```{r choAmtsFigure, include = TRUE, echo = FALSE, include = TRUE, fig.width = 6, fig.height = 2.5, fig.align = "left"}
+## * (updated 2021/03/10 13:29) cho_amts adult rct ----------------------------
+cho_amts <- study_arm_cho.dat %>%
+  filter(design == "rct", age == "Adult", surg_nosurg == "surgical") %>%
+  filter(arm_tx %in% c("CHO/Comp/Prot", "CHO/Simp/Prot", "CHO/Comp", "CHO/Simp")) %>%
+  filter(refid %in% cho_refids) %>% 
+  mutate(
+    amtingest2 = replace_na(amtingest2, 0),
+    amtingest1 = replace_na(amtingest1, 0),
+    tot_vol = amtingest2 + amtingest1,
+    prot_gm_all = prot_conc * tot_vol / 100,
+    cho_gm_all = cho_conc * tot_vol / 100,
+    cho_gm_1 = cho_conc * amtingest1 / 100,
+    cho_gm_2 = cho_conc * amtingest2 / 100,
+    cho_gm_all = ifelse(is.na(cho_gm_all), cho_gm, cho_gm_all),
+    prot_gm_all = ifelse(is.na(prot_gm_all), protein_gm, prot_gm_all)) %>% 
+  select(refid, study, arm_tx, arm, cho_gm, protein_gm, prot_gm_all, cho_gm_all, cho_gm_1, cho_gm_2, amtingest1, amtingest2, prot_conc, cho_conc)
+
+## figure of cho amounts ####
+theme <- theme_set(theme_minimal())
+theme <- theme_update(
+  legend.position = "none",
+  axis.text = element_text(size = 14), 
+  axis.title = element_text(size = 14),
+  axis.line.y = element_line(size = 0, colour = "white", linetype = "solid"), 
+  axis.ticks = element_line(colour = "gray72"),
+  panel.grid.major = element_line(colour = "gray80"))
+par(mar = c(6, 5, 2, 2), oma = c(1, 1, 2, 2))
+
+cho_amts %>% ggplot(aes(cho_gm_all, arm_tx)) +
+  geom_boxplot(varwidth = TRUE) +
+  geom_jitter(width = .2, alpha = 0.8) +
+  scale_y_discrete(name = "") +
+  scale_x_continuous(name = "Grams", limits = c(0, 200)) 
+  # + theme(axis.text=element_text(size = 16),
+  #       axis.title=element_text(size = 16,face="bold"))
+
+figure_n <- fig_inc()
+```
+<font size = 3> CHO: carbohydrate; Comp: complex; Simp: simple; Prot: protein. </font>
+
+<br/>

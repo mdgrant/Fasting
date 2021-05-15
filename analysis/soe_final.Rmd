@@ -189,6 +189,8 @@ domain_summary <- soe.dat %>%
 
 ```
 
+<font size = 4> Ratings in the following tables are for selected important outcomes obtained from randomized controlled trials. Ratings for other outcomes and studies can be found in the [Appendix](appendix.html#supplSoe). </font>
+
 # **Carbohydrate Drinks** 
 
 <br/>

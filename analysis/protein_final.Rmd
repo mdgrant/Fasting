@@ -649,7 +649,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated <a id="protHungRating6"></a>
+### Patient-rated  <a id="protHungRating6"></a>
 
 <br/>
 
