@@ -551,9 +551,7 @@ cho_amts <- study_arm_prot.dat %>%
 
 ## *Hunger* 
 
-### Rates 
-
-<a id="protHungRate5"></a>
+### Rates <a id="protHungRate5"></a>
 
 <br/>
 
@@ -651,9 +649,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated 
-
-<a id="protHungRating6"></a>
+### Patient-rated <a id="protHungRating6"></a>
 
 <br/>
 
@@ -796,9 +792,7 @@ kbl(
 
 ## *Thirst* 
 
-### Rates 
-
-<a id="protThirstRate7"></a> 
+### Rates <a id="protThirstRate7"></a> 
 
 <br/>
 
@@ -893,9 +887,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated 
-
-<a id="protThirstRating8"></a>
+### Patient-rated <a id="protThirstRating8"></a>
 
 <br/>
 
@@ -1051,9 +1043,7 @@ table_n <- tab_inc()
 
 ## *Nausea* 
 
-### Rates 
-
-<a id="protNauseaRate9"></a> 
+### Rates <a id="protNauseaRate9"></a> 
 
 <br/>
 
@@ -1168,9 +1158,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Rates, nonsurgical studies 
-
-<a id="protNauseaNonRate10"></a>
+### Rates, nonsurgical studies <a id="protNauseaNonRate10"></a>
 
 <br/>
 
@@ -1244,9 +1232,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated 
-
-<a id="protNauseaRating11"></a>
+### Patient-rated <a id="protNauseaRating11"></a>
 
 <br/>
 
@@ -1388,9 +1374,7 @@ lik_prot_nausea_preop_kbl.dat %>%
 
 ## *Pain/Discomfort* 
 
-### Rates 
-
-<a id="protPainRate12"></a>
+### Rates <a id="protPainRate12"></a>
 
 <br/>
 
@@ -1477,9 +1461,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated 
-
-✓<a id="protPainRating13"></a>
+### Patient-rated <a id="protPainRating13"></a>
 
 <br/>
 
@@ -1493,9 +1475,7 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Patient Satisfaction* 
-
-<a id="protSatisRating14"></a>
+## *Patient Satisfaction* <a id="protSatisRating14"></a>
 
 <br/>
 
@@ -1606,9 +1586,7 @@ table_n <- tab_inc()
 
 ## *Aspiration* 
 
-### None Reported (Adult)
-
-<a id="protAspAdult15"></a> 
+### None Reported (Adult) <a id="protAspAdult15"></a> 
 
 <br/>
 
@@ -1661,9 +1639,7 @@ table_n <- tab_inc()
 
 <br/> 
 
-### Unreported (Adult)
-
-<a id="protNoAspAdult16"></a>
+### Unreported (Adult) <a id="protNoAspAdult16"></a>
 
 <br>
 
@@ -1718,9 +1694,7 @@ table_n <- tab_inc()
 
 ## *Regurgitation* 
 
-### Adults (surgical)
-
-<a id="protRegurgAdult17"></a>
+### Adults (surgical) <a id="protRegurgAdult17"></a>
 
 <br/>
 
@@ -1874,9 +1848,7 @@ dichot_vomit_adult_postop <- dichot_vomit %>%
 
 ```
 
-### Rates, Adults (preop)
-
-<a id="protVomitAdult18"></a>
+### Rates, Adults (preop) <a id="protVomitAdult18"></a>
 
 <br/>
 
@@ -1927,9 +1899,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Rates, Adults (postop)
-
-<a id="protVomitPostAdult19"></a>
+### Rates, Adults (postop) <a id="protVomitPostAdult19"></a>
 
 <br/>
 
@@ -1977,9 +1947,7 @@ table_n <- tab_inc()
 
 ## *Residual Gastric Volume* 
 
-### Adults (surgical) 
-
-<a id="protRgv20"></a>
+### Adults (surgical) <a id="protRgv20"></a>
 
 <br/>
 
@@ -2108,9 +2076,7 @@ table_n <- tab_inc()
 <br/>
 
 
-### Nonsurgical Studies 
-
-<a id="protNonRgv21"></a>
+### Nonsurgical Studies <a id="protNonRgv21"></a>
 
 <br/>
 
@@ -2253,9 +2219,7 @@ rgv_no_table %>%
 
 <br>
 
-### Pooled (adult surgical)
-
-<a id="protRgvFig1"></a>
+### Pooled (adult surgical) <a id="protRgvFig1"></a>
 
 <br/>
 
@@ -2354,9 +2318,7 @@ Owing to skewed distributions of RGV, conducted sensitivity analysis on a log sc
 
 <br/>
 
-### Pooled (adult nonsurgical)
-
-<a id="protNonRgvFig2"></a>
+### Pooled (adult nonsurgical) <a id="protNonRgvFig2"></a>
 
 <br/>
 
@@ -2489,9 +2451,7 @@ figure_n <- figure_n + 1
 
 ## *Complications* 
 
-### Adults 
-
-<a id="protCompl22"></a>
+### Adults <a id="protCompl22"></a>
 
 <br/>
 
@@ -2640,16 +2600,11 @@ dichot_complicate %>%
 table_n <- tab_inc()
 ```
 
-<a id="tab14"></a>
-
 <br/>
-
 
 ## *Length of Stay* 
 
-### Adults
-
-<a id="protLos23"></a>
+### Adults <a id="protLos23"></a>
 
 <br/>
 
