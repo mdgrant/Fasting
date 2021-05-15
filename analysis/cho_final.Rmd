@@ -2765,8 +2765,8 @@ likert_satis_kbl.dat %>%
   row_spec(cho_row, color = "brown") %>%
   pack_top(., "Adult", 1, 7) %>%
   pack_sub(., "RCT", 1, 7) %>%
-  result_pack("P = .03; higher satisfaction in CHO arm", 3, padding = 62) %>% 
-  result_pack("No difference detected in satisfaction", 5, padding = 62) %>% 
+  result_pack("P = .03; higher satisfaction in CHO arm", 4, padding = 62) %>% 
+  result_pack("No difference detected in satisfaction", 6, padding = 62) %>% 
   result_pack("P = .01; MD^d^\\ 1.76 (95% CI, 1.59 to 1.93)", 8, padding = 62) %>% 
 
   pack_top(., "Pediatric", 8, 8) %>% 
@@ -2850,7 +2850,7 @@ table_n <- tab_inc()
 
 <br/> 
 
-### None Reported (Pediatric) <a id="choNoAspPeds"></a>
+### None Reported (Pediatric) <a id="choNoAspPeds19"></a>
 
 <br/>
 
@@ -2956,7 +2956,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Unreported (Pediatric) <a id="choUnrepAspPeds"></a>
+### Unreported (Pediatric) <a id="choUnrepAspPeds21"></a>
 
 <br>
 
@@ -4425,7 +4425,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-### Pooled (CHO vs. water/placebo)  <a id="protComplFig14"></a>
+### Pooled (CHO vs. water/placebo) <a id="choComplFig13"></a> 
 
 <br/>
 
@@ -4497,7 +4497,7 @@ figure_n <- fig_inc()
 
 ```
 
-### Pooled (protein)
+### Pooled (protein) <a id="protComplFig14"></a>
 
 <br/>
 

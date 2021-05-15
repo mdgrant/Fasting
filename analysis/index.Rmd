@@ -39,14 +39,23 @@ All summary evidence tables are in draft form and not for citation (contact <a h
 
 <font size = 6> Strength of Evidence Ratings </font>
 
-[<font size = 4> Summary of Findings Tables </font>](soe_final.html)
+[<font size = 5> Summary of Findings Tables </font>](soe_final.html)
 
 <br><br>
 
 <font size = 6> Evidence Tables and Pooled Results </font>
 
-[<font size = 4> Carbohydrate drinks </font>](cho_final.html)
+[<font size = 5> Carbohydrate drinks </font>](cho_final.html)
 
-[<font size = 4> Protein/carbohydrate drinks  </font>](protein_final.html)
+[<font size = 5> Protein/carbohydrate drinks  </font>](protein_final.html)
 
-[<font size = 4> Chewing gum  </font>](chewing_gum_121620.html)
+[<font size = 5> Chewing gum  </font>](chewing_gum_121620.html)
+
+<br/><br/>
+
+[<font size = 6> Appendix files </font>](appendix.html)
+
+    <font size = 4>Supplemental strength of evidence ratings </font>
+<br/>
+    <font size = 4>Prisma</font>
+

@@ -1,5 +1,5 @@
 ---
-title: "Strength of Evidence"
+title: "Appendix"
 date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
   workflowr::wflow_html:
@@ -157,9 +157,9 @@ soe.dat <- readxl::read_xlsx("data/SOE_CHO_021921_edit.xlsx", range = "A1:AB98",
   )
 
 soe.dat <- soe.dat %>% 
-    filter((grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea", outcome) & design %in% c("RCT","Crossover")) | grepl("Aspir", outcome))
-  # filter(!(grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea", outcome) & design %in% c("RCT","Crossover"))) %>%
-  # filter(!grepl("Aspir", outcome))
+    # filter((grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea", outcome) & design %in% c("RCT","Crossover")) | grepl("Aspir", outcome))
+  filter(!(grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea", outcome) & design %in% c("RCT","Crossover"))) %>%
+  filter(!grepl("Aspir", outcome))
 
 
 ## (updated 2021/05/13 13:48) soe_summary ---------------------------------
@@ -189,19 +189,23 @@ domain_summary <- soe.dat %>%
 
 ```
 
-# **Carbohydrate Drinks** 
+
+# **Strength of Evidence (Supplemental)**
+
+
+## **Carbohydrate Drinks** 
 
 <br/>
 
-#    **Adult**
+## &ensp; **Adult**
 
-## *Carbohydrate vs. Fasting*
+### *Carbohydrate vs. Fasting*
 
-### Strength of Evidence Ratings
+### &ensp;&ensp; Strength of Evidence Ratings
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for selected important outcomes in randomized controlled trials comparing carbohydrate drinks with fasting in adults.  </font>
+<font size = 4> Table `r table_n`. Supplemental strength of evidence in studies comparing carbohydrate drinks with fasting in adults. </font>
 
 ```{r chofasting, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
@@ -304,13 +308,13 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Carbohydrate vs. Clear Liquids, Water*
+### *Carbohydrate vs. Clear Liquids, Water*
 
 ### Strength of Evidence Ratings
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for selected important outcomes in randomized controlled trials comparing carbohydrate drinks with clear liquids or water in adults.  </font>
+<font size = 4> Table `r table_n`. Supplemental strength of evidence in studies comparing carbohydrate drinks with clear liquids or water in adults.  </font>
 
 ```{r choClear, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
@@ -340,7 +344,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### &ensp;&ensp; GRADE Domains 
 
 <br/>
 
@@ -413,15 +417,15 @@ table_n <- tab_inc()
 <br/>
 
 
-#    **Pediatric**
+## &ensp; **Pediatric**
 
-## *Carbohydrate vs. Fasting*
+### *Carbohydrate vs. Fasting*
 
-### Strength of Evidence Ratings
+### &ensp;&ensp; Strength of Evidence Ratings
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for selected important outcomes in randomized controlled trials comparing carbohydrate drinks with fasting in the pediatric population.  </font>
+<font size = 4> Table `r table_n`. Supplemental strength of evidence in studies comparing carbohydrate drinks with fasting in the pediatric population.  </font>
 
 ```{r chofastingpeds, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
@@ -452,7 +456,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### &ensp;&ensp; GRADE Domains 
 
 <br>
 
@@ -524,244 +528,19 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Carbohydrate vs. Clear Liquids, Water*
-
-### Strength of Evidence Ratings
+## **Protein-containing Drinks**
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for selected important outcomes in randomized controlled trials comparing carbohydrate drinks with clear liquids or water in the pediatric population.  </font>
+## &ensp; **Adult**
 
-```{r choPedsClear, include = TRUE}
-## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
-soe_summary %>% 
-  filter(comparison == "CHO_clear_peds") %>% 
-  select(!c(comparison, n)) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
-  row_spec(0, bold = TRUE) %>% 
-  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
-  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
-  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
-           general_title = "",  
-           footnote_as_chunk = FALSE)
+### *Protein vs. Fasting*
 
-table_n <- tab_inc()
-
-```
+### &ensp;&ensp; Strength of Evidence Ratings
 
 <br/>
 
-### GRADE Domains 
-
-<br/>
-
-<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in studies comparing carbohydrate drinks with clear liquids or water in the pediatric population. </font>
-
-```{r choPedsClearDomain, include = TRUE, eval = TRUE}
-## (updated 2021/05/14 08:02) cho_domain_summary --------------------------
-cho_domain_summary <- domain_summary %>%
-  filter(comparison == "CHO_clear_peds") %>%
-  select(-summary) %>%
-  mutate(
-    design = str_replace(design, "Rct", "RCT"),
-    design = str_replace(design, "[Nn]rsi", "NRSI"),
-    design = str_replace(design, "cohort", "Cohort"),
-  )
-         
-## (updated 2021/05/14 07:42) get list of unique footnotes ----------------
-foot_unique <- cho_domain_summary %>% 
-  # slice(1:20) %>% 
-  select(ends_with("foot")) 
-
-foot_unique <- c(t(foot_unique)) %>% 
-  unlist(use.names = FALSE) %>% 
-  discard(is.na) 
-
-foot_unique <- unique(foot_unique)
-
-numbers <- c(1:100)
-cho_domain <- cho_domain_summary %>% 
-  mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
-         consist_let = numbers[match(consist_foot, foot_unique)],
-         direct_let  = numbers[match(direct_foot, foot_unique)],
-         prec_let    = numbers[match(prec_foot, foot_unique)],
-         other_let   = numbers[match(other_foot, foot_unique)],
-         )
-
-## (updated 2021/05/14 08:04) add footnotes -------------------------------
-for (i in 1:nrow(cho_domain)){
-  for (j in 7:11){
-    cho_domain[i,j] =  ifelse(!is.na(cho_domain[i,j + 10]), paste0(cho_domain[i,j], "^", cho_domain[i,j + 10], "^"), cho_domain[i,j])
-  }
-}
-
-## (updated 2021/05/14 08:27) domain summary table ------------------------
-cho_domain %>% 
-  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
-  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
-    kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
-    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
-  row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "13em") %>%  
-  column_spec(2, width = "4em") %>% 
-  column_spec(3, width = "10em") %>% 
-  column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
-           number = foot_unique,
-           general_title = "",  
-           footnote_as_chunk = FALSE)
-
-table_n <- tab_inc()
-```
-
-<br/>
-
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-<br/>
-
-## *Carbohydrate vs. Milk*
-
-### Strength of Evidence Ratings
-
-<br/>
-
-<font size = 4> Table `r table_n`. Strength of evidence for selected important outcomes in randomized controlled trials comparing carbohydrate drinks with milk in the pediatric population.  </font>
-
-```{r choPedsMilk, include = TRUE}
-## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
-soe_summary %>% 
-  filter(comparison == "CHO_milk_peds") %>% 
-  select(!c(comparison, n)) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
-  row_spec(0, bold = TRUE) %>% 
-  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
-  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
-  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
-           general_title = "",  
-           footnote_as_chunk = FALSE)
-
-table_n <- tab_inc()
-
-```
-
-<br/>
-
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-<br/>
-
-
-
-### GRADE Domains 
-
-<br/>
-
-<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in studies comparing carbohydrate drinks with milk in the pediatric population. </font>
-
-```{r choPedsMilkDomain, include = TRUE, eval = TRUE}
-## (updated 2021/05/14 08:02) cho_domain_summary --------------------------
-cho_domain_summary <- domain_summary %>%
-  filter(comparison == "CHO_milk_peds") %>%
-  select(-summary) %>%
-  mutate(
-    design = str_replace(design, "Rct", "RCT"),
-    design = str_replace(design, "[Nn]rsi", "NRSI"),
-    design = str_replace(design, "cohort", "Cohort"),
-  )
-         
-## (updated 2021/05/14 07:42) get list of unique footnotes ----------------
-foot_unique <- cho_domain_summary %>% 
-  # slice(1:20) %>% 
-  select(ends_with("foot")) 
-
-foot_unique <- c(t(foot_unique)) %>% 
-  unlist(use.names = FALSE) %>% 
-  discard(is.na) 
-
-foot_unique <- unique(foot_unique)
-
-numbers <- c(1:100)
-cho_domain <- cho_domain_summary %>% 
-  mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
-         consist_let = numbers[match(consist_foot, foot_unique)],
-         direct_let  = numbers[match(direct_foot, foot_unique)],
-         prec_let    = numbers[match(prec_foot, foot_unique)],
-         other_let   = numbers[match(other_foot, foot_unique)],
-         )
-
-## (updated 2021/05/14 08:04) add footnotes -------------------------------
-for (i in 1:nrow(cho_domain)){
-  for (j in 7:11){
-    cho_domain[i,j] =  ifelse(!is.na(cho_domain[i,j + 10]), paste0(cho_domain[i,j], "^", cho_domain[i,j + 10], "^"), cho_domain[i,j])
-  }
-}
-
-## (updated 2021/05/14 08:27) domain summary table ------------------------
-cho_domain %>% 
-  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
-  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
-    kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
-    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
-  row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "13em") %>%  
-  column_spec(2, width = "4em") %>% 
-  column_spec(3, width = "10em") %>% 
-  column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
-           number = foot_unique,
-           general_title = "",  
-           footnote_as_chunk = FALSE)
-
-table_n <- tab_inc()
-```
-
-
-<br/><br/>
-
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-<br/>
-
-# **Protein-containing Drinks**
-
-<br/>
-
-#    **Adult**
-
-## *Protein vs. Fasting*
-
-### Strength of Evidence Ratings
-
-<br/>
-
-<font size = 4> Table `r table_n`. Strength of evidence for selected important outcomes in randomized controlled trials comparing protein drinks with fasting in adults.  </font>
+<font size = 4> Table `r table_n`. Supplemental strength of evidence in studies comparing protein drinks with fasting in adults.  </font>
 
 ```{r protfasting, include = TRUE}
 ## (updated 2021/05/14 08:53) prot vs. fasting kable -----------------------
@@ -792,7 +571,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### &ensp;&ensp; GRADE Domains 
 
 <br>
 
@@ -864,13 +643,13 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Protein vs. Clear Liquids, Water*
+### *Protein vs. Clear Liquids, Water*
 
-### Strength of Evidence Ratings
+### &ensp;&ensp; Strength of Evidence Ratings
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for selected important outcomes in randomized controlled trials comparing protein/carbohydrate drinks with clear liquids or water in adults.  </font>
+<font size = 4> Table `r table_n`. Supplemental strength of evidence in studies comparing protein drinks with clear liquids or water in adults.  </font>
 
 ```{r protClear, include = TRUE}
 ## (updated 2021/05/14 08:53) prot vs. fasting kable -----------------------
@@ -901,11 +680,11 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### &ensp;&ensp; GRADE Domains 
 
 <br/>
 
-<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in studies comparing protein/carbohydrate drinks with clear liquids or water in adults. </font>
+<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in studies comparing protein drinks with clear liquids or water in adults. </font>
 
 ```{r protClearDomain, include = TRUE, eval = TRUE}
 ## (updated 2021/05/14 08:02) prot_domain_summary --------------------------
@@ -973,233 +752,13 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Protein/Carbohydrate vs. Carbohydrate*
+## **Chewing Gum**
 
-### Strength of Evidence Ratings
-
-<br/>
-
-<font size = 4> Table `r table_n`. Strength of evidence for selected important outcomes in randomized controlled trials comparing protein/carbohydrate with carbohydrate alone liquids in adults.  </font>
-
-```{r protCHO, include = TRUE}
-## (updated 2021/05/14 08:53) prot vs. fasting kable -----------------------
-soe_summary %>% 
-  filter(comparison == "Prot_CHO") %>% 
-  select(!c(comparison, n)) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
-  row_spec(0, bold = TRUE) %>% 
-  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
-  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
-  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
-           general_title = "",  
-           footnote_as_chunk = FALSE)
-
-table_n <- tab_inc()
-
-```
+### &ensp;&ensp; Strength of Evidence Ratings
 
 <br/>
 
-### GRADE Domains 
-
-<br/>
-
-<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in studies comparing protein/carbohydrate with carbohydrate alone liquids in adults. </font>
-
-```{r protCHODomain, include = TRUE, eval = TRUE}
-## (updated 2021/05/14 08:02) prot_domain_summary --------------------------
-prot_domain_summary <- domain_summary %>%
-  filter(comparison == "Prot_CHO") %>%
-  select(-summary) %>%
-  mutate(
-    design = str_replace(design, "Rct", "RCT"),
-    design = str_replace(design, "[Nn]rsi", "NRSI"),
-    design = str_replace(design, "cohort", "Cohort"),
-  )
-         
-## (updated 2021/05/14 07:42) get list of unique footnotes ----------------
-foot_unique <- prot_domain_summary %>% 
-  # slice(1:20) %>% 
-  select(ends_with("foot")) 
-
-foot_unique <- c(t(foot_unique)) %>% 
-  unlist(use.names = FALSE) %>% 
-  discard(is.na) 
-
-foot_unique <- unique(foot_unique)
-
-numbers <- c(1:100)
-prot_domain <- prot_domain_summary %>% 
-  mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
-         consist_let = numbers[match(consist_foot, foot_unique)],
-         direct_let  = numbers[match(direct_foot, foot_unique)],
-         prec_let    = numbers[match(prec_foot, foot_unique)],
-         other_let   = numbers[match(other_foot, foot_unique)],
-         )
-
-## (updated 2021/05/14 08:04) add footnotes -------------------------------
-for (i in 1:nrow(prot_domain)){
-  for (j in 7:11){
-    prot_domain[i,j] =  ifelse(!is.na(prot_domain[i,j + 10]), paste0(prot_domain[i,j], "^", prot_domain[i,j + 10], "^"), prot_domain[i,j])
-  }
-}
-
-## (updated 2021/05/14 08:27) domain summary table ------------------------
-prot_domain %>% 
-  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
-  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
-    kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
-    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
-  row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "13em") %>%  
-  column_spec(2, width = "4em") %>% 
-  column_spec(3, width = "10em") %>% 
-  column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
-           number = foot_unique,
-           general_title = "",  
-           footnote_as_chunk = FALSE)
-
-table_n <- tab_inc()
-```
-
-<br/>
-
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-<br/>
-
-#    **Pediatric**
-
-## *Protein/Carbohydrate vs. Milk*
-
-### Strength of Evidence Ratings
-
-<br/>
-
-<font size = 4> Table `r table_n`.Strength of evidence for selected important outcomes in randomized controlled trials comparing protein/carbohydrate with milk in a pediatric population.  </font>
-
-```{r protMilk, include = TRUE}
-## (updated 2021/05/14 08:53) prot vs. fasting kable -----------------------
-soe_summary %>% 
-  filter(comparison == "Prot_milk_peds") %>% 
-  select(!c(comparison, n)) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
-  row_spec(0, bold = TRUE) %>% 
-  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
-  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
-  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
-           general_title = "",  
-           footnote_as_chunk = FALSE)
-
-table_n <- tab_inc()
-
-```
-
-<br/>
-
-### GRADE Domains 
-
-<br/>
-
-<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in studies comparing protein/carbohydrate with milk in a pediatric population. </font>
-
-```{r protMilkDomain, include = TRUE, eval = TRUE}
-## (updated 2021/05/14 08:02) prot_domain_summary --------------------------
-prot_domain_summary <- domain_summary %>%
-  filter(comparison == "Prot_milk_peds") %>%
-  select(-summary) %>%
-  mutate(
-    design = str_replace(design, "Rct", "RCT"),
-    design = str_replace(design, "[Nn]rsi", "NRSI"),
-    design = str_replace(design, "cohort", "Cohort"),
-  )
-         
-## (updated 2021/05/14 07:42) get list of unique footnotes ----------------
-foot_unique <- prot_domain_summary %>% 
-  # slice(1:20) %>% 
-  select(ends_with("foot")) 
-
-foot_unique <- c(t(foot_unique)) %>% 
-  unlist(use.names = FALSE) %>% 
-  discard(is.na) 
-
-foot_unique <- unique(foot_unique)
-
-numbers <- c(1:100)
-prot_domain <- prot_domain_summary %>% 
-  mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
-         consist_let = numbers[match(consist_foot, foot_unique)],
-         direct_let  = numbers[match(direct_foot, foot_unique)],
-         prec_let    = numbers[match(prec_foot, foot_unique)],
-         other_let   = numbers[match(other_foot, foot_unique)],
-         )
-
-## (updated 2021/05/14 08:04) add footnotes -------------------------------
-for (i in 1:nrow(prot_domain)){
-  for (j in 7:11){
-    prot_domain[i,j] =  ifelse(!is.na(prot_domain[i,j + 10]), paste0(prot_domain[i,j], "^", prot_domain[i,j + 10], "^"), prot_domain[i,j])
-  }
-}
-
-## (updated 2021/05/14 08:27) domain summary table ------------------------
-prot_domain %>% 
-  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
-  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
-    kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
-    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
-  row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "13em") %>%  
-  column_spec(2, width = "4em") %>% 
-  column_spec(3, width = "10em") %>% 
-  column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
-           number = foot_unique,
-           general_title = "",  
-           footnote_as_chunk = FALSE)
-
-table_n <- tab_inc()
-```
-
-<br/>
-
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-<br/>
-
-# **Chewing Gum**
-
-### Strength of Evidence Ratings
-
-<br/>
-
-<font size = 4> Table `r table_n`. Strength of evidence in chewing gum studies.  </font>
+<font size = 4> Table `r table_n`. Supplemental strength of evidence in chewing gum studies.  </font>
 
 ```{r gum, include = TRUE}
 ## (updated 2021/05/14 08:53) prot vs. fasting kable -----------------------
@@ -1235,7 +794,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### &ensp;&ensp; GRADE Domains 
 
 <br/>
 
@@ -1309,85 +868,7 @@ table_n <- tab_inc()
 
 
 
-# **Ratings Reference**
 
-## GRADE
+# **PRISMA**
 
-<br>
-<font size = 4> 
-**High** --- We are very confident that the true effect lies close to that of the estimate of the effect.
-
-**Moderate** ---  We are moderately confident in the effect estimate: The true effect is likely to be close to the estimate of the effect, but there is a possibility that it is substantially different.
-
-**Low** --- Our confidence in the effect estimate is limited: The true effect may be substantially different from the estimate of the effect.
-
-**Very Low** ---  We have very little confidence in the effect estimate: The true effect is likely to be substantially different from the estimate of effect. 
-
-</font>
-
-### Domains (downgrading)
-<font size = 3>
-
-*Bias* --- Systematic error (eg, selection bias, confounding bias, measurement bias).
-
-*Inconsistency* --- Unexplained heterogeneity of results; studies find effect estimates that differ widely.
-
-*Imprecision* --- The range of plausible effects estimated from relevant studies.
-
-*Indirectness* --- Direct evidence consists of research that directly compares the interventions which we are interested in, delivered to the populations in which we are interested, and measures the outcomes important to patients.
-
-*Other (eg, publication bias)* Selective publication or reporting of results (typically of positive results).
-
-### Domains (updgrading)
-
-*Effect Size*
-
-*Dose-response*
-
-*Plausible Residual Confounding*
-
-</font>
-
-<br>
-
-## USPSTF/AHRQ
-
-<font size = 3>
-**High** --- We are very confident that the estimate of effect lies close to the true effect for this outcome. The body of evidence has few or no deficiencies. We believe that the findings are stable, i.e., another study would not change the conclusions.
-
-**Moderate** --- We are moderately confident that the estimate of effect lies close to the true effect for this outcome. The body of evidence has some deficiencies. We believe that the findings are likely to be stable, but some doubt remains.
-
-**Low** --- We have limited confidence that the estimate of effect lies close to the true effect for this outcome. The body of evidence has major or numerous deficiencies (or both). We believe that additional evidence is needed before concluding either that the findings are stable or that the estimate of effect is close to the true effect.
-
-**Insufficient** --- We have no evidence, we are unable to estimate an effect, or we have no confidence in the estimate of effect for this outcome. No evidence is available or the body of evidence has unacceptable deficiencies, precluding reaching a conclusion. 
-
-<br>
-
-## ACC/AHA
-
-**Level A** --- High-quality evidence from more than 1 RCTs. Meta-analyses of high-quality RCTs. One or more RCTs corroborated by high-quality registry studies.
-
-**Level B-R** --- Moderate-quality evidence from 1 or more randomized controlled trials. Meta-analyses of moderate-quality RCTs.
-
-**Level B-NR** --- Moderate-quality evidence from 1 or more well-designed, well-executed nonrandomized studies, observational studies, or registry studies. Meta-analyses of such studies.
-
-**Level C-LD** --- Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.
-
-**Level C-EO** --- Consensus of expert opinion based on clinical experience when evidence is insufficient, vague, or conflicting. 
-
-</font>
-
-<font size = 3> RCT: randomized controlled trial; NR: nonrandomized; LD: limited data; EO: expert opinion </font>
-
-
-
-
-
-
-
-
-
-  
-  
-
-
+TEST

@@ -13,6 +13,8 @@ navbar:
     href: protein_final.html
   - text: Chewing Gum
     href: chewing_gum_121620.html
+  - text: Appendix
+    href: appendix.html
   - text: About
     href: about.html
 output:
