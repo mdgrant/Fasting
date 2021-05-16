@@ -4791,25 +4791,25 @@ study_char_table %>%
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "15em") %>% 
   # column_spec(2, width = "2em") %>% 
-  pack_top(., "Adult, Surgical", 1, 96) %>% 
-  pack_sub(., "RCT", 1, 81) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 82, 89) %>% 
-  pack_sub(., "Prospective Cohort", 90, 92) %>%
-  pack_sub(., "Retrospective Cohort", 93, 94) %>% 
-  pack_sub(., "Case-control", 95, 95) %>% 
-  pack_sub(., "Before-after", 96, 96) %>% 
-  pack_top(., "Adult, Non-surgical", 97, 109) %>% 
-  pack_sub(., "RCT", 97, 98) %>%
-  pack_sub(., "Crossover", 99, 107) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 108, 109) %>% 
-  pack_top(., "Pediatric, Surgical", 110, 116) %>% 
-  pack_sub(., "RCT", 110, 114) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 115, 115) %>% 
-  pack_sub(., "Prospective Cohort", 116, 116) %>% 
-  pack_top(., "Pediatric, Non-surgical", 117, 119) %>% 
-  pack_sub(., "RCT", 117, 117) %>%
-  pack_sub(., "Crossover", 118, 118) %>%
-  pack_sub(., "Prospective Cohort", 119, 119) %>% 
+  pack_top(., "Adult, Surgical", 1, 100) %>% 
+  pack_sub(., "RCT", 1, 85) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 86, 93) %>% 
+  pack_sub(., "Prospective Cohort", 94, 96) %>%
+  pack_sub(., "Retrospective Cohort", 97, 98) %>% 
+  pack_sub(., "Case-control", 99, 99) %>% 
+  pack_sub(., "Before-after", 100, 100) %>% 
+  pack_top(., "Adult, Non-surgical", 101, 112) %>% 
+  pack_sub(., "RCT", 101, 101) %>%
+  pack_sub(., "Crossover", 102, 110) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 111, 112) %>% 
+  pack_top(., "Pediatric, Surgical", 113, 121) %>% 
+  pack_sub(., "RCT", 113, 119) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 120, 120) %>% 
+  pack_sub(., "Prospective Cohort", 121, 121) %>% 
+  pack_top(., "Pediatric, Non-surgical", 122, 124) %>% 
+  pack_sub(., "RCT", 122, 122) %>%
+  pack_sub(., "Crossover", 123, 123) %>%
+  pack_sub(., "Prospective Cohort", 124, 124) %>% 
   footnote(general_title = "",
     general = "Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; TKA: total knee arthroplasty; THA: total hip arthroplasty.",
     alphabet = c("Multiple publications from the same study."),
@@ -4882,25 +4882,25 @@ pt_char_table %>%
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "15em") %>%
   # column_spec(2, width = "4em") %>%
-  pack_top(., "Adult, Surgical", 1, 96) %>% 
-  pack_sub(., "RCT", 1, 81) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 82, 89) %>% 
-  pack_sub(., "Prospective Cohort", 90, 92) %>%
-  pack_sub(., "Retrospective Cohort", 93, 94) %>% 
-  pack_sub(., "Case-control", 95, 95) %>% 
-  pack_sub(., "Before-after", 96, 96) %>% 
-  pack_top(., "Adult, Non-surgical", 97, 109) %>% 
-  pack_sub(., "RCT", 97, 98) %>%
-  pack_sub(., "Crossover", 99, 107) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 108, 109) %>% 
-  pack_top(., "Pediatric, Surgical", 110, 116) %>% 
-  pack_sub(., "RCT", 110, 114) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 115, 115) %>% 
-  pack_sub(., "Prospective Cohort", 116, 116) %>% 
-  pack_top(., "Pediatric, Non-surgical", 117, 119) %>% 
-  pack_sub(., "RCT", 117, 117) %>%
-  pack_sub(., "Crossover", 118, 118) %>%
-  pack_sub(., "Prospective Cohort", 119, 119) %>% 
+  pack_top(., "Adult, Surgical", 1, 100) %>% 
+  pack_sub(., "RCT", 1, 85) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 86, 93) %>% 
+  pack_sub(., "Prospective Cohort", 94, 96) %>%
+  pack_sub(., "Retrospective Cohort", 97, 98) %>% 
+  pack_sub(., "Case-control", 99, 99) %>% 
+  pack_sub(., "Before-after", 100, 100) %>% 
+  pack_top(., "Adult, Non-surgical", 101, 112) %>% 
+  pack_sub(., "RCT", 101, 101) %>%
+  pack_sub(., "Crossover", 102, 110) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 111, 112) %>% 
+  pack_top(., "Pediatric, Surgical", 113, 121) %>% 
+  pack_sub(., "RCT", 113, 119) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 120, 120) %>% 
+  pack_sub(., "Prospective Cohort", 121, 121) %>% 
+  pack_top(., "Pediatric, Non-surgical", 122, 124) %>% 
+  pack_sub(., "RCT", 122, 122) %>%
+  pack_sub(., "Crossover", 123, 123) %>%
+  pack_sub(., "Prospective Cohort", 124, 124) %>% 
   footnote(alphabet = c("Multiple publications from he same study."),
     general = "Med: median",
     general_title = "",
@@ -4909,11 +4909,11 @@ pt_char_table %>%
 table_n <- tab_inc()
 ```
 
-<br><br>
+<br/><br/>
 
 ### *Fasting, Liquid Timing and Amounts* 
 
-<br>
+<br/>
 
 <font size = 4> Table `r table_n`. Liquid consumption prior to surgery or outcome measurement and amounts according to study arm. </font>
 
@@ -4921,9 +4921,6 @@ table_n <- tab_inc()
 ## (updated 2021/01/12 09:29) createFastingTable --------------------------
 fasting_table <- study_arm_cho.dat %>%
   filter(refid %in% cho_refids) %>%
-  # mutate(tx = str_replace(arm_tx, "_", " ")) %>%
-  # mutate(tx = str_to_title(tx)) %>%
-  # mutate(tx = if_else(tx == "Cho", "CHO", tx, "")) %>%
   mutate(
     arm = ifelse(refid == 3588 & arm_n == 35, 3, arm),
     arm = ifelse(refid == 3588 & arm_n == 27, 2, arm),
@@ -4935,20 +4932,18 @@ fasting_table <- study_arm_cho.dat %>%
     amtingest1 = na_if(amtingest1, 0),
     timeingest1 = round(timeingest1, 0),
     timeingest2 = round(timeingest2, 0)) %>%
-  select(refid, study, year, arm_tx, arm_n, fastsolid, fastliquid, type_of_liquid, timeingest1, amtingest1, timeingest2, amtingest2, age, surg_nosurg, design) %>%
+  select(refid, age, surg_nosurg, design, study, year, arm_tx, arm_n, fastsolid, fastliquid, type_of_liquid, timeingest1, amtingest1, timeingest2, amtingest2) %>%
   arrange(age, desc(surg_nosurg), design, year, study, arm_tx) %>%
-  select(study, arm_tx, arm_n, fastsolid, fastliquid, contains("ingest")) %>% 
-  group_by(study) %>% 
   # mutate(year = ifelse(row_number() == 1, as.numeric(year), "")) %>% 
-  mutate(study = ifelse(study == "Marquini 2020a", "Marquini 2020a,b,c", study)) %>% 
+  mutate(study = ifelse(study == "Marquini 2020a", "Marquini 2020abc", study)) %>% 
   filter(!study %in% c("Marquini 2020b", "Marquini 2020c")) %>% 
-  mutate(study = if_else(row_number() == 1, study, ""))
+  group_by(refid) %>%
+  mutate(study = if_else(row_number() == 1, study, ""),
+         study = if_else(refid == 5815 & arm_tx == "Fasting", "Moyao-Garcia 2001", study),
+         temp = row_number()) %>% 
+  ungroup() %>% 
+  select(study, arm_tx, arm_n, fastsolid, fastliquid, contains("ingest"))
 
-# study arms
-# study_arm.dat %>% 
-#  filter(refid %in% cho_refids$refid) %>% 
-#  group_by(refid) %>% 
-#  count(refid)
 ```
 
 ```{r fastingKable, echo = FALSE}
@@ -4964,24 +4959,24 @@ fasting_table %>%
   column_spec(1, width = "15em") %>% 
   # column_spec(2, width = "5em") %>% 
   # column_spec(3, width = "9em") %>%
-  pack_top(., "Adult, Surgical", 1, 223) %>% 
-  pack_sub(., "RCT", 1, 191) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 192, 211) %>%
-  pack_sub(., "Prospective Cohort", 212, 214) %>%
-  pack_sub(., "Retrospective Cohort", 214, 219) %>% 
-  pack_sub(., "Case-control", 220, 221) %>% 
-  pack_sub(., "Before-after", 222, 223) %>% 
-  pack_top(., "Adult, Non-surgical", 224, 255) %>% 
-  pack_sub(., "RCT", 224, 228) %>%
-  pack_sub(., "Crossover", 251, 250) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 251, 255) %>% 
-  pack_top(., "Pediatric, Surgical", 256, 270) %>% 
-  pack_sub(., "RCT", 256, 267) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 268, 269) %>% 
-  pack_sub(., "Prospective Cohort", 270, 270) %>% 
-  pack_top(., "Pediatric, Non-surgical", 271, 276) %>% 
-  pack_sub(., "RCT", 271, 273) %>%
-  pack_sub(., "Crossover", 274, 275) %>%
+  pack_top(., "Adult, Surgical", 1, 232) %>% 
+  pack_sub(., "RCT", 1, 200) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 201, 220) %>%
+  pack_sub(., "Prospective Cohort", 221, 223) %>%
+  pack_sub(., "Retrospective Cohort", 224, 228) %>% 
+  pack_sub(., "Case-control", 229, 230) %>% 
+  pack_sub(., "Before-after", 231, 232) %>% 
+  pack_top(., "Adult, Non-surgical", 233, 260) %>% 
+  pack_sub(., "RCT", 233, 234) %>%
+  pack_sub(., "Crossover", 235, 255) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 256, 260) %>% 
+  pack_top(., "Pediatric, Surgical", 261, 281) %>% 
+  pack_sub(., "RCT", 261, 278) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 279, 280) %>% 
+  pack_sub(., "Prospective Cohort", 281, 281) %>% 
+  pack_top(., "Pediatric, Non-surgical", 282, 287) %>% 
+  pack_sub(., "RCT", 282, 284) %>%
+  pack_sub(., "Crossover", 285, 287) %>%
   pack_sub(., "Prospective Cohort", 276, 276) %>% 
   footnote(general = "hr: hours; ch: cholecystectomy; cr: colorectal; gen: general; epi: epidural",
           alphabet = c("In surgical studies hours prior to surgery. In non-surgical studies time 0 reference for any measurements and negative numbers prior ingestion."),
@@ -5022,7 +5017,8 @@ cho_drink_table <- cho_drink_table %>%
   group_by(study) %>% 
   arrange(age, desc(surg_nosurg), design, year, study) %>% 
   mutate(study = ifelse(row_number() >= 2, " ", study),
-         study = ifelse(study == "Marquini 2020a", "Marquini 2020 (all)", study)) %>% 
+         study = ifelse(study == "Marquini 2020a", "Marquini 2020 (all)", study),
+         study = ifelse(refid == 5815, "Moyao-Garcia 2001", study)) %>% 
   ungroup() %>% 
   filter(!study %in% c("Marquini 2020b", "Marquini 2020c")) %>% 
   select(study, cho_conc, prot_conc, cho_gm_all, prot_gm_all, brand, tx_detail)
@@ -5059,25 +5055,25 @@ cho_drink_table %>%
   column_spec(c(2,3), width = "3em") %>% 
   column_spec(c(4,5), width = "5em") %>% 
   column_spec(6, width = "9em") %>%
-  pack_top(., "Adult, Surgical", 1, 112) %>% 
-  pack_sub(., "RCT", 1, 93) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 94, 104) %>% 
-  pack_sub(., "Prospective Cohort", 105, 107) %>%
-  pack_sub(., "Retrospective Cohort", 108, 110) %>% 
-  pack_sub(., "Case-control", 111, 111) %>% 
-  pack_sub(., "Before-after", 112, 112) %>% 
-  pack_top(., "Adult, Non-surgical", 113, 138) %>% 
-  pack_sub(., "RCT", 113, 114) %>%
-  pack_sub(., "Crossover", 115, 133) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 134, 138) %>% 
-  pack_top(., "Pediatric, Surgical", 139, 147) %>% 
-  pack_sub(., "RCT", 139, 145) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 146, 146) %>% 
-  pack_sub(., "Prospective Cohort", 147, 147) %>% 
-  pack_top(., "Pediatric, Non-surgical", 148, 150) %>% 
-  pack_sub(., "RCT", 148, 148) %>%
-  pack_sub(., "Crossover", 149, 149) %>%
-  pack_sub(., "Prospective Cohort", 150, 150) %>% 
+  pack_top(., "Adult, Surgical", 1, 121) %>% 
+  pack_sub(., "RCT", 1, 101) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 102, 113) %>% 
+  pack_sub(., "Prospective Cohort", 114, 116) %>%
+  pack_sub(., "Retrospective Cohort", 117, 119) %>% 
+  pack_sub(., "Case-control", 120, 120) %>% 
+  pack_sub(., "Before-after", 121, 121) %>% 
+  pack_top(., "Adult, Non-surgical", 122, 146) %>% 
+  pack_sub(., "RCT", 122, 123) %>%
+  pack_sub(., "Crossover", 124, 141) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 142, 146) %>% 
+  pack_top(., "Pediatric, Surgical", 147, 159) %>% 
+  pack_sub(., "RCT", 147, 157) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 158, 158) %>% 
+  pack_sub(., "Prospective Cohort", 159, 159) %>% 
+  pack_top(., "Pediatric, Non-surgical", 160, 163) %>% 
+  pack_sub(., "RCT", 160, 161) %>%
+  pack_sub(., "Crossover", 162, 162) %>%
+  pack_sub(., "Prospective Cohort", 163, 163) %>% 
   footnote(general = "CHO: carbohydrate; g: grams; Osm: osomolality; Glut: glutamine; Arg: arginine; NS: not specified",
           #alphabet = c("per 100/mL if not otherwise specified"),
           # alphabet_title = " ",
@@ -5132,25 +5128,25 @@ study_fund_table %>%
   column_spec(1, width = "16em") %>% 
   column_spec(c(2,3,4,5), width = "4em") %>% 
   column_spec(6, width = "23em") %>%
-  pack_top(., "Adult, Surgical", 1, 87) %>% 
-  pack_sub(., "RCT", 1, 79) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 80, 87) %>% 
-  pack_sub(., "Prospective Cohort", 88, 90) %>%
-  pack_sub(., "Retrospective Cohort", 91, 92) %>% 
-  pack_sub(., "Case-control", 93, 93) %>% 
-  pack_sub(., "Before-after", 94, 94) %>% 
-  pack_top(., "Adult, Non-surgical", 95, 107) %>% 
-  pack_sub(., "RCT", 95, 96) %>%
-  pack_sub(., "Crossover", 97, 105) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 106, 107) %>% 
-  pack_top(., "Pediatric, Surgical", 108, 114) %>% 
-  pack_sub(., "RCT", 108, 112) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 113, 113) %>% 
-  pack_sub(., "Prospective Cohort", 114, 114) %>% 
-  pack_top(., "Pediatric, Non-surgical", 115, 117) %>% 
-  pack_sub(., "RCT", 115, 115) %>%
-  pack_sub(., "Crossover", 116, 116) %>%
-  pack_sub(., "Prospective Cohort", 117, 117)
+  pack_top(., "Adult, Surgical", 1, 98) %>% 
+  pack_sub(., "RCT", 1, 83) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 84, 91) %>% 
+  pack_sub(., "Prospective Cohort", 92, 94) %>%
+  pack_sub(., "Retrospective Cohort", 95, 96) %>% 
+  pack_sub(., "Case-control", 97, 97) %>% 
+  pack_sub(., "Before-after", 98, 98) %>% 
+  pack_top(., "Adult, Non-surgical", 99, 110) %>% 
+  pack_sub(., "RCT", 99, 99) %>%
+  pack_sub(., "Crossover", 100, 108) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 109, 110) %>% 
+  pack_top(., "Pediatric, Surgical", 111, 119) %>% 
+  pack_sub(., "RCT", 111, 117) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 118, 118) %>% 
+  pack_sub(., "Prospective Cohort", 119, 119) %>% 
+  pack_top(., "Pediatric, Non-surgical", 120, 122) %>% 
+  pack_sub(., "RCT", 120, 120) %>%
+  pack_sub(., "Crossover", 121, 121) %>%
+  pack_sub(., "Prospective Cohort", 122, 122)
   #footnote(general = "g: grams; Osm: osmolality",
           # alphabet = c("Hours prior to surgery"),
           # alphabet_title = " ",

@@ -634,10 +634,7 @@ figure_n <- fig_inc()
 
 <font size = 4> Table `r table_n`. Characteristics of included studies examining chewing gum. </font>
 ```{r createStudyCharTable, include = FALSE}
-# add footnote by refid, variable
-# mutate(ifelse(refid == refid_foo, variable = str_c(variable, foot), variable))
-# mutate(ifelse(refid == 353, variable = str_c(surg, "$^a$"), variable))
-
+## (updated 2021/05/16 10:27) study_char_table ----------------------------
 study_char_table <- 
   study_char_gum.dat %>%
   mutate(dates = str_c(date_start, "\U2012", date_end),
@@ -676,66 +673,77 @@ study_char_table <-
 ```
 
 ```{r studyCharKable, echo = FALSE}
+## (updated 2021/05/16 10:42) studyCharKable ------------------------------
 study_char_table %>%
-  select(-design) %>% 
-  kable(booktabs = T, align = c("lcccccccclc"), 
-      # format = "latex",
-      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Dates", "Country", " (N\\) ", "Pilot", 
-                    "Setting", "Gen", "Reg", "Sed", "Type of Surgery", "Registered")) %>%
-  kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
-  kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
-  column_spec(1, width = "15em") %>% 
-  # column_spec(2, width = "2em") %>% 
+  select(-design) %>%
+  kable(
+    booktabs = T, align = c("lcccccccclc"),
+    # format = "latex",
+    col.names = c(
+      "        Study", "Dates", "Country", " (N\\) ", "Pilot",
+      "Setting", "Gen", "Reg", "Sed", "Type of Surgery", "Registered"
+    )
+  ) %>%
+  kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  column_spec(1, width = "15em") %>%
+  # column_spec(2, width = "2em") %>%
   column_spec(3, width = "7em") %>%
-  add_header_above(c(" " = 3, "Enrolled" = 1, " " = 2, "Anesthetic" = 3, " " = 2)) %>% 
-  pack_top(., "Adult, Surgical", 1, 6) %>% 
-  pack_sub(., "RCT", 1, 6) %>% 
-  pack_sub(., "Case Series", 7, 7) %>% 
-  pack_top(., "Adult, Non-surgical", 8, 9) %>% 
-  pack_sub(., "Crossover", 8, 8) %>% 
-  pack_sub(., "Single Arm Trial", 9, 9) %>% 
-  pack_top(., "Pediatric, Surgical", 10, 10) %>% 
-  pack_sub(., "RCT", 10, 10) %>% 
-  footnote(general = "Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory",
-           general_title = "",
-           footnote_as_chunk = T) # %>% 
-  # kable_styling(position = "left", "condensed") 
+  add_header_above(c(" " = 3, "Enrolled" = 1, " " = 2, "Anesthetic" = 3, " " = 2)) %>%
+  pack_top(., "Adult, Surgical", 1, 7) %>%
+  pack_sub(., "RCT", 1, 6) %>%
+  pack_sub(., "Case Series", 7, 7) %>%
+  pack_top(., "Adult, Non-surgical", 8, 9) %>%
+  pack_sub(., "Crossover", 8, 8) %>%
+  pack_sub(., "Single Arm Trial", 9, 9) %>%
+  pack_top(., "Pediatric, Surgical", 10, 10) %>%
+  pack_sub(., "RCT", 10, 10) %>%
+  footnote(
+    general = "Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory.",
+    general_title = "",
+    footnote_as_chunk = T
+  ) # %>%
+# kable_styling(position = "left", "condensed")
 
 table_n <- tab_inc()
 ```
 
-<br><br>
+<br/><br/>
 
 ## *Sample Characteristics*
 
-<br>
+<br/>
 
 <font size = 4> Table `r table_n`. Characteristics of patients in included studies. </font>
 ```{r createPtCharTable, include = FALSE}
-pt_char_table <- study_arm_gum.dat %>% 
-  group_by(refid) %>% 
-  summarize(N = sum(arm_n), 
-            wgt = arm_n/N,
-            asai_all = round(sum(asai * wgt, na.rm = TRUE)),
-            asaii_all = round(sum(asaii * wgt, na.rm = TRUE)),
-            asaiii_all = round(sum(asaiii * wgt, na.rm = TRUE)),
-            asai_ii_all = round(sum(asai_ii * wgt, na.rm = TRUE)),
-            age_mn_all = round(sum(age_mean * wgt, na.rm = TRUE)),
-            age_md_all = round(sum(age_med * wgt, na.rm = TRUE)),
-            sex_all = round(sum(female * wgt, na.rm = TRUE)),
-            white_all = round(sum(white * wgt, na.rm = TRUE)),
-            black_all = round(sum(black * wgt, na.rm = TRUE)),
-            asian_all = round(sum(asian * wgt, na.rm = TRUE)),
-            bmi_mn_all = round(sum(bmi_mean * wgt, na.rm = TRUE)),
-            bmi_md_all = round(sum(bmi_med * wgt, na.rm = TRUE)),
-            dm_mn_all = round(sum(dm * wgt, na.rm = TRUE)),
-            neuro_all = round(sum(neuro * wgt, na.rm = TRUE))
-            ) %>% 
-  filter(row_number()==1) %>% 
-  ungroup() %>% 
-  mutate(N = ifelse(refid == 4926, 46, N),
-         age_mn_all = ifelse(refid == 4926, "5-17^a^", age_mn_all),
-         age_md_all = ifelse(refid == 4926, " ", age_md_all))
+## (updated 2021/05/16 10:43) createPtCharTable ---------------------------
+pt_char_table <- study_arm_gum.dat %>%
+  group_by(refid) %>%
+  summarize(
+    N = sum(arm_n),
+    wgt = arm_n / N,
+    asai_all = round(sum(asai * wgt, na.rm = TRUE)),
+    asaii_all = round(sum(asaii * wgt, na.rm = TRUE)),
+    asaiii_all = round(sum(asaiii * wgt, na.rm = TRUE)),
+    asai_ii_all = round(sum(asai_ii * wgt, na.rm = TRUE)),
+    age_mn_all = round(sum(age_mean * wgt, na.rm = TRUE)),
+    age_md_all = round(sum(age_med * wgt, na.rm = TRUE)),
+    sex_all = round(sum(female * wgt, na.rm = TRUE)),
+    white_all = round(sum(white * wgt, na.rm = TRUE)),
+    black_all = round(sum(black * wgt, na.rm = TRUE)),
+    asian_all = round(sum(asian * wgt, na.rm = TRUE)),
+    bmi_mn_all = round(sum(bmi_mean * wgt, na.rm = TRUE)),
+    bmi_md_all = round(sum(bmi_med * wgt, na.rm = TRUE)),
+    dm_mn_all = round(sum(dm * wgt, na.rm = TRUE)),
+    neuro_all = round(sum(neuro * wgt, na.rm = TRUE))
+  ) %>%
+  filter(row_number() == 1) %>%
+  ungroup() %>%
+  mutate(
+    N = ifelse(refid == 4926, 46, N),
+    age_mn_all = ifelse(refid == 4926, "5-17^a^", age_mn_all),
+    age_md_all = ifelse(refid == 4926, " ", age_md_all)
+  )
   
 pt_char_table <- left_join(pt_char_table,
   study_char.dat[, c("refid", "study", "design", "year", "age", "surg_nosurg")],
@@ -750,6 +758,7 @@ pt_char_table <- pt_char_table %>%
 ```
 
 ```{r ptCharKable, echo = FALSE}
+## (updated 2021/05/16 10:45) ptCharKable ---------------------------------
 pt_char_table %>% 
   mutate_at(vars(asai_all:dm_mn_all), na_if, 0) %>% 
   kable(booktabs = T, align = c("lcrrrcccccccccc"),
@@ -762,7 +771,7 @@ pt_char_table %>%
   column_spec(1, width = "15em") %>%
   # column_spec(2, width = "4em") %>%
   column_spec(3, width = "3em") %>%
-  pack_top(., "Adult, Surgical", 1, 6) %>% 
+  pack_top(., "Adult, Surgical", 1, 7) %>% 
   pack_sub(., "RCT", 1, 6) %>% 
   pack_sub(., "Case Series", 7, 7) %>% 
   pack_top(., "Adult, Non-surgical", 8, 9) %>% 
@@ -780,14 +789,15 @@ pt_char_table %>%
 table_n <- tab_inc()
 ```
 
-<br>
+<br/>
 
 ## *Fasting and Gum Timing*
 
-<br>
+<br/>
 
 <font size = 4> Table `r table_n`. Fasting times and gum chewing protocols according to study arm. </font>
 ```{r createFastingTable, include = FALSE}
+## (updated 2021/05/16 10:45) createFastingTable --------------------------
 fasting_table <- study_arm.dat %>% 
   filter(refid %in% gum_refids$refid) %>% 
   mutate(arm_tx = factor(arm_tx,
@@ -825,7 +835,8 @@ fasting_table <- fasting_table %>%
   # mutate(design = if_else(row_number() == 1, design, "")) %>% 
   mutate(year = ifelse(row_number() == 1, year, NA ),
          study = if_else(row_number() == 1, study, "")) %>% 
-  ungroup()
+  ungroup() %>% 
+  mutate(study = ifelse(study %in% c("Valencia 2019", "Shanmugam 2016"), cell_spec(study, color = "black"), study))
 
 ```
 
@@ -841,7 +852,7 @@ fasting_table %>%
   select(study, tx, arm_n, fastsolid, fastliquid, start_gum_oth, stop_gum_oth) %>% 
   add_column(temp = NA) %>% 
   select(study:fastliquid, temp, everything()) %>% 
-  kbl(booktabs = T, align = c("llccccll"),
+  kbl(booktabs = T, align = c("llccccll"), escape = FALSE,
       col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Comparator", "N", "Solids", "Liquids", " ",  "Chewing or Time", "Gum Chewing")) %>% 
   add_header_above(c(" " = 3, "\\ \\ Prescribed Fasting (hr)" = 2, " " = 1,  "\\ \\ Start Gum" = 1, "\\ \\ Stop" = 1), align = "l", underline = FALSE) %>% 
   kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
@@ -859,8 +870,8 @@ fasting_table %>%
   pack_sub(., "Single Arm Trial", 23, 23) %>% 
   pack_top(., "Pediatric, Surgical", 24, 26) %>% 
   pack_sub(., "RCT", 24, 26) %>%  
-  footnote(general = "hr: hours",
-          alphabet = c("Hours prior to surgery"),
+  footnote(general = "hr: hours.",
+          alphabet = c("Hours prior to surgery."),
           alphabet_title = " ",
           general_title = "",
           footnote_as_chunk = T)
