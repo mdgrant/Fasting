@@ -872,6 +872,7 @@ table_n <- tab_inc()
 
 # **PRISMA**
 
+<font size = 4> Table `r table_n`. PRISMA diagram of included studies. </font>
 
 <img src="assets/dot_fastingTaskForce_Prisma.png" style="width:800px;" align="left"/>
 
