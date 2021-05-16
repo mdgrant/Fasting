@@ -379,7 +379,7 @@ rgv_meta.dat <- rgv_meta.dat %>%
 
 <font size = 4> Figure `r figure_n`. Network plot of comparators in included studies. </font>
 
-```{r rgvNMA, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 6, fig.height = 5}
+```{r rgvNMA, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 5, fig.height = 5}
 ## (updated 2021/05/15 08:48) network characteristics ---------------------
 # par(mfrow = c(1, 3))
 # for (outcome in c("arm_tx", "arm_tx_cho_prot", "arm_tx_time2")){
@@ -578,8 +578,21 @@ nma.forest(re_results, comparator = "CHO/Comp") +
 
 ```
 
-# **Residual Gastric Volume Time** 
-```{r rgvTimeNMAmodel, include = TRUE, echo = FALSE, messages = FALSE}
+<br/>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br/>
+
+# **Residual Gastric Volume — Liquid Timing** 
+
+## *Network Characteristics*
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Network plot of comparators in included studies. </font>
+
+```{r rgvTimeNMAmodel, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 5, fig.height = 5}
 ## (updated 2021/05/15 13:47) TimeNMAmodel --------------------------------
 rgv_meta_time.dat <- rgv_meta.dat %>% 
   filter(!study %in% c("Braga 2012","Karimian 2020"))
@@ -599,7 +612,68 @@ net.plot(rgv_time.data,
   node.lab.cex = 1,
   edge.lab.cex = 1
 )
+```
 
+<font size = 4> Table `r table_n`. Network characteristics. </font>
+
+```{r netTableTimeRgv}
+net_table <- net.tab(rgv_time.data,
+  outcome = "mean",
+  N = "n",
+  type.outcome = "continuous"
+)
+
+net_table$network %>%
+  kbl(booktabs = T, align =  c("lr"), escape = FALSE, col.names = c("Characteristic", "Value")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "30em") %>%
+  column_spec(2, width = "6em")
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. Number of studies and patients in comparisons represented in the network. </font>
+
+```{r}
+net_table$comparison %>%
+  kbl(booktabs = T, align =  c("lcc"), escape = FALSE, col.names = c("Comparison", "Studies", "Patients")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "20em") %>%
+  column_spec(c(2,3), width = "6em")
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. Mean and ranges of residual gastric volumes across included studies. </font>
+
+```{r}
+net_table$intervention %>%
+  mutate(across(min.outcome:av.outcome, ~ round(., 1))) %>% 
+  kbl(booktabs = T, align =  c("lccccc"), escape = FALSE, col.names = c("Liquid", "Studies", "Patients", "RGV min", "RGV max", "Mean RGV")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(c(2:5), width = "6em")
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+
+
+## *Results Summary*
+
+```{r netTimeTableRgv, include = FALSE, echo = FALSE, messages = FALSE}
 rgv_re <- nma.model(
   data = rgv_time.data,
   outcome = "mean",
@@ -673,7 +747,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Forest plot of estimated mean differences in residual gastric volume comapred with complex carbohydrate containing liquids. </font>
+<font size = 4> Figure `r figure_n`. Forest plot of estimated mean differences in residual gastric volume compared with complex carbohydrate containing liquids. </font>
 
 ```{r rgvTimeForest, include = TRUE, fig.align = 'left', fig.width = 7, fig.height = 4}
 ## (updated 2021/05/15 10:44) forest plot ---------------------------------
@@ -681,66 +755,6 @@ nma.forest(re_results, comparator = "CHO-2") +
   theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 
 ```
-
-
-## *Network Characteristics*
-
-<br/>
-
-<font size = 4> Table `r table_n`. Network characteristics. </font>
-
-```{r netTableTimeRgv}
-net_table <- net.tab(rgv_time.data,
-  outcome = "mean",
-  N = "n",
-  type.outcome = "continuous"
-)
-
-net_table$network %>%
-  kbl(booktabs = T, align =  c("lr"), escape = FALSE, col.names = c("Characteristic", "Value")) %>% 
-  row_spec(0, bold = TRUE) %>%
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
-  column_spec(1, width = "30em") %>%
-  column_spec(2, width = "6em")
-
-table_n <- tab_inc()
-```
-
-<br/>
-
-<font size = 4> Table `r table_n`. Number of studies and patients in comparisons represented in the network. </font>
-
-```{r}
-net_table$comparison %>%
-  kbl(booktabs = T, align =  c("lcc"), escape = FALSE, col.names = c("Comparison", "Studies", "Patients")) %>% 
-  row_spec(0, bold = TRUE) %>%
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
-  column_spec(1, width = "20em") %>%
-  column_spec(c(2,3), width = "6em")
-
-table_n <- tab_inc()
-```
-
-<br/>
-
-<font size = 4> Table `r table_n`. Mean and ranges of residual gastric volumes across included studies. </font>
-
-```{r}
-net_table$intervention %>%
-  mutate(across(min.outcome:av.outcome, ~ round(., 1))) %>% 
-  kbl(booktabs = T, align =  c("lccccc"), escape = FALSE, col.names = c("Liquid", "Studies", "Patients", "RGV min", "RGV max", "Mean RGV")) %>% 
-  row_spec(0, bold = TRUE) %>%
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
-  column_spec(1, width = "14em") %>%
-  column_spec(c(2:5), width = "6em")
-
-table_n <- tab_inc()
-```
-
-<br/>
 
 
 # Liquid Detail 

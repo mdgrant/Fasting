@@ -870,9 +870,10 @@ table_n <- tab_inc()
 
 <br/>
 
-
-
-
 # **PRISMA**
 
-TEST
+
+<img src="assets/dot_fastingTaskForce_Prisma.png" style="width:800px;" align="left"/>
+
+
+

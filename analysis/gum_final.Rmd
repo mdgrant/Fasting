@@ -972,6 +972,64 @@ table_n <- tab_inc()
 
 <br>
 
+# **Risk of Bias** 
+
+### *Patient Reported Outcomes*
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Summary risk of bias appraisal for randomized controlled trials including patient reported outcomes. </font>
+
+<img src="assets/gum_pro_rob_summary.svg" style="width:600px;" align="left"/>
+
+<br clear="all" />
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisal for randomized controlled trials including patient reported outcomes. </font>
+
+<img src="assets/gum_pro_rob_traffic.svg" style="width:600px;" align="left"/>
+
+<br clear="all" />
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<br>
+
+### *Clinical Outcomes*
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Summary risk of bias appraisal for randomized controlled trials including clinical outcomes. </font>
+
+<img src="assets/gum_clin_rob_summary.svg" style="width:600px;" align="left"/>
+
+<br clear="all" />
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisal for randomized controlled trials for clinical outcomes. </font>
+
+<img src="assets/gum_clin_rob_traffic.svg" style="width:600px;" align="left"/>
+
+```{r}
+figure_n <- fig_inc()
+```
+<br clear="all" />
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br>
+
+
+
+
 # References 
 
 <br>
