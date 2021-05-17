@@ -589,7 +589,7 @@ cho_amts <- study_arm_cho.dat %>%
 
 ## *Preoperative Hunger* 
 
-### Rates (surgical) <a href="choHungRates6"></a>
+### Rates (surgical) <a id="choHungRates6"></a>
 
 <br/>
 
@@ -715,7 +715,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated (surgical) <a href="choHungRating7"></a>
+### Patient-rated (surgical) <a id="choHungRating7"></a>
 
 <br/>
 
@@ -875,7 +875,7 @@ likert_cho_hung_kbl.dat %>%
 
 <br/>
 
-### Patient-rated (nonsurgical) <a href="choHungRating8"></a>
+### Patient-rated (nonsurgical) <a id="choHungRating8"></a>
 
 <br/>
 
@@ -958,7 +958,7 @@ likert_cho_hung_kbl.dat %>%
 
 <br/>
 
-### Pooled (adult RCTs, rates) <a href="choHungFig1"></a> 
+### Pooled (adult RCTs, rates) <a id="choHungFig1"></a> 
 
 <br/>
 
@@ -1017,7 +1017,7 @@ Too few studies to examine small-study effects.
 
 <br>
 
-### Pooled (adult RCTs, patient-rated) <a href="choHungFig2"></a> 
+### Pooled (adult RCTs, patient-rated) <a id="choHungFig2"></a> 
 
 <br>
 
@@ -1145,7 +1145,7 @@ Results from Melis 2006 and Naguib 2001 reported only non-signficant results and
 Excluding results from Wendling 2020, SMD = -0.60 (95% CI, -0.90 to -0.31), *I*^2^ = 73% (53%, 84%).
 Some indications of small-study effects in funnel plot, but not supported by Pustejovsky's test of asymmetry, P = .16.
 
-<a href="choHungFig3"></a>
+<a id="choHungFig3"></a>
 
 <br/><br/>
 
@@ -1255,7 +1255,7 @@ Although limited number of studies to assess small-study effects and potential o
   
 ## *Preoperative Thirst* 
 
-### Rates (surgical) <a href="choThirstRates9"></a>
+### Rates (surgical) <a id="choThirstRates9"></a>
 
 <br/>
 
@@ -1400,7 +1400,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated (surgical) <a href="choThirstRating10"></a>
+### Patient-rated (surgical) <a id="choThirstRating10"></a>
 
 <br/>
 
@@ -1555,7 +1555,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated (nonsurgical) <a href="choThirstRating11"></a>
+### Patient-rated (nonsurgical) <a id="choThirstRating11"></a>
 
 <br/>
 
@@ -1622,7 +1622,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Pooled (adult RCTs, rates)  <a href="choThirstFig4"></a> 
+### Pooled (adult RCTs, rates)  <a id="choThirstFig4"></a> 
 
 <br/>
 
@@ -1702,7 +1702,7 @@ Too few studies to examine small-study effects.
 
 <br>
 
-### Pooled (adult RCTs, patient-rated)  <a href="choThirstFig5"></a> 
+### Pooled (adult RCTs, patient-rated)  <a id="choThirstFig5"></a> 
 
 <br/>
 
@@ -1809,7 +1809,7 @@ Means and standard deviations, when not reported, were imputed. Studies with > 1
 Wang 2019, reported as standard deviations were assumed to be standard errors for these analyses (SMD -4.0). Rizvanovic 2019 was judged an outlier (SMD -5.5) reported confidence intervals in the publication appeared to be in error). Yagmurder 2011 appeared to be an outlier with implausible SMD (-18.8), having only the range to impute the standard deviation. Removal of outliers would not alter any conclusions. 
 Indication of potential small-study effects (P = .07, Pustejovsky test of funnel plot asymmetry), but 3 studies pooled with large effects with uncertainty due to imputation. 
 
-<a href="choThirstFig6"></a> 
+<a id="choThirstFig6"></a> 
 
 <br/><br/>
 
@@ -1896,7 +1896,7 @@ Too few studies to examine small-study effects.
 
 ## *Preoperative Nausea* 
 
-### Rates (surgical) <a href="choNauseaRates12"></a>
+### Rates (surgical) <a id="choNauseaRates12"></a>
 
 <br/>
 
@@ -2033,7 +2033,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Rates (nonsurgical) <a href="choNauseaRates13"></a>
+### Rates (nonsurgical) <a id="choNauseaRates13"></a>
 
 <br/>
 
@@ -2107,7 +2107,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated (surgical) <a href="choNauseaRates14"></a> 
+### Patient-rated (surgical) <a id="choNauseaRates14"></a> 
 
 <br/>
 
@@ -2275,7 +2275,7 @@ likert_cho_nausea_preop_kbl.dat %>%
 
 <br/>
 
-### Pooled (adult RCTs, rates)  <a href="choThirstFig7"></a> 
+### Pooled (adult RCTs, rates)  <a id="choThirstFig7"></a> 
 
 <br/>
 
@@ -2329,7 +2329,7 @@ figure_n <- fig_inc()
 
 ## *Pain* 
 
-### Rates  <a href="pain_ratings15"></a>
+### Rates  <a id="pain_ratings15"></a>
 
 <br/>
 
@@ -2418,7 +2418,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated  <a href="pain_ratings16"></a>
+### Patient-rated  <a id="pain_ratings16"></a>
 
 <br/>
 
@@ -2577,7 +2577,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Pooled (adult RCTs, patient-rated)  <a href="choPainFig8"></a> 
+### Pooled (adult RCTs, patient-rated)  <a id="choPainFig8"></a> 
 
 <br/>
 
@@ -2673,7 +2673,7 @@ No indication of small-study effects in funnel plot or by Pustejovsky’s test o
 <br/>
 
 
-## *Patient Satisfaction*  <a href="choSatis17"></a> 
+## *Patient Satisfaction*  <a id="choSatis17"></a> 
 
 <br/>
 
@@ -2795,7 +2795,7 @@ table_n <- tab_inc()
 
 ## *Aspiration*
 
-### None Reported (Adult) <a href="choNoAspAdult18"></a> 
+### None Reported (Adult) <a id="choNoAspAdult18"></a> 
 
 <br/>
 
@@ -2850,7 +2850,7 @@ table_n <- tab_inc()
 
 <br/> 
 
-### None Reported (Pediatric) <a href="choNoAspPeds19"></a>
+### None Reported (Pediatric) <a id="choNoAspPeds19"></a>
 
 <br/>
 
@@ -2899,7 +2899,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Unreported (Adult) <a href="choUnrepAspAdult"></a>
+### Unreported (Adult) <a id="choUnrepAspAdult"></a>
 
 <br>
 
@@ -2956,7 +2956,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Unreported (Pediatric) <a href="choUnrepAspPeds21"></a>
+### Unreported (Pediatric) <a id="choUnrepAspPeds21"></a>
 
 <br>
 
@@ -3007,7 +3007,7 @@ table_n <- tab_inc()
 
 ## *Regurgitation*
 
-### Adults (surgical) <a href="choRegurgAdult22"></a>
+### Adults (surgical) <a id="choRegurgAdult22"></a>
 
 <br/>
 
@@ -3212,7 +3212,7 @@ dichot_vomit_peds <- dichot_vomit %>%
 
 ```
 
-### Rates, Adults (preop) <a href="choVomitPreopAdult23"></a>
+### Rates, Adults (preop) <a id="choVomitPreopAdult23"></a>
 
 <br/>
 
@@ -3263,7 +3263,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Rates, Adults (postop) <a href="choVomitPreopAdult24"></a>
+### Rates, Adults (postop) <a id="choVomitPreopAdult24"></a>
 
 <br/>
 
@@ -3310,7 +3310,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Rates, Pediatric (preop, postop) <a href="choVomitPeds25"></a>
+### Rates, Pediatric (preop, postop) <a id="choVomitPeds25"></a>
 
 <br/>
 
@@ -3363,7 +3363,7 @@ table_n <- tab_inc()
 
 ## *Residual Gastric Volume* 
 
-### Adults (surgical)  <a href="choRgv26"></a>
+### Adults (surgical)  <a id="choRgv26"></a>
 
 <br/>
 
@@ -3497,7 +3497,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Pediatric (surgical)  <a href="choRgv27"></a>
+### Pediatric (surgical)  <a id="choRgv27"></a>
 
 <br/>
 
@@ -3547,7 +3547,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Nonsurgical Studies  <a href="choRgv28"></a>
+### Nonsurgical Studies  <a id="choRgv28"></a>
 
 <br/>
 
@@ -3697,7 +3697,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Pooled (adult RCTs)  <a href="choRgvFig9"></a>
+### Pooled (adult RCTs)  <a id="choRgvFig9"></a>
 
 <br/>
 
@@ -3807,7 +3807,7 @@ temp <- metacont(
 Mean differences estimated from means, standard deviations, medians, interquartile and overall ranges.
 Owing to skewed distributions of RGV, conducted sensitivity analysis on a log scale with consistent results. 
 
-<a href="choRgvFig10"></a>
+<a id="choRgvFig10"></a>
 
 <br/><br/>
 
@@ -3937,7 +3937,7 @@ Owing to skewed distributions of RGV, conducted sensitivity analysis on a log sc
 
 <br/>
 
-## *pH*  <a href="choPh29"></a>
+## *pH*  <a id="choPh29"></a>
 
 <br/>
 
@@ -4011,7 +4011,7 @@ ph.dat %>%
 table_n <- tab_inc()
 ```
 
-### Pooled (adult RCTs) <a href="choPhFig11"></a>
+### Pooled (adult RCTs) <a id="choPhFig11"></a>
 
 <br/>
 
@@ -4077,7 +4077,7 @@ figure_n <- fig_inc()
 
 ## *Complications* 
 
-### Adults  <a href="choCompl30"></a>
+### Adults  <a id="choCompl30"></a>
 
 <br/>
 
@@ -4280,7 +4280,7 @@ dichot_complicate %>%
 table_n <- tab_inc()
 ```
 
-### &ensp; Complication Types <a href="choCompl31"></a>
+### &ensp; Complication Types <a id="choCompl31"></a>
 
 <br/>
 
@@ -4321,7 +4321,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Pooled (CHO vs. fasting)  <a href="choComplFig12"></a>
+### Pooled (CHO vs. fasting)  <a id="choComplFig12"></a>
 
 <br/>
 
@@ -4425,7 +4425,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-### Pooled (CHO vs. water/placebo) <a href="choComplFig13"></a> 
+### Pooled (CHO vs. water/placebo) <a id="choComplFig13"></a> 
 
 <br/>
 
@@ -4497,7 +4497,7 @@ figure_n <- fig_inc()
 
 ```
 
-### Pooled (protein) <a href="protComplFig14"></a>
+### Pooled (protein) <a id="protComplFig14"></a>
 
 <br/>
 
@@ -4553,7 +4553,7 @@ figure_n <- fig_inc()
 
 ## *Length of Stay* 
 
-### Adults <a href="choLosl32"></a>
+### Adults <a id="choLosl32"></a>
 
 <br/>
 
@@ -4659,7 +4659,7 @@ table_n <- tab_inc()
 ```
 
 
-### Pediatric <a href="choLosl33"></a>
+### Pediatric <a id="choLosl33">Peds</a>
 
 <br/>
 
