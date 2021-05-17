@@ -158,7 +158,7 @@ table_n <- tab_inc()
 
 <br>
 
-## *Thirst* <a id="gumThirstRating2"></a>
+## *Thirst* <a href="gumThirstRating2"></a>
 
 <br/>
 
@@ -217,7 +217,7 @@ gum_thirst %>%
 table_n <- tab_inc()
 ```
 
-<a id="gumThirstFig1"></a>
+<a href="gumThirstFig1"></a>
 
 <br/><br/>
 
@@ -267,7 +267,7 @@ figure_n <- fig_inc()
 
 # **Clinical Outcomes**
 
-## *Residual Gastric Volume* <a id="gumRgvTab3"></a>
+## *Residual Gastric Volume* <a href="gumRgvTab3"></a>
 
 <br/>
 
@@ -373,7 +373,7 @@ table_n <- table_n + 1
 
 <br>
 
-### Pooled Results <a id="gumRgvFig2"></a>
+### Pooled Results <a href="gumRgvFig2"></a>
 
 <br>
 
@@ -456,7 +456,7 @@ figure_n <- fig_inc()
 <br/>
 
 
-## *Gastric pH* <a id="gumPhTab4"></a>
+## *Gastric pH* <a href="gumPhTab4"></a>
 
 ```{r phData, echo = FALSE}
 ## (updated 2020/12/17 20:49) phData --------------------------------------
@@ -540,7 +540,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Pooled Results <a id="gumRgvFig3"></a>
+### Pooled Results <a href="gumRgvFig3"></a>
 
 <br/>
 
