@@ -3367,31 +3367,32 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Residual gastric volumes measured by aspiration at induction in studies of  adult surgical patients according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Residual gastric volumes measured by aspiration at induction in studies of adult surgical patients according to fasting, liquid and volume. </font>
 
 ```{r choRgv, include = FALSE}
 ## (updated 2021/01/19 19:20) choRgv --------------------------------------
 rgv.dat <- contin_cho.dat %>%
   filter(refid %in% cho_refids) %>%
-  select(refid:age, arm_n, arm_tx, timeingest1, amtingest1, timeingest2, amtingest2, type_ingest_1, starts_with("rgv"), notes_continuous) %>%
+  select(refid:age, arm_n, arm_tx, hr_gt6, hr_26, hr_2, type_ingest_1, starts_with("rgv"), notes_continuous) %>%
+  # select(refid:age, arm_n, arm_tx, timeingest1, amtingest1, timeingest2, amtingest2, type_ingest_1, starts_with("rgv"), notes_continuous) %>%
   rename(notes = notes_continuous) %>% 
   filter(surg_nosurg == "surgical") %>%
   filter(!is.na(rgv_us) | !is.na(rgv_imag) | !is.na(rgv_asp)) %>%
   # filter_at(vars(rgv_time_1:rgv_pval_2), any_vars(!is.na(.))) %>% # same
-  mutate(
-    # surgical studies (note none have times 0 or negative)
-    # hr_2 is ≤ 2; hr_26 is (2, 6] >2 to 6; hr_gt6 is >6
-    hr_2 = 0, hr_26 = 0, hr_gt6 = 0,
-    hr_2 = if_else(timeingest1 <= 2 & timeingest1 > 0, amtingest1, hr_2, missing = 0),
-    hr_26 = if_else(timeingest1 > 2 & timeingest1 < 6, amtingest1, hr_26, missing = 0),
-    hr_gt6 = if_else(timeingest1 >= 6, amtingest1, hr_gt6, missing = 0),
-    hr_2 = if_else(hr_2 == 0 & timeingest2 <= 2 & timeingest2 > 0, amtingest2, hr_2, missing = 0),
-    hr_26 = if_else(hr_26 == 0 & timeingest2 > 2 & timeingest2 < 6, amtingest2, hr_26, missing = 0),
-    hr_gt6 = if_else(hr_gt6 == 0 & timeingest2 >= 6, amtingest2, hr_gt6, missing = 0),
-    hr_gt6 = if_else(grepl("also received 300", type_ingest_1), 500, hr_gt6)
-  ) %>%
-  # Oyama PM
-  replace_with_na_at(.vars = c("hr_gt6", "hr_26", "hr_2"), condition = ~ .x == 0) %>%
+  # mutate(
+  #   # surgical studies (note none have times 0 or negative)
+  #   # hr_2 is ≤ 2; hr_26 is (2, 6] >2 to 6; hr_gt6 is >6
+  #   hr_2 = 0, hr_26 = 0, hr_gt6 = 0,
+  #   hr_2 = if_else(timeingest1 <= 2 & timeingest1 > 0, amtingest1, hr_2, missing = 0),
+  #   hr_26 = if_else(timeingest1 > 2 & timeingest1 < 6, amtingest1, hr_26, missing = 0),
+  #   hr_gt6 = if_else(timeingest1 >= 6, amtingest1, hr_gt6, missing = 0),
+  #   hr_2 = if_else(hr_2 == 0 & timeingest2 <= 2 & timeingest2 > 0, amtingest2, hr_2, missing = 0),
+  #   hr_26 = if_else(hr_26 == 0 & timeingest2 > 2 & timeingest2 < 6, amtingest2, hr_26, missing = 0),
+  #   hr_gt6 = if_else(hr_gt6 == 0 & timeingest2 >= 6, amtingest2, hr_gt6, missing = 0),
+  #   hr_gt6 = if_else(grepl("also received 300", type_ingest_1), 500, hr_gt6)
+  # ) %>%
+  # # Oyama PM
+  # replace_with_na_at(.vars = c("hr_gt6", "hr_26", "hr_2"), condition = ~ .x == 0) %>%
   mutate(
     study = ifelse(study == "Oyama 2011" & grepl("AM", notes), "Oyama 2011 (AM)^a^", study),
     study = ifelse(study == "Oyama 2011" & grepl("PM", notes), "Oyama 2011 (PM)^a^", study),
@@ -3497,6 +3498,9 @@ table_n <- tab_inc()
 
 <br/>
 
+
+
+
 ### Pediatric (surgical)  <a id="choRgv27"></a>
 
 <br/>
@@ -3587,6 +3591,7 @@ rgv_no_table <- rgv_nonsurg.dat %>%
   rename_with(~ gsub("rgv_", "", .x, fixed = TRUE)) %>%
   # reorder to facilitate select final digit is hour of measurement variable_1/2_hr
   select(refid:surg_nosurg, type_meas, hr_2, hr_0, ends_with("_1"), ends_with("_2"), ends_with("_3")) %>%
+  # remove_empty("cols") %>% 
   # select(!median_1_2) %>%
   mutate(
     mean_1_2 = coalesce(mean_1_2, mean_2_2),
@@ -3616,84 +3621,124 @@ rgv_no_table <- rgv_nonsurg.dat %>%
     sd_1 = ifelse(is.na(sd_1) & !is.na(ci_low_1), sd_confint(ci_low_1, ci_up_1), sd_1),
     sd_2 = ifelse(is.na(sd_2) & !is.na(ci_low_2), sd_confint(ci_low_2, ci_up_2), sd_2)) %>%
   # keep range and iqr but display only iqr
-  select(refid, arm, study, year, age, design, arm_tx, arm_n, type_meas, hr_2, hr_0, m_1, sd_1, m_2, sd_2, m_3, sd_3, med_1, iqr_low_1, iqr_up_1, range_low_1, range_up_1, med_2, iqr_low_2, iqr_up_2, range_low_2, range_up_2)
+  select(refid, arm, study, year, age, design, arm_tx, arm_n, type_meas, hr_2, hr_0, m_1, sd_1, m_2, sd_2, m_3, sd_3, med_1, iqr_low_1, iqr_up_1, range_low_1, range_up_1, med_2, iqr_low_2, iqr_up_2, range_low_2, range_up_2, ci_low_1, ci_low_2, ci_up_1, ci_up_2)
 ```
 
-```{r rgvNonsurgKable, echo = FALSE, include = FALSE, eval = FALSE}
+```{r rgvNonsurgKable, echo = FALSE, include = TRUE, eval = TRUE}
 ## (updated 2020/12/15 10:24) rgvNonsurgKable -----------------------------
-cho_row <- rgv_no_table %>% 
-  mutate(line = row_number()) %>% 
-  filter(grepl("CHO", arm_tx)) %>% 
-  pull(line)
-
-rgv_no_table %>% 
-  group_by(study) %>%
+rgv_no_table_kbl <- rgv_no_table %>%
   mutate(
-    study = ifelse(row_number() == 1, study, NA),
-    type_meas = ifelse(row_number() == 1, type_meas, NA)) %>%
-  ungroup() %>%
-  mutate(
-    arm_tx = as.character(arm_tx), 
+    arm_tx = as.character(arm_tx),
     arm_tx = ifelse(refid == 1315 & arm_tx == "Clear", "Apple juice", arm_tx),
     msd1 = str_c(round_1(m_1), " (", round_1(sd_1), ")"),
     msd2 = str_c(round_1(m_2), " (", round_1(sd_2), ")"),
+    # digits Du2017
     msd1 = ifelse(refid == 1315, str_c(round_2(m_1), " (", round_2(sd_1), ")"), msd1),
     msd2 = ifelse(refid == 1315, str_c(round_2(m_2), " (", round_2(sd_2), ")"), msd2),
     msd3 = str_c(round_1(m_3), " (", round_1(sd_3), ")"),
     med1 = str_c(round(med_1, 0), " (", round(iqr_low_1, 0), "-", round(iqr_up_1, 0), ")"),
+    # med2 = str_c(round(med_2, 0), " (", round(iqr_low_2, 0), "-", round(iqr_up_2, 0), ")"),
     # Nakamura med and add range for hr 2
-    msd1 = ifelse(refid == 2703, paste0(round_0(med_1), " (", round_0(iqr_low_1), ", ", round_0(iqr_up_1), ")"), msd1),
+    msd1 = ifelse(refid %in% c(2703), paste0(round_0(med_1), " (", round_0(iqr_low_1), ", ", round_0(iqr_up_1), ")"), msd1),
+    msd1 = ifelse(refid %in% c(499), paste0(round_1(med_1), " (", round_1(iqr_low_1), ", ", round_1(iqr_up_1), ")"), msd1),
     msd2 = ifelse(refid == 2703, paste0(round_0(med_2), " [", range_low_2, ", ", range_up_2, "]"), msd2),
-    msd2 = ifelse(refid == 6280, paste0(round_0(med_2), " (", round_0(iqr_low_2), ", ", round_0(iqr_up_2), ")" ), msd2),
+    msd2 = ifelse(refid %in% c(6280, 7600), paste0(round_0(med_2), " (", round_0(iqr_low_2), ", ", round_0(iqr_up_2), ")"), msd2),
+    msd2 = ifelse(refid %in% c(499), paste0(round_1(med_2), " (", round_1(iqr_low_2), ", ", round_1(iqr_up_2), ")"), msd2),
     msd1 = na_if(msd1, "NA (NA)"),
     msd2 = na_if(msd2, "NA (NA)"),
-    msd3 = na_if(msd3, "NA (NA)")) %>%
+    msd1 = na_if(msd1, "NA"),
+    msd2 = ifelse(is.na(msd2), "", msd2),
+    msd3 = na_if(msd3, "NA (NA)"),
+    # Zhang2020 convert log to ml and footnote 95% CI
+    msd1 = ifelse(refid == 81, paste0(round_1(exp(m_1)), " [", round_1(exp(ci_low_1)), ", ", round_1(exp(ci_up_1)), "]"), msd1),
+    msd2 = ifelse(refid == 81, paste0(round_1(exp(m_2)), " [", round_1(exp(ci_low_2)), ", ", round_1(exp(ci_up_2)), "]"), msd2),
+  ) %>%
   mutate(
-    add_foot(., study, "Du 2017", "a"),
+    add_foot(., study, "Du 2017", "b"),
     msd1 = replace_na(msd1, ""),
-    msd1 = cell_spec(msd1, underline = (ifelse(refid == 2703, TRUE, FALSE))),
-    msd2 = cell_spec(msd2, underline = (ifelse(refid == 2703, TRUE, FALSE)))) %>%
-  select(study, arm_tx, arm_n, hr_2, hr_0, type_meas, msd1:msd3, -age, -design) %>%
-    add_row() %>% 
+    msd1 = cell_spec(msd1, underline = (ifelse(refid %in% c(499, 2703), TRUE, FALSE))),
+    msd2 = cell_spec(msd2, underline = (ifelse(refid %in% c(499, 2703), TRUE, FALSE)))
+  ) %>%
+  group_by(study) %>%
+  mutate(
+    study = cell_spec(study, color = "black"),
+    study = ifelse(row_number() == 1, study, NA),
+    msd1 = ifelse(grepl("Nascimento 2019", study), paste0(msd1, "^a^"), msd1),
+    msd2 = ifelse(grepl("Nascimento 2019", study), paste0(msd2, "^a^"), msd2),
+    type_meas = cell_spec(type_meas, color = "black"),
+    type_meas = ifelse(row_number() == 1, type_meas, NA),
+    arm_tx = ifelse(arm_tx == "Milk", "Coffee/Milk", arm_tx),
+    msd1 = ifelse(grepl("Jian", study), paste0(msd1, "^c^"), msd1),
+    msd2 = ifelse(grepl("Jian", study), paste0(msd2, "^c^"), msd2),
+    arm_tx = ifelse(grepl("82.3 \\(5", msd1), "CHO/Simp obese", arm_tx),
+    arm_tx = ifelse(grepl("67.1 \\(42", msd1), "CHO/Simp nonobese", arm_tx),
+  ) %>%
+  ungroup() %>%
+  select(study, arm_tx, arm_n, hr_2, hr_0, type_meas, msd1:msd3) %>%
+  add_row()
+
+## (updated 2021/06/01 15:09) rgv_no_table_kbl ----------------------------
+cho_row <- rgv_no_table_kbl %>% 
+  mutate(line = row_number()) %>% 
+  filter(grepl("CHO", arm_tx)) %>% 
+  pull(line)
+
+rgv_no_table_kbl %>%
   kbl(
-    booktabs = T, align = c("lllcccccc"), escape = FALSE,
-    col.names = c("        Study", "Liquid", "N", "2 hr", "0 hr", "Measure", "1 hr", "2 hr", "3 hr")) %>%
-  add_header_above(c(" " = 3, "Liquid Volume (mL)" = 2, "RGV" = 1, "Mean RGV (SD) (mL)" = 3), line = TRUE) %>%
+    booktabs = T, align = c("llrccclll"), escape = FALSE,
+    col.names = c("        Study", "Liquid", "N", "2 hr", "0 hr", "Measure", "       1 hr", "       2 hr", "       3 hr")
+  ) %>%
+  add_header_above(c(" " = 3, "Liquid Volume (mL)" = 2, "RGV" = 1, "Mean RGV mL (SD) [95% CI] unless noted" = 3), line = TRUE) %>%
   add_header_above(c(" " = 6, "Median RGV (IQR) [Range] (mL)" = 3), underline = TRUE, line = TRUE) %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
-  column_spec(1, width = "11em") %>%
-  column_spec(2, width = "6em") %>%
-  column_spec(3, width = "4em") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(2, width = "7em") %>%
+  column_spec(3, width = "3em") %>%
   column_spec(c(4:5), width = "5em") %>%
   column_spec(6, width = "6em") %>%
-  column_spec(7, width = "7em") %>%
+  column_spec(7, width = "8em") %>%
   column_spec(8, width = "8em") %>%
-  column_spec(9, width = "7em") %>%
+  column_spec(9, width = "10em") %>%
   pack_top(., "Adult, Nonsurgical", 1, 26) %>%
   pack_sub(., "RCT", 1, 5) %>%
+  result_pack("CHO/Comp cleared more rapidly than simple or milk", 4, padding = 65) %>% 
+  result_pack("No detected difference at 1 or 2 hours", 6, padding = 65) %>% 
   pack_sub(., "Crossover", 6, 24) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 25, 26) %>% 
-  pack_top(., "Pediatric, Nonsurgical", 27, 31) %>%
+  result_pack("Lower without protein at 2 hours", 9, padding = 65) %>% 
+  result_pack("No detected difference at 2 or 3 hours", 11, padding = 65) %>% 
+  result_pack("Higher RGV with CHO/Simp/Prot at 1 and 2 hours", 13, padding = 65) %>% 
+  result_pack("No detected difference at 2 hours", 16, padding = 65) %>% 
+  result_pack("No detected difference at 2 or 3 hours", 18, padding = 65) %>% 
+  result_pack("No detected difference at 1 or 2 hours", 20, padding = 65) %>% 
+  result_pack("Lower RGV with smaller liquid volume at 1 hour", 23, padding = 65) %>% 
+  result_pack("Higher RGV with CHO/Comp/Prot at 2 hours", 25, padding = 65) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 25, 26) %>%
+  result_pack("No detected difference at 1 or 2 hours", 27, padding = 65) %>% 
+  pack_top(., "Pediatric, Nonsurgical", 27, 32) %>%
   pack_sub(., "RCT", 27, 29) %>%
-  pack_sub(., "Crossover", 30, 31) %>% 
+  result_pack("Proportion of Baseline Gastric Antral CSA", 27, padding = 63, color = "black", italic = FALSE) %>% 
+  result_pack("No detected difference at 2 hours", 32, padding = 65) %>% 
+  result_pack("No detected difference return to baseline at 2 hours", 30, padding = 65) %>% 
+  pack_sub(., "Crossover", 30, 32) %>%
   row_spec(cho_row, color = "brown") %>%
-  # pack_rows("2-hr MD 39.1 (95% CI, -5.8 to 84.0)", 3, 3, label_row_css = "padding-left:64%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>% 
+
+  # pack_rows("2-hr MD 39.1 (95% CI, -5.8 to 84.0)", 3, 3, label_row_css = "padding-left:64%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>%
   # pack_rows("Proportion of Baseline Gastric Antral CSA", 14, 16, label_row_css = "padding-left:63%", bold = FALSE) %>%
-  # pack_rows("Prot/CHO vs Juice, MD 0.07 (95% CI, 0.04 to 0.11)", 17, 17, label_row_css = "padding-left:64%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>% 
+  # pack_rows("Prot/CHO vs Juice, MD 0.07 (95% CI, 0.04 to 0.11)", 17, 17, label_row_css = "padding-left:64%; border-bottom: 0px solid;", underline = FALSE, bold = FALSE, color = "gray", italic = TRUE) %>%
   footnote(
-    general = "RGV: residual gastric volumne; IQR: interquartile range; M: mean; SD: standard deviation; CHO: carbohydrate; MRI: magnetic resonance imaging; US: ultrasound; CSA: cross-sectional area.",
+    general = "RGV: residual gastric volumne; IQR: interquartile range; M: mean; SD: standard deviation; CHO: carbohydrate; Comp: complex; Simp: simple; Prot: protein; MRI: magnetic resonance imaging; US: ultrasound; CSA: cross-sectional area.",
     general_title = "",
-    alphabet = c("Authors reported similar clearances of all 3 liquids in terminal emptying phase (eg, 120 to 180 minutes)."),
-    footnote_as_chunk = FALSE) 
+    alphabet = c(
+      "mL/kg",
+      "Authors reported similar clearances of all 3 liquids in terminal emptying phase (eg, 120 to 180 minutes).",
+      "Gastric cross-sectional area in mm^2^."
+    ),
+    footnote_as_chunk = FALSE
+  )
 
 table_n <- tab_inc()
 ```
-
-```{r}
-table_n <- tab_inc()
-```
-
 
 <br/>
 
