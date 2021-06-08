@@ -626,18 +626,20 @@ dichot_hunger <- left_join(dichot_hunger, or_hunger, by = "refid") %>%
   ) %>%
   ungroup() %>%
   mutate(hunger_per = round(hunger_per, 0)) %>%
-  select(refid, arm, design, age, study, arm_n, arm_tx, starts_with("hr"), pre_post_op, time_outcome, hunger_np, hunger_per, or_ci, notes)
+  select(refid, arm, design, age, study, arm_n, arm_tx, starts_with("hr"), pre_post_op, time_outcome, hunger_np, hunger_per, or_ci, notes) %>% 
+  # exclude Naguib 2001 if in dataset (exclude volume)
+  filter(refid != 5803)
 
 # odds ratios for naguib arms, combining the 2 CHO simple arms 
-naguib <- tribble(
-  ~event_e, ~n_e, ~event_c, ~n_c, ~arm,
-  67, 150, 19, 75,  "Fasting",
-  67, 150, 24, 75,  "Water",
-  67, 150, 39, 75,  "CHO/Simp")
-
-naguib <- with(naguib, odds_ratio(event_e, n_e, event_c, n_c, arm)) %>% mutate(refid = 5803)
-dichot_hunger$or_ci <- replace(dichot_hunger$or_ci, c(1:3), naguib$or_ci)
-rm(naguib)
+# naguib <- tribble(
+#   ~event_e, ~n_e, ~event_c, ~n_c, ~arm,
+#   67, 150, 19, 75,  "Fasting",
+#   67, 150, 24, 75,  "Water",
+#   67, 150, 39, 75,  "CHO/Simp")
+# 
+# naguib <- with(naguib, odds_ratio(event_e, n_e, event_c, n_c, arm)) %>% mutate(refid = 5803)
+# dichot_hunger$or_ci <- replace(dichot_hunger$or_ci, c(1:3), naguib$or_ci)
+# rm(naguib)
 
 cho_row <- dichot_hunger %>%
   mutate(line = row_number()) %>%
@@ -671,7 +673,7 @@ dichot_hunger %>%
   # verified no notes indicated hunger recorded preop
   mutate(
     arm_tx = as.character(arm_tx),
-    arm_tx = ifelse(refid == 5803 & arm_tx == "Clear", "Apple Juice", arm_tx)
+    # arm_tx = ifelse(refid == 5803 & arm_tx == "Clear", "Apple Juice", arm_tx)
   ) %>%
   select(!c(refid, arm, design, age, hunger_per, time_outcome, pre_post_op)) %>%
   select(study, arm_tx, arm_n:hunger_np, hunger_bar, or_ci) %>%
@@ -692,19 +694,24 @@ dichot_hunger %>%
   column_spec(8, width = "5em") %>%
   column_spec(9, width = "11em") %>%
   row_spec(cho_row, color = "brown") %>%
-  pack_top(., "Adult, Surgical", 1, 14) %>%
-  pack_sub(., "RCT", 1, 13) %>%
-  pack_sub(., "Prospective Cohort", 14, 14) %>%
-  pack_top(., "Pediatric, Surgical", 15, 16) %>%
-  pack_sub(., "RCT", 15, 16) %>%
+  pack_top(., "Adult, Surgical", 1, 9) %>%
+  pack_sub(., "RCT", 1, 8) %>%
+  pack_sub(., "Prospective Cohort", 9, 9) %>%
+  pack_top(., "Pediatric, Surgical", 10, 11) %>%
+  pack_sub(., "RCT", 10, 11) %>%
+  # pack_top(., "Adult, Surgical", 1, 14) %>%
+  # pack_sub(., "RCT", 1, 13) %>%
+  # pack_sub(., "Prospective Cohort", 14, 14) %>%
+  # pack_top(., "Pediatric, Surgical", 15, 16) %>%
+  # pack_sub(., "RCT", 15, 16) %>%
   footnote(
     general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Simp: simple; Comp: complex; Prot: protein.",
     alphabet = c(
       "'Did you feel hunger during the fasting period?'",
       "Reported no hunger.",
       "Oral rehydration consumed between 5 and 2 hours prior to surgery. 'Did you feel hungry before surgery?' ",
-      "Hunger present or absent.",
-      "OR vs. combined CHO/Simp arms."
+      "Hunger present or absent."
+      # "OR vs. combined CHO/Simp arms."
     ),
     general_title = "",
     footnote_as_chunk = FALSE
@@ -895,12 +902,15 @@ cho_row <- likert_cho_hung_kbl.dat %>%
   ) %>%
   ungroup() %>% 
   mutate(line = row_number()) %>%
-  filter(grepl("dCHO", arm_tx)) %>%
+  filter(grepl("CHO", arm_tx)) %>%
   pull(line)
 
 likert_cho_hung_kbl.dat %>%
   # filter(pre_post_op %in% c("Preop")) %>% 
   filter(pre_post_op %in% c("2")) %>%
+  mutate(
+    hunger_med = ifelse(hunger_med == "18.98", "19.0", hunger_med)
+  ) %>% 
   group_by(study) %>%
   mutate(
     study = ifelse(row_number() == 1, study, NA),
@@ -970,9 +980,10 @@ hunger_meta.dat <- dichot_hunger %>%
   filter(age == "Adult", design == "rct") %>% 
   filter(str_detect(arm_tx, "CHO|Fast")) %>% 
   mutate(arm_tx = as.character(arm_tx),
+    simp_comp = ifelse(grepl("Simp", arm_tx), "Simple", "Complex"),
     arm_tx = ifelse(grepl("CHO", arm_tx), "CHO", arm_tx),
     n = as.numeric(str_extract(hunger_np, "^\\d{1,2}"))) %>% 
-  select(refid, study, arm_tx, n, arm_n) %>% 
+  select(refid, study, simp_comp, arm_tx, n, arm_n) %>% 
   group_by(refid) %>% 
   fill(study) %>% 
   ungroup() %>% 
@@ -981,6 +992,21 @@ hunger_meta.dat <- dichot_hunger %>%
   select(refid, study, fast_e, fast_n, cho_e, cho_n) %>% 
   mutate(study = str_replace(study, "\\^[a-z]\\^", ""))
 
+simp_comp.dat <- dichot_hunger %>% 
+  filter(age == "Adult", design == "rct") %>% 
+  filter(str_detect(arm_tx, "CHO|Fast")) %>% 
+  mutate(arm_tx = as.character(arm_tx),
+    simp_comp = ifelse(grepl("Simp", arm_tx), "Simple", "Complex")) %>% 
+  select(refid, arm_tx, simp_comp) %>% 
+  filter(arm_tx != "Fasting") %>% 
+  distinct(refid, simp_comp)
+
+hunger_meta.dat <- left_join(hunger_meta.dat, simp_comp.dat, by = "refid") %>% 
+  # exclude Naguib 2001 small volume syrup
+  filter(refid != 5803)
+
+## (updated 2021/06/07 15:04) meta ----------------------------------------
+
 hunger_meta <- metabin(cho_e, cho_n, fast_e, fast_n,
   data = hunger_meta.dat,
   studlab = study,
@@ -988,11 +1014,61 @@ hunger_meta <- metabin(cho_e, cho_n, fast_e, fast_n,
   method = "MH",
   method.tau = "PM",
   hakn = FALSE,
-  prediction = FALSE,
+  prediction = TRUE,
+  byvar = simp_comp,
   digits = 2)
 
-forest(hunger_meta,
-  comb.fixed = TRUE,
+hunger_meta_comp <- metabin(cho_e, cho_n, fast_e, fast_n,
+  data = hunger_meta.dat,
+  studlab = study,
+  sm = "OR",
+  method = "MH",
+  method.tau = "PM",
+  hakn = FALSE,
+  subset = simp_comp == "Complex",
+  fixed = TRUE,
+  digits = 2)
+
+hunger_meta_simp <- metabin(cho_e, cho_n, fast_e, fast_n,
+  data = hunger_meta.dat,
+  studlab = study,
+  sm = "OR",
+  method = "MH",
+  method.tau = "PM",
+  hakn = FALSE,
+  subset = simp_comp == "Simple",
+  fixed = TRUE,
+  digits = 2)
+
+# combine
+# hunger_simp_comp <- metabind(hunger_meta_comp, hunger_meta_simp, pooled = "fixed")
+te_simp_comp <- c(hunger_meta_comp$TE.fixed, hunger_meta_simp$TE)
+se_simp_comp <- c(hunger_meta_comp$seTE.fixed, hunger_meta_simp$seTE)
+studlab_simp_comp <- c("Complex", "Simple")
+placeholder <- c("                ", "                    ")
+interact_dat <- tibble(te_simp_comp, se_simp_comp, studlab_simp_comp, placeholder)
+inter_simp_comp <- metagen(te_simp_comp, se_simp_comp,
+  studlab = studlab_simp_comp,
+  backtransf = TRUE,
+  sm = "OR",
+  data = interact_dat
+)
+
+forest(inter_simp_comp,
+  backtransf = TRUE,
+  leftcols = c("studlab", "placeholder"),
+  rightcols = c("effect", "ci"),
+  leftlabs = c("CHO", " "),
+  xlim = c(0.1, 1.5),
+  at = c(0.1, 0.2, 0.4, 1, 1.5),
+  print.I2 = FALSE,
+  print.tau2 = FALSE,
+  overall = FALSE,
+  hetlab = "Interaction: "
+)
+
+  forest(hunger_meta,
+  comb.fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting    ",
   digits = 2,
@@ -1002,6 +1078,8 @@ forest(hunger_meta,
   prediction = FALSE,
   fs.xlab = 11,
   pooled.events = TRUE,
+  subgroup = TRUE,
+  print.byvar = FALSE,
   xlim = c(0.01, 5),
   rightcols = c("effect", "ci"),
   xlab = "Favors CHO           Favors Fasting")
@@ -1013,7 +1091,8 @@ figure_n <- fig_inc()
 metabias(hunger_meta, plotit = TRUE, k.min = 5)
 funnel(hunger_meta)
 ```
-Too few studies to examine small-study effects.
+Too few studies to examine small-study effects. 
+Results from Naguib 2001 were not pooled due to the volume and high carbohydrate concentration (83%).
 
 <br>
 
