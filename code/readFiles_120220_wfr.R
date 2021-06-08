@@ -1,7 +1,7 @@
 # 2020-10-08 ------------------------------
 ## preliminaries -----------------------------------------------------------
 knitr::opts_chunk$set(echo = FALSE, options(knitr.kable.NA = '', dev = 'svg'), knitr.graphics.error = FALSE,
-                      warning = FALSE, message = FALSE)
+                      warning = FALSE, message = FALSE, fig.align = "left", comment = NA)
 library(kableExtra)
 library(janitor)
 library(countrycode)
@@ -24,16 +24,19 @@ conf_tl <- function(samp_mean, samp_sd, n, low_up){
   error <- qt(0.975, df = n - 1) * samp_sd/(sqrt(n))
   (ci_low <- samp_mean - error)
 }
+
 conf_tu <- function(samp_mean, samp_sd, n, low_up){
   error <- qt(0.975, df = n - 1) * samp_sd/(sqrt(n))
   (ci_up <- samp_mean + error)
 }
+
 conf_q <- function(samp_mean, samp_sd, n){
   error <- qnorm(0.975) * samp_sd/(sqrt(n))
   ci_up <- samp_mean + error
   ci_low <- samp_mean - error
   c(ci_low, ci_up)
 }
+
 combine_contin <- function(n_1, n_2, x_1, x_2, sd_1, sd_2){
   n_comb <- n_1 + n_2
   x_comb <-  (n_1 * x_1 + n_2 * x_2)/(n_comb)
@@ -42,18 +45,37 @@ combine_contin <- function(n_1, n_2, x_1, x_2, sd_1, sd_2){
 n_percent <- function(a, b){
   str_c(a," (", round_0(b), ")")
 }
+
+bwgrp_pval <- function(m1, m2, n1, n2, pVal){
+  sd2 <- abs((m2-m1)/qt(pVal/2, n1+n2-2))*sqrt(n2*n1/(n2+n1))
+  sd1 <- sd2
+  print(c(n1, m1, sd1, n2, m2, sd2))
+}
+
 pack_sub <- function(kable_input, name, a, b) {
   pack_rows(kable_input, name,
     start_row = a, end_row = b,
-    label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = FALSE
+    label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = FALSE, indent = FALSE
   )
 }
+
 pack_top <- function(kable_input, name, a, b) {
   pack_rows(kable_input, name,
     start_row = a, end_row = b,
     label_row_css = "border-top: 1px solid;", color = "black", background = "#EBEBEB"
   )
 }
+
+result_pack <- function(kable_input, result, row, padding = 62, bold = FALSE, color = "gray", italic = TRUE){
+  padding <- paste0("padding-left:" , padding, "%; ", "border-bottom: 0px solid;")
+  pack_rows(kable_input, result, row, row, label_row_css = padding, underline = FALSE, bold = bold, color = color, italic = italic, indent = FALSE)
+}
+
+result_pack_line <- function(kable_input, result, row, padding = 62, bold = FALSE, color = "gray", italic = TRUE){
+  padding <- paste0("padding-left:" , padding, "%; ", "border-bottom: 0.5px solid gray;")
+  pack_rows(kable_input, result, row, row, label_row_css = padding, underline = FALSE, bold = bold, color = color, italic = italic, indent = FALSE)
+}
+
 firstup <- function(x) {
   substr(x, 1, 1) <- toupper(substr(x, 1, 1))
   x
@@ -79,7 +101,7 @@ odds_ratio <- function(event1, n1, event2, n2, refid, digits = 2) {
   a <- meta::metabin(event1, n1, event2, n2, sm = "OR")
   a <- with(a, paste0(
     sprintf(paste0("%.", digits, "f"), round(exp(TE), digits)), " (",
-    sprintf(paste0("%.", digits, "f"), round(exp(lower), digits)), ", ",
+    sprintf(paste0("%.", digits, "f"), round(exp(lower), digits)), "-",
     sprintf(paste0("%.", digits, "f"), round(exp(upper), digits)), ")"))
   tibble(refid, a) %>%
     rename(or_ci = a)
@@ -88,7 +110,7 @@ odds_ratio <- function(event1, n1, event2, n2, refid, digits = 2) {
 # or_hunger <- with(or_join(dichot_hunger_or, "hunger"), odds_ratio(event_e, n_e, event_c, n_c, refid = refid, digits = 2))
 
 # add a footnote to a variable and value eg, add_foot(study, "Tudor-Drobjewski 2018", "c")
-add_foot <- function(.data, use_var , study_to_footnote, value){
+add_foot <- function(.data, use_var, study_to_footnote, value){
   foot_letter <- paste0("^", value, "^")
   use_var <- enquo(use_var)
   .data %>%
@@ -116,6 +138,54 @@ path_csv <- function(name_csv){
   sheet <- name_csv
   path <- str_c("data/", sheet)
   return(path)
+}
+
+# function to calculate means, sd, and create analytical data set (w/log transform  )
+calc_mn_sd <- function(n_e, m_e, sd_e, md_e, q1_e, q3_e, min_e, max_e, study, tx, subgroup = NULL, refid, data = NULL, log_trans = FALSE) {
+  temp.dat <- data %>%
+    select(all_of(c(n_e, m_e, sd_e, md_e, q1_e, q3_e, min_e, max_e, study, tx, subgroup, refid))) %>%
+    mutate(n_c = 20, m_c = 2, sd_c = 1, md_c = 3, q1_c = 2, q3_c = 3, min_c = 1, max_c = 5)
+  names(temp.dat)[1:11] <- c("n_e", "m_e", "sd_e", "md_e", "q1_e", "q3_e", "min_e", "max_e", "study", "tx", "subgroup")
+
+  temp <- metacont(
+    n.e = n_e,
+    n.c = n_c,
+    comb.fixed = TRUE,
+    mean.e = m_e,
+    sd.e = sd_e,
+    median.e = md_e,
+    q1.e = q1_e,
+    q3.e = q3_e,
+    min.e = min_e,
+    max.e = max_e,
+    mean.c = m_c,
+    sd.c = sd_c,
+    median.c = md_c,
+    q1.c = q1_c,
+    q3.c = q3_c,
+    min.c = min_c,
+    max.c = max_c,
+    sm = "SMD",
+    studlab = study,
+    data = temp.dat
+  )
+
+  temp <- as_tibble(temp[c("studlab", "n.e", "mean.e", "sd.e")])
+
+  mean_raw_log <- function(raw_mean, raw_sd) {
+    (log_mean <- log(raw_mean) - 0.5 * log(raw_sd^2 / raw_mean^2 + 1))
+  }
+  sd_raw_log <- function(raw_mean, raw_sd) {
+    (log_sd <- sqrt(log(raw_sd^2 / raw_mean^2 + 1)))
+  }
+
+  if (log_trans == TRUE) {
+    temp$mean_log.e <- mean_raw_log(temp$mean.e, temp$sd.e)
+    temp$sd_log.e <- sd_raw_log(temp$mean.e, temp$sd.e)
+  }
+  temp <- cbind(temp.dat$tx, temp)
+  names(temp) <- c("arm_tx", "study", "n", "mean", "sd", "mean_log", "sd_log")
+  temp[, c(2, 1, 3:7)]
 }
 
 ## data files ####
@@ -170,7 +240,7 @@ write_delim(data.frame(z), "used_files_dates.txt", delim = "--", col_names = FAL
 rm(a, b, c, d, e, f, z)
 
 ## get subgroups data ####
-refs.dat <- read_csv("data/incl_mg_distsr_fasting_2020-11-21.csv") %>%
+refs.dat <- read_csv("data/incl_mg_distsr_fasting_2021-03-09-17-42-12.csv") %>%
   janitor::clean_names() %>%
   # filter(user == "Anne_Marbella") %>%
   select(refid, age, starts_with("subgroup"))
@@ -179,13 +249,17 @@ refs.dat <- read_csv("data/incl_mg_distsr_fasting_2020-11-21.csv") %>%
 
 ## study characteristics ####
 path <- path_csv(study_char_file)
-study_char.dat <- read_csv(path)
+study_char.dat <- read_csv(path) %>%
+  filter(Refid != 5803) # remove naguib 2001 if in data
+
 # to delete last observation empty column
 delete <- length(names(study_char.dat))
 study_char.dat <- study_char.dat %>%
   select(-c(5:7, all_of(delete))) %>%
   janitor::clean_names() %>%
-  rename(author_dist = author, author = author_added) # author distiller, author entered
+  rename(author_dist = author, author = author_added) %>%  # author distiller, author entered
+  # fix Karamian user for accounting purposes
+  mutate(user = ifelse(refid %in% c(69, 7990), "Anne_Marbella", user))
 
 rm(delete)
 
@@ -196,7 +270,9 @@ tail(names(study_char.dat), 1)
 study_char.dat <- study_char.dat %>%
   filter(!(design == "rct" & user != "Anne_Marbella")) %>%
   filter(!(design == "crossover" & user != "Anne_Marbella")) %>%
-  filter(!(refid == 131 & user == "Anne_Marbella"))
+  filter(!(refid == 131 & user == "Anne_Marbella")) %>%
+  filter(!(refid == 5815 & user == "Anne_Marbella")) %>%
+  filter(!(refid == 1678 & user == "Anne_Marbella"))
 
 study_char.dat <- study_char.dat %>%
   mutate(design = ifelse(design == "quasiexp", "nrsi", design),
@@ -248,7 +324,6 @@ study_char.dat <- bind_rows(temp_1, temp_2) %>%
   select(!c(author, author_dist, user, reviewer, refid_ver, year_added, pub_type, n, let_add)) %>%
   select(refid, year, study, surg_nosurg, design, everything())
 
-
 rm(temp_1, temp_2)
 
 # add subgroup
@@ -260,15 +335,20 @@ study_char.dat <- left_join(study_char.dat, refs.dat[, c(1,2)], by = "refid") %>
          study = ifelse(study == "Dock-Nascimento 2011","DNascimento 2011", study),
          study = ifelse(study == "Dock-Nascimento 2012a", "DNascimento 2012a", study),
          study = ifelse(study == "Dock-Nascimento 2012b", "DNascimento 2012b", study),
-         study = ifelse(study == "de Aguilar-Nascimento 2014", "deANascimento 2014", study))
+         study = ifelse(study == "de Aguilar-Nascimento 2014", "deANascimento 2014", study),
+         # Nascimento 2019 change to "surgical" as in labor
+         surg_nosurg = ifelse(refid == "499", "surgical", surg_nosurg))
 
-# 157 unique
+# verify 165 unique (2021/02/26 12:11)
+length(unique(study_char.dat$refid)) == 165
 
 # * (end)
 
 ## study arm ####
 path <- path_csv(study_arm_file)
-study_arm.dat <- read_csv(path)
+study_arm.dat <- read_csv(path) %>%
+  filter(Refid != 5803) # remove naguib 2001 if in data
+
 delete <- length(names(study_arm.dat))
 study_arm.dat <- study_arm.dat %>%
   select(-c(2, 3, 5:7, all_of(delete))) %>%
@@ -279,7 +359,9 @@ study_arm.dat <- left_join(study_arm.dat, study_names, by = "refid") %>%
   select(refid, study, year, design, design, everything()) %>%
   mutate(
     timeingest1 = ifelse(timeingest1 == 99, 12, timeingest1),
-    timeingest2 = ifelse(timeingest2 == 99, 12, timeingest2))
+    timeingest2 = ifelse(timeingest2 == 99, 12, timeingest2),
+    # fix Karamian user for accounting purposes
+    user = ifelse(refid %in% c(69, 7990), "Anne_Marbella", user))
 
 # add age and surg_nosurg
 study_arm.dat <- left_join(study_arm.dat, study_char.dat[, c("refid", "age", "surg_nosurg")], by = "refid")
@@ -292,7 +374,9 @@ am_rct_cross <- study_arm.dat %>%
 # others single
 not_rct_cross <- study_arm.dat %>%
   filter(!design %in% c("rct", "crossover")) %>%
-  filter(!(refid == 131 & user == "Anne_Marbella"))
+  filter(!(refid == 131 & user == "Anne_Marbella")) %>%
+  filter(!(refid == 5815 & user == "Anne_Marbella")) %>%
+  filter(!(refid == 1678 & user == "Anne_Marbella"))
 
 study_arm.dat <- bind_rows(am_rct_cross, not_rct_cross) %>%
   arrange(refid) %>%
@@ -311,12 +395,13 @@ study_arm.dat <- bind_rows(am_rct_cross, not_rct_cross) %>%
   group_by(refid) %>%
   mutate(arm = row_number()) %>%
   ungroup() %>%
-# fix Oyama to AM and PM
+  # fix Oyama to AM and PM
   mutate(study = ifelse(study == "Oyama 2011" & arm_n < 30, "Oyama 2011 (AM)", study),
          study = ifelse(study == "Oyama 2011" & arm_n > 30, "Oyama 2011 (PM)", study))
 
-# check n same as study_char.dat n = 157 on 12/5/20
+# check n same as study_char.dat n = 165 on (2021/02/26 12:29)
 length(unique(study_arm.dat$refid)) == length(unique(study_char.dat$refid))
+length(unique(study_arm.dat$refid)) == 165
 
 rm(am_rct_cross, not_rct_cross)
 # * (end)
@@ -324,32 +409,33 @@ rm(am_rct_cross, not_rct_cross)
 ## protein refids ####
 protein_refids <- study_arm.dat %>%
   select(refid, arm_tx) %>%
-  filter(arm_tx == "protein") %>%
-  rename(tx = arm_tx) %>%
-  distinct()
+  filter(arm_tx %in% c("prot_simp", "prot_comp", "prot")) %>%
+  select(refid) %>%
+  distinct() %>%
+  pull()
 
 # * (end)
 
 ## cho refids ####
 cho_refids <- study_arm.dat %>%
-  select(refid, arm_tx) %>%
-  filter(arm_tx %in% c("protein", "cho")) %>%
-  rename(tx = arm_tx) %>%
+  filter(arm_tx %in% c("prot_simp", "prot_comp", "cho_comp", "cho_simp")) %>%
+  select(refid) %>%
   # filter(refid == 2703) %>%
-  distinct()
+  distinct() %>%
+  pull()
 
 # add tx including cho and cho/protein
-cho_refids_choprotein <- cho_refids %>%
-  group_by(refid) %>%
-  select(refid) %>%
-  slice(2) %>%
-  pull(refid)
-
-cho_refids <- cho_refids %>%
-  mutate(tx = ifelse(refid %in%cho_refids_choprotein, "cho/protein", tx)) %>%
-  distinct()
-
-rm(cho_refids_choprotein)
+# cho_refids_choprotein <- cho_refids %>%
+#   group_by(refid) %>%
+#   select(refid) %>%
+#   slice(2) %>%
+#   pull(refid)
+#
+# cho_refids <- cho_refids %>%
+#   mutate(tx = ifelse(refid %in% cho_refids_choprotein, "cho/protein", tx)) %>%
+#   distinct()
+#
+# rm(cho_refids_choprotein)
 
 ## gum refids ####
 # n = 12, but 2 studies different gum, 10 unique refids 12/5/20
@@ -373,6 +459,7 @@ gum_refids <- full_join(gum_refids, gum_refids, by = "refid") %>%
 ## continuous outcome data ####
 path <- path_csv(cont_out_file)
 contin.dat <- read_csv(path) %>%
+  filter(Refid != 5803) %>% # remove naguib 2001 if in data
   select(-c(5:7, 223)) %>%
   janitor::clean_names() %>%
   mutate(
@@ -400,12 +487,19 @@ contin.dat <- left_join(contin.dat, refs.dat, by = "refid") %>%
         "other"))) %>%
   select(refid, study, year, user, design, surg_nosurg, age, starts_with("subgroup"), everything())
 
-am <- contin.dat %>% filter(user == "Anne_Marbella")
+am <- contin.dat %>% filter(user %in% c("Anne_Marbella", "Mark_Grant")) %>%
+  # both Anne and Mark records for Zelic 2982
+  filter(!(user == "Mark_Grant" & refid == 2982))
 ma <- contin.dat %>% filter(!refid %in% am$refid)
 contin.dat <- bind_rows(am, ma) %>% select(!study) # replace below
 rm(am, ma)
 
-length(unique(contin.dat$refid)) == 157
+# 165 records (2021/02/26 14:41)
+length(unique(contin.dat$refid)) == 165
+temp <- contin.dat %>% group_by(refid) %>%
+  mutate(n = row_number()) %>%
+  select(n, everything()) %>%
+  arrange(refid, user)
 
 # replace correct names
 contin.dat <- left_join(contin.dat[,-3], study_names[, c(1,2)], by = "refid") %>%
@@ -426,6 +520,7 @@ contin.dat %>% filter(arm == 1) %>% tally()
 ## dichotomous outcome data ####
 path <- path_csv(dichot_out_file)
 dichot.dat <- read_csv(path) %>%
+  filter(Refid != 5803) %>%  # remove naguib 2001 if in data
   select(-c(5:7, 78)) %>%
   janitor::clean_names() %>%
   mutate(
@@ -454,12 +549,13 @@ dichot.dat <- left_join(dichot.dat, refs.dat, by = "refid") %>%
         "other"))) %>%
   select(refid, study, year, user, design, surg_nosurg, age, starts_with("subgroup"), everything())
 
-am <- dichot.dat %>% filter(user == "Anne_Marbella")
+am <- dichot.dat %>% filter(user %in% c("Anne_Marbella", "Mark_Grant")) %>%
+  filter(!(user == "Mark_Grant" & refid == 2982))
 ma <- dichot.dat %>% filter(!refid %in% am$refid)
 dichot.dat <- bind_rows(am, ma) %>% select(!study) # replace below
 rm(am, ma)
 
-length(unique(dichot.dat$refid)) == 157
+length(unique(dichot.dat$refid)) == 165
 
 # replace correct names
 dichot.dat <- left_join(dichot.dat[,-3], study_names[, c(1,2)], by = "refid") %>%
@@ -480,6 +576,7 @@ dichot.dat %>% filter(arm == 1) %>% tally()
 ## likert outcome data ####
 path <- path_csv(likert_out_file)
 likert.dat <- read_csv(path) %>%
+  filter(Refid != 5803) %>% # remove naguib 2001 if in data
   select(-c(5:7, 126)) %>%
   janitor::clean_names() %>%
   mutate(
@@ -508,12 +605,13 @@ likert.dat <- left_join(likert.dat, refs.dat, by = "refid") %>%
       ordered = TRUE)) %>%
   select(refid, study, year, user, design, surg_nosurg, age, starts_with("subgroup"), everything())
 
-am <- likert.dat %>% filter(user == "Anne_Marbella")
+am <- likert.dat %>% filter(user %in% c("Anne_Marbella", "Mark_Grant")) %>%
+  filter(!(user == "Mark_Grant" & refid == 2982))
 ma <- likert.dat %>% filter(!refid %in% am$refid)
 likert.dat <- bind_rows(am, ma) %>% select(!study) # replace below
 rm(am, ma)
 
-length(unique(likert.dat$refid)) == 157
+length(unique(likert.dat$refid)) == 165
 
 # replace correct names
 likert.dat <- left_join(likert.dat[,-3], study_names[, c(1,2)], by = "refid") %>%
@@ -532,9 +630,12 @@ likert.dat <- left_join(likert.dat[,-3], study_names[, c(1,2)], by = "refid") %>
 ## rob data ####
 path <- path_csv(rob_file)
 rob.dat <- read_csv(path) %>%
+  filter(Refid != 5803) %>% # remove naguib 2001 if in data
   janitor::clean_names() %>%
   select(-c(5:7,13,66)) %>%
-  select(-author, -year)
+  select(-author, -year) %>%
+  # TODO: fix Karamian user for accounting purposes from Mark to Anne user
+  mutate(user = ifelse(refid %in% c(69, 7990), "Anne_Marbella", user))
 
 tail(names(rob.dat), 1)
 
@@ -565,3 +666,66 @@ length(unique(rob.dat$refid)) == length(unique(study_char.dat$refid))
 
 # * (end)
 
+# add timing --------------------------------------------------------------
+dichot.dat  <- dichot.dat %>%
+  mutate(
+    # surgical studies (note none have times 0 or negative)
+    # hr_2 is ≤ 2; hr_26 is (2, 6] >2 to 6; hr_gt6 is >6
+    hr_2 = 0, hr_26 = 0, hr_gt6 = 0,
+    hr_2 = if_else(timeingest1 <= 2 & timeingest1 > 0, amtingest1, hr_2, missing = 0),
+    hr_26 = if_else(timeingest1 > 2 & timeingest1 < 6, amtingest1, hr_26, missing = 0),
+    hr_gt6 = if_else(timeingest1 >= 6, amtingest1, hr_gt6, missing = 0),
+    hr_2 = if_else(hr_2 == 0 & timeingest2 <= 2 & timeingest2 > 0, amtingest2, hr_2, missing = 0),
+    hr_26 = if_else(hr_26 == 0 & timeingest2 > 2 & timeingest2 < 6, amtingest2, hr_26, missing = 0),
+    hr_gt6 = if_else(hr_gt6 == 0 & timeingest2 >= 6, amtingest2, hr_gt6, missing = 0),
+    hr_gt6 = if_else(grepl("also received 300", type_ingest_1), 500, hr_gt6), # ) %>%  # Oyama PM
+    # for nonsurgical
+    hr_0 = 0, hr_minus2 = 0,
+    hr_0 = if_else(surg_nosurg != "surgical" & timeingest1 == 0, amtingest1, hr_0, missing = 0),
+    hr_minus2 = if_else(surg_nosurg != "surgical" & timeingest1 == -2, amtingest1, hr_minus2, missing = 0),
+    hr_0 = if_else(surg_nosurg != "surgical" & timeingest2 == 0 & hr_0 == 0, amtingest2, hr_0, missing = 0),
+    hr_minus2 = if_else(surg_nosurg != "surgical" & timeingest2 == -2 & hr_minus2 == 0, amtingest2, hr_minus2, missing = 0)
+  ) %>%
+  replace_with_na_at(.vars = c("hr_gt6", "hr_26", "hr_2", "hr_minus2", "hr_0"), condition = ~ .x == 0)
+
+contin.dat  <- contin.dat %>%
+  mutate(
+    # surgical studies (note none have times 0 or negative)
+    # hr_2 is ≤ 2; hr_26 is (2, 6] >2 to 6; hr_gt6 is >6
+    hr_2 = 0, hr_26 = 0, hr_gt6 = 0,
+    hr_2 = if_else(timeingest1 <= 2 & timeingest1 > 0, amtingest1, hr_2, missing = 0),
+    hr_26 = if_else(timeingest1 > 2 & timeingest1 < 6, amtingest1, hr_26, missing = 0),
+    hr_gt6 = if_else(timeingest1 >= 6, amtingest1, hr_gt6, missing = 0),
+    hr_2 = if_else(hr_2 == 0 & timeingest2 <= 2 & timeingest2 > 0, amtingest2, hr_2, missing = 0),
+    hr_26 = if_else(hr_26 == 0 & timeingest2 > 2 & timeingest2 < 6, amtingest2, hr_26, missing = 0),
+    hr_gt6 = if_else(hr_gt6 == 0 & timeingest2 >= 6, amtingest2, hr_gt6, missing = 0),
+    hr_gt6 = if_else(grepl("also received 300", type_ingest_1), 500, hr_gt6), # ) %>%  # Oyama PM
+    # for nonsurgical
+    hr_0 = 0, hr_minus2 = 0,
+    hr_0 = if_else(surg_nosurg != "surgical" & timeingest1 == 0, amtingest1, hr_0, missing = 0),
+    hr_minus2 = if_else(surg_nosurg != "surgical" & timeingest1 == -2, amtingest1, hr_minus2, missing = 0),
+    hr_0 = if_else(surg_nosurg != "surgical" & timeingest2 == 0 & hr_0 == 0, amtingest2, hr_0, missing = 0),
+    hr_minus2 = if_else(surg_nosurg != "surgical" & timeingest2 == -2 & hr_minus2 == 0, amtingest2, hr_minus2, missing = 0)
+  ) %>%
+  replace_with_na_at(.vars = c("hr_gt6", "hr_26", "hr_2", "hr_minus2", "hr_0"), condition = ~ .x == 0)
+
+likert.dat  <- likert.dat %>%
+  mutate(
+    # surgical studies (note none have times 0 or negative)
+    # hr_2 is ≤ 2; hr_26 is (2, 6] >2 to 6; hr_gt6 is >6
+    hr_2 = 0, hr_26 = 0, hr_gt6 = 0,
+    hr_2 = if_else(timeingest1 <= 2 & timeingest1 > 0, amtingest1, hr_2, missing = 0),
+    hr_26 = if_else(timeingest1 > 2 & timeingest1 < 6, amtingest1, hr_26, missing = 0),
+    hr_gt6 = if_else(timeingest1 >= 6, amtingest1, hr_gt6, missing = 0),
+    hr_2 = if_else(hr_2 == 0 & timeingest2 <= 2 & timeingest2 > 0, amtingest2, hr_2, missing = 0),
+    hr_26 = if_else(hr_26 == 0 & timeingest2 > 2 & timeingest2 < 6, amtingest2, hr_26, missing = 0),
+    hr_gt6 = if_else(hr_gt6 == 0 & timeingest2 >= 6, amtingest2, hr_gt6, missing = 0),
+    hr_gt6 = if_else(grepl("also received 300", type_ingest_1), 500, hr_gt6), # ) %>%  # Oyama PM
+    # for nonsurgical
+    hr_0 = 0, hr_minus2 = 0,
+    hr_0 = if_else(surg_nosurg != "surgical" & timeingest1 == 0, amtingest1, hr_0, missing = 0),
+    hr_minus2 = if_else(surg_nosurg != "surgical" & timeingest1 == -2, amtingest1, hr_minus2, missing = 0),
+    hr_0 = if_else(surg_nosurg != "surgical" & timeingest2 == 0 & hr_0 == 0, amtingest2, hr_0, missing = 0),
+    hr_minus2 = if_else(surg_nosurg != "surgical" & timeingest2 == -2 & hr_minus2 == 0, amtingest2, hr_minus2, missing = 0)
+  ) %>%
+  replace_with_na_at(.vars = c("hr_gt6", "hr_26", "hr_2", "hr_minus2", "hr_0"), condition = ~ .x == 0)
