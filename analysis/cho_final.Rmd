@@ -3724,7 +3724,6 @@ rgv_meta.dat <- contin_cho.dat %>%
   # Yilmaz 2013 estimate sd smd.bwgrpS(21.85, 19.15, 20, 20, .77),
   # Yildiz 2013 smd.bwgrpS(18.1, 9.3, 30, 30, .05)
   # Wang 2019 smd.bwgrpS(24.86, 29.63, 37, 36, .238)
-  # Naguib 2001 combine CHO/Simp arms combine_contin(75, 75, )
   mutate(
     rgv_sd_1 = ifelse(refid == 2985, 29.0, rgv_sd_1),
     rgv_sd_1 = ifelse(refid == 3154, 17.0, rgv_sd_1)
@@ -3748,11 +3747,6 @@ rgv_meta.dat <- calc_mn_sd(
   data = rgv_meta.dat
 )
 
-# combine naguib 2001 CHO arms, plain and log
-naguib <- c(combine_contin(75, 75, 27.08, 23.38, 20.35, 11.547), 
-            combine_contin(75, 75, 3.074936, 3.042742, 0.6691179, 0.4672016)[2:3])
-rgv_meta.dat[22, c(3:7)] <- naguib
-rgv_meta.dat <- as_tibble(rgv_meta.dat[-23,])
 rgv_meta.dat <- rgv_meta.dat %>%
   mutate(arm_tx = ifelse(grepl("CHO", arm_tx), "CHO", "Fasting")) %>%
   pivot_wider(
@@ -3777,7 +3771,7 @@ rgv_meta <- metacont(
 # rgv_meta
 
 forest(rgv_meta,
-  comb.random = TRUE,
+  comb.fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
   digits = 1,
@@ -3789,6 +3783,7 @@ forest(rgv_meta,
   overall = TRUE,
   fs.xlab = 11,
   rightcols = c("effect", "ci"),
+  rightlabs = c("MD", "95% CI    "),
   xlab = "RGV (mL)\n Favors CHO           Favors Fasting"
 )
 
@@ -3835,12 +3830,6 @@ rgv_meta.dat <- contin_cho.dat %>%
   select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1) %>%
   # exclude Braga, Karimian, DNascimento 2012a lacking water/clear comparator
   filter(!refid %in% c(3481, 69, 3282)) %>% # 5803, 3823, 
-  # Naugib
-  # add_row(refid = 5803, year = 2011, study = "DNascimento 2011", arm_tx = "Water/Clear", rgv_mean_1 = 30.66, rgv_sd_1 = 16.18, arm_n = 150) %>%
-  # add_row(refid = 5803, year = 2011, study = "DNascimento 2011", arm_tx = "CHO", rgv_mean_1 = 28.46, rgv_sd_1 = 16.91, arm_n = 150) %>%
-  # DN 2011
-  # add_row(refid = 3823, year = 2001, study = "Naguib 2001", arm_tx = "Water", rgv_mean_1 = 29.35, rgv_sd_1 = 38.76, arm_n = 12) %>%
-  # add_row(refid = 3823, year = 2001, study = "Naguib 2001", arm_tx = "CHO", rgv_mean_1 = 10.503, rgv_sd_1 = 11.87, arm_n = 26) %>%
   arrange(refid, year) %>%
   select(-design)
 
@@ -3862,20 +3851,10 @@ rgv_meta.dat <- calc_mn_sd(
 )
 
 # combine DNascimento 2011 CHO arms, plain and log; not when excluding protein arms
-# nascimento <- c(combine_contin(12, 14, 12.6, 4.9, 19.57038, 4.576153),
-#             combine_contin(12, 14, 1.906072, 1.275682, 1.1203792, 0.7919006)[2:3])
-# rgv_meta.dat[6, c(3:7)] <- nascimento
-
-# combine naguib 2001 CHO arms, plain and log
-naguib <- c(combine_contin(75, 75, 27.08, 23.38, 20.35, 11.547), 
-            combine_contin(75, 75, 3.074936, 3.042742, 0.6691179, 0.4672016)[2:3])
-rgv_meta.dat[9, c(3:7)] <- naguib
-
-# combine naguib 2001 clear/water, plain and log
-naguib <- c(combine_contin(75, 75, 26.40, 26.29, 15.803729, 16.879707), 
-            combine_contin(75, 75, 3.120227, 3.096601, 0.5534194, 0.5875169)[2:3])
-rgv_meta.dat[11, c(3:7)] <- naguib
-rgv_meta.dat <- as_tibble(rgv_meta.dat[-c(7,8,10),])
+nascimento <- c(combine_contin(12, 14, 12.6, 4.9, 19.57038, 4.576153),
+            combine_contin(12, 14, 1.906072, 1.275682, 1.1203792, 0.7919006)[2:3])
+rgv_meta.dat[6, c(3:7)] <- nascimento
+rgv_meta.dat <- as_tibble(rgv_meta.dat[-c(7),])
 
 rgv_meta.dat <- rgv_meta.dat %>%
   mutate(arm_tx = ifelse(grepl("CHO", arm_tx), "CHO", "water_clear")) %>%
@@ -3893,15 +3872,15 @@ rgv_meta <- metacont(
   mean.c = mean_water_clear,
   sd.c = sd_water_clear,
   method.tau = "REML", 
-  hakn = TRUE,
-  prediction = TRUE,
+  hakn = FALSE,
+  prediction = FALSE,
   data = rgv_meta.dat,
   studlab = study
 )
 # rgv_meta
 
 forest(rgv_meta,
-  comb.random = TRUE,
+  comb.fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Water/Clear  ",
   digits = 1,
@@ -3913,6 +3892,7 @@ forest(rgv_meta,
   overall = TRUE,
   fs.xlab = 11,
   rightcols = c("effect", "ci"),
+  rightlabs = c("MD", "95% CI   "),
   xlab = "RGV (mL)\n Favors CHO            Favors Water/Clear"
 )
 
@@ -3939,7 +3919,7 @@ temp <- metacont(
 ```
 
 Mean differences estimated from means, standard deviations, medians, interquartile and overall ranges.
-Combined similar arms for Naguib 2001 and Dock-Nascimento 2011.
+Combined similar arms for Dock-Nascimento 2011.
 Owing to skewed distributions of RGV, conducted sensitivity analysis on a log scale with consistent results. 
 
 <br/>
@@ -4003,7 +3983,7 @@ ph.dat %>%
   column_spec(7, width = "8em") %>%
   column_spec(8, width = "8em") %>%
   row_spec(cho_row, color = "brown") %>% 
-  pack_top(., "Adult, Surgical", 1, 20) %>%
+  pack_top(., "Adult, Surgical", 1, 15) %>%
   pack_sub(., "RCT", 1, 20) %>%
   pack_top(., "Pediatric, Surgical", 21, 24) %>%
   pack_sub(., "RCT", 21, 24) %>%
@@ -4025,7 +4005,6 @@ table_n <- tab_inc()
 <font size = 4> Figure `r figure_n`. Pooled gastric pH from randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
 ```{r metaPh, include = TRUE, fig.width = 10, fig.height = 3.5, fig.align = "center"}
-
 ph_meta.dat <- ph.dat %>% 
   filter(age == "Adult") %>% 
   arrange(design, year, study) %>%
