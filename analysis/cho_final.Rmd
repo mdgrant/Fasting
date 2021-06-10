@@ -3298,12 +3298,12 @@ cho_row <- dichot_vomit_peds %>%
 
 dichot_vomit_peds %>%
   filter(pre_post_op == "preop") %>% 
-  select(study, arm_tx, arm_n, hr_gt6:hr_2, vomit_np, vomit_bar, or_ci) %>%
+  select(study, arm_tx, arm_n, hr_gt6:hr_2, vomit_np) %>%
   kbl(
-    booktabs = T, align = c("llccccrlc"), escape = FALSE,
-    col.names = c("        Study", "Liquid", "N", "> 6", "6→2", "≤ 2", "N (%)", " ", "CHO vs. Comparator")
+    booktabs = T, align = c("llccccc"), escape = FALSE,
+    col.names = c("        Study", "Liquid", "N", "> 6", "6→2", "≤ 2", "N (%)")
   ) %>%
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Vomiting" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Vomiting" = 1), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
@@ -3314,21 +3314,17 @@ dichot_vomit_peds %>%
   column_spec(5, width = "4em") %>%
   column_spec(6, width = "5em") %>%
   column_spec(7, width = "5em") %>%
-  column_spec(8, width = "5em") %>%
-  column_spec(9, width = "10em") %>%
   row_spec(cho_row, color = "brown") %>% 
   pack_top(., "RCT", 1, 4) %>%
-  footnote(general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Comp: complex; Simp: simple; Prot: protein.",
+  footnote(general = "RCT: randomized controlled trial; CHO: carbohydrate; Comp: complex.",
            # alphabet = c(" "),
            general_title = "",
            footnote_as_chunk = FALSE)
 
 table_n <- tab_inc()
-
 ```
 
 <br/>
-
 
 ## *Residual Gastric Volume* 
 
@@ -3452,9 +3448,9 @@ rgv_surg %>%
   column_spec(8, width = "6em") %>%
   column_spec(9, width = "11em") %>%
   row_spec(cho_row, color = "brown") %>%
-  pack_top(., "Adult, Surgical", 1, 43) %>%
-  pack_sub(., "RCT", 1, 39) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 40, 43) %>%
+  pack_top(., "Adult, Surgical", 1, 38) %>%
+  pack_sub(., "RCT", 1, 34) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 35, 38) %>%
   footnote(
     general = "RGV: residual gastric volumne; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; CHO: carbohydrate; Simp: simple; Comp: complex; Prot: protein; RCT: randomized controlled trial.",
     alphabet = c("RGV measured at induction in all but Järvelä 2008 where obtained at 2 to 2.5 hours intraoperatively."),
@@ -3466,9 +3462,6 @@ table_n <- tab_inc()
 ```
 
 <br/>
-
-
-
 
 ### Pediatric (surgical)  <a id="choRgv27"></a>
 
