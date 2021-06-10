@@ -375,13 +375,18 @@ included_studies %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  # pack_top(., "Adult, Surgical", 1, 100) %>%
-  pack_top(., "RCT", 1, 85) %>%
-  pack_top(., "Nonrandomized Studies of Interventions", 86, 93) %>%
-  pack_top(., "Prospective Cohort", 94, 96) %>%
-  pack_top(., "Retrospective Cohort", 97, 98) %>%
-  pack_top(., "Case-Control", 99, 99) %>%
-  pack_top(., "Before-After", 100, 100) %>%
+  pack_top(., "RCT", 1, 84) %>%
+  pack_top(., "Nonrandomized Studies of Interventions", 85, 92) %>%
+  pack_top(., "Prospective Cohort", 93, 95) %>%
+  pack_top(., "Retrospective Cohort", 96, 97) %>%
+  pack_top(., "Case-Control", 98, 98) %>%
+  pack_top(., "Before-After", 99, 99) %>%
+  # pack_top(., "RCT", 1, 85) %>%
+  # pack_top(., "Nonrandomized Studies of Interventions", 86, 93) %>%
+  # pack_top(., "Prospective Cohort", 94, 96) %>%
+  # pack_top(., "Retrospective Cohort", 97, 98) %>%
+  # pack_top(., "Case-Control", 99, 99) %>%
+  # pack_top(., "Before-After", 100, 100) %>%
   footnote(
     alphabet = c(
       "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."
@@ -764,7 +769,7 @@ likert_cho_hung_kbl.dat <- likert_cho_hung.dat %>%
     hunger_med = gsub(" \\(NA-NA\\)", "", hunger_med),
     # Melis use only median because is change score with IQR as just lower
     # NOTE: footnote c: Mellis "Within group change from baseline."
-    hunger_med = ifelse(refid == 4952, paste0(hung_md, " (", round_0(hunger_iqrl), ")^c^"), hunger_med),
+    hunger_med = ifelse(refid == 4952, paste0(hung_md, " (", round_0(hunger_iqrl), ")^b^"), hunger_med),
     ranges = str_c("(", round_0(hunger_rl), "-", round_0(hunger_ru), ")"),
     hunger_sd = ifelse(is.na(hunger_sd) & !is.na(hunger95u), sd_confint(hunger95l, hunger95u), hunger_sd),
     mn_95_ci = str_c(round_1(hunger_m), " (", round_1(hunger95l), "-", round_1(hunger95u), ")"),
@@ -773,7 +778,7 @@ likert_cho_hung_kbl.dat <- likert_cho_hung.dat %>%
     mn_95_ci = str_replace(mn_95_ci, "\\(NA-NA\\)", ""),
     # mn_sd = NA,
     mn_sd = ifelse(!is.na(hunger_sd) & !is.na(hunger_m), paste0(round_1(hunger_m), " (", round_1(hunger_sd), ")"), round_2(hunger_m)),
-    mn_sd = ifelse(refid == 262, paste0(mn_sd, "^d^"), mn_sd),
+    mn_sd = ifelse(refid == 262, paste0(mn_sd, "^c^"), mn_sd),
     mn_sd = na_if(mn_sd, " NA"),
     hunger_med = str_replace(hunger_med, "\\(NA-NA\\)", ""),
     ranges = str_replace(ranges, "\\(NA-NA\\)", ""),
@@ -790,10 +795,10 @@ likert_cho_hung_kbl.dat <- likert_cho_hung.dat %>%
     hunger_scale = ifelse(hunger_scale == "Likert, 0 to 3", "0→3^NRS^", hunger_scale),
     hunger_scale = ifelse(refid == 3588, "1→5^NRS^", hunger_scale),
     hunger_scale = ifelse(refid == 1315, "5→1^HSS^", hunger_scale),
-    hunger_med = ifelse(grepl("(AM)", study) & arm_tx == "Fasting", str_c(hunger_med, "^e^"), hunger_med),
-    hunger_med = ifelse(grepl("(PM)", study) & arm_tx == "Fasting", str_c(hunger_med, "^e^"), hunger_med),
+    hunger_med = ifelse(grepl("(AM)", study) & arm_tx == "Fasting", str_c(hunger_med, "^d^"), hunger_med),
+    hunger_med = ifelse(grepl("(PM)", study) & arm_tx == "Fasting", str_c(hunger_med, "^d^"), hunger_med),
     # Naugib footnote
-    mn_sd = ifelse(refid == 5803 & arm_tx == "Clear", paste0(mn_sd, "^b^"), mn_sd),
+    # mn_sd = ifelse(refid == 5803 & arm_tx == "Clear", paste0(mn_sd, "^b^"), mn_sd),
     # time_outcome = ifelse(study == "Wendling 2020", paste0(time_outcome, "^f^"), time_outcome),
     # TODO: z "Change from ingestion to 1 hour later."
   ) %>%
@@ -858,16 +863,21 @@ likert_cho_hung_kbl.dat %>%
   column_spec(9, width = "7em") %>%
   column_spec(10, width = "4em") %>%
   row_spec(cho_row, color = "brown") %>%
-  pack_top(., "Adult, Surgical", 1, 52) %>%
-  pack_sub(., "RCT", 1, 46) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 47, 52) %>%
-  result_pack("No detected difference", 51, padding = 70) %>%
-  result_pack("Difference  p < 0.0001", 53, padding = 70) %>%
+  pack_top(., "Adult, Surgical", 1, 47) %>%
+  pack_sub(., "RCT", 1, 41) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 42, 47) %>%
+  result_pack("No detected difference", 46, padding = 70) %>%
+  result_pack("Difference  p < 0.0001", 48, padding = 70) %>%
+  # pack_top(., "Adult, Surgical", 1, 52) %>%
+  # pack_sub(., "RCT", 1, 46) %>%
+  # pack_sub(., "Nonrandomized Studies of Interventions", 47, 52) %>%
+  # result_pack("No detected difference", 51, padding = 70) %>%
+  # result_pack("Difference  p < 0.0001", 53, padding = 70) %>%
   footnote(
     general = "RCT: randomized controlled trial; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; NRS: numeric rating scale.",
     alphabet = c(
       "Arrow (→) indicates best to worst hunger (visual analogue if not noted NRS).",
-      "Detected a difference vs. fasting and water, p < 0.05.",
+      # "Detected a difference vs. fasting and water, p < 0.05.",
       "Within group change from baseline; reported IQR as a single value.",
       "Difference from before beverage consumption to 1 hr post-consumption.",
       "IQR bound outside range of scale used."
@@ -1001,12 +1011,9 @@ simp_comp.dat <- dichot_hunger %>%
   filter(arm_tx != "Fasting") %>% 
   distinct(refid, simp_comp)
 
-hunger_meta.dat <- left_join(hunger_meta.dat, simp_comp.dat, by = "refid") %>% 
-  # exclude Naguib 2001 small volume syrup
-  filter(refid != 5803)
+hunger_meta.dat <- left_join(hunger_meta.dat, simp_comp.dat, by = "refid") 
 
 ## (updated 2021/06/07 15:04) meta ----------------------------------------
-
 hunger_meta <- metabin(cho_e, cho_n, fast_e, fast_n,
   data = hunger_meta.dat,
   studlab = study,
@@ -1014,63 +1021,18 @@ hunger_meta <- metabin(cho_e, cho_n, fast_e, fast_n,
   method = "MH",
   method.tau = "PM",
   hakn = FALSE,
-  prediction = TRUE,
-  byvar = simp_comp,
+  prediction = FALSE,
+  # byvar = simp_comp,
   digits = 2)
 
-hunger_meta_comp <- metabin(cho_e, cho_n, fast_e, fast_n,
-  data = hunger_meta.dat,
-  studlab = study,
-  sm = "OR",
-  method = "MH",
-  method.tau = "PM",
-  hakn = FALSE,
-  subset = simp_comp == "Complex",
-  fixed = TRUE,
-  digits = 2)
+forest(hunger_meta)
 
-hunger_meta_simp <- metabin(cho_e, cho_n, fast_e, fast_n,
-  data = hunger_meta.dat,
-  studlab = study,
-  sm = "OR",
-  method = "MH",
-  method.tau = "PM",
-  hakn = FALSE,
-  subset = simp_comp == "Simple",
-  fixed = TRUE,
-  digits = 2)
-
-# combine
-# hunger_simp_comp <- metabind(hunger_meta_comp, hunger_meta_simp, pooled = "fixed")
-te_simp_comp <- c(hunger_meta_comp$TE.fixed, hunger_meta_simp$TE)
-se_simp_comp <- c(hunger_meta_comp$seTE.fixed, hunger_meta_simp$seTE)
-studlab_simp_comp <- c("Complex", "Simple")
-placeholder <- c("                ", "                    ")
-interact_dat <- tibble(te_simp_comp, se_simp_comp, studlab_simp_comp, placeholder)
-inter_simp_comp <- metagen(te_simp_comp, se_simp_comp,
-  studlab = studlab_simp_comp,
-  backtransf = TRUE,
-  sm = "OR",
-  data = interact_dat
-)
-
-forest(inter_simp_comp,
-  backtransf = TRUE,
-  leftcols = c("studlab", "placeholder"),
-  rightcols = c("effect", "ci"),
-  leftlabs = c("CHO", " "),
-  xlim = c(0.1, 1.5),
-  at = c(0.1, 0.2, 0.4, 1, 1.5),
-  print.I2 = FALSE,
-  print.tau2 = FALSE,
-  overall = FALSE,
-  hetlab = "Interaction: "
-)
-
-  forest(hunger_meta,
+forest(hunger_meta,
   comb.fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting    ",
+  rightcols = c("effect", "ci"),
+  rightlabs = c("OR", "95% CI    "),
   digits = 2,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
@@ -1080,19 +1042,17 @@ forest(inter_simp_comp,
   pooled.events = TRUE,
   subgroup = TRUE,
   print.byvar = FALSE,
-  xlim = c(0.01, 5),
-  rightcols = c("effect", "ci"),
+  xlim = c(0.01, 2),
+  at = c(.01, .1, .25, 1, 2),
   xlab = "Favors CHO           Favors Fasting")
-  
-figure_n <- fig_inc()
+
 ```
 
-```{r hungerDichotMetaSensBias, include = FALSE, echo = FALSE, fig.width = 10, fig.height = 3.5, fig.align = "center"}
-metabias(hunger_meta, plotit = TRUE, k.min = 5)
-funnel(hunger_meta)
+```{r hungerSensBias, include = FALSE, echo = FALSE, fig.width = 10, fig.height = 3.5, fig.align = "center"}
+# metabias(hunger_meta, plotit = TRUE, k.min = 5)
+# funnel(hunger_meta)
 ```
 Too few studies to examine small-study effects. 
-Results from Naguib 2001 were not pooled due to the volume and high carbohydrate concentration (83%).
 
 <br>
 
@@ -1137,14 +1097,13 @@ fast_meta.dat <- hung_lik_meta.dat %>%
     hunger_m = ifelse(study == "Wendling 2020" & arm_tx == "CHO", -8.89, hunger_m),
     hunger_sd = ifelse(study == "Wendling 2020" & arm_tx == "CHO", 7.64, hunger_sd),
     hunger_sd = ifelse(study == "Wendling 2020" & arm_tx == "Fasting", 3.403, hunger_sd)
-    # Naguib 2001 for sensitivity analysis
   ) %>%
   group_by(refid) %>%
   filter(n() > 1) %>%
   filter(row_number() < 3) %>%
   fill(pre_post_op) %>% 
   ungroup() %>%
-  select(-refid) %>%
+  # select(-refid) %>%
   pivot_wider(names_from = "arm_tx", values_from = arm_n:hunger_ru)
 
 temp <- metacont(
@@ -1165,7 +1124,7 @@ temp <- metacont(
   min.c = hunger_rl_Fasting,
   max.c = hunger_ru_Fasting,
   data = fast_meta.dat[fast_meta.dat$pre_post_op == "Preop",],
-  # byvar = pre_post_op,
+  # byvar = simp_comp,
   # subset = study != "Wendling 2020",
   sm = "SMD",
   method.tau = "REML",
@@ -1175,7 +1134,8 @@ temp <- metacont(
 )
 
 forest(temp,
-  comb.random = TRUE,
+  weight.study = "random",
+  comb.fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
   digits = 2,
@@ -1184,13 +1144,14 @@ forest(temp,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  print.byvar = TRUE,
-  # bylab = c("Preop", "Postop", "Unclear"),
+  print.byvar = FALSE,
+  bylab = FALSE,
   # overall = FALSE,
   fs.xlab = 11,
   # sortvar = -TE,
   xlim = c(-3, 1),
   rightcols = c("effect", "ci"),
+  rightlabs = c("SMD", "95% CI     "),
   xlab = "Favors CHO              Favors Fasting"
 )
 
@@ -1200,15 +1161,15 @@ figure_n <- fig_inc()
 # account for missings using metansue
 # temp_w_missings <- as_tibble(temp[c("studlab", "n.e", "n.c", "zval")]) %>%
 #   add_row(studlab = "Melis 2016", n.e = 20, n.c =  9, zval = NA) %>%
-#   add_row(studlab = "Naguib", n.e = 150, n.c =  75, zval = NA) %>%
+#   # add_row(studlab = "Naguib", n.e = 150, n.c =  75, zval = NA) %>%
 #   mutate(t_val = limma::zscoreT(zval, n.e + n.c - 1))
-
+# 
 # temp_w_missings <- with(temp_w_missings, metansue::smd_from_t(t = t_val, n1 = n.e, n2 = n.c))
 # (temp_meta <- metansue::meta(temp_w_missings))
 # metansue::forest(temp_meta)
-
+# 
 # rm(temp_w_missings, temp_meta)
-
+# 
 # temp_out <- dmetar::find.outliers(temp)
 # update(temp,
 #   subset = !study %in% c("Wendling 2020", "Onalan 2019")
@@ -1220,8 +1181,8 @@ figure_n <- fig_inc()
 # funnel(trimfill(temp))
 ```
 Yagmurdur 2011 and Zhang 2019 standard deviations estimated using p-values. 
-Results from Melis 2006 and Naguib 2001 reported only non-signficant results and could not be included in these  meta-analysis. A sensitivity analysis using multiple imputation to include the 2 studies yielded a random effects estimate for the SMD of -0.55 (95% CI, -0.79, -0.30; *I*^2^ = 76%). 
-Excluding results from Wendling 2020, SMD = -0.60 (95% CI, -0.90 to -0.31), *I*^2^ = 73% (53%, 84%).
+Results from Melis 2006 reported only non-signficant results and could not be included. A sensitivity analysis using multiple imputation to include the 2 studies yielded a random effects estimate for the SMD of -0.59 (95% CI, -0.83, -0.34; *I*^2^ = 74%). 
+Excluding results from Wendling 2020, SMD = -0.61 (95% CI, -0.87 to -0.34), *I*^2^ = 74% (53%, 84%).
 Some indications of small-study effects in funnel plot, but not supported by Pustejovsky's test of asymmetry, P = .16.
 
 <a id="choHungFig3"></a>
@@ -1273,14 +1234,14 @@ temp <- metacont(
   max.c = hunger_ru_Clear,
   data = clear_meta.dat,
   sm = "SMD",
-  hakn = FALSE,
-  method.tau = "SJ",
+  hakn = TRUE,
+  method.tau = "REML",
   prediction = FALSE,
   studlab = study
 )
 
 forest(temp,
-  comb.random = TRUE,
+  comb.fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Clear/Water   ",
   digits = 2,
@@ -1292,9 +1253,10 @@ forest(temp,
   print.byvar = FALSE,
   # overall = FALSE,
   fs.xlab = 11,
-  sortvar = -TE,
+  # sortvar = -TE,
   # xlim = c(-4, 1),
   rightcols = c("effect", "ci"),
+  rightlabs = c("SMD", "95% CI     "),
   xlab = "Favors CHO                  Favors Clear/Water"
 )
 
@@ -1327,8 +1289,7 @@ metansue::forest(temp_meta)
 ```
 
 Tsutsumi 2016 mean estimated from median and range, standard deviation, and P-value (.001). 
-Naguib 2001 reported only non-signficant results and could not be included in the meta-analysis; a sensitivity analysis using multiple imputation to add that result yielded a random effects estimate for the SMD of -0.527 (95% CI, -0.51, -0.03; *I*^2^ = 51%). 
-Although limited number of studies to assess small-study effects and potential outliers, no indication by Pustejovsky's test of asymmetry, P = .45.
+Too few studies to examine small-study effects.
 
 <br/>
   
@@ -1378,15 +1339,15 @@ dichot_thirst <- left_join(dichot_thirst, or_thirst, by = "refid") %>%
   select(refid, arm, design, age, study, arm_n, arm_tx, starts_with("hr"), pre_post_op, time_outcome, thirst_np, thirst_per, or_ci, thirst_n, notes)
 
 # odds ratios for naguib arms, combines 2 CHO/Simp arms
-naguib <- tribble(
-  ~event_e, ~n_e, ~event_c, ~n_c, ~arm,
-  77, 150, 24, 75,  "Fasting",
-  77, 150, 18, 75,  "Water",
-  77, 150, 41, 75, "CHO/Simp")
-
-naguib <- with(naguib, odds_ratio(event_e, n_e, event_c, n_c, arm)) %>% mutate(refid = 5803)
-dichot_thirst$or_ci <- replace(dichot_thirst$or_ci, c(1:3), naguib$or_ci)
-rm(naguib)
+# naguib <- tribble(
+#   ~event_e, ~n_e, ~event_c, ~n_c, ~arm,
+#   77, 150, 24, 75,  "Fasting",
+#   77, 150, 18, 75,  "Water",
+#   77, 150, 41, 75, "CHO/Simp")
+# 
+# naguib <- with(naguib, odds_ratio(event_e, n_e, event_c, n_c, arm)) %>% mutate(refid = 5803)
+# dichot_thirst$or_ci <- replace(dichot_thirst$or_ci, c(1:3), naguib$or_ci)
+# rm(naguib)
 
 cho_row <- dichot_thirst %>%
   mutate(line = row_number()) %>%
@@ -1416,9 +1377,9 @@ dichot_thirst <- dichot_thirst %>%
   add_foot(study, "Taniguchi 2011", "f") %>% #        'Did you have a dry mouth before surgery?'
   add_foot(study, "TDrobjewski 2018", "g") %>% #      'Present or absent.'
   add_foot(study, "Huang 2020", "h") %>% #            'Present or absent.'
-  add_foot(or_ci, "2.24 (1.25-4.01)", "i") %>% 
-  add_foot(or_ci, "3.34 (1.80-6.20)", "i") %>% 
-  add_foot(or_ci, "0.87 (0.50-1.53)", "i") %>% 
+  # add_foot(or_ci, "2.24 (1.25-4.01)", "i") %>% 
+  # add_foot(or_ci, "3.34 (1.80-6.20)", "i") %>% 
+  # add_foot(or_ci, "0.87 (0.50-1.53)", "i") %>% 
 mutate(pre_post_op = ifelse(study == "Taniguchi 2011^f^", cell_spec(pre_post_op, color = "black"), pre_post_op),
        study = ifelse(study == "Taniguchi 2011^f^", cell_spec(study, color = "black"), study),
        pre_post_op = ifelse(study == "Huang 2020^h^", cell_spec(pre_post_op, color = "black"), pre_post_op),
@@ -1451,12 +1412,12 @@ dichot_thirst %>%
   column_spec(8, width = "5em") %>%
   column_spec(9, width = "11em") %>%
   row_spec(cho_row, color = "brown") %>%
-  pack_top(., "Adult, Surgical", 1, 18) %>%
-  pack_sub(., "RCT", 1, 15) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 16, 17) %>%
-  pack_sub(., "Prospective Cohort", 18, 18) %>%
-  pack_top(., "Pedatric, Surgical", 19, 24) %>%
-  pack_sub(., "RCT", 19, 24) %>%
+  pack_top(., "Adult, Surgical", 1, 13) %>%
+  pack_sub(., "RCT", 1, 10) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 11, 12) %>%
+  pack_sub(., "Prospective Cohort", 13, 13) %>%
+  pack_top(., "Pedatric, Surgical", 14, 19) %>%
+  pack_sub(., "RCT", 14, 19) %>%
   footnote(
     general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.",
     alphabet = c(
@@ -1467,8 +1428,8 @@ dichot_thirst %>%
       "Yes vs. no.",
       "'Did you have a dry mouth before surgery?'",
       "Thirst present or absent.",
-      "Compared similar carbohydrate liquids given 1 vs. 2 hours prior to surgery. Odds ratio is for 1 vs. 2 hour comparison.",
-      "OR vs. combined CHO/Simp arms."
+      "Compared similar carbohydrate liquids given 1 vs. 2 hours prior to surgery. Odds ratio is for 1 vs. 2 hour comparison."
+      # "OR vs. combined CHO/Simp arms."
     ),
     general_title = "",
     footnote_as_chunk = FALSE
@@ -1534,7 +1495,7 @@ likert_cho_thirst_kbl.dat <- likert_cho_thirst.dat %>%
     thirst_med = ifelse(thirst_med == "NA (NA-NA)", NA, thirst_med),
     thirst_med = gsub(" \\(NA-NA\\)", "", thirst_med),
     # NOTE: footnote Melis, Melis 2006: "Within group change from baseline."
-    thirst_med = ifelse(refid == 4952, paste0(thirst_md, " (", round_0(thirst_iqrl), ")^c^"), thirst_med),
+    thirst_med = ifelse(refid == 4952, paste0(thirst_md, " (", round_0(thirst_iqrl), ")^b^"), thirst_med),
     ranges = str_c("(", round_0(thirst_rl), "-", round_0(thirst_ru), ")"),
     thirst_sd = ifelse(is.na(thirst_sd) & !is.na(thirst95u), sd_confint(thirst95l, thirst95u), thirst_sd),
     mn_95_ci = str_c(round_1(thirst_m), " (", round_1(thirst95l), "-", round_1(thirst95u), ")"),
@@ -1543,7 +1504,7 @@ likert_cho_thirst_kbl.dat <- likert_cho_thirst.dat %>%
     mn_95_ci = str_replace(mn_95_ci, "\\(NA-NA\\)", ""),
     # mn_sd = NA,
     mn_sd = ifelse(!is.na(thirst_sd) & !is.na(thirst_m), paste0(round_1(thirst_m), " (", round_1(thirst_sd), ")"), round_2(thirst_m)),
-    mn_sd = ifelse(refid == 262, paste0(mn_sd, "^d^"), mn_sd),
+    mn_sd = ifelse(refid == 262, paste0(mn_sd, "^c^"), mn_sd),
     mn_sd = na_if(mn_sd, " NA"), 
     thirst_med = str_replace(thirst_med, "\\(NA-NA\\)", ""),
     ranges = str_replace(ranges, "\\(NA-NA\\)", ""),
@@ -1561,11 +1522,11 @@ likert_cho_thirst_kbl.dat <- likert_cho_thirst.dat %>%
     thirst_scale = ifelse(thirst_scale == "NRS, 0 to 3", "0→3^NRS^", thirst_scale),
     thirst_scale = ifelse(thirst_scale == "Likert, 0 to 3", "0→3^NRS^", thirst_scale),
     thirst_scale = ifelse(refid == 3588, "1→5^NRS^", thirst_scale),
-    thirst_med = ifelse(grepl("(AM)", study) & arm_tx == "Fasting", str_c(thirst_med, "^e^"), thirst_med),
-    thirst_med = ifelse(grepl("(PM)", study) & arm_tx == "Fasting", str_c(thirst_med, "^e^"), thirst_med),
-    mn_sd = ifelse(refid == 5803 & arm_tx == "CHO/Simp", paste0(mn_sd, "^b^"), mn_sd),
-    mn_sd = ifelse(study == "Zelic 2013", paste0(mn_sd, "^f^"), mn_sd),
-    thirst_med = ifelse(study == "De Jonghe 2016" & arm_tx != "Fasting", paste0(thirst_med, "^f^"), thirst_med)
+    thirst_med = ifelse(grepl("(AM)", study) & arm_tx == "Fasting", str_c(thirst_med, "^d^"), thirst_med),
+    thirst_med = ifelse(grepl("(PM)", study) & arm_tx == "Fasting", str_c(thirst_med, "^d^"), thirst_med),
+    # mn_sd = ifelse(refid == 5803 & arm_tx == "CHO/Simp", paste0(mn_sd, "^b^"), mn_sd),
+    # mn_sd = ifelse(study == "Zelic 2013", paste0(mn_sd, "^e^"), mn_sd), post-op
+    thirst_med = ifelse(study == "De Jonghe 2016" & arm_tx != "Fasting", paste0(thirst_med, "^e^"), thirst_med)
   ) %>%
   arrange(age, desc(surg_nosurg), design, desc(pre_post_op), year, study) %>%
   group_by(study) %>%
@@ -1611,14 +1572,14 @@ likert_cho_thirst_kbl.dat %>%
   column_spec(9, width = "7em") %>%
   column_spec(10, width = "4em") %>%
   row_spec(cho_row, color = "brown") %>%
-  pack_top(., "Adult, Surgical", 1, 55) %>%
-  pack_sub(., "RCT", 1, 49) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 50, 55) %>%
+  pack_top(., "Adult, Surgical", 1, 50) %>%
+  pack_sub(., "RCT", 1, 44) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 45, 50) %>%
   footnote(
     general = "RCT: randomized controlled trial; M: mean; SD: standard deviation; SD: standard deviation; Med: median; IQR: interquartile range; NRS: numeric rating scale; MD: mean difference.",
     alphabet = c(
       "Arrow (→) indicates best to worst thirst (visual analogue if not noted NRS).",
-      "Detected a difference vs. water, p < 0.05.",
+      # "Detected a difference vs. water, p < 0.05.",
       "Within group change from baseline; reported IQR as a single value.",
       "Difference from before beverage consumption to 1 hr post-consumption.",
       "IQR bound outside range of scale used.",
