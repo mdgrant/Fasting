@@ -1025,8 +1025,6 @@ hunger_meta <- metabin(cho_e, cho_n, fast_e, fast_n,
   # byvar = simp_comp,
   digits = 2)
 
-forest(hunger_meta)
-
 forest(hunger_meta,
   comb.fixed = FALSE,
   lab.e = "CHO     ",
@@ -1045,6 +1043,8 @@ forest(hunger_meta,
   xlim = c(0.01, 2),
   at = c(.01, .1, .25, 1, 2),
   xlab = "Favors CHO           Favors Fasting")
+
+figure_n <- fig_inc()
 
 ```
 
@@ -2362,7 +2362,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-## *Pain* 
+## *Pain/Discomfort* 
 
 ### Rates  <a id="pain_ratings15"></a>
 
@@ -2459,7 +2459,7 @@ table_n <- tab_inc()
 
 <font size = 4> Table `r table_n`. Preoperative pain/discomfort ratings according to fasting, liquid and volume. </font>
 
-```{r comfortData, include = FALSE}
+```{r comfortData, include = TRUE}
 ## (updated 2020/12/14` 14:32) comfortData ---------------------------------
 # pain/comfort studies
 likert_cho_comfort.dat <- likert_cho.dat %>%
@@ -2505,7 +2505,7 @@ likert_cho_comfort.dat <- likert_cho.dat %>%
 # write_csv(likert_cho_comfort.dat, "/Users/mgrant/Desktop/likert_comfort.csv", na = "")
 ```
 
-```{r comfortKable, echo = FALSE, includ = FALSE, eval=FALSE}
+```{r comfortKable, echo = FALSE, include = TRUE}
 ## (updated 2020/12/14 14:31) comfortKable --------------------------------
 cho_row <- likert_cho_comfort.dat %>% 
   mutate(line = row_number()) %>% 
@@ -2606,7 +2606,7 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Pooled preoperative pain ratings (standardized mean differences in VAS) from randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
-```{r comfortAdultLikertMeta, echo = FALSE, fig.width = 9, fig.height = 6, fig.align = "center"}
+```{r comfortAdultLikertMeta, echo = FALSE,  fig.width = 10, fig.height = 2.7, fig.align = "center"}
 ## (updated 2021/04/13 07:39) comfortAdultLikertMeta -----------------------
 comfort_lik_meta.dat <- likert_cho_comfort.dat %>%
   filter(age == "Adult", design == "rct") %>%
@@ -2669,7 +2669,7 @@ forest(temp,
   digits = 1,
   digits.sd = 1,
   digits.tau2 = 1,
-  overall.hetstat = FALSE,
+  overall.hetstat = TRUE,
   print.I2.ci = TRUE,
   print.byvar = FALSE,
   overall = FALSE,
@@ -3235,7 +3235,7 @@ dichot_vomit_peds <- dichot_vomit %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Rates of pre-operative vomiting among adults according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Rates of preoperative vomiting among adults according to fasting, liquid and volume. </font>
 
 ```{r vomitPreopAdults, include = TRUE}
 ## (updated 2021/05/07 14:49) tables --------------------------------------
@@ -3282,7 +3282,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Rates, Pediatric (preop, postop) <a id="choVomitPeds25"></a>
+### Rates, Pediatric (preop) <a id="choVomitPeds25"></a>
 
 <br/>
 
@@ -3998,6 +3998,8 @@ ph.dat %>%
 table_n <- tab_inc()
 ```
 
+<br/>
+
 ### Pooled (adult RCTs) <a id="choPhFig11"></a>
 
 <br/>
@@ -4265,6 +4267,8 @@ dichot_complicate %>%
 
 table_n <- tab_inc()
 ```
+
+<br/>       
 
 ### &ensp; Complication Types <a id="choCompl31"></a>
 
@@ -4649,8 +4653,9 @@ table_n <- tab_inc()
 
 ```
 
+<br/>
 
-### Pediatric <a id="choLosl33">Peds</a>
+### Pediatric <a id="choLosl33"></a>
 
 <br/>
 
@@ -4702,8 +4707,11 @@ table_n <- tab_inc()
 
 ```
 
+<br/>
 
-<br>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br/>
 
 # **Study/Participant Detail** 
 
@@ -4782,25 +4790,25 @@ study_char_table %>%
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "15em") %>% 
   # column_spec(2, width = "2em") %>% 
-  pack_top(., "Adult, Surgical", 1, 100) %>% 
-  pack_sub(., "RCT", 1, 85) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 86, 93) %>% 
-  pack_sub(., "Prospective Cohort", 94, 96) %>%
-  pack_sub(., "Retrospective Cohort", 97, 98) %>% 
-  pack_sub(., "Case-control", 99, 99) %>% 
-  pack_sub(., "Before-after", 100, 100) %>% 
-  pack_top(., "Adult, Non-surgical", 101, 112) %>% 
-  pack_sub(., "RCT", 101, 101) %>%
-  pack_sub(., "Crossover", 102, 110) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 111, 112) %>% 
-  pack_top(., "Pediatric, Surgical", 113, 121) %>% 
-  pack_sub(., "RCT", 113, 119) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 120, 120) %>% 
-  pack_sub(., "Prospective Cohort", 121, 121) %>% 
-  pack_top(., "Pediatric, Non-surgical", 122, 124) %>% 
-  pack_sub(., "RCT", 122, 122) %>%
-  pack_sub(., "Crossover", 123, 123) %>%
-  pack_sub(., "Prospective Cohort", 124, 124) %>% 
+  pack_top(., "Adult, Surgical", 1, 99) %>% 
+  pack_sub(., "RCT", 1, 84) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 85, 92) %>% 
+  pack_sub(., "Prospective Cohort", 93, 95) %>%
+  pack_sub(., "Retrospective Cohort", 96, 97) %>% 
+  pack_sub(., "Case-control", 98, 98) %>% 
+  pack_sub(., "Before-after", 99, 99) %>% 
+  pack_top(., "Adult, Non-surgical", 100, 111) %>% 
+  pack_sub(., "RCT", 100, 100) %>%
+  pack_sub(., "Crossover", 101, 109) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 110, 111) %>% 
+  pack_top(., "Pediatric, Surgical", 112, 120) %>% 
+  pack_sub(., "RCT", 112, 118) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
+  pack_sub(., "Prospective Cohort", 120, 120) %>% 
+  pack_top(., "Pediatric, Non-surgical", 121, 123) %>% 
+  pack_sub(., "RCT", 121, 121) %>%
+  pack_sub(., "Crossover", 122, 122) %>%
+  pack_sub(., "Prospective Cohort", 123, 123) %>% 
   footnote(general_title = "",
     general = "Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; TKA: total knee arthroplasty; THA: total hip arthroplasty.",
     alphabet = c("Multiple publications from the same study."),
@@ -4809,7 +4817,7 @@ study_char_table %>%
 table_n <- tab_inc()
 ```
 
-<br><br>
+<br/>
 
 ### *Sample Characteristics* 
 
@@ -4873,25 +4881,25 @@ pt_char_table %>%
   kable_styling(bootstrap_options = opt_boot) %>% 
   column_spec(1, width = "15em") %>%
   # column_spec(2, width = "4em") %>%
-  pack_top(., "Adult, Surgical", 1, 100) %>% 
-  pack_sub(., "RCT", 1, 85) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 86, 93) %>% 
-  pack_sub(., "Prospective Cohort", 94, 96) %>%
-  pack_sub(., "Retrospective Cohort", 97, 98) %>% 
-  pack_sub(., "Case-control", 99, 99) %>% 
-  pack_sub(., "Before-after", 100, 100) %>% 
-  pack_top(., "Adult, Non-surgical", 101, 112) %>% 
-  pack_sub(., "RCT", 101, 101) %>%
-  pack_sub(., "Crossover", 102, 110) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 111, 112) %>% 
-  pack_top(., "Pediatric, Surgical", 113, 121) %>% 
-  pack_sub(., "RCT", 113, 119) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 120, 120) %>% 
-  pack_sub(., "Prospective Cohort", 121, 121) %>% 
-  pack_top(., "Pediatric, Non-surgical", 122, 124) %>% 
-  pack_sub(., "RCT", 122, 122) %>%
-  pack_sub(., "Crossover", 123, 123) %>%
-  pack_sub(., "Prospective Cohort", 124, 124) %>% 
+  pack_top(., "Adult, Surgical", 1, 99) %>% 
+  pack_sub(., "RCT", 1, 84) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 85, 92) %>% 
+  pack_sub(., "Prospective Cohort", 93, 95) %>%
+  pack_sub(., "Retrospective Cohort", 96, 97) %>% 
+  pack_sub(., "Case-control", 98, 98) %>% 
+  pack_sub(., "Before-after", 99, 99) %>% 
+  pack_top(., "Adult, Non-surgical", 100, 111) %>% 
+  pack_sub(., "RCT", 100, 100) %>%
+  pack_sub(., "Crossover", 101, 109) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 110, 111) %>% 
+  pack_top(., "Pediatric, Surgical", 112, 120) %>% 
+  pack_sub(., "RCT", 112, 118) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
+  pack_sub(., "Prospective Cohort", 120, 120) %>% 
+  pack_top(., "Pediatric, Non-surgical", 121, 123) %>% 
+  pack_sub(., "RCT", 121, 121) %>%
+  pack_sub(., "Crossover", 122, 122) %>%
+  pack_sub(., "Prospective Cohort", 123, 123) %>% 
   footnote(alphabet = c("Multiple publications from he same study."),
     general = "Med: median",
     general_title = "",
@@ -4900,7 +4908,7 @@ pt_char_table %>%
 table_n <- tab_inc()
 ```
 
-<br/><br/>
+<br/>
 
 ### *Fasting, Liquid Timing and Amounts* 
 
@@ -4928,7 +4936,7 @@ fasting_table <- study_arm_cho.dat %>%
   # mutate(year = ifelse(row_number() == 1, as.numeric(year), "")) %>% 
   mutate(study = ifelse(study == "Marquini 2020a", "Marquini 2020abc", study)) %>% 
   filter(!study %in% c("Marquini 2020b", "Marquini 2020c")) %>% 
-  group_by(refid) %>%
+  group_by(study) %>%
   mutate(study = if_else(row_number() == 1, study, ""),
          study = if_else(refid == 5815 & arm_tx == "Fasting", "Moyao-Garcia 2001", study),
          temp = row_number()) %>% 
@@ -4950,25 +4958,25 @@ fasting_table %>%
   column_spec(1, width = "15em") %>% 
   # column_spec(2, width = "5em") %>% 
   # column_spec(3, width = "9em") %>%
-  pack_top(., "Adult, Surgical", 1, 232) %>% 
-  pack_sub(., "RCT", 1, 200) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 201, 220) %>%
-  pack_sub(., "Prospective Cohort", 221, 223) %>%
-  pack_sub(., "Retrospective Cohort", 224, 228) %>% 
-  pack_sub(., "Case-control", 229, 230) %>% 
-  pack_sub(., "Before-after", 231, 232) %>% 
-  pack_top(., "Adult, Non-surgical", 233, 260) %>% 
-  pack_sub(., "RCT", 233, 234) %>%
-  pack_sub(., "Crossover", 235, 255) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 256, 260) %>% 
-  pack_top(., "Pediatric, Surgical", 261, 281) %>% 
-  pack_sub(., "RCT", 261, 278) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 279, 280) %>% 
-  pack_sub(., "Prospective Cohort", 281, 281) %>% 
-  pack_top(., "Pediatric, Non-surgical", 282, 287) %>% 
-  pack_sub(., "RCT", 282, 284) %>%
-  pack_sub(., "Crossover", 285, 287) %>%
-  pack_sub(., "Prospective Cohort", 276, 276) %>% 
+  pack_top(., "Adult, Surgical", 1, 232-5) %>% 
+  pack_sub(., "RCT", 1, 200-5) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 201-5, 220-5) %>%
+  pack_sub(., "Prospective Cohort", 221-5, 223-5) %>%
+  pack_sub(., "Retrospective Cohort", 224-5, 228-5) %>% 
+  pack_sub(., "Case-control", 229-5, 230-5) %>% 
+  pack_sub(., "Before-after", 231-5, 232-5) %>% 
+  pack_top(., "Adult, Non-surgical", 233-5, 260-5) %>% 
+  pack_sub(., "RCT", 233-5, 234-5) %>%
+  pack_sub(., "Crossover", 235-5, 255-5) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 256-5, 260-5) %>% 
+  pack_top(., "Pediatric, Surgical", 261-5, 281-5) %>% 
+  pack_sub(., "RCT", 261-5, 278-5) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 279-5, 280-5) %>% 
+  pack_sub(., "Prospective Cohort", 281-5, 281-5) %>% 
+  pack_top(., "Pediatric, Non-surgical", 282-5, 287-5) %>% 
+  pack_sub(., "RCT", 282-5, 284-5) %>%
+  pack_sub(., "Crossover", 285-5, 287-5) %>%
+  pack_sub(., "Prospective Cohort", 276-5, 276-5) %>% 
   footnote(general = "hr: hours; ch: cholecystectomy; cr: colorectal; gen: general; epi: epidural",
           alphabet = c("In surgical studies hours prior to surgery. In non-surgical studies time 0 reference for any measurements and negative numbers prior ingestion."),
           alphabet_title = " ",
@@ -4978,11 +4986,11 @@ fasting_table %>%
 table_n <- tab_inc()
 ```
 
-<br><br>
+<br/>
 
 ### *Carbohydrate Drink Amounts*
 
-<br>
+<br/>
 
 <font size = 4> Table `r table_n`. Composition of carbohydrate liquids and brands. </font>
 
@@ -5046,25 +5054,25 @@ cho_drink_table %>%
   column_spec(c(2,3), width = "3em") %>% 
   column_spec(c(4,5), width = "5em") %>% 
   column_spec(6, width = "9em") %>%
-  pack_top(., "Adult, Surgical", 1, 121) %>% 
-  pack_sub(., "RCT", 1, 101) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 102, 113) %>% 
-  pack_sub(., "Prospective Cohort", 114, 116) %>%
-  pack_sub(., "Retrospective Cohort", 117, 119) %>% 
-  pack_sub(., "Case-control", 120, 120) %>% 
-  pack_sub(., "Before-after", 121, 121) %>% 
-  pack_top(., "Adult, Non-surgical", 122, 146) %>% 
-  pack_sub(., "RCT", 122, 123) %>%
-  pack_sub(., "Crossover", 124, 141) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 142, 146) %>% 
-  pack_top(., "Pediatric, Surgical", 147, 159) %>% 
-  pack_sub(., "RCT", 147, 157) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 158, 158) %>% 
-  pack_sub(., "Prospective Cohort", 159, 159) %>% 
-  pack_top(., "Pediatric, Non-surgical", 160, 163) %>% 
-  pack_sub(., "RCT", 160, 161) %>%
-  pack_sub(., "Crossover", 162, 162) %>%
-  pack_sub(., "Prospective Cohort", 163, 163) %>% 
+  pack_top(., "Adult, Surgical", 1, 121-2) %>% 
+  pack_sub(., "RCT", 1, 101-2) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 102-2, 113-2) %>% 
+  pack_sub(., "Prospective Cohort", 114-2, 116-2) %>%
+  pack_sub(., "Retrospective Cohort", 117-2, 119-2) %>% 
+  pack_sub(., "Case-control", 120-2, 120-2) %>% 
+  pack_sub(., "Before-after", 121-2, 121) %>% 
+  pack_top(., "Adult, Non-surgical", 122-2, 146-2) %>% 
+  pack_sub(., "RCT", 122-2, 123-2) %>%
+  pack_sub(., "Crossover", 124-2, 141-2) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 142-2, 146-2) %>% 
+  pack_top(., "Pediatric, Surgical", 147-2, 159-2) %>% 
+  pack_sub(., "RCT", 147-2, 157-2) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 158-2, 158-2) %>% 
+  pack_sub(., "Prospective Cohort", 159-2, 159-2) %>% 
+  pack_top(., "Pediatric, Non-surgical", 160-2, 163-2) %>% 
+  pack_sub(., "RCT", 160-2, 161-2) %>%
+  pack_sub(., "Crossover", 162-2, 162-2) %>%
+  pack_sub(., "Prospective Cohort", 163-2, 163-2) %>% 
   footnote(general = "CHO: carbohydrate; g: grams; Osm: osomolality; Glut: glutamine; Arg: arginine; NS: not specified",
           #alphabet = c("per 100/mL if not otherwise specified"),
           # alphabet_title = " ",
@@ -5119,25 +5127,25 @@ study_fund_table %>%
   column_spec(1, width = "16em") %>% 
   column_spec(c(2,3,4,5), width = "4em") %>% 
   column_spec(6, width = "23em") %>%
-  pack_top(., "Adult, Surgical", 1, 98) %>% 
-  pack_sub(., "RCT", 1, 83) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 84, 91) %>% 
-  pack_sub(., "Prospective Cohort", 92, 94) %>%
-  pack_sub(., "Retrospective Cohort", 95, 96) %>% 
-  pack_sub(., "Case-control", 97, 97) %>% 
-  pack_sub(., "Before-after", 98, 98) %>% 
-  pack_top(., "Adult, Non-surgical", 99, 110) %>% 
-  pack_sub(., "RCT", 99, 99) %>%
-  pack_sub(., "Crossover", 100, 108) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 109, 110) %>% 
-  pack_top(., "Pediatric, Surgical", 111, 119) %>% 
-  pack_sub(., "RCT", 111, 117) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 118, 118) %>% 
-  pack_sub(., "Prospective Cohort", 119, 119) %>% 
-  pack_top(., "Pediatric, Non-surgical", 120, 122) %>% 
-  pack_sub(., "RCT", 120, 120) %>%
-  pack_sub(., "Crossover", 121, 121) %>%
-  pack_sub(., "Prospective Cohort", 122, 122)
+  pack_top(., "Adult, Surgical", 1, 98-1) %>% 
+  pack_sub(., "RCT", 1, 83-1) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 84-1, 91-1) %>% 
+  pack_sub(., "Prospective Cohort", 92-1, 94-1) %>%
+  pack_sub(., "Retrospective Cohort", 95-1, 96-1) %>% 
+  pack_sub(., "Case-control", 97-1, 97-1) %>% 
+  pack_sub(., "Before-after", 98-1, 98-1) %>% 
+  pack_top(., "Adult, Non-surgical", 99-1, 110-1) %>% 
+  pack_sub(., "RCT", 99-1, 99-1) %>%
+  pack_sub(., "Crossover", 100-1, 108-1) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 109-1, 110-1) %>% 
+  pack_top(., "Pediatric, Surgical", 111-1, 119-1) %>% 
+  pack_sub(., "RCT", 111-1, 117-1) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 118-1, 118-1) %>% 
+  pack_sub(., "Prospective Cohort", 119-1, 119-1) %>% 
+  pack_top(., "Pediatric, Non-surgical", 120-1, 122-1) %>% 
+  pack_sub(., "RCT", 120-1, 120-1) %>%
+  pack_sub(., "Crossover", 121-1, 121-1) %>%
+  pack_sub(., "Prospective Cohort", 122-1, 122-1)
   #footnote(general = "g: grams; Osm: osmolality",
           # alphabet = c("Hours prior to surgery"),
           # alphabet_title = " ",
@@ -5152,9 +5160,6 @@ table_n <- tab_inc()
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <br>
-
-
-
 
 
 # **Risk of Bias** 
