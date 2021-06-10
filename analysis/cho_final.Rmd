@@ -3984,9 +3984,9 @@ ph.dat %>%
   column_spec(8, width = "8em") %>%
   row_spec(cho_row, color = "brown") %>% 
   pack_top(., "Adult, Surgical", 1, 15) %>%
-  pack_sub(., "RCT", 1, 20) %>%
-  pack_top(., "Pediatric, Surgical", 21, 24) %>%
-  pack_sub(., "RCT", 21, 24) %>%
+  pack_sub(., "RCT", 1, 15) %>%
+  pack_top(., "Pediatric, Surgical", 16, 19) %>%
+  pack_sub(., "RCT", 16, 19) %>%
   footnote(
     general = "RGV: residual gastric volumne; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; CHO: carbohydrate; Simp: simple; Comp: complex; Prot: protein; RCT: randomized controlled trial.",
     alphabet = c("Used urine pH test scripts.",
@@ -4009,7 +4009,6 @@ ph_meta.dat <- ph.dat %>%
   filter(age == "Adult") %>% 
   arrange(design, year, study) %>%
   filter(arm_tx == "Fasting" | grepl("CHO", arm_tx)) %>%
-  filter(!(refid == 5803 & arm == 3)) %>%  # honey arm Naguib
   mutate(arm_tx = ifelse(grepl("CHO", arm_tx), "cho", "fasting")) %>% 
   group_by(refid) %>% 
   filter(n() > 1, refid != 2985, refid != 7990) %>% # Joshi 2020 ph over intraop period
@@ -4039,7 +4038,7 @@ ph_meta <- metacont(
 )
   
 forest(ph_meta,
-  comb.random = TRUE,
+  comb.fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
   digits = 2,
@@ -4052,6 +4051,7 @@ forest(ph_meta,
   overall = TRUE,
   fs.xlab = 11,
   rightcols = c("effect", "ci"),
+  rightlabs = c("MD", "95% CI   "),
   xlab = "pH\n Favors CHO           Favors Fasting"
 )
 
