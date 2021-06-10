@@ -4400,6 +4400,7 @@ forest(temp,
   hetstat = FALSE,
   pooled.events = TRUE,
   rightcols = c("effect", "ci"),
+  rightlabs = c("OR", "95% CI     "),
   print.Q.subgroup = FALSE,
   fs.fixed.labels = 10,
   allstudies = FALSE,
@@ -4475,11 +4476,12 @@ forest(temp,
   pooled.events = TRUE,
   print.Q.subgroup = FALSE,
   fs.fixed.labels = 10,
+  rightcols = c("effect", "ci"),
+  rightlabs = c("OR", "95% CI     "),
   allstudies = FALSE,
   xlab = "Favors CHO          Favors Water/Placebo")
   
 figure_n <- fig_inc()
-
 
 ```
 
@@ -4487,7 +4489,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled complications rates by type of surgery --- randomized trials comparing carbohydrate drinks with protein with fasting in adult surgical patients. </font>
+<font size = 4> Figure `r figure_n`. Pooled complications rates from randomized trials comparing carbohydrate drinks with protein with fasting in adult surgical patients. </font>
 
 ```{r complicateMetaFastProt, include = TRUE, fig.width = 10, fig.height = 2, fig.align = "center"}
 ## (updated 2021/05/11 10:14) cho vs fasting ------------------------------
@@ -4526,6 +4528,8 @@ forest(temp,
   hetstat = FALSE,
   pooled.events = TRUE,
   print.Q.subgroup = FALSE,
+  rightcols = c("effect", "ci"),
+  rightlabs = c("OR", "95% CI     "),
   fs.fixed.labels = 10,
   allstudies = FALSE,
   xlab = "Favors CHO          Favors Fasting")
@@ -4533,6 +4537,7 @@ forest(temp,
 figure_n <- fig_inc()
 
 ```
+Pexe-Machado 2013 CABG, Yi 2020 gastrointestinal procedures.
 
 <br/>
 
