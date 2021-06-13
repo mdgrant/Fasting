@@ -361,7 +361,7 @@ div.tocify {
   <a href="cho_final.html">Carbohydrate Drinks</a>
 </li>
 <li>
-  <a href="nma_final.html">Network</a>
+  <a href="nma_final.html">Simple/Complex (Network)</a>
 </li>
 <li>
   <a href="protein_final.html">Protein/Carbohydrate Drinks</a>
@@ -388,7 +388,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Network Meta-Analyses — Carbohydrates</h1>
-<h4 class="date">17 May, 2021 (14:12)</h4>
+<h4 class="date">13 June, 2021 (09:49)</h4>
 
 </div>
 
@@ -413,7 +413,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-05-17
+<strong>Last updated:</strong> 2021-06-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -504,16 +504,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtree0b13fb01a5005692c3efe3105304108cd82135d5targetblank0b13fb0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/Fasting/tree/0b13fb01a5005692c3efe3105304108cd82135d5" target="_blank">0b13fb0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtreeb733410c89e3f4cac5014d08b5f311964c960482targetblankb733410a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/Fasting/tree/b733410c89e3f4cac5014d08b5f311964c960482" target="_blank">b733410</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtree0b13fb01a5005692c3efe3105304108cd82135d5targetblank0b13fb0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtreeb733410c89e3f4cac5014d08b5f311964c960482targetblankb733410a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/mdgrant/Fasting/tree/0b13fb01a5005692c3efe3105304108cd82135d5" target="_blank">0b13fb0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/Fasting/tree/b733410c89e3f4cac5014d08b5f311964c960482" target="_blank">b733410</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -526,6 +526,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  _@@/Carbohydrate Drinks.html
+    Untracked:  _@@/Fasting-master_old.zip
     Untracked:  _site.yml_back
     Untracked:  all_arms.csv
     Untracked:  analysis/.gitignore
@@ -553,6 +554,7 @@ Untracked files:
     Untracked:  code/functions.R
     Untracked:  code/helpers.R
     Untracked:  code/hrs.R
+    Untracked:  code/meanLogFunctions.R
     Untracked:  code/metaHungerClear.R
     Untracked:  code/nma_debug_copy.R
     Untracked:  code/nma_sensitivity.R
@@ -563,6 +565,7 @@ Untracked files:
     Untracked:  code/rob_summary.R
     Untracked:  code/rob_traffic_light.R
     Untracked:  code/rob_traffic_light_mg.R
+    Untracked:  code/simp_comp_code.R
     Untracked:  code/snips.R
     Untracked:  code/timePlot.R
     Untracked:  data/CHOComplicationList_012521.xlsx
@@ -571,6 +574,7 @@ Untracked files:
     Untracked:  data/ProteinSOE_013121.xlsx
     Untracked:  data/ProteinSOE_121620.xlsx
     Untracked:  data/SOE_CHO_051721_up.xlsx
+    Untracked:  data/SOE_CHO_060721_up.xlsx
     Untracked:  data/SOE_Gum_020421.xlsx
     Untracked:  data/SOE_Protein_021021.xlsx
     Untracked:  data/_old/
@@ -592,20 +596,14 @@ Untracked files:
     Untracked:  data/rob_2021-04-17-11-47-25.csv
     Untracked:  data/studyArm_2021-04-17-11-47-46.csv
     Untracked:  data/studyChar_2021-04-17-11-47-58.csv
-    Untracked:  data/~$SOE_CHO_051721_up.xlsx
     Untracked:  figures/
-    Untracked:  index.html.pdf
     Untracked:  nauseaSimpCompl.csv
     Untracked:  nausea_cho.csv
     Untracked:  notes.txt
     Untracked:  outcome_list.txt
     Untracked:  placebo.csv
-    Untracked:  prot_pro_rob_summary.svg
     Untracked:  rgv_meta.dat.xlsx
     Untracked:  used_files_dates.txt
-
-Unstaged changes:
-    Modified:   code/readFiles_120220_wfr.R
 
 </code></pre>
 <p>
@@ -644,6 +642,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/Fasting/blob/b733410c89e3f4cac5014d08b5f311964c960482/analysis/nma_final.Rmd" target="_blank">b733410</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-06-13
+</td>
+<td>
+wflow_publish(c("analysis/_site.yml“,”analysis/index.Rmd“,”analysis/nma_final.Rmd",
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/Fasting/4bced0989de62c11c2580e758491b9585483783e/docs/nma_final.html" target="_blank">4bced09</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-05-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -885,7 +917,7 @@ Value
 Number of Interventions
 </td>
 <td style="text-align:right;width: 6em; ">
-6
+5
 </td>
 </tr>
 <tr>
@@ -893,7 +925,7 @@ Number of Interventions
 Number of Studies
 </td>
 <td style="text-align:right;width: 6em; ">
-16
+15
 </td>
 </tr>
 <tr>
@@ -901,7 +933,7 @@ Number of Studies
 Total Number of Patients in Network
 </td>
 <td style="text-align:right;width: 6em; ">
-2074
+1699
 </td>
 </tr>
 <tr>
@@ -909,7 +941,7 @@ Total Number of Patients in Network
 Total Possible Pairwise Comparisons
 </td>
 <td style="text-align:right;width: 6em; ">
-15
+10
 </td>
 </tr>
 <tr>
@@ -917,7 +949,7 @@ Total Possible Pairwise Comparisons
 Total Number of Pairwise Comparisons With Direct Data
 </td>
 <td style="text-align:right;width: 6em; ">
-13
+9
 </td>
 </tr>
 <tr>
@@ -941,7 +973,7 @@ Number of Two-arm Studies
 Number of Multi-Arms Studies
 </td>
 <td style="text-align:right;width: 6em; ">
-4
+3
 </td>
 </tr>
 <tr>
@@ -949,7 +981,7 @@ Number of Multi-Arms Studies
 Average Outcome
 </td>
 <td style="text-align:right;width: 6em; ">
-22.28
+21.89
 </td>
 </tr>
 </tbody>
@@ -1050,57 +1082,13 @@ CHO/Comp/Prot vs. Water
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
-CHO/Simp vs. Clear
-</td>
-<td style="text-align:center;width: 6em; ">
-1
-</td>
-<td style="text-align:center;width: 6em; ">
-225
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
 CHO/Simp vs. Fasting
 </td>
 <td style="text-align:center;width: 6em; ">
-4
+3
 </td>
 <td style="text-align:center;width: 6em; ">
-663
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-CHO/Simp vs. Water
-</td>
-<td style="text-align:center;width: 6em; ">
-1
-</td>
-<td style="text-align:center;width: 6em; ">
-225
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Clear vs. Fasting
-</td>
-<td style="text-align:center;width: 6em; ">
-1
-</td>
-<td style="text-align:center;width: 6em; ">
-150
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Clear vs. Water
-</td>
-<td style="text-align:center;width: 6em; ">
-1
-</td>
-<td style="text-align:center;width: 6em; ">
-150
+438
 </td>
 </tr>
 <tr>
@@ -1108,10 +1096,10 @@ Clear vs. Water
 Fasting vs. Water
 </td>
 <td style="text-align:center;width: 6em; ">
-3
+2
 </td>
 <td style="text-align:center;width: 6em; ">
-234
+84
 </td>
 </tr>
 </tbody>
@@ -1187,10 +1175,10 @@ CHO/Comp/Prot
 CHO/Simp
 </td>
 <td style="text-align:center;width: 6em; ">
-6
+5
 </td>
 <td style="text-align:center;width: 6em; ">
-400
+250
 </td>
 <td style="text-align:center;width: 6em; ">
 9.6
@@ -1199,27 +1187,7 @@ CHO/Simp
 51.3
 </td>
 <td style="text-align:center;">
-19.8
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 14em; ">
-Clear
-</td>
-<td style="text-align:center;width: 6em; ">
-1
-</td>
-<td style="text-align:center;width: 6em; ">
-75
-</td>
-<td style="text-align:center;width: 6em; ">
-26.3
-</td>
-<td style="text-align:center;width: 6em; ">
-26.3
-</td>
-<td style="text-align:center;">
-26.3
+16.5
 </td>
 </tr>
 <tr>
@@ -1227,10 +1195,10 @@ Clear
 Fasting
 </td>
 <td style="text-align:center;width: 6em; ">
-13
+12
 </td>
 <td style="text-align:center;width: 6em; ">
-533
+458
 </td>
 <td style="text-align:center;width: 6em; ">
 5.3
@@ -1239,7 +1207,7 @@ Fasting
 31.2
 </td>
 <td style="text-align:center;">
-18.2
+18.3
 </td>
 </tr>
 <tr>
@@ -1247,10 +1215,10 @@ Fasting
 Water
 </td>
 <td style="text-align:center;width: 6em; ">
-4
+3
 </td>
 <td style="text-align:center;width: 6em; ">
-448
+373
 </td>
 <td style="text-align:center;width: 6em; ">
 12.9
@@ -1259,7 +1227,7 @@ Water
 27.0
 </td>
 <td style="text-align:center;">
-24.2
+23.8
 </td>
 </tr>
 </tbody>
@@ -1269,7 +1237,7 @@ Water
 <div id="results-summary" class="section level2">
 <h2><em>Results Summary</em></h2>
 <p><br/></p>
-<p><font size = 4> Table 4. Estimated mean differences in residual gastric volume comapred with complex carbohydrate containing liquids. </font></p>
+<p><font size = 4> Table 4. Estimated mean differences in residual gastric volume compared with complex carbohydrate containing liquids. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -1290,10 +1258,10 @@ MD (mL)
 CHO/Simp vs. CHO/Comp
 </td>
 <td style="text-align:center;width: 6em; ">
--2.1
+-3.7
 </td>
 <td style="text-align:left;width: 7em; ">
-(-9.3 to 4.9)
+(-10.9 to 3.3)
 </td>
 </tr>
 <tr>
@@ -1301,21 +1269,10 @@ CHO/Simp vs. CHO/Comp
 CHO/Comp/Prot vs. CHO/Comp
 </td>
 <td style="text-align:center;width: 6em; ">
--3.0
+-2.7
 </td>
 <td style="text-align:left;width: 7em; ">
-(-11.3 to 5.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 14em; ">
-Clear vs. CHO/Comp
-</td>
-<td style="text-align:center;width: 6em; ">
-3.2
-</td>
-<td style="text-align:left;width: 7em; ">
-(-8.9 to 15.2)
+(-10.5 to 4.7)
 </td>
 </tr>
 <tr>
@@ -1323,10 +1280,10 @@ Clear vs. CHO/Comp
 Water vs. CHO/Comp
 </td>
 <td style="text-align:center;width: 6em; ">
-1.7
+0.6
 </td>
 <td style="text-align:left;width: 7em; ">
-(-5.9 to 9.0)
+(-7.7 to 8.7)
 </td>
 </tr>
 <tr>
@@ -1334,10 +1291,10 @@ Water vs. CHO/Comp
 Fasting vs. CHO/Comp
 </td>
 <td style="text-align:center;width: 6em; ">
--0.1
+0.7
 </td>
 <td style="text-align:left;width: 7em; ">
-(-5.3 to 5.1)
+(-4.3 to 5.6)
 </td>
 </tr>
 </tbody>
@@ -1468,7 +1425,7 @@ Value
 Number of Interventions
 </td>
 <td style="text-align:right;width: 6em; ">
-5
+4
 </td>
 </tr>
 <tr>
@@ -1476,7 +1433,7 @@ Number of Interventions
 Number of Studies
 </td>
 <td style="text-align:right;width: 6em; ">
-14
+13
 </td>
 </tr>
 <tr>
@@ -1484,7 +1441,7 @@ Number of Studies
 Total Number of Patients in Network
 </td>
 <td style="text-align:right;width: 6em; ">
-2009
+1634
 </td>
 </tr>
 <tr>
@@ -1492,7 +1449,7 @@ Total Number of Patients in Network
 Total Possible Pairwise Comparisons
 </td>
 <td style="text-align:right;width: 6em; ">
-10
+6
 </td>
 </tr>
 <tr>
@@ -1500,7 +1457,7 @@ Total Possible Pairwise Comparisons
 Total Number of Pairwise Comparisons With Direct Data
 </td>
 <td style="text-align:right;width: 6em; ">
-8
+5
 </td>
 </tr>
 <tr>
@@ -1524,7 +1481,7 @@ Number of Two-arm Studies
 Number of Multi-Arms Studies
 </td>
 <td style="text-align:right;width: 6em; ">
-4
+3
 </td>
 </tr>
 <tr>
@@ -1532,7 +1489,7 @@ Number of Multi-Arms Studies
 Average Outcome
 </td>
 <td style="text-align:right;width: 6em; ">
-21.79
+21.28
 </td>
 </tr>
 </tbody>
@@ -1567,24 +1524,13 @@ CHO-2 vs. CHO-2
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
-CHO-2 vs. Clear-2
-</td>
-<td style="text-align:center;width: 6em; ">
-1
-</td>
-<td style="text-align:center;width: 6em; ">
-225
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
 CHO-2 vs. Fasting
 </td>
 <td style="text-align:center;width: 6em; ">
-17
+16
 </td>
 <td style="text-align:center;width: 6em; ">
-1179
+954
 </td>
 </tr>
 <tr>
@@ -1592,10 +1538,10 @@ CHO-2 vs. Fasting
 CHO-2 vs. Water-2
 </td>
 <td style="text-align:center;width: 6em; ">
-7
+6
 </td>
 <td style="text-align:center;width: 6em; ">
-1045
+820
 </td>
 </tr>
 <tr>
@@ -1611,35 +1557,13 @@ CHO-gt2 vs. Fasting
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
-Clear-2 vs. Fasting
-</td>
-<td style="text-align:center;width: 6em; ">
-1
-</td>
-<td style="text-align:center;width: 6em; ">
-150
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Clear-2 vs. Water-2
-</td>
-<td style="text-align:center;width: 6em; ">
-1
-</td>
-<td style="text-align:center;width: 6em; ">
-150
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
 Fasting vs. Water-2
 </td>
 <td style="text-align:center;width: 6em; ">
-3
+2
 </td>
 <td style="text-align:center;width: 6em; ">
-234
+84
 </td>
 </tr>
 </tbody>
@@ -1675,10 +1599,10 @@ Mean RGV
 CHO-2
 </td>
 <td style="text-align:center;width: 6em; ">
-14
+13
 </td>
 <td style="text-align:center;width: 6em; ">
-911
+761
 </td>
 <td style="text-align:center;width: 6em; ">
 4.9
@@ -1687,7 +1611,7 @@ CHO-2
 29.6
 </td>
 <td style="text-align:center;">
-22.7
+22.2
 </td>
 </tr>
 <tr>
@@ -1712,33 +1636,13 @@ CHO-gt2
 </tr>
 <tr>
 <td style="text-align:left;width: 14em; ">
-Clear-2
-</td>
-<td style="text-align:center;width: 6em; ">
-1
-</td>
-<td style="text-align:center;width: 6em; ">
-75
-</td>
-<td style="text-align:center;width: 6em; ">
-26.3
-</td>
-<td style="text-align:center;width: 6em; ">
-26.3
-</td>
-<td style="text-align:center;">
-26.3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 14em; ">
 Fasting
 </td>
 <td style="text-align:center;width: 6em; ">
-13
+12
 </td>
 <td style="text-align:center;width: 6em; ">
-533
+458
 </td>
 <td style="text-align:center;width: 6em; ">
 5.3
@@ -1747,7 +1651,7 @@ Fasting
 31.2
 </td>
 <td style="text-align:center;">
-18.2
+18.3
 </td>
 </tr>
 <tr>
@@ -1755,10 +1659,10 @@ Fasting
 Water-2
 </td>
 <td style="text-align:center;width: 6em; ">
-4
+3
 </td>
 <td style="text-align:center;width: 6em; ">
-448
+373
 </td>
 <td style="text-align:center;width: 6em; ">
 12.9
@@ -1767,7 +1671,7 @@ Water-2
 27.0
 </td>
 <td style="text-align:center;">
-24.2
+23.8
 </td>
 </tr>
 </tbody>
@@ -1798,21 +1702,21 @@ MD (mL)
 CHO-gt2 vs. CHO-2
 </td>
 <td style="text-align:center;width: 6em; ">
--6.6
+-5.3
 </td>
 <td style="text-align:left;width: 7em; ">
-(-19.6 to 6.5)
+(-18.1 to 7.5)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 14em; ">
-Clear-2 vs. CHO-2
+Clear-2 vs. NA
 </td>
 <td style="text-align:center;width: 6em; ">
-4.5
+NA
 </td>
 <td style="text-align:left;width: 7em; ">
-(-6.7 to 15.5)
+( NA to NA)
 </td>
 </tr>
 <tr>
@@ -1820,10 +1724,10 @@ Clear-2 vs. CHO-2
 Water-2 vs. CHO-2
 </td>
 <td style="text-align:center;width: 6em; ">
-2.7
+1.5
 </td>
 <td style="text-align:left;width: 7em; ">
-(-4.2 to 9.4)
+(-6.6 to 9.4)
 </td>
 </tr>
 <tr>
@@ -1831,10 +1735,10 @@ Water-2 vs. CHO-2
 Fasting vs. CHO-2
 </td>
 <td style="text-align:center;width: 6em; ">
-0.6
+2.0
 </td>
 <td style="text-align:left;width: 7em; ">
-(-3.7 to 4.8)
+(-2.5 to 6.0)
 </td>
 </tr>
 </tbody>
@@ -1944,13 +1848,13 @@ Mark Grant
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 4.0.5 (2021-03-31)
+<pre><code>R version 4.1.0 (2021-05-18)
 Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Big Sur 10.16
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -1959,9 +1863,9 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] meta_4.18-1       formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
+ [1] meta_4.18-2       formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
  [5] stringr_1.4.0     dplyr_1.0.6       purrr_0.3.4       readr_1.4.0      
- [9] tidyr_1.1.3       tibble_3.1.1      ggplot2_3.3.3     tidyverse_1.3.1  
+ [9] tidyr_1.1.3       tibble_3.1.2      ggplot2_3.3.3     tidyverse_1.3.1  
 [13] Cairo_1.5-12.2    countrycode_1.2.0 janitor_2.1.0     kableExtra_1.3.4 
 [17] BUGSnet_1.0.4     rjags_4-10        coda_0.19-4       multinma_0.3.0   
 [21] workflowr_1.6.2  
@@ -1970,39 +1874,39 @@ loaded via a namespace (and not attached):
   [1] minqa_1.2.4          colorspace_2.0-1     ellipsis_0.3.2      
   [4] visdat_0.5.3         evd_2.3-3            rprojroot_2.0.2     
   [7] snakecase_0.11.0     fs_1.5.0             rstudioapi_0.13     
- [10] farver_2.1.0         rstan_2.21.3         fansi_0.4.2         
- [13] lubridate_1.7.10     xml2_1.3.2           codetools_0.2-18    
- [16] splines_4.0.5        extrafont_0.17       knitr_1.33          
- [19] jsonlite_1.7.2       nloptr_1.2.2.2       broom_0.7.6         
- [22] Rttf2pt1_1.3.8       dbplyr_2.1.1         compiler_4.0.5      
- [25] httr_1.4.2           backports_1.2.1      assertthat_0.2.1    
- [28] Matrix_1.3-3         cli_2.5.0            later_1.2.0         
- [31] htmltools_0.5.1.1    prettyunits_1.1.1    tools_4.0.5         
- [34] igraph_1.2.6         gtable_0.3.0         glue_1.4.2          
- [37] V8_3.4.2             Rcpp_1.0.6           cellranger_1.1.0    
- [40] jquerylib_0.1.4      vctrs_0.3.8          svglite_2.0.0       
- [43] nlme_3.1-152         extrafontdb_1.0      xfun_0.22           
- [46] rbibutils_2.1.1      ps_1.6.0             lme4_1.1-26         
- [49] rvest_1.0.0          CompQuadForm_1.4.3   lifecycle_1.0.0     
- [52] statmod_1.4.36       MASS_7.3-54          scales_1.1.1        
- [55] hms_1.0.0            promises_1.2.0.1     parallel_4.0.5      
- [58] inline_0.3.17        metafor_2.4-0        RColorBrewer_1.1-2  
+ [10] farver_2.1.0         rstan_2.21.2         fansi_0.5.0         
+ [13] lubridate_1.7.10     mathjaxr_1.4-0       xml2_1.3.2          
+ [16] codetools_0.2-18     splines_4.1.0        extrafont_0.17      
+ [19] knitr_1.33           jsonlite_1.7.2       nloptr_1.2.2.2      
+ [22] broom_0.7.6          Rttf2pt1_1.3.8       dbplyr_2.1.1        
+ [25] compiler_4.1.0       httr_1.4.2           backports_1.2.1     
+ [28] assertthat_0.2.1     Matrix_1.3-4         cli_2.5.0           
+ [31] later_1.2.0          htmltools_0.5.1.1    prettyunits_1.1.1   
+ [34] tools_4.1.0          igraph_1.2.6         gtable_0.3.0        
+ [37] glue_1.4.2           V8_3.4.2             Rcpp_1.0.6          
+ [40] cellranger_1.1.0     jquerylib_0.1.4      vctrs_0.3.8         
+ [43] svglite_2.0.0        nlme_3.1-152         extrafontdb_1.0     
+ [46] xfun_0.23            rbibutils_2.2        ps_1.6.0            
+ [49] lme4_1.1-27          rvest_1.0.0          CompQuadForm_1.4.3  
+ [52] lifecycle_1.0.0      MASS_7.3-54          scales_1.1.1        
+ [55] hms_1.1.0            promises_1.2.0.1     parallel_4.1.0      
+ [58] inline_0.3.19        metafor_3.0-2        RColorBrewer_1.1-2  
  [61] yaml_2.2.1           curl_4.3.1           gridExtra_2.3       
  [64] loo_2.4.1            StanHeaders_2.21.0-7 sass_0.4.0          
- [67] truncdist_1.0-2      stringi_1.6.1        highr_0.9           
- [70] boot_1.3-28          pkgbuild_1.2.0       Rdpack_2.1.1        
+ [67] truncdist_1.0-2      stringi_1.6.2        highr_0.9           
+ [70] boot_1.3-28          pkgbuild_1.2.0       Rdpack_2.1.2        
  [73] rlang_0.4.11         pkgconfig_2.0.3      systemfonts_1.0.2   
- [76] matrixStats_0.58.0   evaluate_0.14        lattice_0.20-44     
+ [76] matrixStats_0.59.0   evaluate_0.14        lattice_0.20-44     
  [79] labeling_0.4.2       htmlwidgets_1.5.3    processx_3.5.2      
  [82] tidyselect_1.1.1     plyr_1.8.6           magrittr_2.0.1      
  [85] R6_2.5.0             generics_0.1.0       DBI_1.1.1           
- [88] withr_2.4.2          pillar_1.6.0         haven_2.4.1         
- [91] whisker_0.4          modelr_0.1.8         crayon_1.4.1        
+ [88] pillar_1.6.1         haven_2.4.1          whisker_0.4         
+ [91] withr_2.4.2          modelr_0.1.8         crayon_1.4.1        
  [94] utf8_1.2.1           rmarkdown_2.8        readxl_1.3.1        
- [97] grid_4.0.5           callr_3.7.0          git2r_0.28.0        
+ [97] grid_4.1.0           callr_3.7.0          git2r_0.28.0        
 [100] reprex_2.0.0         digest_0.6.27        webshot_0.5.2       
-[103] httpuv_1.6.1         RcppParallel_5.1.4   stats4_4.0.5        
-[106] munsell_0.5.0        viridisLite_0.4.0    bslib_0.2.4         </code></pre>
+[103] httpuv_1.6.1         RcppParallel_5.1.4   stats4_4.1.0        
+[106] munsell_0.5.0        viridisLite_0.4.0    bslib_0.2.5.1       </code></pre>
 </div>
 </div>
 </div>
