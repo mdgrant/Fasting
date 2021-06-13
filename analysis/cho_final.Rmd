@@ -1409,8 +1409,8 @@ dichot_thirst %>%
     general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.",
     alphabet = c(
       "Reported thirst.",
-      "'Did you feel thirst during the fasting period?' (prior to endoscopy)",
-      "Based on VAS scores'",
+      "'Did you feel thirst during the fasting period?' (prior to endoscopy).",
+      "Based on VAS scores'.",
       "'None vs. a little or alot.'",
       "Yes vs. no.",
       "'Did you have a dry mouth before surgery?'",
@@ -1897,7 +1897,7 @@ temp <- metacont(
 # dmetar::find.outliers(temp)
  
 forest(temp,
-  comb.random = TRUE,
+  comb.fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Water/Placebo",
   digits = 2,
@@ -2593,11 +2593,6 @@ likert_cho_comfort_kbl.dat %>%
 table_n <- tab_inc()
 ```
 
-```{r}
-table_n <- tab_inc()
-```
-
-
 <br/>
 
 ### Pooled (adult RCTs, patient-rated)  <a id="choPainFig8"></a> 
@@ -2844,7 +2839,7 @@ dichot_cho.dat %>%
     booktabs = T, align = c("lccccccccr"), escape = FALSE,
     col.names = c("       Study", "Fasting", "Water", "Placebo", "CHO/Comp", "CHO/Simp", "Prot", "Prot", "Prot", "Total")
   ) %>%
-  add_header_above(c(" " = 7, "CHO/Comp", "CHO/Simp", " " = 1), line = FALSE, bold = TRUE) %>% 
+  add_header_above(c(" " = 6, "CHO/Comp", "CHO/Simp", " " = 2), line = FALSE, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Liquid and Participants Receiving" = 8, " " = 1), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
@@ -3768,7 +3763,6 @@ rgv_meta <- metacont(
   data = rgv_meta.dat,
   studlab = study
 )
-# rgv_meta
 
 forest(rgv_meta,
   comb.fixed = FALSE,
@@ -3803,6 +3797,18 @@ temp <- metacont(
   data = rgv_meta.dat,
   studlab = study
 )
+
+# transform to raw using mean and se
+# mean_log_raw <- function(log_mean, log_sd){
+#   (exp(log_mean + log_sd^2/2))
+# }
+# sd_log_raw<- function(log_mean, log_sd){
+#   sqrt((exp(log_sd^2) - 1) * exp(2 * log_mean + log_sd^2))
+# }
+# mean_raw <- with(temp, mean_log_raw(TE.random, seTE.random))
+# sd_raw <- with(temp, sd_log_raw(TE.random, seTE.random))
+# approx 95% ci using 1.96
+# mean_raw + c(-1.96, 1.96) * sd_raw
 
 ```
 
@@ -3877,7 +3883,6 @@ rgv_meta <- metacont(
   data = rgv_meta.dat,
   studlab = study
 )
-# rgv_meta
 
 forest(rgv_meta,
   comb.fixed = FALSE,
@@ -3949,7 +3954,7 @@ ph.dat <- contin_cho.dat %>%
   add_foot(study, "Joshi 2020", "b") 
 
 cho_row <- ph.dat %>%
-  filter(age == "Adult") %>% 
+  # filter(age == "Adult") %>% 
   mutate(line = row_number()) %>%
   filter(grepl("CHO", arm_tx)) %>%
   pull(line)
@@ -3961,6 +3966,7 @@ ph.dat %>%
     id = row_number(),
     study = ifelse(id > 1, NA, study)) %>% 
   ungroup() %>% 
+  add_row() %>% 
   select(study, arm_tx, arm_n, hr_gt6:hr_2, ph_mean, ph_med, -id) %>% 
   mutate(
     arm_tx = as.character(arm_tx),
@@ -3987,6 +3993,7 @@ ph.dat %>%
   pack_sub(., "RCT", 1, 15) %>%
   pack_top(., "Pediatric, Surgical", 16, 19) %>%
   pack_sub(., "RCT", 16, 19) %>%
+  result_pack("Pooled fixed-effects MD for 2 studies, 0.48 (95% CI, 0.31-0.64), *I^2^* = 98% ", 20, padding = 20) %>% 
   footnote(
     general = "RGV: residual gastric volumne; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; CHO: carbohydrate; Simp: simple; Comp: complex; Prot: protein; RCT: randomized controlled trial.",
     alphabet = c("Used urine pH test scripts.",
@@ -4054,7 +4061,7 @@ forest(ph_meta,
   fs.xlab = 11,
   rightcols = c("effect", "ci"),
   rightlabs = c("MD", "95% CI   "),
-  xlab = "pH\n Favors CHO           Favors Fasting"
+  xlab = "pH\n Favors Fasting           Favors CHO"
 )
 
 figure_n <- fig_inc()

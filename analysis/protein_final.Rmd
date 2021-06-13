@@ -2075,7 +2075,6 @@ table_n <- tab_inc()
 
 <br/>
 
-
 ### Nonsurgical Studies <a id="protNonRgv21"></a>
 
 <br/>
@@ -2217,7 +2216,7 @@ rgv_no_table %>%
  table_n <- tab_inc()
 ```
 
-<br>
+<br/>
 
 ### Pooled (adult surgical) <a id="protRgvFig1"></a>
 
@@ -2329,30 +2328,34 @@ Owing to skewed distributions of RGV, conducted sensitivity analysis on a log sc
 # 1 hour
 rgv_no_2hr <- rgv_no_table %>% 
   filter(age == "Adult", design == "crossover") %>% 
-  filter(arm != 3) %>% 
+  filter(study != "Bisinotto 2019") %>% 
+  filter(!(arm == 2 & study == "Lobo 2009")) %>% 
   select(refid, study, year, age, design, arm_tx, arm_n, m_2, sd_2, med_2, iqr_low_2, iqr_up_2, range_low_2, range_up_2) %>% 
   mutate(study = ifelse(study == "Nakamura 2014", "Nakamura 2014ᵇ", study),
-         study = ifelse(study == "Lobo 2009", "Lobo 2009ª", study))
-
-rgv_meta.dat <- left_join(rgv_no_2hr[c(2,4,6,8,10), ], rgv_no_2hr[c(1,3,5,7,9), ], by = c("refid", "study", "year"))
+         study = ifelse(study == "Lobo 2009", "Lobo 2009ª", study),
+         arm_tx = str_replace(arm_tx, "/Simp", ""),
+         arm_tx = str_replace(arm_tx, "/Comp", ""),
+         arm_tx = str_replace(arm_tx, "/Prot", "Prot"),) %>% 
+pivot_wider(id_cols = "study", names_from = "arm_tx", values_from = c(arm_n:range_up_2)) %>% 
+  rename_with(~ gsub("_2", "", .x, fixed = TRUE)) %>%
+  remove_empty("cols")
 
 rgv_meta <- metacont(
-  n.e = arm_n.x, n.c = arm_n.y,
-  median.e = med_2.x,
-  mean.e = m_2.x,
-  sd.e = sd_2.x,
-  q1.e = iqr_low_2.x,
-  q3.e = iqr_up_2.x,
-  min.e = range_low_2.x,
-  max.e = range_up_2.x,
-  mean.c = m_2.y,
-  sd.c = sd_2.y,
-  median.c = med_2.y,
-  q1.c = iqr_low_2.y,
-  q3.c = iqr_up_2.y,
-  min.c = range_low_2.y,
-  max.c = range_up_2.y,
-  data = rgv_meta.dat,
+  n.e = arm_n_CHOProt, 
+  n.c = arm_n_CHO,
+  median.e = med_CHOProt,
+  mean.e = m_CHOProt,
+  sd.e = sd_CHOProt,
+  # q1.e = iqr_low_CHO/Prot,
+  # q3.e = iqr_up_CHO/Prot,
+  min.e = range_low_CHOProt,
+  max.e = range_up_CHOProt,
+  mean.c = m_CHO,
+  sd.c = sd_CHO,
+  median.c = med_CHO,
+  min.c = range_low_CHO,
+  max.c = range_up_CHO,
+  data = rgv_no_2hr,
   # byvar = Hour,
   sm = "MD",
   method.tau = "REML",
@@ -2382,6 +2385,7 @@ temp.dat <- metafor::escalc(
 
 rgv_metagen <- metagen(yi, sd,
   studlab = studlab,
+  method.tau = "REML",
   data = temp.dat)
 
 forest(rgv_metagen,
@@ -2439,7 +2443,7 @@ figure_n <- figure_n + 1
 
 ^a^ Lobo 2009 included the protein comparison arm with the highest residual gastric volume. 
 
-^b^ Nakamura 2014 did not report exact 2-hour volumes --- median, range were estimated from figures. Residual gastric volumes were exceedingly low following the carbohydrate drink. 
+^b^ Nakamura 2014 did not report exact 2-hour volumes --- median, range were estimated from figures. Residual gastric volumes were exceedingly low following the carbohydrate only drink. Protein drink was Arginaid Water®.
 
 <br/>
 

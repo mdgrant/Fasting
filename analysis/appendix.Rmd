@@ -71,7 +71,6 @@ span { font-size: 3em;}
 
 span b { font-size: 60%; font-weight: normal }
 
-
 </style>
 ```
 
@@ -158,7 +157,7 @@ soe.dat <- readxl::read_xlsx("data/SOE_CHO_051721_up.xlsx", range = "A1:AB98", s
 
 soe.dat <- soe.dat %>% 
     # filter((grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea", outcome) & design %in% c("RCT","Crossover")) | grepl("Aspir", outcome))
-  filter(!(grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea", outcome) & design %in% c("RCT","Crossover"))) %>%
+  filter(!(grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea|Satisfaction", outcome) & design %in% c("RCT","Crossover"))) %>%
   filter(!grepl("Aspir", outcome))
 
 
@@ -188,8 +187,6 @@ domain_summary <- soe.dat %>%
          ) 
 
 ```
-
-
 
 <a id="supplSoe"></a>
 

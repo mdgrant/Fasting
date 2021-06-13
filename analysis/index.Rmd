@@ -33,9 +33,8 @@ display: none !important;
 </style>
 ```
 
-All summary evidence tables are in draft form and not for citation (contact <a href="mailto:mgrantmd@gmail.com">Mark Grant</a> for further detail).
 
-<br>
+<br/><br/>
 
 <font size = 6> Strength of Evidence Ratings </font>
 
@@ -46,7 +45,8 @@ All summary evidence tables are in draft form and not for citation (contact <a h
 <font size = 6> Evidence Tables and Pooled Results </font>
 
 [<font size = 5> Carbohydrate drinks </font>](cho_final.html)<br/>
-[<font size = 4>     Network </font>](nma_final.html)
+
+[<font size = 4> Simple versus complex (network meta-analyses) </font>](nma_final.html)
 
 [<font size = 5> Protein/carbohydrate drinks  </font>](protein_final.html)
 
@@ -59,4 +59,8 @@ All summary evidence tables are in draft form and not for citation (contact <a h
     <font size = 4>Supplemental strength of evidence ratings </font>
 <br/>
     <font size = 4>Prisma</font>
+
+<br/><br/><br/>
+
+<font size = 3> All summary evidence tables are in draft form and not for citation (contact <a href="mailto:mgrantmd@gmail.com">Mark Grant</a> for further detail). </font>
 

@@ -303,13 +303,13 @@ rgv_meta.dat <- calc_mn_sd(
   bind_cols(., rgv_meta.dat %>% select(hr_gt6:hr_2))
 
 # combine naguib 2001 CHO arms, plain and log
-naguib <- c(combine_contin(75, 75, 27.08, 23.38, 20.35, 11.547), 
-            combine_contin(75, 75, 3.074936, 3.042742, 0.6691179, 0.4672016)[2:3])
-rgv_meta.dat[36, c(3:7)] <- naguib
-rm(naguib)
-# delete arm used to combine
-rgv_meta.dat <- as_tibble(rgv_meta.dat) %>% 
-  filter(!(arm_tx == "CHO/Simp" & n == 75))
+# naguib <- c(combine_contin(75, 75, 27.08, 23.38, 20.35, 11.547), 
+#             combine_contin(75, 75, 3.074936, 3.042742, 0.6691179, 0.4672016)[2:3])
+# rgv_meta.dat[36, c(3:7)] <- naguib
+# rm(naguib)
+# # delete arm used to combine
+# rgv_meta.dat <- as_tibble(rgv_meta.dat) %>% 
+#   filter(!(arm_tx == "CHO/Simp" & n == 75))
 
 ## (updated 2021/05/15 07:56) add ingestion time ----------------------------
 rgv_meta.dat <- rgv_meta.dat %>%
@@ -369,7 +369,6 @@ rgv_meta.dat <- rgv_meta.dat %>%
 #     values_from = c("n", "mean", "sd", "mean_log", "sd_log")
 #   )
 ```
-
 
 # **Residual Gastric Volume**
 
@@ -525,11 +524,11 @@ df <- nma.league(re_results,
 
 <br/>
 
-<font size = 4> Table `r table_n`. Estimated mean differences in residual gastric volume comapred with complex carbohydrate containing liquids. </font>
+<font size = 4> Table `r table_n`. Estimated mean differences in residual gastric volume compared with complex carbohydrate containing liquids. </font>
 
 ```{r rgvKable, include = TRUE}
 ## (updated 2021/05/15 10:44) table of estimates with cho_complex ---------
-order_dat <- tibble(Treatment = c("CHO/Simp", "CHO/Comp/Prot", "Clear", "Water", "Fasting"))
+order_dat <- tibble(Treatment = c("CHO/Simp", "CHO/Comp/Prot", "Water", "Fasting"))
 
 temp <- df$heatplot$data %>%
   filter(Comparator == "CHO/Comp") %>%
