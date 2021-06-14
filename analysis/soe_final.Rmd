@@ -230,7 +230,7 @@ soe_summary %>%
   column_spec(7, width = "24em") %>% 
   column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "N: studies; RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+  footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -259,7 +259,7 @@ cho_domain_summary <- domain_summary %>%
     design = str_replace(design, "cohort", "Cohort"),
   )
          
-## (updated 2021/05/14 07:42) get list of unique footnotes ----------------
+# (updated 2021/05/14 07:42) get list of unique footnotes ----------------
 foot_unique <- cho_domain_summary %>% 
   # slice(1:20) %>% 
   select(ends_with("foot")) 
@@ -297,12 +297,12 @@ cho_domain %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   row_spec(c(1, 2, 11), color = "red") %>%
-  # row_spec(c(1, 2, 3), color = "red") %>% 
+  # row_spec(c(1, 2, 3), color = "red") %>%
   column_spec(1, width = "13em") %>%  
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -343,7 +343,7 @@ soe_summary %>%
   column_spec(7, width = "24em") %>% 
   column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "N: studies; RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+  footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -412,7 +412,7 @@ cho_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -455,7 +455,7 @@ soe_summary %>%
   column_spec(6, width = "em") %>% 
   column_spec(7, width = "24em") %>% 
   column_spec(8, width = "7em") %>% 
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+  footnote(general = "OR: odds ratio; SMD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -524,7 +524,7 @@ cho_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -565,10 +565,10 @@ soe_summary %>%
   column_spec(7, width = "24em") %>% 
   column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
-           general_title = "",  
-           footnote_as_chunk = FALSE)
+  footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
+  # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+  general_title = "",
+  footnote_as_chunk = FALSE)
 
 table_n <- tab_inc()
 
@@ -633,11 +633,11 @@ cho_domain %>%
   column_spec(1, width = "13em") %>%  
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
-  column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
-           number = foot_unique,
-           general_title = "",  
-           footnote_as_chunk = FALSE)
+  column_spec(4:8, width = "8em")
+  # footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
+  #          number = foot_unique,
+  #          general_title = "",  
+  #          footnote_as_chunk = FALSE)
 
 table_n <- tab_inc()
 ```
@@ -675,7 +675,7 @@ soe_summary %>%
   column_spec(7, width = "24em") %>% 
   column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+  footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -750,7 +750,7 @@ cho_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -798,7 +798,7 @@ soe_summary %>%
   column_spec(7, width = "24em") %>% 
   column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+  footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial; OR: odds ratio; MD: mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -867,7 +867,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -908,7 +908,7 @@ soe_summary %>%
   column_spec(7, width = "24em") %>% 
   column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+  footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -977,7 +977,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1018,7 +1018,7 @@ soe_summary %>%
   column_spec(7, width = "24em") %>% 
   column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+  footnote(general = "MD: mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1087,7 +1087,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = " ",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1130,7 +1130,7 @@ soe_summary %>%
   column_spec(7, width = "24em") %>% 
   column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+  footnote(general = "RCT: randomized controlled trial; CHO: carbohydrate.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1199,7 +1199,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1245,7 +1245,7 @@ soe_summary %>%
   # pack_top(., "Gum vs. Fasting, Pediatric", 5, 6) %>%
   # pack_top(., "Gum", 7, 7) %>%
   # pack_top(., "Safety", 8, 8) %>%
-  footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
+  footnote(general = "RCT: randomized controlled trial; SMD: standardized mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1314,7 +1314,7 @@ gum_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "RCT: randomized controlled trials.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
