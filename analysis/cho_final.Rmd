@@ -635,17 +635,6 @@ dichot_hunger <- left_join(dichot_hunger, or_hunger, by = "refid") %>%
   # exclude Naguib 2001 if in dataset (exclude volume)
   filter(refid != 5803)
 
-# odds ratios for naguib arms, combining the 2 CHO simple arms 
-# naguib <- tribble(
-#   ~event_e, ~n_e, ~event_c, ~n_c, ~arm,
-#   67, 150, 19, 75,  "Fasting",
-#   67, 150, 24, 75,  "Water",
-#   67, 150, 39, 75,  "CHO/Simp")
-# 
-# naguib <- with(naguib, odds_ratio(event_e, n_e, event_c, n_c, arm)) %>% mutate(refid = 5803)
-# dichot_hunger$or_ci <- replace(dichot_hunger$or_ci, c(1:3), naguib$or_ci)
-# rm(naguib)
-
 cho_row <- dichot_hunger %>%
   mutate(line = row_number()) %>%
   filter(grepl("CHO", arm_tx)) %>%
@@ -660,7 +649,7 @@ dichot_hunger <- dichot_hunger %>%
   add_foot(study, "Koeppe 2013", "a") %>%
   add_foot(study, "Panebianco 2020", "b") %>%
   add_foot(study, "Taniguchi 2011", "c") %>%
-  add_foot(study, "TDrobjewski 2018", "d") %>%
+  # add_foot(study, "TDrobjewski 2018", "d") %>%
   add_foot(or_ci, "2.38 (1.29-4.39)", "e") %>%
   add_foot(or_ci, "1.72 (0.96-3.07)", "e") %>%
   add_foot(or_ci, "0.75 (0.43-1.30)", "e") %>%
@@ -678,13 +667,14 @@ dichot_hunger %>%
   # verified no notes indicated hunger recorded preop
   mutate(
     arm_tx = as.character(arm_tx),
+    hr_2 = ifelse(hunger_np == "20 (33)", 215, hr_2), 
     # arm_tx = ifelse(refid == 5803 & arm_tx == "Clear", "Apple Juice", arm_tx)
   ) %>%
   select(!c(refid, arm, design, age, hunger_per, time_outcome, pre_post_op)) %>%
   select(study, arm_tx, arm_n:hunger_np, hunger_bar, or_ci) %>%
   kbl(
     booktabs = T, align = c("llccccrlc"), escape = FALSE,
-    col.names = c("       Study", "Liquid", "N", "> 6", "6→2", "≤ 2", "N (%)", " ", "CHO vs. Comparator")
+    col.names = c("       Study", "Liquid", "N", "> 6", "6→2", "2", "N (%)", " ", "CHO vs. Comparator")
   ) %>%
   add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Hunger" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
@@ -714,8 +704,8 @@ dichot_hunger %>%
     alphabet = c(
       "'Did you feel hunger during the fasting period?'",
       "Reported no hunger.",
-      "Oral rehydration consumed between 5 and 2 hours prior to surgery. 'Did you feel hungry before surgery?' ",
-      "Hunger present or absent."
+      "Oral rehydration consumed between 5 and 2 hours prior to surgery. 'Did you feel hungry before surgery?' "
+      # "Hunger present or absent."
       # "OR vs. combined CHO/Simp arms."
     ),
     general_title = "",
@@ -844,7 +834,7 @@ likert_cho_hung_kbl.dat %>%
   kbl(
     booktabs = T, align = c("llcccclll"), escape = FALSE,
     col.names = c(
-      "       Study", "Liquid", "N", "> 6", "6→2", "≤ 2", "Scale^a^", "M (SD)",
+      "       Study", "Liquid", "N", "> 6", "6→2", "2", "Scale^a^", "M (SD)",
       "Med (IQR)", "Range"
     )
   ) %>%
@@ -1384,7 +1374,7 @@ dichot_thirst %>%
   select(study, arm_tx, arm_n, hr_gt6:hr_2, thirst_np, thirst_bar, or_ci) %>%
   kbl(
     booktabs = T, align = c("llccccrlc"), escape = FALSE,
-    col.names = c("        Study", "Liquid", "N", "> 6", "6→2", "≤ 2", "N (%)", " ", "CHO vs. Comparator")
+    col.names = c("        Study", "Liquid", "N", "> 6", "6→2", "2", "N (%)", " ", "CHO vs. Comparator")
   ) %>%
   add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Thirst" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
@@ -1403,7 +1393,9 @@ dichot_thirst %>%
   pack_sub(., "RCT", 1, 10) %>%
   pack_sub(., "Nonrandomized Studies of Interventions", 11, 12) %>%
   pack_sub(., "Prospective Cohort", 13, 13) %>%
-  pack_top(., "Pedatric, Surgical", 14, 19) %>%
+  pack_rows("> 6          6→2         ≤ 2", 14, 14, bold = TRUE, italic = FALSE, color = "black", label_row_css = "border-top: 1px solid; padding-left: 45.4%;", indent = FALSE) %>% 
+  pack_top(., "Pedatric, Surgical", 14, 19) %>%  
+  # pack_top(., "Pedatric, Surgical                                                                                      > 6      6→2       ≤ 2", 14, 19) %>%
   pack_sub(., "RCT", 14, 19) %>%
   footnote(
     general = "RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.",
@@ -1541,7 +1533,7 @@ likert_cho_thirst_kbl.dat %>%
    kbl(
     booktabs = T, align = c("llcccclll"), escape = FALSE,
     col.names = c(
-      "       Study", "Liquid", "N", "> 6", "6→2", "≤ 2", "Scale^a^", "M (SD)", "Med (IQR)", "Range"
+      "       Study", "Liquid", "N", "> 6", "6→2", "2", "Scale^a^", "M (SD)", "Med (IQR)", "Range"
     )
   ) %>%
   add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Thirst Rating" = 4), line = TRUE, bold = TRUE) %>%
@@ -2034,7 +2026,7 @@ dichot_nausea_preop %>%
   select(study, arm_tx, arm_n, hr_gt6:hr_2, nausea_np, nausea_bar, or_ci) %>%
   kbl(
     booktabs = T, align = c("llccccrlc"), escape = FALSE,
-    col.names = c("        Study", "Liquid", "N", "> 6", "6→2", "≤ 2", "N (%)", " ", "CHO vs. Comparator")
+    col.names = c("        Study", "Liquid", "N", "> 6", "6→2", "2", "N (%)", " ", "CHO vs. Comparator")
   ) %>%
   add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "Nausea" = 2, "OR (95% CI)"), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
@@ -3426,7 +3418,7 @@ rgv_surg %>%
     kbl(
     booktabs = T, align = c("llcccclll"), escape = FALSE,
     col.names = c(
-      "       Study", "Liquid", "N", "> 6", "6→2", "≤ 2", "M (SD)", "Med (IQR)", "M or Med"
+      "       Study", "Liquid", "N", "> 6", "6→2", "2", "M (SD)", "Med (IQR)", "M or Med"
     )
   ) %>%
   add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "RGV (mL)" = 3), line = TRUE, bold = TRUE) %>%
