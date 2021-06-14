@@ -70,7 +70,7 @@ figure_n <- 1
 
 ```{r filesRecent, include = FALSE}
 ## get current files; select protein refids; directory must have unique ####
-source("code/readFiles_120220_wfr.R")
+source("code/readFiles_120220_wfr.R") 
 
 # add study gum indicator "tx" -- gum_sugared, gum_sugarfree, sugared_sugarfree
 study_char.dat <- left_join(study_char.dat, gum_refids, by = "refid") 
