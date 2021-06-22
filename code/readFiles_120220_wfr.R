@@ -239,8 +239,8 @@ z
 write_delim(data.frame(z), "used_files_dates.txt", delim = "--", col_names = FALSE)
 rm(a, b, c, d, e, f, z)
 
-## get subgroups data ####
-refs.dat <- read_csv("data/incl_mg_distsr_fasting_2021-03-09-17-42-12.csv") %>%
+## get subgroups data (note old file) ####
+refs.dat <- suppressWarnings(read_csv("data/incl_mg_distsr_fasting_2021-03-09-17-42-12.csv")) %>%
   janitor::clean_names() %>%
   # filter(user == "Anne_Marbella") %>%
   select(refid, age, starts_with("subgroup"))
@@ -249,22 +249,22 @@ refs.dat <- read_csv("data/incl_mg_distsr_fasting_2021-03-09-17-42-12.csv") %>%
 
 ## study characteristics ####
 path <- path_csv(study_char_file)
-study_char.dat <- read_csv(path) %>%
-  filter(Refid != 5803) # remove naguib 2001 if in data
+study_char.dat <- read_csv(path)
 
-# to delete last observation empty column
-delete <- length(names(study_char.dat))
+# number of studies
+(study_char_n <- study_char.dat %>%
+  distinct(Refid) %>%
+  count())
+
 study_char.dat <- study_char.dat %>%
-  select(-c(5:7, all_of(delete))) %>%
+  select(-c(5:7)) %>%
   janitor::clean_names() %>%
   rename(author_dist = author, author = author_added) %>%  # author distiller, author entered
   # fix Karamian user for accounting purposes
   mutate(user = ifelse(refid %in% c(69, 7990), "Anne_Marbella", user))
 
-rm(delete)
-
 # check last variable is notes
-tail(names(study_char.dat), 1)
+tail(names(study_char.dat), 1) == "notes_study_char"
 
 # filter refs
 study_char.dat <- study_char.dat %>%
@@ -339,15 +339,17 @@ study_char.dat <- left_join(study_char.dat, refs.dat[, c(1,2)], by = "refid") %>
          # Nascimento 2019 change to "surgical" as in labor
          surg_nosurg = ifelse(refid == "499", "surgical", surg_nosurg))
 
-# verify 165 unique (2021/02/26 12:11)
-length(unique(study_char.dat$refid)) == 165
+# verify 164 unique 2021/06/22 07:43
+study_char_n
+length(unique(study_char.dat$refid)) == study_char_n
+rm(study_char_n)
 
 # * (end)
 
 ## study arm ####
 path <- path_csv(study_arm_file)
 study_arm.dat <- read_csv(path) %>%
-  filter(Refid != 5803) # remove naguib 2001 if in data
+  # filter(Refid != 5803) # remove naguib 2001 if in data
 
 # delete <- length(names(study_arm.dat))
 study_arm.dat <- study_arm.dat %>%
@@ -461,7 +463,7 @@ gum_refids <- full_join(gum_refids, gum_refids, by = "refid") %>%
 ## continuous outcome data ####
 path <- path_csv(cont_out_file)
 contin.dat <- read_csv(path) %>%
-  filter(Refid != 5803) %>% # remove naguib 2001 if in data
+  # filter(Refid != 5803) %>% # remove naguib 2001 if in data
   select(-c(5:7, 223)) %>%
   janitor::clean_names() %>%
   mutate(
@@ -522,7 +524,7 @@ contin.dat %>% filter(arm == 1) %>% tally()
 ## dichotomous outcome data ####
 path <- path_csv(dichot_out_file)
 dichot.dat <- read_csv(path) %>%
-  filter(Refid != 5803) %>%  # remove naguib 2001 if in data
+  # filter(Refid != 5803) %>%  # remove naguib 2001 if in data
   select(-c(5:7, 78)) %>%
   janitor::clean_names() %>%
   mutate(
@@ -578,7 +580,7 @@ dichot.dat %>% filter(arm == 1) %>% tally()
 ## likert outcome data ####
 path <- path_csv(likert_out_file)
 likert.dat <- read_csv(path) %>%
-  filter(Refid != 5803) %>% # remove naguib 2001 if in data
+  # filter(Refid != 5803) %>% # remove naguib 2001 if in data
   select(-c(5:7, 126)) %>%
   janitor::clean_names() %>%
   mutate(
@@ -632,7 +634,7 @@ likert.dat <- left_join(likert.dat[,-3], study_names[, c(1,2)], by = "refid") %>
 ## rob data ####
 path <- path_csv(rob_file)
 rob.dat <- read_csv(path) %>%
-  filter(Refid != 5803) %>% # remove naguib 2001 if in data
+  # filter(Refid != 5803) %>% # remove naguib 2001 if in data
   janitor::clean_names() %>%
   select(-c(5:7,13,66)) %>%
   select(-author, -year) %>%
