@@ -349,10 +349,12 @@ path <- path_csv(study_arm_file)
 study_arm.dat <- read_csv(path) %>%
   filter(Refid != 5803) # remove naguib 2001 if in data
 
-delete <- length(names(study_arm.dat))
+# delete <- length(names(study_arm.dat))
 study_arm.dat <- study_arm.dat %>%
-  select(-c(2, 3, 5:7, all_of(delete))) %>%
+  # select(-c(2, 3, 5:7, all_of(delete))) %>%
+  select(-c(2, 3, 5:7)) %>%
   janitor::clean_names()
+
 tail(names(study_arm.dat), 1)
 study_names <- study_char.dat %>% select(refid, study, year)
 study_arm.dat <- left_join(study_arm.dat, study_names, by = "refid") %>%
@@ -688,7 +690,7 @@ dichot.dat  <- dichot.dat %>%
   ) %>%
   replace_with_na_at(.vars = c("hr_gt6", "hr_26", "hr_2", "hr_minus2", "hr_0"), condition = ~ .x == 0)
 
-contin.dat  <- contin.dat %>%
+contin.dat <- contin.dat %>%
   mutate(
     # surgical studies (note none have times 0 or negative)
     # hr_2 is ≤ 2; hr_26 is (2, 6] >2 to 6; hr_gt6 is >6
@@ -729,3 +731,13 @@ likert.dat  <- likert.dat %>%
     hr_minus2 = if_else(surg_nosurg != "surgical" & timeingest2 == -2 & hr_minus2 == 0, amtingest2, hr_minus2, missing = 0)
   ) %>%
   replace_with_na_at(.vars = c("hr_gt6", "hr_26", "hr_2", "hr_minus2", "hr_0"), condition = ~ .x == 0)
+
+
+
+
+# verify timing 2 hours ####
+two_hours <- function(refids){
+  temp <- study_arm.dat %>%
+    filter(refid %in% refids)
+  table(temp$timeingest1)
+}
