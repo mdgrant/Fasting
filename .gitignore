@@ -9,3 +9,8 @@ analysis/*png
 analysis/*html
 analysis/*_cache
 analysis/site_libs
+foot_unique.csv
+nauseaSimpCompl.csv
+nausea_cho.csv
+notes.txt
+outcome_list.txt

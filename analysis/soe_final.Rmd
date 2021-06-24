@@ -128,7 +128,7 @@ firstup <- function(x) {
 
 ```{r soeData, include = TRUE}
 ## (updated 2021/05/13 11:45) soeData -------------------------------------
-soe.dat <- readxl::read_xlsx("data/SOE_CHO_060721_up.xlsx", range = "A1:AB103", sheet = "soe_050521") %>%
+soe.dat <- readxl::read_xlsx("data/SOE_CHO_060721_up_mg.xlsx", range = "A1:AB103", sheet = "soe_050521") %>%
   clean_names() %>%
   mutate(
     n_s = paste0(n_studies, " <br/>(", n_pts, ")"),

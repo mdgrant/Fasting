@@ -348,16 +348,22 @@ rm(study_char_n)
 
 ## study arm ####
 path <- path_csv(study_arm_file)
-study_arm.dat <- read_csv(path) %>%
-  # filter(Refid != 5803) # remove naguib 2001 if in data
+study_arm.dat <- read_csv(path)
+
+# number of studies 2021/06/22 07:59, n = 164
+(study_arm_n <- study_arm.dat %>%
+    distinct(Refid) %>%
+    count())
 
 # delete <- length(names(study_arm.dat))
 study_arm.dat <- study_arm.dat %>%
-  # select(-c(2, 3, 5:7, all_of(delete))) %>%
   select(-c(2, 3, 5:7)) %>%
   janitor::clean_names()
 
-tail(names(study_arm.dat), 1)
+tail(names(study_arm.dat), 1) == "notes_arm"
+ifelse(tail(names(study_arm.dat), 1) == "notes_arm", "final variable correct: notes_arm", "error in code")
+
+# use updated study names for duplicate author year, appended w/letter
 study_names <- study_char.dat %>% select(refid, study, year)
 study_arm.dat <- left_join(study_arm.dat, study_names, by = "refid") %>%
   select(refid, study, year, design, design, everything()) %>%
@@ -403,11 +409,10 @@ study_arm.dat <- bind_rows(am_rct_cross, not_rct_cross) %>%
   mutate(study = ifelse(study == "Oyama 2011" & arm_n < 30, "Oyama 2011 (AM)", study),
          study = ifelse(study == "Oyama 2011" & arm_n > 30, "Oyama 2011 (PM)", study))
 
-# check n same as study_char.dat n = 165 on (2021/02/26 12:29)
-length(unique(study_arm.dat$refid)) == length(unique(study_char.dat$refid))
-length(unique(study_arm.dat$refid)) == 165
+# check n same as study_arm_n = 164 on (2021/02/26 12:29)
+length(unique(study_arm.dat$refid)) == study_arm_n
 
-rm(am_rct_cross, not_rct_cross)
+rm(am_rct_cross, not_rct_cross, study_arm_n)
 # * (end)
 
 ## protein refids ####
@@ -424,22 +429,8 @@ protein_refids <- study_arm.dat %>%
 cho_refids <- study_arm.dat %>%
   filter(arm_tx %in% c("prot_simp", "prot_comp", "cho_comp", "cho_simp")) %>%
   select(refid) %>%
-  # filter(refid == 2703) %>%
   distinct() %>%
   pull()
-
-# add tx including cho and cho/protein
-# cho_refids_choprotein <- cho_refids %>%
-#   group_by(refid) %>%
-#   select(refid) %>%
-#   slice(2) %>%
-#   pull(refid)
-#
-# cho_refids <- cho_refids %>%
-#   mutate(tx = ifelse(refid %in% cho_refids_choprotein, "cho/protein", tx)) %>%
-#   distinct()
-#
-# rm(cho_refids_choprotein)
 
 ## gum refids ####
 # n = 12, but 2 studies different gum, 10 unique refids 12/5/20
@@ -463,8 +454,7 @@ gum_refids <- full_join(gum_refids, gum_refids, by = "refid") %>%
 ## continuous outcome data ####
 path <- path_csv(cont_out_file)
 contin.dat <- read_csv(path) %>%
-  # filter(Refid != 5803) %>% # remove naguib 2001 if in data
-  select(-c(5:7, 223)) %>%
+  select(-c(5:7)) %>%
   janitor::clean_names() %>%
   mutate(
     author = sapply(strsplit(author, ","), "[", 1),
@@ -472,7 +462,12 @@ contin.dat <- read_csv(path) %>%
     outcomes_c_k = str_remove(outcomes_c_k, "\\|")) %>%
   select(refid, study, year, 4:219)
 
-tail(names(contin.dat), 5)
+(contin_n <- contin.dat %>%
+    distinct(refid) %>%
+    count())
+
+tail(names(contin.dat), 1) == "notes_continuous"
+ifelse(tail(names(contin.dat), 1) == "notes_continuous", "final variable correct: notes_continuous", "error in code")
 
 contin.dat <- left_join(contin.dat, refs.dat, by = "refid") %>%
   mutate(
@@ -498,13 +493,6 @@ ma <- contin.dat %>% filter(!refid %in% am$refid)
 contin.dat <- bind_rows(am, ma) %>% select(!study) # replace below
 rm(am, ma)
 
-# 165 records (2021/02/26 14:41)
-length(unique(contin.dat$refid)) == 165
-temp <- contin.dat %>% group_by(refid) %>%
-  mutate(n = row_number()) %>%
-  select(n, everything()) %>%
-  arrange(refid, user)
-
 # replace correct names
 contin.dat <- left_join(contin.dat[,-3], study_names[, c(1,2)], by = "refid") %>%
   group_by(refid) %>%
@@ -518,14 +506,15 @@ contin.dat <- left_join(contin.dat[,-3], study_names[, c(1,2)], by = "refid") %>
   arrange(refid, arm)
 
 contin.dat %>% filter(arm == 1) %>% tally()
-
+# check n same as contin_n = 164 on (2021/02/26 12:29)
+length(unique(contin.dat$refid)) == contin_n
+rm(contin_n)
 # * (end)
 
 ## dichotomous outcome data ####
 path <- path_csv(dichot_out_file)
 dichot.dat <- read_csv(path) %>%
-  # filter(Refid != 5803) %>%  # remove naguib 2001 if in data
-  select(-c(5:7, 78)) %>%
+  select(-c(5:7)) %>%
   janitor::clean_names() %>%
   mutate(
     author = sapply(strsplit(author, ","), "[", 1),
@@ -534,7 +523,12 @@ dichot.dat <- read_csv(path) %>%
   select(refid, study, year, everything()) %>%
   select(-author)
 
-tail(names(dichot.dat), 1)
+(dichot_n <- dichot.dat %>%
+    distinct(refid) %>%
+    count())
+
+tail(names(dichot.dat), 1) == "summary_d_results"
+ifelse(tail(names(dichot.dat), 1) == "summary_d_results", "final variable correct: summary_d_results", "error in code")
 
 dichot.dat <- left_join(dichot.dat, refs.dat, by = "refid") %>%
   mutate(
@@ -550,7 +544,10 @@ dichot.dat <- left_join(dichot.dat, refs.dat, by = "refid") %>%
         "retrospect_coh",
         "casecontrol",
         "case_series",
-        "other"))) %>%
+        "other"
+      )
+    )
+  ) %>%
   select(refid, study, year, user, design, surg_nosurg, age, starts_with("subgroup"), everything())
 
 am <- dichot.dat %>% filter(user %in% c("Anne_Marbella", "Mark_Grant")) %>%
@@ -559,29 +556,32 @@ ma <- dichot.dat %>% filter(!refid %in% am$refid)
 dichot.dat <- bind_rows(am, ma) %>% select(!study) # replace below
 rm(am, ma)
 
-length(unique(dichot.dat$refid)) == 165
+length(unique(dichot.dat$refid)) == 164
 
 # replace correct names
-dichot.dat <- left_join(dichot.dat[,-3], study_names[, c(1,2)], by = "refid") %>%
+dichot.dat <- left_join(dichot.dat[, -3], study_names[, c(1, 2)], by = "refid") %>%
   group_by(refid) %>%
   mutate(arm = row_number()) %>%
   ungroup() %>%
-  mutate(study = ifelse(study == "Oyama 2011" & arm_n < 30, "Oyama 2011 (AM)", study),
-         study = ifelse(study == "Oyama 2011" & arm_n > 30, "Oyama 2011 (PM)", study),
-         arm = ifelse(study == "Oyama 2011 (PM)" & arm_n == 33, 4, arm),
-         arm = ifelse(study == "Oyama 2011 (PM)" & arm_n == 35, 3, arm)) %>%
+  mutate(
+    study = ifelse(study == "Oyama 2011" & arm_n < 30, "Oyama 2011 (AM)", study),
+    study = ifelse(study == "Oyama 2011" & arm_n > 30, "Oyama 2011 (PM)", study),
+    arm = ifelse(study == "Oyama 2011 (PM)" & arm_n == 33, 4, arm),
+    arm = ifelse(study == "Oyama 2011 (PM)" & arm_n == 35, 3, arm)
+  ) %>%
   select(refid, study, arm, everything()) %>%
   arrange(refid, arm)
 
 dichot.dat %>% filter(arm == 1) %>% tally()
-
+# check n same as contin_n = 164 on (2021/02/26 12:29)
+length(unique(dichot.dat$refid)) == dichot_n
+rm(dichot_n)
 # * (end)
 
 ## likert outcome data ####
 path <- path_csv(likert_out_file)
 likert.dat <- read_csv(path) %>%
-  # filter(Refid != 5803) %>% # remove naguib 2001 if in data
-  select(-c(5:7, 126)) %>%
+  select(-c(5:7)) %>%
   janitor::clean_names() %>%
   mutate(
     author = sapply(strsplit(author, ","), "[", 1),
@@ -590,11 +590,17 @@ likert.dat <- read_csv(path) %>%
   select(refid, study, year, everything()) %>%
   select(-author)
 
-tail(names(likert.dat), 1)
+(likert_n <- likert.dat %>%
+    distinct(refid) %>%
+    count())
+
+tail(names(likert.dat), 1) == "summary_l_result"
+ifelse(tail(names(likert.dat), 1) == "summary_l_result", "final variable correct: summary_l_result", "error in code")
 
 likert.dat <- left_join(likert.dat, refs.dat, by = "refid") %>%
-  mutate(design = ifelse(design == "quasiexp", "nrsi", design),
-         surg_nosurg = ifelse(is.na(no_anesth), "surgical", "non-surgical"),
+  mutate(
+    design = ifelse(design == "quasiexp", "nrsi", design),
+    surg_nosurg = ifelse(is.na(no_anesth), "surgical", "non-surgical"),
     design = factor(design,
       levels = c(
         "rct",
@@ -605,8 +611,11 @@ likert.dat <- left_join(likert.dat, refs.dat, by = "refid") %>%
         "retrospect_coh",
         "casecontrol",
         "case_series",
-        "other"),
-      ordered = TRUE)) %>%
+        "other"
+      ),
+      ordered = TRUE
+    )
+  ) %>%
   select(refid, study, year, user, design, surg_nosurg, age, starts_with("subgroup"), everything())
 
 am <- likert.dat %>% filter(user %in% c("Anne_Marbella", "Mark_Grant")) %>%
@@ -615,7 +624,7 @@ ma <- likert.dat %>% filter(!refid %in% am$refid)
 likert.dat <- bind_rows(am, ma) %>% select(!study) # replace below
 rm(am, ma)
 
-length(unique(likert.dat$refid)) == 165
+length(unique(likert.dat$refid)) == 164
 
 # replace correct names
 likert.dat <- left_join(likert.dat[,-3], study_names[, c(1,2)], by = "refid") %>%
@@ -629,19 +638,28 @@ likert.dat <- left_join(likert.dat[,-3], study_names[, c(1,2)], by = "refid") %>
   select(refid, study, arm, everything()) %>%
   arrange(refid, arm)
 
+likert.dat %>% filter(arm == 1) %>% tally()
+# check n same as contin_n = 164 on (2021/02/26 12:29)
+length(unique(likert.dat$refid)) == likert_n
+rm(likert_n)
+
 # * (end)
 
 ## rob data ####
 path <- path_csv(rob_file)
 rob.dat <- read_csv(path) %>%
-  # filter(Refid != 5803) %>% # remove naguib 2001 if in data
   janitor::clean_names() %>%
-  select(-c(5:7,13,66)) %>%
+  select(-c(5:7,13)) %>%
   select(-author, -year) %>%
   # TODO: fix Karamian user for accounting purposes from Mark to Anne user
   mutate(user = ifelse(refid %in% c(69, 7990), "Anne_Marbella", user))
 
-tail(names(rob.dat), 1)
+(rob_n <- rob.dat %>%
+    distinct(refid) %>%
+    count())
+
+tail(names(rob.dat), 1) == "overall_notes"
+ifelse(tail(names(rob.dat), 1) == "overall_notes", "final variable correct: overall_notes", "error in code")
 
 rob.dat <- left_join(rob.dat, study_names, by = "refid") %>%
   select(refid, study, year, design, everything())
@@ -654,7 +672,11 @@ am_rct_cross <- rob.dat %>%
 # others single
 not_rct_cross <- rob.dat %>%
   filter(!design %in% c("rct", "crossover")) %>%
-  filter(!(refid == 131 & user == "Anne_Marbella"))
+  filter(!(refid == 131 & user == "Anne_Marbella")) %>%
+  filter(!(refid == 1678 & user == "Anne_Marbella"))
+
+  # arrange(refid, user)
+  # group_by(refid)
 
 rob.dat <- bind_rows(am_rct_cross, not_rct_cross) %>%
   select(-study)
@@ -665,8 +687,10 @@ rob.dat <- left_join(rob.dat, study_names[, c(1,2)], by = "refid") %>%
 
 rm(am_rct_cross, not_rct_cross)
 
-# check n same as study_char.dat
-length(unique(rob.dat$refid)) == length(unique(study_char.dat$refid))
+rob.dat %>% tally()
+# check n same as contin_n = 164 on (2021/02/26 12:29)
+length(unique(rob.dat$refid)) == rob_n
+rm(rob_n)
 
 # * (end)
 
@@ -735,11 +759,20 @@ likert.dat  <- likert.dat %>%
   replace_with_na_at(.vars = c("hr_gt6", "hr_26", "hr_2", "hr_minus2", "hr_0"), condition = ~ .x == 0)
 
 
-
-
 # verify timing 2 hours ####
 two_hours <- function(refids){
   temp <- study_arm.dat %>%
     filter(refid %in% refids)
   table(temp$timeingest1)
+}
+
+# groupings for tables
+groupings <- function(data) {
+  data %>%
+    mutate(row = row_number()) %>%
+    select(row, age, surg_nosurg, design, year) %>%
+    group_by(age, surg_nosurg, design) %>%
+    slice(c(1, n())) %>%
+    ungroup() %>%
+    arrange(age, row)
 }
