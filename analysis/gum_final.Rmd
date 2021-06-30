@@ -162,23 +162,11 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Summary and individual study risk of bias appraisals for pooled parallel randomized controlled trials (n = 4) examining residual gastric volume. </font>
+<font size = 4> Table `r table_n`. Patient-rated thirst following fasting or gum in randomized controlled trials. </font>
 
 ```{r thirstData, echo = FALSE}
-temp_thirst <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "thirst", range = "A7:H9") %>% 
+gum_thirst <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "thirst", range = "A7:I13") %>% 
   janitor::clean_names()
-
-gum_thirst <- temp_thirst %>%
-  filter(!is.na(refid)) %>%
-  mutate(
-    iqrl = as.numeric(str_split(iqr, " to ", simplify = TRUE)[, 1]),
-    iqru = as.numeric(str_split(iqr, " to ", simplify = TRUE)[, 2]),
-    study = str_replace(study, "\\(", ""),
-    study = str_replace(study, "\\)", ""),
-    tx = ifelse(str_detect(tx, "free"), "Gum sugarfree", tx),
-    tx = ifelse(str_detect(tx, "sugared"), "Gum sugared", tx),
-    iqr = str_c("(", round(iqrl, 1), "-", round(iqru, 1), ")")
-  )
 
 gum_row <- gum_thirst %>% 
   mutate(row = row_number()) %>% 
@@ -188,82 +176,89 @@ gum_row <- gum_thirst %>%
 
 ```{r thirstKable, echo = FALSE}
 gum_thirst %>% 
-  select(study:iqr) %>%
-  mutate(scale = "0➞10",
-         scale = ifelse(is.na(study), NA, scale)) %>% 
-  mutate(n = ifelse(is.na(n), "NR", n)) %>% 
+  add_row() %>% 
+  select(-refid) %>%
   kbl(booktabs = T, align = c("llcccccc"), escape = FALSE,
-  col.names = c("        Author", "Treatment", "N", "Time (hr)^a^", "Chewing", "Median", "IQR", "Scale^b^")) %>%    
+  col.names = c("        Author", "Treatment", "N", "Time", "Chewing", "Scale^a^", "Median", "IQR")) %>%    
   row_spec(0, bold = TRUE) %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   row_spec(gum_row, color = "brown") %>% 
   add_header_above(c(" " = 3, "Last Chewing" = 1, "Time" = 1, " " = 3), line = FALSE, bold = TRUE) %>% 
-  column_spec(1, width = "14em") %>%
-  column_spec(2, width = "7em") %>%
+  column_spec(1, width = "11em") %>%
+  column_spec(2, width = "14em") %>%
   column_spec(3, width = "3em") %>%
   column_spec(4, width = "7em") %>%
   column_spec(5, width = "6em") %>%
   column_spec(6, width = "5em") %>%
   column_spec(7, width = "5em") %>%
   column_spec(8, width = "5em") %>%
-  pack_top(., "Adult, Surgical", 1, 2) %>% 
-  pack_sub(., "RCT", 1, 2) %>% 
-  footnote(general = "Med: median; IQR: interquartile range; RCT: randomized controlled trial; NR: not reported.", 
+  pack_top(., "Adult, Surgical", 1, 6) %>% 
+  pack_sub(., "RCT", 1, 6) %>% 
+  result_pack("Lower in gum arm, P < .001", 3, padding = 80) %>% 
+  result_pack("Difference not detected", 5, padding = 80) %>% 
+  result_pack("Less in gum arm, P = .03", 7, padding = 80) %>% 
+  footnote(general = "IQR: interquartile range; RCT: randomized controlled trial; NR: not reported; VAS: visual analogue scale.", 
     general_title = "",
-    alphabet = c("Before induction.", "Numeric rating scale: 0 (without thirst) to 10 (intense thirst)."),
+    alphabet = c("Arrow (→) indicates least to most thirst.",
+                 "1 = less in OR compared to morning; 2 = same as morning; 3 = more than morning"),
     footnote_as_chunk = FALSE)
 
 table_n <- tab_inc()
 ```
 
-<a id="gumThirstFig1"></a>
+<br/>
 
-<br/><br/>
+## *Hunger* <a id="gumHungerRatings"></a>
 
-<font size = 4> Figure `r figure_n`. Calculated mean difference in thirst scores in Garcia 2017 --- gum chewing versus fasting. </font>
+<br/>
 
-```{r thirstGumMeta, include = TRUE, echo = FALSE, fig.width = 7.5, fig.height = 2.3, fig.align = "left"}
-temp_thirst <- gum_thirst %>%
-  select(study, tx, n, med, iqrl, iqru)
+<font size = 4> Table `r table_n`. Patient-rated hunger following fasting or gum. </font>
 
-thirst_meta.dat <- left_join(gum_thirst[c(1), ], gum_thirst[c(2), ],
-  by = c("refid")
-)
+```{r hungerData, echo = FALSE}
+gum_hunger <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "hunger", range = "A8:I12") %>% 
+  janitor::clean_names()
 
-thirst_meta <- metacont(
-  n.e = n.y, n.c = n.x,
-  median.e = med.y,
-  q1.e = iqrl.y,
-  q3.e = iqru.y,
-  median.c = med.x,
-  q1.c = iqrl.x,
-  q3.c = iqru.x,
-  data = thirst_meta.dat,
-  sm = "MD",
-  studlab = study.x
-)
-
-forest(thirst_meta,
-  comb.fixed = FALSE,
-  lab.e = "Gum         ",
-  lab.c = "Fasting     ",
-  digits = 1,
-  digits.sd = 1,
-  digits.tau2 = 1,
-  prediction = TRUE,
-  rightlabs = c("MD", "95% CI  ", "Weight"),
-  # xlim = c(-20, 30),
-  fs.xlab = 11,
-  xlab = "Thirst (0-10 NRS)\n Favors Gum             Favors Fasting"
-)
-
-figure_n <- fig_inc()
+gum_row <- gum_hunger %>% 
+  mutate(row = row_number()) %>% 
+  filter(str_detect(tx, "[Gg]um") == TRUE) %>% 
+  pull(row)
 ```
 
-<font size = 2> MD: mean difference; NRS: numeric rating scale. <br>Means calculated from medians and interquartile ranges. Authors reported standardized mean difference of 0.60 (p\< 0.001) obtained from p-value.</font>
+```{r hungerKable, echo = FALSE}
+gum_hunger %>% 
+  add_row() %>% 
+  select(-refid) %>%
+  kbl(booktabs = T, align = c("llcccccc"), escape = FALSE,
+  col.names = c("        Author", "Treatment", "N", "Time", "Chewing", "Scale", "Median", "IQR")) %>%    
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  row_spec(gum_row, color = "brown") %>% 
+  add_header_above(c(" " = 3, "Last Chewing" = 1, "Time" = 1, " " = 3), line = FALSE, bold = TRUE) %>% 
+  column_spec(1, width = "11em") %>%
+  column_spec(2, width = "14em") %>%
+  column_spec(3, width = "3em") %>%
+  column_spec(4, width = "7em") %>%
+  column_spec(5, width = "6em") %>%
+  column_spec(6, width = "5em") %>%
+  column_spec(7, width = "5em") %>%
+  column_spec(8, width = "5em") %>%
+  pack_top(., "Adult, Surgical", 1, 4) %>% 
+  pack_sub(., "RCT", 1, 4) %>% 
+  result_pack("Difference not detected", 3, padding = 80) %>% 
+  result_pack("Difference not detected", 5, padding = 80) %>% 
+  footnote(general = "IQR: interquartile range; RCT: randomized controlled trial.", 
+    general_title = "",
+    alphabet = c("1 = less in OR compared to morning; 2 = same as morning; 3 = more than morning"),
+    footnote_as_chunk = FALSE)
 
-<br/><br/>
+table_n <- tab_inc()
+```
+
+<br/>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 # **Clinical Outcomes**
 
@@ -283,8 +278,7 @@ figure_n <- fig_inc()
 # combine_contin(61, 61, 30.95082, 31, 22.53658, 22)
 # NOTE: 
 
-gum_rgv <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "RGV", range = "A7:L42")
-gum_rgv <- gum_rgv %>%
+gum_rgv <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "RGV", range = "A7:L42") %>% 
   filter(!is.na(refid)) %>%
   # delete combined arms for 6038 Dubin 6287 Hamid
   slice(-c(4, 10)) %>%
@@ -312,11 +306,14 @@ gum_rgv <- gum_rgv %>%
 
 # smaller GFV as compared with children who chewed sugared and sugarless gum (0.35 [0.2– 0.5] mL/kg versus 0.88 [0.6 –1.4] mL/kg versus 0.69 [0.4 –1.6] mL/kg; P  0.0001). Also, a significantly smaller proportion of subjects who did not chew gum had a GFV of more than 0.8 mL/kg as compared with subjects who chewed sugared and sugarless gum (6.3% versus 66.7% versus 40%; P  0.002).
 # merge with design and age
+
 gum_rgv <- left_join(gum_rgv,
   study_char_gum.dat[, c("refid", "year", "age", "design", "surg_nosurg")],
   by = "refid"
 ) %>%
-  arrange(age, desc(surg_nosurg), design, year, study)
+  arrange(age, desc(surg_nosurg), design, year, study) %>%
+  fill(study) %>% 
+  mutate(tx = ifelse(grepl("Bouvet", study) & grepl("Gum", tx), "Gum Sugared/Water", tx))
 
 ```
 
@@ -333,6 +330,9 @@ gum_row <- gum_rgv %>%
 gum_rgv$study <- ifelse(gum_rgv$study == "Valencia 2019", cell_spec(gum_rgv$study, color = "black"), gum_rgv$study)
 
 gum_rgv %>% 
+  group_by(refid) %>% 
+    mutate(study = ifelse(row_number() == 1, study, "")) %>% 
+  ungroup() %>% 
   select(study:time_meas, mean_sd, med, iqr, range) %>%
   mutate(n = ifelse(is.na(n), "NR", n)) %>% 
   kable(booktabs = T, align = c("llcccccccc"), escape = FALSE,
@@ -356,6 +356,7 @@ gum_rgv %>%
   pack_sub(., "RCT", 1, 16) %>% 
   pack_top(., "Adult, Non-surgical", 17, 19) %>% 
   pack_sub(., "Crossover", 17, 18) %>% 
+  result_pack("Difference not detected", 19, padding = 62) %>% 
   pack_sub(., "Single Arm Trial", 19, 19) %>% 
   pack_top(., "Pediatric, Surgical", 20, 22) %>% 
   pack_sub(., "RCT", 20, 22) %>% 
@@ -457,6 +458,8 @@ figure_n <- fig_inc()
 
 
 ## *Gastric pH* <a id="gumPhTab4"></a>
+
+<br/>x
 
 ```{r phData, echo = FALSE}
 ## (updated 2020/12/17 20:49) phData --------------------------------------
