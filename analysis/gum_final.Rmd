@@ -201,7 +201,7 @@ gum_thirst %>%
   footnote(general = "IQR: interquartile range; RCT: randomized controlled trial; NR: not reported; VAS: visual analogue scale.", 
     general_title = "",
     alphabet = c("Arrow (→) indicates least to most thirst.",
-                 "1 = less in OR compared to morning; 2 = same as morning; 3 = more than morning"),
+                 "1 = less in OR compared to morning; 2 = same as morning; 3 = more than morning."),
     footnote_as_chunk = FALSE)
 
 table_n <- tab_inc()
@@ -250,7 +250,7 @@ gum_hunger %>%
   result_pack("Difference not detected", 5, padding = 75) %>% 
   footnote(general = "IQR: interquartile range; RCT: randomized controlled trial.", 
     general_title = "",
-    alphabet = c("1 = less in OR compared to morning; 2 = same as morning; 3 = more than morning"),
+    alphabet = c("1 = less in OR compared to morning; 2 = same as morning; 3 = more than morning."),
     footnote_as_chunk = FALSE)
 
 table_n <- tab_inc()
