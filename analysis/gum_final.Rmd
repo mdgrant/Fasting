@@ -190,8 +190,8 @@ gum_thirst %>%
   column_spec(3, width = "3em") %>%
   column_spec(4, width = "7em") %>%
   column_spec(5, width = "6em") %>%
-  column_spec(6, width = "5em") %>%
-  column_spec(7, width = "5em") %>%
+  column_spec(6, width = "6em") %>%
+  column_spec(7, width = "4em") %>%
   column_spec(8, width = "5em") %>%
   pack_top(., "Adult, Surgical", 1, 6) %>% 
   pack_sub(., "RCT", 1, 6) %>% 
