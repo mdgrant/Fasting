@@ -195,9 +195,9 @@ gum_thirst %>%
   column_spec(8, width = "5em") %>%
   pack_top(., "Adult, Surgical", 1, 6) %>% 
   pack_sub(., "RCT", 1, 6) %>% 
-  result_pack("Lower in gum arm, P < .001", 3, padding = 80) %>% 
-  result_pack("Difference not detected", 5, padding = 80) %>% 
-  result_pack("Less in gum arm, P = .03", 7, padding = 80) %>% 
+  result_pack("Lower in gum arm, P < .001", 3, padding = 75) %>% 
+  result_pack("Difference not detected", 5, padding = 75) %>% 
+  result_pack("Less in gum arm, P = .03", 7, padding = 75) %>% 
   footnote(general = "IQR: interquartile range; RCT: randomized controlled trial; NR: not reported; VAS: visual analogue scale.", 
     general_title = "",
     alphabet = c("Arrow (→) indicates least to most thirst.",
@@ -246,8 +246,8 @@ gum_hunger %>%
   column_spec(8, width = "5em") %>%
   pack_top(., "Adult, Surgical", 1, 4) %>% 
   pack_sub(., "RCT", 1, 4) %>% 
-  result_pack("Difference not detected", 3, padding = 80) %>% 
-  result_pack("Difference not detected", 5, padding = 80) %>% 
+  result_pack("Difference not detected", 3, padding = 75) %>% 
+  result_pack("Difference not detected", 5, padding = 75) %>% 
   footnote(general = "IQR: interquartile range; RCT: randomized controlled trial.", 
     general_title = "",
     alphabet = c("1 = less in OR compared to morning; 2 = same as morning; 3 = more than morning"),
@@ -459,7 +459,7 @@ figure_n <- fig_inc()
 
 ## *Gastric pH* <a id="gumPhTab4"></a>
 
-<br/>x
+<br/>
 
 ```{r phData, echo = FALSE}
 ## (updated 2020/12/17 20:49) phData --------------------------------------
@@ -856,8 +856,8 @@ fasting_table %>%
   add_column(temp = NA) %>% 
   select(study:fastliquid, temp, everything()) %>% 
   kbl(booktabs = T, align = c("llccccll"), escape = FALSE,
-      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Comparator", "N", "Solids", "Liquids", " ",  "Chewing or Time", "Gum Chewing")) %>% 
-  add_header_above(c(" " = 3, "\\ \\ Prescribed Fasting (hr)" = 2, " " = 1,  "\\ \\ Start Gum" = 1, "\\ \\ Stop" = 1), align = "l", underline = FALSE) %>% 
+      col.names = c("        Study", "Comparator", "N", "Solids", "Liquids", " ",  "Chewing or Time", "Gum Chewing")) %>% 
+  add_header_above(c(" " = 3, "   Prescribed Fasting (hr)" = 2, " " = 1,  "   Start Gum" = 1, "   Stop" = 1), align = "l", underline = FALSE) %>% 
   kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
   kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
   row_spec(gum_row, color = "brown") %>% 
@@ -873,8 +873,7 @@ fasting_table %>%
   pack_sub(., "Single Arm Trial", 23, 23) %>% 
   pack_top(., "Pediatric, Surgical", 24, 26) %>% 
   pack_sub(., "RCT", 24, 26) %>%  
-  footnote(general = "hr: hours.",
-          alphabet = c("Hours prior to surgery."),
+  footnote(alphabet = c("Hours prior to surgery."),
           alphabet_title = " ",
           general_title = "",
           footnote_as_chunk = T)
@@ -906,12 +905,13 @@ comparator_detail_table <- study_arm.dat %>%
          tx = factor(tx, 
            levels = c("Fasting", "Water", "Lollipop", "Gum Sugarfree", "Gum Sugared", "Gum (any)"))) %>% 
   arrange(age, desc(surg_nosurg), design, year, study, arm_tx) %>% 
-  select(refid, arm_n, tx, type_of_liquid, tx_detail, age, surg_nosurg, design, year, study) %>% 
-  group_by(study) %>% 
-  mutate(year = ifelse(row_number() == 1, year, NA)) %>% 
-  mutate(study = ifelse(row_number() == 1, study, NA)) %>% 
+  # select(refid, arm_n, tx, type_of_liquid, tx_detail, age, surg_nosurg, design, year, study) %>% 
   select(study, arm_n, tx, tx_detail) %>% 
-  ungroup()
+  group_by(study) %>% 
+  mutate(study = if_else(row_number() == 1, study, "")) %>% 
+  ungroup() %>% 
+  mutate(study = ifelse(study %in% c("Valencia 2019", "Shanmugam 2016"), cell_spec(study, color = "black"), study))
+
 ```
 
 ```{r createComparatorDetailKable, echo = FALSE}
@@ -920,28 +920,25 @@ gum_row <- comparator_detail_table  %>%
   filter(str_detect(tx, "[Gg]um") == TRUE) %>% 
   pull(row)
 
-comparator_detail_table %>% 
-   kbl(booktabs = T, align = c("ll"),
-      col.names = c("\\ \\ \\ \\ \\ \\ \\ Author", "N", "Comparator", "Detail")) %>%
-  kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>% 
-  kable_styling(bootstrap_options = c("striped", "hover","condensed")) %>% 
-    row_spec(gum_row, color = "brown") %>% 
-  column_spec(1, width = "15em") %>% 
-  column_spec(2, width = "5em") %>% 
+comparator_detail_table %>%
+  kbl(
+    booktabs = T, align = c("llll"), escape = FALSE,
+    col.names = c("        Author", "N", "Comparator", "Detail")
+  ) %>%
+  kable_classic(full_width = TRUE, html_font = "Source Sans Pro", position = "left", "hover") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(gum_row, color = "brown") %>%
+  column_spec(1, width = "15em") %>%
+  column_spec(2, width = "5em") %>%
   column_spec(3, width = "8em") %>%
-  pack_top(., "Adult, Surgical", 1, 20) %>% 
-  pack_sub(., "RCT", 1, 19) %>% 
-  pack_sub(., "Case Series", 20, 20) %>% 
-  pack_top(., "Adult, Non-surgical", 21, 23) %>% 
-  pack_sub(., "Crossover", 21, 22) %>% 
-  pack_sub(., "Single Arm Trial", 23, 23) %>% 
-  pack_top(., "Pediatric, Surgical", 24, 26) %>% 
-  pack_sub(., "RCT", 24, 26) %>%  
-  footnote(general = "CHO: carbohydrate; g: grams; Osm: osmolality",
-          # alphabet = c("Hours prior to surgery"),
-          # alphabet_title = " ",
-          general_title = "",
-          footnote_as_chunk = T)  
+  pack_top(., "Adult, Surgical", 1, 20) %>%
+  pack_sub(., "RCT", 1, 19) %>%
+  pack_sub(., "Case Series", 20, 20) %>%
+  pack_top(., "Adult, Non-surgical", 21, 23) %>%
+  pack_sub(., "Crossover", 21, 22) %>%
+  pack_sub(., "Single Arm Trial", 23, 23) %>%
+  pack_top(., "Pediatric, Surgical", 24, 26) %>%
+  pack_sub(., "RCT", 24, 26)
 
 table_n <- tab_inc()
 ```
