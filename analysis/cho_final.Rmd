@@ -2369,7 +2369,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-## *Pain/Discomfort* 
+  ## *Preoperative Pain/Discomfort* 
 
 ### Rates  <a id="pain_ratings15"></a>
 
@@ -2378,7 +2378,7 @@ figure_n <- fig_inc()
 <font size = 4> Table `r table_n`. Rates of preoperative discomfort or irritability in children, in randomized trials according to fasting, liquid and volume. </font>
 
 ```{r comfortTableOr, include = TRUE}
-##  (updated 2021/01/13 08:52) comfortTableOr --------------------------------
+##(updated 2021/01/13 08:52) comfortTableOr --------------------------------
 dichot_format <- function(x) (x/100)
 dichot_comfort_or <- dichot_cho.dat %>% 
   filter(!is.na(comfort_np)) %>%
@@ -2633,7 +2633,7 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Pooled preoperative pain ratings (standardized mean differences in VAS) from randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
-```{r comfortAdultLikertMeta, echo = FALSE,  fig.width = 10, fig.height = 2.7, fig.align = "center"}
+```{r comfortAdultLikertMeta, echo = FALSE,  fig.width = 10, fig.height = 3.0, fig.align = "center"}
 ## (updated 2021/04/13 07:39) comfortAdultLikertMeta -----------------------
 comfort_lik_meta.dat <- likert_cho_comfort.dat %>%
   filter(age == "Adult", design == "rct") %>%
@@ -2699,7 +2699,7 @@ forest(temp,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
   print.byvar = FALSE,
-  overall = FALSE,
+  overall = TRUE,
   fs.xlab = 11,
   xlim = c(-2, 2),
   rightcols = c("effect", "ci"),
@@ -2712,8 +2712,7 @@ forest(temp,
 
 figure_n <- fig_inc()
 ```
-Zhang 2019 and Rizvanovic 2019 (preoperative pain) were excluded from the pooled result as both reported no pain/discomfort in either arm. 
-Zelic 2013 reported only no significant difference between arms (for pooling imputed standard deviations assuming P = .1).
+Zhang 2019 and Rizvanovic 2019 (preoperative pain) were excluded from the pooled result as both reported no pain/discomfort in either arm.  
 
 Too few studies to examine small study effects.
 
@@ -2852,7 +2851,8 @@ table_n <- tab_inc()
 
 ```{r aspirateTableReport, include = TRUE}
 ## (updated 2021/01/12 18:04) aspirateTableReport -------------------------
-dichot_cho.dat %>%
+# overall totals
+totals <- dichot_cho.dat %>%
   filter(!is.na(aspirate_np)) %>%
   filter(surg_nosurg == "surgical") %>%
   arrange(age, desc(surg_nosurg), design, year, study) %>%
@@ -2868,7 +2868,33 @@ dichot_cho.dat %>%
   mutate(study = ifelse(refid == 165, "Marquini 2020", study)) %>%
   filter(age == "Adult") %>% 
   select(study, Fasting, Water, Placebo, "CHO/Comp", "CHO/Simp", "CHO/Comp/Prot", "CHO/Simp/Prot", "Prot") %>%
-  janitor::adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>%
+  adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>% 
+  slice_tail(n = 1)
+
+dichot_cho.dat %>%
+  filter(!is.na(aspirate_np)) %>%
+  filter(surg_nosurg == "surgical") %>%
+  arrange(age, desc(surg_nosurg), design, year, study) %>%
+  select(refid, design, age, study, arm_n, arm_tx) %>%
+  pivot_wider(
+    id_cols = c(refid, study, age, design),
+    names_from = arm_tx,
+    values_from = arm_n,
+    values_fn = sum
+  ) %>%
+  # exclude duplicate Marquini publications
+  filter(!refid %in% c(6446, 247)) %>%
+  mutate(study = ifelse(refid == 165, "Marquini 2020", study)) %>%
+  filter(age == "Adult") %>% 
+  select(study, design, Fasting, Water, Placebo, "CHO/Comp", "CHO/Simp", "CHO/Comp/Prot", "CHO/Simp/Prot", "Prot") %>%
+  group_by(design) %>% 
+  group_map(~ .x %>%  adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE)) %>% 
+  bind_rows() %>% 
+  ungroup() %>% 
+  bind_rows(., totals) %>% 
+  mutate(study = ifelse(row_number() == n(), "Overall", study),
+         study = ifelse(study == "Total", "    Total", study),
+         across(Fasting:Total, ~ifelse(.x == 0, NA, .x))) %>% 
   kbl(
     booktabs = T, align = c("lccccccccr"), escape = FALSE,
     col.names = c("       Study", "Fasting", "Water", "Placebo", "CHO/Comp", "CHO/Simp", "Prot", "Prot", "Prot", "Total")
@@ -2881,13 +2907,14 @@ dichot_cho.dat %>%
   column_spec(1, width = "15em") %>%
   column_spec(2:9, width = "5em") %>%
   column_spec(10, width = "5em") %>%
-  row_spec(45, bold = TRUE) %>%
+  # row_spec(c(38, 44, 46, 48, 49), bold = TRUE) %>%
+  row_spec(49, bold = TRUE) %>%
   column_spec(10, bold = TRUE) %>%
-  pack_top(., "Adult", 1, 44) %>%
-  pack_sub(., "RCT", 1, 37) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 38, 42) %>%
-  pack_sub(., "Prospective Cohort", 43, 43) %>%
-  pack_sub(., "Case-Control", 44, 44) %>%
+  pack_top(., "Adult", 1, 48) %>%
+  pack_sub(., "RCT", 1, 38) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 39, 44) %>%
+  pack_sub(., "Prospective Cohort", 45, 46) %>%
+  pack_sub(., "Case-Control", 47, 48) %>%
   footnote(
     general = "RCT: randomized controlled trial; CHO: carbohydrate; Simp: simple; Comp: complex; Prot: protein.",
     general_title = "",
@@ -2907,6 +2934,23 @@ table_n <- tab_inc()
 
 ```{r aspirateTableReportPeds, include = TRUE}
 ## (updated 2021/01/12 18:04) aspirateTableReport -------------------------
+# overall totals
+totals <- dichot_cho.dat %>%
+  filter(!is.na(aspirate_np)) %>%
+  filter(surg_nosurg == "surgical") %>%
+  arrange(age, desc(surg_nosurg), design, year, study) %>%
+  select(refid, design, age, study, arm_n, arm_tx) %>%
+  pivot_wider(
+    id_cols = c(refid, study, age, design),
+    names_from = arm_tx,
+    values_from = arm_n,
+    values_fn = sum
+  ) %>%
+  filter(age == "Pediatric") %>% 
+  select(study, design, Fasting, "CHO/Comp", "CHO/Simp") %>%
+  adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>% 
+  slice_tail(n = 1)
+
 dichot_cho.dat %>%
   filter(!is.na(aspirate_np)) %>%
   filter(surg_nosurg == "surgical") %>%
@@ -2919,10 +2963,18 @@ dichot_cho.dat %>%
     values_fn = sum
   ) %>%
   filter(age == "Pediatric") %>% 
-  select(study, Fasting, "CHO/Comp", "CHO/Simp") %>%
-  janitor::adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>%
+  select(study, design, Fasting, "CHO/Comp", "CHO/Simp") %>%
+  group_by(design) %>% 
+  group_map(~ .x %>%  adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE)) %>% 
+  bind_rows() %>% 
+  ungroup() %>% 
+  bind_rows(., totals) %>% 
+  mutate(study = ifelse(row_number() == n(), "Overall", study),
+         study = ifelse(study == "Total", "    Total", study),
+         across(Fasting:Total, ~ifelse(.x == 0, NA, .x))) %>% 
+  select(-design) %>% 
   kbl(
-    booktabs = T, align = c("lcccccccccr"), escape = FALSE,
+    booktabs = T, align = c("lcccr"), escape = FALSE,
     col.names = c("       Study", "Fasting", "CHO/Comp", "CHO/Simp", "Total")
   ) %>%
   add_header_above(c(" " = 1, "Liquid and Participants Receiving" = 3, " " = 1), line = TRUE, bold = TRUE) %>%
@@ -2932,11 +2984,11 @@ dichot_cho.dat %>%
   column_spec(1, width = "15em") %>%
   column_spec(2:4, width = "5em") %>%
   column_spec(5, width = "5em") %>%
-  row_spec(6, bold = TRUE) %>%
+  row_spec(8, bold = TRUE) %>%
   column_spec(5, bold = TRUE) %>%
-  pack_top(., "Pediatric", 1, 5) %>%
-  pack_sub(., "RCT", 1, 4) %>%
-  pack_sub(., "Retrospective Cohort", 5, 5) %>%
+  pack_top(., "Pediatric", 1, 7) %>%
+  pack_sub(., "RCT", 1, 5) %>%
+  pack_sub(., "Retrospective Cohort", 6, 7) %>%
   footnote(
     general = "RCT: randomized controlled trial; CHO: carbohydrate; Simp: simple; Comp: complex.",
     general_title = "",
@@ -2956,7 +3008,9 @@ table_n <- tab_inc()
 
 ```{r aspirateTableNoReport, include = TRUE}
 ## (updated 2021/01/12 18:04) aspirateTableReport -------------------------
-dichot_cho.dat %>%
+## (updated 2021/01/12 18:04) aspirateTableReport -------------------------
+# overall totals
+totals <- dichot_cho.dat %>%
   filter(is.na(aspirate_np)) %>%
   filter(surg_nosurg == "surgical") %>%
   arrange(age, desc(surg_nosurg), design, year, study) %>%
@@ -2972,7 +3026,33 @@ dichot_cho.dat %>%
   mutate(study = ifelse(refid == 165, "Marquini 2020", study)) %>%
   filter(age == "Adult") %>%
   select(study, Fasting, Water, Placebo, Clear, "CHO/Comp", "CHO/Simp", "CHO/Comp/Prot") %>%
-  janitor::adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>%
+  janitor::adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>% 
+  slice_tail(n = 1)
+
+dichot_cho.dat %>%
+  filter(is.na(aspirate_np)) %>%
+  filter(surg_nosurg == "surgical") %>%
+  arrange(age, desc(surg_nosurg), design, year, study) %>%
+  select(refid, design, age, study, arm_n, arm_tx) %>%
+  pivot_wider(
+    id_cols = c(refid, study, age, design),
+    names_from = arm_tx,
+    values_from = arm_n,
+    values_fn = sum
+  ) %>%
+  # exclude duplicate Marquini publications
+  filter(!refid %in% c(6446, 247)) %>%
+  mutate(study = ifelse(refid == 165, "Marquini 2020", study)) %>%
+  filter(age == "Adult") %>%
+  select(study, design, Fasting, Water, Placebo, Clear, "CHO/Comp", "CHO/Simp", "CHO/Comp/Prot") %>%
+  group_by(design) %>% 
+  group_map(~ .x %>%  adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE)) %>% 
+  bind_rows() %>% 
+  ungroup() %>% 
+  bind_rows(., totals) %>% 
+  mutate(study = ifelse(row_number() == n(), "Overall", study),
+         study = ifelse(study == "Total", "    Total", study),
+         across(Fasting:Total, ~ifelse(.x == 0, NA, .x))) %>% 
   kbl(
     booktabs = T, align = c("lcccccccr"), escape = FALSE,
     col.names = c("       Study", "Fasting", "Water", "Placebo", "Clear", "CHO/Comp", "CHO/Simp", "Prot", "Total")
@@ -2985,14 +3065,14 @@ dichot_cho.dat %>%
   column_spec(1, width = "15em") %>%
   column_spec(2:7, width = "5em") %>%
   column_spec(8, width = "5em") %>%
-  row_spec(28, bold = TRUE) %>%
+  row_spec(33, bold = TRUE) %>%
   column_spec(9, bold = TRUE) %>%
-  pack_top(., "Adult", 1, 27) %>%
-  pack_sub(., "RCT", 1, 21) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 22, 23) %>%
-  pack_sub(., "Prospective Cohort", 24, 24) %>%
-  pack_sub(., "Retrospective Cohort", 25, 26) %>%
-  pack_sub(., "Before-After", 27, 27) %>%
+  pack_top(., "Adult", 1, 32) %>%
+  pack_sub(., "RCT", 1, 22) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 23, 25) %>%
+  pack_sub(., "Prospective Cohort", 26, 27) %>%
+  pack_sub(., "Retrospective Cohort", 28, 30) %>%
+  pack_sub(., "Before-After", 31, 32) %>%
   footnote(
     general = "RCT: randomized controlled trial; CHO: carbohydrate; Simp: simple; Comp: complex; Prot: protein.",
     general_title = "",
@@ -3009,7 +3089,7 @@ table_n <- tab_inc()
 
 <br>
 
-<font size = 4> Table `r table_n`. Studies in adults silent on whether or not aspiration occurred. </font>
+<font size = 4> Table `r table_n`. Studies in children silent on whether or not aspiration occurred. </font>
 
 ```{r aspiratePedsTableNoReport, include = TRUE}
 ## (updated 2021/01/12 18:04) aspirateTableReport -------------------------
@@ -3054,7 +3134,7 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Regurgitation*
+## *Preoperative Regurgitation* 
 
 ### Adults (surgical) <a id="choRegurgAdult22"></a>
 
@@ -3148,7 +3228,7 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Vomiting* 
+## *Preoperative Vomiting* 
 
 ```{r vomitTablesData, include = TRUE}
 ## (2021/05/07 14:20) vomitTable ----------------------------------
@@ -3262,7 +3342,7 @@ dichot_vomit_peds <- dichot_vomit %>%
 
 ```
 
-### Rates, Adults (preop) <a id="choVomitPreopAdult23"></a>
+### Rates, Adults <a id="choVomitPreopAdult23"></a>
 
 <br/>
 
@@ -3315,7 +3395,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Rates, Pediatric (preop) <a id="choVomitPeds25"></a>
+### Rates, Pediatric <a id="choVomitPeds25"></a>
 
 <br/>
 
@@ -3971,7 +4051,7 @@ Owing to skewed distributions of RGV, conducted sensitivity analysis on a log sc
 
 <br/>
 
-## *pH* <a id="choPh29"></a>
+## *Gastric pH* <a id="choPh29"></a>
 
 <br/>
 
