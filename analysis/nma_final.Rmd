@@ -256,19 +256,9 @@ dichot_cho.dat <- dichot_cho.dat %>%
 
 ```
 
-```{r rgvData, include = TRUE}
-## base arm_tx levels ####
-# "Fasting"      
-# "Water"        
-# "Placebo"      
-# "Clear"        
-# "Milk"         
-# "Prot"         
-# "CHO/Simp/Prot"
-# "CHO/Comp/Prot"
-# "CHO/Simp"     
-# "CHO/Comp"
-
+```{r rgvNmaData, include = TRUE} 
+## (updated 2021/07/02 11:33) prepare rgv_meta.dat for nma ----------------
+# arm_tx levels "Fasting", "Water", "Placebo", "Clear", "Milk", "Prot", "CHO/Simp/Prot", "CHO/Comp/Prot", "CHO/Simp", "CHO/Comp"
 ## (updated 2021/05/15 07:21) rgv_meta.dat --------------------------------
 rgv_meta.dat <- contin_cho.dat %>%
   arrange(design, year, study) %>%
@@ -276,16 +266,14 @@ rgv_meta.dat <- contin_cho.dat %>%
   filter(!is.na(rgv_us) | !is.na(rgv_imag) | !is.na(rgv_asp)) %>%
   filter(design == "rct", age == "Adult") %>%
   select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1, hr_gt6:hr_2) %>%
-  # Yilmaz 2013 estimate sd smd.bwgrpS(21.85, 19.15, 20, 20, .77),
-  # Yildiz 2013 smd.bwgrpS(18.1, 9.3, 30, 30, .05)
-  # Wang 2019 smd.bwgrpS(24.86, 29.63, 37, 36, .238)
+  # calculate sd not reported using p-values 
   mutate(
-    rgv_sd_1 = ifelse(refid == 2985, 29.0, rgv_sd_1),
-    rgv_sd_1 = ifelse(refid == 3154, 17.0, rgv_sd_1)
+    rgv_sd_1 = ifelse(study == "Yilmaz 2013", sd_bwgrp(21.85, 19.15, 20, 20, .77), rgv_sd_1),
+    rgv_sd_1 = ifelse(study == "Yildiz 2013", sd_bwgrp(18.1, 9.3, 30, 30, .05), rgv_sd_1)
   ) %>%
   arrange(refid, arm_tx)
 
-# use calc_mn_sd function (relies on meta) to calculate missing mean, sd, and log transformed
+# use calc_mn_sd function (relies on meta) to calculate if missing mean, sd, and log transformed
 rgv_meta.dat <- calc_mn_sd(
   "arm_n",
   "rgv_mean_1",
@@ -301,15 +289,6 @@ rgv_meta.dat <- calc_mn_sd(
   log_trans = TRUE,
   data = rgv_meta.dat) %>%
   bind_cols(., rgv_meta.dat %>% select(hr_gt6:hr_2))
-
-# combine naguib 2001 CHO arms, plain and log
-# naguib <- c(combine_contin(75, 75, 27.08, 23.38, 20.35, 11.547), 
-#             combine_contin(75, 75, 3.074936, 3.042742, 0.6691179, 0.4672016)[2:3])
-# rgv_meta.dat[36, c(3:7)] <- naguib
-# rm(naguib)
-# # delete arm used to combine
-# rgv_meta.dat <- as_tibble(rgv_meta.dat) %>% 
-#   filter(!(arm_tx == "CHO/Simp" & n == 75))
 
 ## (updated 2021/05/15 07:56) add ingestion time ----------------------------
 rgv_meta.dat <- rgv_meta.dat %>%
@@ -360,14 +339,14 @@ rgv_meta.dat <- rgv_meta.dat %>%
   ) %>% 
   select(-c(hr_2_liq, temp_arm))
 
-## (updated 2021/05/15 07:25) for pairwise not run ------------------------
-# rgv_meta.dat <- rgv_meta.dat %>%
-#   mutate(arm_tx = ifelse(grepl("CHO", arm_tx), "CHO", "Fasting")) %>%
-#   pivot_wider(
-#     id_cols = c("study"),
-#     names_from = c("arm_tx"),
-#     values_from = c("n", "mean", "sd", "mean_log", "sd_log")
-#   )
+## not run (2021/05/15 07:25) for pairwise --------------------------------
+#rgv_meta.dat <- rgv_meta.dat %>%
+#  mutate(arm_tx = ifelse(grepl("CHO", arm_tx), "CHO", "Fasting")) %>%
+#  pivot_wider(
+#    id_cols = c("study"),
+#    names_from = c("arm_tx"),
+#    values_from = c("n", "mean", "sd", "mean_log", "sd_log")
+#  )
 ```
 
 # **Residual Gastric Volume**
@@ -379,7 +358,7 @@ rgv_meta.dat <- rgv_meta.dat %>%
 <font size = 4> Figure `r figure_n`. Network plot of comparators in included studies. </font>
 
 ```{r rgvNMA, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 5, fig.height = 5}
-## (updated 2021/05/15 08:48) network characteristics ---------------------
+## not run networks including time and protein ----------------------------
 # par(mfrow = c(1, 3))
 # for (outcome in c("arm_tx", "arm_tx_cho_prot", "arm_tx_time2")){
 # rgv.data <- data.prep(
@@ -399,12 +378,15 @@ rgv_meta.dat <- rgv_meta.dat %>%
 # )
 # }
 
-#### (updated 2021/05/15 10:30) ----------------------------
-
 ## (updated 2021/03/16 07:13) rgvSimpComp BUGSnet -------------------------
-# BUGSnet
+# for log
+rgv_meta_log.dat <- rgv_meta.dat %>% 
+  select(-mean, -sd) %>% 
+  rename(mean = mean_log, sd = sd_log)
+
 rgv.data <- data.prep(
   arm.data = rgv_meta.dat,
+  # arm.data = rgv_meta_log.dat,
   varname.t = "arm_tx",
   varname.s = "study"
 )
@@ -412,12 +394,25 @@ rgv.data <- data.prep(
 net.plot(rgv.data,
   node.scale = 3,
   edge.scale = 1.5,
-  label.offset2 = 1,
-  label.offset1 = 4,
+  # label.offset2 = 3,
+  # label.offset1 = 6,
   study.counts = TRUE,
-  node.lab.cex = 1,
-  edge.lab.cex = 1
+  node.lab.cex = 1.3,
+  edge.lab.cex = 1.2
 )
+
+# net.plot(rgv.data,
+#   node.scale = 3,
+#   edge.scale = 1.5,
+#   # label.offset2 = 3,
+#   # label.offset1 = 6,
+#   # study.counts = TRUE,
+#   node.lab.cex = 1.3,
+#   edge.lab.cex = .5,
+#   flag = "CHO/Comp/Prot"
+# )
+figure_n <- fig_inc()
+
 ```
 
 <font size = 4> Table `r table_n`. Network characteristics. </font>
@@ -430,6 +425,8 @@ net_table <- net.tab(rgv.data,
 )
 
 net_table$network %>%
+  mutate(Characteristic = ifelse(Characteristic == "Average Outcome", "Average Residual Gastric Volume (mL)", Characteristic),
+         Value = ifelse(Value == 21.89, 21.9, Value)) %>% 
   kbl(booktabs = T, align =  c("lr"), escape = FALSE, col.names = c("Characteristic", "Value")) %>% 
   row_spec(0, bold = TRUE) %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
@@ -451,7 +448,13 @@ net_table$comparison %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   column_spec(1, width = "20em") %>%
-  column_spec(c(2,3), width = "6em")
+  column_spec(c(2,3), width = "6em") %>% 
+  footnote(
+    general = "CHO: carbohydrate; Comp: complex; Prot: protein.",
+    # alphabet = c("Footnote a", "Footnote b"),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
 
 table_n <- tab_inc()
 ```
@@ -463,12 +466,19 @@ table_n <- tab_inc()
 ```{r}
 net_table$intervention %>%
   mutate(across(min.outcome:av.outcome, ~ round(., 1))) %>% 
-  kbl(booktabs = T, align =  c("lccccc"), escape = FALSE, col.names = c("Liquid", "Studies", "Patients", "RGV min", "RGV max", "Mean RGV")) %>% 
+  kbl(booktabs = T, align =  c("lccccc"), escape = FALSE, col.names = c("Liquid", "Studies", "Patients", "min", "max", "mean")) %>% 
+  add_header_above(c(" " = 3, "Residual Gastric Volume (mL)" = 3), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   column_spec(1, width = "14em") %>%
-  column_spec(c(2:5), width = "6em")
+  column_spec(c(2:5), width = "6em") %>% 
+    footnote(
+    general = "CHO: carbohydrate; Comp: complex; Prot: protein; RGV: residual gastric volume; min: minimum; max: maximum.",
+    # alphabet = c("Footnote a", "Footnote b"),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
 
 table_n <- tab_inc()
 ```
@@ -487,9 +497,11 @@ rgv_re <- nma.model(
   family = "normal",
   link = "identity",
   effects = "random",
-  type = "consistency"
+  type = "consistency",
+  # prior.sigma = "dnorm(0,1) T(0,)"
 )
 
+set.seed(12345)
 re_results <- nma.run(rgv_re,
   n.adapt = 101,
   n.burnin = 20000,
@@ -497,29 +509,56 @@ re_results <- nma.run(rgv_re,
 )
 
 ## (updated 2021/05/15 10:38) not run sucra and league --------------------
-# nma.diag(re_results)
-# temp <- nma.diag(re_results)
-# temp$gelman.rubin
+# # nma.diag(re_results)
+# $gelman.rubin
+# $psrf
 #       Point est. Upper C.I.
-# d[2]   1.0001634  1.0006036
-# d[3]   1.0000197  1.0000737
-# d[4]   0.9999903  0.9999998
-# d[5]   1.0000211  1.0000850
-# d[6]   1.0000268  1.0001322
-# sigma  0.9999996  1.0000330
-# rm(temp)
+# d[2]    1.000252   1.000931
+# d[3]    1.000356   1.001321
+# d[4]    1.000011   1.000023
+# d[5]    1.000088   1.000311
+# sigma   1.000130   1.000317
+# 
+# $mpsrf
+# [1] 1.000376
+
+# nma.fit(re_results)
+
 # SUCRA Plot
 # (sucra.out <- nma.rank(re_results, largerbetter = FALSE, sucra.palette = "Set1"))
-# League table
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. Comparative median residual gastric volumes in mL and 95% CrI from network meta-analysis. Comparisons are top to bottom below the diagonal (eg, Fasting vs. CHO/Comp is 0.71 mL) and bottom to top above the diagonal (eg, CHO/Comp vs. Fasting is -0.71 mL)). Note that differences were not identified betwen any comparators, nor were the 95% CrI bounds consistent with potential clinically important differences. </font>
+
+
+```{r leagueTable, include = TRUE}
+# league table
 df <- nma.league(re_results,
   central.tdcy = "median",
   # order = sucra.out$order,
   log.scale = FALSE,
-  low.colour = "springgreen4",
+  low.colour = "white",
   mid.colour = "white",
-  high.colour = "red"
+  high.colour = "white"
 )
 
+as_tibble(df$table) %>%
+  mutate(
+    across(Fasting:Water, ~ str_replace(., " \\(", "<br/>\\(")),
+    across(Fasting:Water, ~ if_else(.x %in% c("Fasting", "CHO/Comp", "CHO/Comp/Prot", "CHO/Simp", "Water"),
+      cell_spec(.x, bold = TRUE), .x
+    ))
+  ) %>%
+  kbl(
+    booktabs = T, align = c("ccccc"), escape = FALSE,
+    col.names = c(rep(" ", 5))
+  ) %>%
+  kable_styling(bootstrap_options = c("hover"), full_width = FALSE, position = "left") %>%
+  row_spec(1:5, extra_css = "vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;")
+table_n <- tab_inc()
+  
 ```
 
 <br/>
@@ -564,20 +603,74 @@ rgv_table_kbl %>%
 table_n <- tab_inc()
 ```
 
-<font size = 2> A sensitivity analysis with residual gastric volumes transformed to the log scale to account for skewed distributions yielded consistent results.  </font>
+<font size = 2> A sensitivity analysis with residual gastric volumes transformed to the log scale to account for skewed distributions yielded consistent results. </font>
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Forest plot of estimated mean differences in residual gastric volume comapred with complex carbohydrate containing liquids. </font>
+<font size = 4> Figure `r figure_n`. Forest plot of estimated mean differences in residual gastric volume compared with complex carbohydrate containing liquids. </font>
 
 ```{r rgvForest, include = TRUE, fig.align = 'left', fig.width = 7, fig.height = 4}
 ## (updated 2021/05/15 10:44) forest plot ---------------------------------
 nma.forest(re_results, comparator = "CHO/Comp") +
   theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 
+figure_n <- fig_inc()
 ```
 
 <br/>
+
+## *Consistency* 
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Posterior mean deviance comparison plot of consistency and inconsistency models (overall no indication for lack of consistency).  </font>
+
+```{r rgvConsistencyCalc, include = FALSE, echo = FALSE}
+## (updated 2021/07/04 17:20) rgv_inconsistency_re ------------------------
+rgv_inconsistency_re <- nma.model(
+  data = rgv.data,
+  outcome = "mean",
+  N = "n",
+  sd = "sd",
+  reference = "Fasting",
+  family = "normal",
+  link = "identity",
+  effects = "random",
+  type = "inconsistency",
+  # prior.sigma = "dnorm(0,1) T(0,)"
+)
+
+set.seed(12345)
+re_inconsist_results <- nma.run(rgv_inconsistency_re,
+  n.adapt = 101,
+  n.burnin = 20000,
+  n.iter = 50000
+)
+
+#Plot the results against each other to assess inconsistency
+assess.consistency <- nma.fit(re_results)
+assess.inconsistency <- nma.fit(re_inconsist_results)
+```
+
+
+```{r rgvConsistency, include = TRUE, fig.align = 'left', fig.width = 7, fig.height = 4}
+## (updated 2021/07/04 17:20) rgv_inconsistency_re ------------------------
+nma.compare(assess.consistency, assess.inconsistency)
+figure_n <- fig_inc()
+```
+
+<br/>
+
+## *Model Fit*
+
+<font size = 4> Figure `r figure_n`. Leverage plot and fit statistics for random-effects model.  </font>
+
+```{r rgvLeverage, include = TRUE, fig.align = 'left', fig.width = 7, fig.height = 4}
+## (updated 2021/07/04 17:20) rgv_inconsistency_re ------------------------
+assess.consistency <- nma.fit(re_results)
+figure_n <- fig_inc()
+```
+
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
