@@ -846,7 +846,7 @@ figure_n <- fig_inc()
 
 <br>
 
-# *Risk of Bias*
+# **Risk of Bias**
 
 <br>
 
