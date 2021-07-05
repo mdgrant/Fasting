@@ -3839,7 +3839,7 @@ rgv_meta.dat <- contin_cho.dat %>%
   # exclude Karimian
   select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1) %>%
   # Yilmaz 2013 estimate sd smd.bwgrpS(21.85, 19.15, 20, 20, .77),
-  # Yildiz 2013 smd.bwgrpS(18.1, 9.3, 30, 30, .05)
+  # Yildiz 2013 3154 smd.bwgrpS(18.1, 9.3, 30, 30, .05)
   # Wang 2019 smd.bwgrpS(24.86, 29.63, 37, 36, .238)
   mutate(
     rgv_sd_1 = ifelse(refid == 2985, 29.0, rgv_sd_1),
@@ -5356,7 +5356,6 @@ figure_n <- fig_inc()
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <br>
-
 
 # References {#references} 
 
