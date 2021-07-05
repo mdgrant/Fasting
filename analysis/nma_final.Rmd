@@ -7,7 +7,7 @@ output:
     theme: cosmo
     anchor_sections: TRUE
     toc_float: 
-      collapsed: true
+      collapsed: FALSE
       smooth_scroll: TRUE
     toc_depth: 3
     linkcolor: blue
@@ -15,12 +15,12 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '3'
-bibliography: cho.bib
+bibliography: cho_nma.bib
 csl: jama.csl
 link-citations: yes
 workflowr:
   suppress_report: false
-# nocite: '@*'
+nocite: '@*'
 ---
 
 #### 
@@ -254,6 +254,15 @@ dichot_cho.dat <- dichot_cho.dat %>%
   )
 
 
+## (updated 2021/07/05 10:39) rgv_meta_nma_studies ------------------------
+rgv_meta_nma_studies <- contin_cho.dat %>%
+  arrange(design, year, study) %>%
+  filter(refid %in% cho_refids, surg_nosurg == "surgical") %>%
+  filter(!is.na(rgv_us) | !is.na(rgv_imag) | !is.na(rgv_asp)) %>%
+  filter(design == "rct", age == "Adult") %>%
+  select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1, hr_gt6:hr_2) %>%
+  select(refid, study) %>%
+  distinct()
 ```
 
 ```{r rgvNmaData, include = TRUE} 
@@ -348,6 +357,91 @@ rgv_meta.dat <- rgv_meta.dat %>%
 #    values_from = c("n", "mean", "sd", "mean_log", "sd_log")
 #  )
 ```
+
+# **Included Studies**
+
+<br/>
+
+<font size = 4> Table `r table_n`. Randomized controlled trials included in the network meta-analysis (all adults undergoing surgery).  See [References](#references) for citations. </font>
+
+```{r studiesIncludedList, echo = FALSE, include = TRUE}
+## * (updated 2021/03/01 09:25) included_studies ----------------------------
+included_studies <- study_char_cho.dat %>%
+  filter(refid %in% rgv_meta_nma_studies$refid) %>% 
+  select(refid, study, year, age, surg_nosurg, design, n_analyze, country, centers, non_vh_hdi, surg_type) %>%
+  mutate(
+    surg = case_when(
+      str_detect(surg_type, "[Gg]yn|[Hh]ysterectomy") ~ "Gyn",
+      str_detect(surg_type, "craniotomy") ~ "Neurosurgical",
+      str_detect(surg_type, "maxillofacial") ~ "Maxillofacial",
+      str_detect(surg_type, "[Hh]ernia|herniorrhaphy") ~ "Herniorrhaphy",
+      str_detect(surg_type, "prostatectomy") ~ "Prostatectomy",
+      str_detect(surg_type, "ariety") ~ "Various",
+      str_detect(surg_type, "various|Hirschsprung's") ~ "Various",
+      str_detect(surg_type, "CABG|[Cc]oronary artery bypass surgery") ~ "CABG",
+      str_detect(surg_type, "Cardiac surgery") ~ "Cardiac",
+      str_detect(surg_type, "[Cc]olorectal|[Bb]owel|colon resection") ~ "Colorectal",
+      str_detect(surg_type, "[Tt]hyroid|hip joint") ~ "Thyroid",
+      str_detect(surg_type, "[Oo]rthopedic|discectomy") ~ "Orthopedic",
+      str_detect(surg_type, "total hip or total knee replacement|[Tt]otal hip|[Tt]otal knee|Hip joint|hip replacement") ~ "TKA/THA",
+      str_detect(surg_type, "cholecystectomy") ~ "Cholecystectomy",
+      str_detect(surg_type, "pancreaticoduodenectomy") ~ "Whipple",
+      str_detect(surg_type, "[Gg]ast|Bowel") ~ "Other GI",
+      str_detect(surg_type, "not appli") ~ "None (healthy)",
+      str_detect(surg_type, "oral") ~ "Oral",
+      str_detect(surg_type, "minor") ~ "Misc minor",
+      str_detect(surg_type, "None") ~ "None (healthy)",
+      str_detect(surg_type, "abdomin") ~ "Other GI",
+      str_detect(surg_type, "[Cc]esarean") ~ "Cesarean delivery",
+      str_detect(surg_type, "[Cc]aesarian") ~ "Cesarean delivery",
+      str_detect(surg_type, "[Ll]abor") ~ "Labor",
+      str_detect(surg_type, "thoracotomy") ~ "Thoracic",
+      str_detect(surg_type, "healthy") ~ "None (healthy)",
+      str_detect(surg_type, "Elective") ~ "Elective",
+      str_detect(surg_type, "adenotonsillectomy") ~ "Adenotonsillectomy",
+      str_detect(surg_type, "[Bb]reast") ~ "Breast",
+      str_detect(surg_type, "Endso|endoscopic|colonoscopy") ~ "Endoscopic"
+    ),
+    surg_nosurg = ifelse(surg_nosurg == "non-surgical", "None", surg_nosurg),
+    study = ifelse(grepl("Marquini", study), str_c(study, "^b^"), study),
+    country = ifelse(grepl("USA", country), "USA", country),
+    country = ifelse(grepl("UK", country), "UK", country),
+    country = ifelse(!is.na(non_vh_hdi), str_c(country, "^a^"), country),
+    n_analyze = ifelse(refid == 2009, 9, n_analyze)
+  ) 
+
+## (updated 2021/03/01 09:24) adult surgical ------------------------------
+included_studies %>% 
+  arrange(age, design, surg, country, year, study) %>%
+  filter(age == "Adult", surg_nosurg == "surgical") %>% 
+  select(refid, study, n_analyze, centers, country, surg) %>%
+  kbl(
+    booktabs = T, align = c("llccll"), # format = "latex",
+    col.names = c("        ID", "Study", "Analyzed (N)", "Centers", "Country^a^", "Surgery")
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "6em") %>%
+  column_spec(2, width = "10em") %>%
+  column_spec(3, width = "6em") %>%
+  column_spec(4, width = "6em") %>%
+  column_spec(5, width = "10em") %>%
+  column_spec(6, width = "12em") %>%
+  pack_top(., "RCT", 1, 15) %>%
+  footnote(
+    general = "RCT: randomized controlled trial.",
+    alphabet = c(
+      "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
 
 # **Residual Gastric Volume**
 
@@ -524,13 +618,16 @@ re_results <- nma.run(rgv_re,
 
 # nma.fit(re_results)
 
+# sigma        2.930e+00  4.202295  5.072117  6.141869  9.013046
+# tau 95% CrI 5.1 (2.9, 9.0)
+
 # SUCRA Plot
 # (sucra.out <- nma.rank(re_results, largerbetter = FALSE, sucra.palette = "Set1"))
 ```
 
 <br/>
 
-<font size = 4> Table `r table_n`. Comparative median residual gastric volumes in mL and 95% CrI from network meta-analysis. Comparisons are top to bottom below the diagonal (eg, Fasting vs. CHO/Comp is 0.71 mL) and bottom to top above the diagonal (eg, CHO/Comp vs. Fasting is -0.71 mL)). Note that differences were not identified betwen any comparators, nor were the 95% CrI bounds consistent with potential clinically important differences. </font>
+<font size = 4> Table `r table_n`. Mean differences in residual gastric volumes (mL) and 95% CrI from network meta-analysis. Comparisons are top to bottom below the diagonal (eg, Fasting vs. CHO/Comp is 0.71 mL) and bottom to top above the diagonal (eg, CHO/Comp vs. Fasting is -0.71 mL). Note that differences were not identified betwen any comparators, nor were the 95% CrI bounds consistent with potential clinically important differences. </font>
 
 
 ```{r leagueTable, include = TRUE}
@@ -556,14 +653,20 @@ as_tibble(df$table) %>%
     col.names = c(rep(" ", 5))
   ) %>%
   kable_styling(bootstrap_options = c("hover"), full_width = FALSE, position = "left") %>%
-  row_spec(1:5, extra_css = "vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;")
+  row_spec(1:5, extra_css = "vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;") %>% 
+  footnote(
+    general = "𝞃 = 5.1 mL (95% CrI: 2.9, 9.0)",
+    # alphabet = c("Footnote a", "Footnote b", ...),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
 table_n <- tab_inc()
   
 ```
 
 <br/>
 
-<font size = 4> Table `r table_n`. Estimated mean differences in residual gastric volume compared with complex carbohydrate containing liquids. </font>
+<font size = 4> Table `r table_n`. Estimated mean differences and 95% CrI in residual gastric volume compared with complex carbohydrate containing liquids. </font>
 
 ```{r rgvKable, include = TRUE}
 ## (updated 2021/05/15 10:44) table of estimates with cho_complex ---------
@@ -574,7 +677,7 @@ temp <- df$heatplot$data %>%
   as_tibble()
 
 rgv_table_kbl <- left_join(order_dat, temp, by = "Treatment") %>%
-  mutate(across(c(ct.stat:uci), ~ format(round(.x, 1), nsmall = 1)),
+  mutate(across(c(ct.stat:uci), ~ format(round(.x, 1), nsmall = 2)),
     cri = paste0("(", lci, " to ", uci, ")"),
     # md_cri = paste0(ct.stat, " (", lci, " to ", uci, ")"),
     cri = str_replace(cri, "\\( ", "\\("),
@@ -609,7 +712,7 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Forest plot of estimated mean differences in residual gastric volume compared with complex carbohydrate containing liquids. </font>
 
-```{r rgvForest, include = TRUE, fig.align = 'left', fig.width = 7, fig.height = 4}
+```{r rgvForest, include = TRUE, fig.align = 'left', fig.width = 5, fig.height = 3}
 ## (updated 2021/05/15 10:44) forest plot ---------------------------------
 nma.forest(re_results, comparator = "CHO/Comp") +
   theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
@@ -619,7 +722,12 @@ figure_n <- fig_inc()
 
 <br/>
 
-## *Consistency* 
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+## *Supplemental *
+
+
+### &emsp;Consistency  
 
 <br/>
 
@@ -661,7 +769,13 @@ figure_n <- fig_inc()
 
 <br/>
 
-## *Model Fit*
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br/>
+
+### &emsp;Model Fit 
+
+<br/>
 
 <font size = 4> Figure `r figure_n`. Leverage plot and fit statistics for random-effects model.  </font>
 
@@ -671,20 +785,22 @@ assess.consistency <- nma.fit(re_results)
 figure_n <- fig_inc()
 ```
 
+<br/>
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <br/>
 
-# Carbohydrate Amounts  
+### &emsp;Carbohydrate Amounts  
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Total carbohydrate consumed prior to surgery according to type and combined with protein in adult trials. </font>
+<font size = 4> Figure `r figure_n`. Total carbohydrate consumed prior to surgery according to type and combined with protein for trials in the network meta-analysis. </font>
 
 ```{r choAmtsFigure, include = TRUE, echo = FALSE, include = TRUE, fig.width = 6, fig.height = 2.5, fig.align = "left"}
 ## * (updated 2021/03/10 13:29) cho_amts adult rct ----------------------------
 cho_amts <- study_arm_cho.dat %>%
+  filter(study %in% rgv_meta.dat$study) %>% 
   filter(design == "rct", age == "Adult", surg_nosurg == "surgical") %>%
   filter(arm_tx %in% c("CHO/Comp/Prot", "CHO/Simp/Prot", "CHO/Comp", "CHO/Simp")) %>%
   filter(refid %in% cho_refids) %>% 
@@ -721,6 +837,45 @@ cho_amts %>% ggplot(aes(cho_gm_all, arm_tx)) +
 
 figure_n <- fig_inc()
 ```
+
 <font size = 3> CHO: carbohydrate; Comp: complex; Simp: simple; Prot: protein. </font>
+
+<br clear="all" />
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br>
+
+# *Risk of Bias*
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Summary risk of bias appraisal for randomized controlled trials included in the analyses.</font>
+
+<img src="assets/cho_nma_rob_summary.svg" style="width:600px;" align="left"/>
+
+<br clear="all" />
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisals for randomized controlled trials included in the analyses. </font>
+
+<img src="assets/cho_nma_rob_traffic.svg" style="width:600px;" align="left"/>
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<br clear="all" />
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br/>
+
+# References {#references} 
 
 <br/>
