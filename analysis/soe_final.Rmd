@@ -128,7 +128,7 @@ firstup <- function(x) {
 
 ```{r soeData, include = TRUE}
 ## (updated 2021/05/13 11:45) soeData -------------------------------------
-soe.dat <- readxl::read_xlsx("data/SOE_CHO_060721_up_mg.xlsx", range = "A1:AB103", sheet = "soe_050521") %>%
+soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB103", sheet = "soe_050521") %>%
   clean_names() %>%
   mutate(
     n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
@@ -218,7 +218,7 @@ soe_summary %>%
     kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
     col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -231,7 +231,8 @@ soe_summary %>%
   column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           number = c("One additional RCT with no events not included in the pooled result.",
+                      "Two additional studies (Rizvanovic 2019, Yagmurdur 2011) favoring CHO drinks judged to be outliers were not included in the pooled result."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
@@ -296,7 +297,7 @@ cho_domain %>%
   add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
   column_spec(1, width = "13em") %>%  
   column_spec(2, width = "4em") %>% 
