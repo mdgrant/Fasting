@@ -727,11 +727,11 @@ figure_n <- fig_inc()
 ## *Supplemental *
 
 
-### &emsp;Consistency  
+### &emsp;Inconsistency  
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Posterior mean deviance comparison plot of consistency and inconsistency models (overall no indication for lack of consistency).  </font>
+<font size = 4> Figure `r figure_n`. Posterior mean deviance comparison plot of consistency and inconsistency models (overall no indication of inconsistency).  </font>
 
 ```{r rgvConsistencyCalc, include = FALSE, echo = FALSE}
 ## (updated 2021/07/04 17:20) rgv_inconsistency_re ------------------------
