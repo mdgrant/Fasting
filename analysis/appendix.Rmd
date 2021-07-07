@@ -127,21 +127,21 @@ firstup <- function(x) {
 
 ```{r soeData, include = TRUE}
 ## (updated 2021/05/13 11:45) soeData -------------------------------------
-soe.dat <- readxl::read_xlsx("data/SOE_CHO_051721_up.xlsx", range = "A1:AB98", sheet = "soe_050521") %>%
+soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB103", sheet = "soe_050521") %>%
   clean_names() %>%
   mutate(
     n = paste0(n, outcome),
     # outcome = tools::toTitleCase(outcome) %>%
     outcome = str_to_sentence(outcome),
-    outcome = ifelse(outcome == "Ph", "pH", outcome),
-    outcome = str_replace(outcome, "Hunger", "Hunger (preop)"),
-    outcome = str_replace(outcome, "Nausea", "Nausea (preop)"),
-    outcome = str_replace(outcome, "Thirst", "Thirst (preop)"),
-    outcome = str_replace(outcome, ", preoperative", " \\(preop\\)"),
-    outcome = str_replace(outcome, ", postoperative", " \\(postop\\)"),
+    outcome = ifelse(outcome == "Ph", "Gastric pH", outcome),
+    # outcome = str_replace(outcome, "Hunger", "Hunger (preop)"),
+    # outcome = str_replace(outcome, "Nausea", "Nausea (preop)"),
+    # outcome = str_replace(outcome, "Thirst", "Thirst (preop)"),
+    # outcome = str_replace(outcome, ", preoperative", " \\(preop\\)"),
+    # outcome = str_replace(outcome, ", postoperative", " \\(postop\\)"),
     outcome = str_replace(outcome, "<br> rct, nrsi, cohort|<br> rct|<br> non.*", ""),
     outcome = str_replace(outcome, "\\) \\(", ", "),
-    outcome = str_replace(outcome, "Gastric ph", "pH"),
+    outcome = str_replace(outcome, "Gastric ph", "Gastric pH"),
     outcome = str_replace(outcome, ", cohort", ""),
     design = str_replace(design, "Rct", "RCT"),
     design = str_replace(design, "rct", "RCT"),
@@ -158,8 +158,8 @@ soe.dat <- readxl::read_xlsx("data/SOE_CHO_051721_up.xlsx", range = "A1:AB98", s
 soe.dat <- soe.dat %>% 
     # filter((grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea", outcome) & design %in% c("RCT","Crossover")) | grepl("Aspir", outcome))
   filter(!(grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea|Satisfaction", outcome) & design %in% c("RCT","Crossover"))) %>%
-  filter(!grepl("Aspir", outcome))
-
+  filter(!grepl("Aspir", outcome)) %>% 
+  filter(is.na(subgroup) | subgroup != "exclude")
 
 ## (updated 2021/05/13 13:48) soe_summary ---------------------------------
 soe_summary <- soe.dat %>%
@@ -227,7 +227,7 @@ soe_summary %>%
   column_spec(7, width = "9em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           number = c("Zhang 2019 and Rizvanovic 2019 were not included in pooled result as both reported no pain/discomfort in either arm."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
