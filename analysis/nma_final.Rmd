@@ -726,7 +726,6 @@ figure_n <- fig_inc()
 
 ## *Supplemental *
 
-
 ### &emsp;Inconsistency  
 
 <br/>
@@ -848,7 +847,34 @@ figure_n <- fig_inc()
 
 # **Risk of Bias**
 
-<br>
+<br/>
+
+<font size = 4> Figure `r figure_n`. Risk of bias contributions in network structure across comparisons (from CINeMA[@nikolakopoulou2020cinema;@papakonstantinou2020cinema]).</font>
+
+<img src="assets/rgv_cinema_netplot.png" style="width:450px;" align="left"/>
+
+<br clear="all" />
+<br/>
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Summary risk of bias contributions of evidence (trials) to comparisons (from CINeMA[@nikolakopoulou2020cinema;@papakonstantinou2020cinema]).</font>
+
+<img src="assets/rgv_cinema_RoB_chart.png" style="width:900px;" align="left"/>
+
+<br clear="all" />    
+
+<br/>
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<br/>
 
 <font size = 4> Figure `r figure_n`. Summary risk of bias appraisal for randomized controlled trials included in the analyses.</font>
 
