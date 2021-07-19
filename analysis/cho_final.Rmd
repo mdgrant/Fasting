@@ -293,7 +293,7 @@ study_char_cho.dat %>%
     booktabs = T, align = c("lllr"),
     col.names = c("Age", "Patients", "Design", "N")
   ) %>%
-  row_spec(c(0, 16), bold = TRUE) %>%
+  row_spec(c(0, 15), bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "8em") %>%
@@ -301,7 +301,7 @@ study_char_cho.dat %>%
   column_spec(3, width = "10em") %>%
   column_spec(4, width = "3em") %>% 
   footnote(
-    general = "RCT: randomized controlle trial.",
+    general = "RCT: randomized controlled trial.",
     # alphabet = c("Footnote a", "Footnote b", ...),
     general_title = "",
     footnote_as_chunk = FALSE
@@ -1512,7 +1512,7 @@ likert_cho_thirst_kbl.dat <- likert_cho_thirst.dat %>%
     thirst_med = ifelse(grepl("(PM)", study) & arm_tx == "Fasting", str_c(thirst_med, "^d^"), thirst_med),
     # mn_sd = ifelse(refid == 5803 & arm_tx == "CHO/Simp", paste0(mn_sd, "^b^"), mn_sd),
     # mn_sd = ifelse(study == "Zelic 2013", paste0(mn_sd, "^e^"), mn_sd), post-op
-    thirst_med = ifelse(study == "De Jonghe 2016" & arm_tx != "Fasting", paste0(thirst_med, "^e^"), thirst_med)
+    # thirst_med = ifelse(study == "De Jonghe 2016" & arm_tx != "Fasting", paste0(thirst_med, "^e^"), thirst_med)
   ) %>%
   arrange(age, desc(surg_nosurg), design, desc(pre_post_op), year, study) %>%
   group_by(study) %>%
@@ -1561,6 +1561,8 @@ likert_cho_thirst_kbl.dat %>%
   pack_top(., "Adult, Surgical", 1, 50) %>%
   pack_sub(., "RCT", 1, 44) %>%
   pack_sub(., "Nonrandomized Studies of Interventions", 45, 50) %>%
+    result_pack("No detected differences", 49, padding = 70) %>%
+  result_pack("Difference  p < .0001", 51, padding = 70) %>%
   footnote(
     general = "RCT: randomized controlled trial; M: mean; SD: standard deviation; SD: standard deviation; Med: median; IQR: interquartile range; NRS: numeric rating scale; MD: mean difference.",
     alphabet = c(
@@ -1568,8 +1570,7 @@ likert_cho_thirst_kbl.dat %>%
       # "Detected a difference vs. water, p < .05.",
       "Within group change from baseline; reported IQR as a single value.",
       "Difference from before beverage consumption to 1 hr post-consumption.",
-      "IQR bound outside range of scale used.",
-      "Between-group difference (P < .0001)."
+      "IQR bound outside range of scale used."
     ),
     general_title = "",  
     footnote_as_chunk = FALSE
@@ -2369,13 +2370,13 @@ figure_n <- fig_inc()
 
 <br/>
 
-  ## *Preoperative Pain/Discomfort* 
+## *Preoperative Pain/Discomfort* 
 
 ### Rates  <a id="pain_ratings15"></a>
 
 <br/>
 
-<font size = 4> Table `r table_n`. Rates of preoperative discomfort or irritability in children, in randomized trials according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Rates of preoperative discomfort, or irritability in children, in randomized trials according to fasting, liquid and volume. </font>
 
 ```{r comfortTableOr, include = TRUE}
 ##(updated 2021/01/13 08:52) comfortTableOr --------------------------------
@@ -2693,7 +2694,7 @@ forest(temp,
   comb.fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
-  digits = 1,
+  digits = 2,
   digits.sd = 1,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
@@ -2767,7 +2768,7 @@ likert_satis_kbl.dat <- likert_satis.dat %>%
     satisfaction_scale = ifelse(study == "Ajuzieogu 2016", "NRS^b^", satisfaction_scale),
     # NOTE: footnote e: satis Satiety Scale
     satisfaction_scale = ifelse(satisfaction_scale == "VAS, 0 to 10", "0→10", satisfaction_scale),
-    satisfaction_scale = ifelse(satisfaction_scale == "0-10 scale", "0←10", satisfaction_scale),
+    satisfaction_scale = ifelse(satisfaction_scale == "0-10 scale", "10→0", satisfaction_scale),
     ) %>% 
   # remove second line study identifier
   arrange(age, desc(surg_nosurg), design, year, study) %>%
@@ -2813,9 +2814,9 @@ likert_satis_kbl.dat %>%
   row_spec(cho_row, color = "brown") %>%
   pack_top(., "Adult", 1, 7) %>%
   pack_sub(., "RCT", 1, 7) %>%
-  result_pack("P = .03; higher satisfaction in CHO arm", 4, padding = 62) %>% 
-  result_pack("No difference detected in satisfaction", 6, padding = 62) %>% 
-  result_pack("P = .01; MD^d^\\ 1.76 (95% CI, 1.59 to 1.93)", 8, padding = 62) %>% 
+  result_pack("P = .03; higher in CHO arm", 4, padding = 70) %>% 
+  result_pack("No difference detected", 6, padding = 70) %>% 
+  result_pack("P = .01; MD^d^\\ 1.76 (95% CI, 1.59 to 1.93)", 8, padding = 70) %>% 
 
   pack_top(., "Pediatric", 8, 8) %>% 
   pack_sub(., "Prospective Cohort", 8, 8) %>% 
@@ -2839,11 +2840,11 @@ table_n <- tab_inc()
 
 # **Clinical Outcomes** 
 
-<br/>
+<br/>   
 
 ## *Aspiration*
 
-### None Reported (Adult) <a id="choNoAspAdult18"></a> 
+### Adults <a id="choNoAspAdult18"></a> 
 
 <br/>
 
@@ -2876,8 +2877,10 @@ dichot_cho.dat %>%
   filter(surg_nosurg == "surgical") %>%
   arrange(age, desc(surg_nosurg), design, year, study) %>%
   select(refid, design, age, study, arm_n, arm_tx) %>%
+  # select(refid, design, age, study, arm_n, arm_tx, year, surg_nosurg) %>%
   pivot_wider(
     id_cols = c(refid, study, age, design),
+    # id_cols = c(refid, study, age, design, year, surg_nosurg),
     names_from = arm_tx,
     values_from = arm_n,
     values_fn = sum
@@ -2887,6 +2890,9 @@ dichot_cho.dat %>%
   mutate(study = ifelse(refid == 165, "Marquini 2020", study)) %>%
   filter(age == "Adult") %>% 
   select(study, design, Fasting, Water, Placebo, "CHO/Comp", "CHO/Simp", "CHO/Comp/Prot", "CHO/Simp/Prot", "Prot") %>%
+  # get fasting totals
+  # filter(!is.na(Fasting)) %>% 
+  # filter(!is.na("CHO/Comp") | !is.na("CHO/Simp") | !is.na("CHO/Comp/Prot") | !is.na("CHO/Simp/Prot")) %>% 
   group_by(design) %>% 
   group_map(~ .x %>%  adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE)) %>% 
   bind_rows() %>% 
@@ -2926,11 +2932,11 @@ table_n <- tab_inc()
 
 <br/> 
 
-### None Reported (Pediatric) <a id="choNoAspPeds19"></a>
+### Pediatric <a id="choNoAspPeds19"></a>
 
 <br/>
 
-<font size = 4> Table `r table_n`. Studies reporting no occurrence of aspiration in children — number of participants according to liquid received. </font>
+<font size = 4> Table `r table_n`. Studies reporting any occurrence of aspiration in children — number of participants according to liquid received. </font>
 
 ```{r aspirateTableReportPeds, include = TRUE}
 ## (updated 2021/01/12 18:04) aspirateTableReport -------------------------
@@ -2938,6 +2944,8 @@ table_n <- tab_inc()
 totals <- dichot_cho.dat %>%
   filter(!is.na(aspirate_np)) %>%
   filter(surg_nosurg == "surgical") %>%
+  filter(age == "Pediatric") %>% 
+  filter(study != "Huang 2020") %>% 
   arrange(age, desc(surg_nosurg), design, year, study) %>%
   select(refid, design, age, study, arm_n, arm_tx) %>%
   pivot_wider(
@@ -2946,7 +2954,6 @@ totals <- dichot_cho.dat %>%
     values_from = arm_n,
     values_fn = sum
   ) %>%
-  filter(age == "Pediatric") %>% 
   select(study, design, Fasting, "CHO/Comp", "CHO/Simp") %>%
   adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE) %>% 
   slice_tail(n = 1)
@@ -2954,15 +2961,17 @@ totals <- dichot_cho.dat %>%
 dichot_cho.dat %>%
   filter(!is.na(aspirate_np)) %>%
   filter(surg_nosurg == "surgical") %>%
+  filter(age == "Pediatric") %>% 
+  filter(study != "Huang 2020") %>% 
   arrange(age, desc(surg_nosurg), design, year, study) %>%
+  # mutate(asp_report = paste0(aspirate_n, "/", arm_n, " (", aspirate_per, ")")) %>% 
   select(refid, design, age, study, arm_n, arm_tx) %>%
   pivot_wider(
     id_cols = c(refid, study, age, design),
     names_from = arm_tx,
-    values_from = arm_n,
+    values_from = c(arm_n),
     values_fn = sum
   ) %>%
-  filter(age == "Pediatric") %>% 
   select(study, design, Fasting, "CHO/Comp", "CHO/Simp") %>%
   group_by(design) %>% 
   group_map(~ .x %>%  adorn_totals(c("col", "row"), fill = "-", na.rm = TRUE)) %>% 
@@ -2973,6 +2982,9 @@ dichot_cho.dat %>%
          study = ifelse(study == "Total", "    Total", study),
          across(Fasting:Total, ~ifelse(.x == 0, NA, .x))) %>% 
   select(-design) %>% 
+  add_row(study = "Huang 2020 2hr^a^", "CHO/Simp" = 174,) %>%
+  add_row(study = "                         1hr", "CHO/Simp" = 170, Total = 334) %>% 
+  add_row() %>% 
   kbl(
     booktabs = T, align = c("lcccr"), escape = FALSE,
     col.names = c("       Study", "Fasting", "CHO/Comp", "CHO/Simp", "Total")
@@ -2984,14 +2996,17 @@ dichot_cho.dat %>%
   column_spec(1, width = "15em") %>%
   column_spec(2:4, width = "5em") %>%
   column_spec(5, width = "5em") %>%
-  row_spec(8, bold = TRUE) %>%
+  row_spec(7, bold = TRUE) %>%
   column_spec(5, bold = TRUE) %>%
-  pack_top(., "Pediatric", 1, 7) %>%
-  pack_sub(., "RCT", 1, 5) %>%
-  pack_sub(., "Retrospective Cohort", 6, 7) %>%
+  pack_top(., "No Aspiration", 1, 6) %>%
+  pack_sub(., "RCT", 1, 4) %>%
+  pack_sub(., "Retrospective Cohort", 5, 6) %>%
+  pack_top(., "Aspiration", 8, 10) %>%  
+  result_pack("3 patients aspirated in each arm", row = 10, padding = 40) %>% 
   footnote(
     general = "RCT: randomized controlled trial; CHO: carbohydrate; Simp: simple; Comp: complex.",
     general_title = "",
+    alphabet = c("Study of infants undergoing surgery for cyanotic congenital heart disease (Chinese study)."),
     footnote_as_chunk = FALSE
   )
 
@@ -3000,7 +3015,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Unreported (Adult) <a id="choUnrepAspAdult"></a>
+### Adults Unreported <a id="choUnrepAspAdult"></a>
 
 <br>
 
@@ -3085,7 +3100,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### Unreported (Pediatric) <a id="choUnrepAspPeds21"></a>
+### Pediatric Unreported <a id="choUnrepAspPeds21"></a>
 
 <br>
 
@@ -4944,8 +4959,8 @@ study_char_table %>%
   pack_sub(., "Crossover", 101, 109) %>%
   pack_sub(., "Nonrandomized Studies of Interventions", 110, 111) %>% 
   pack_top(., "Pediatric, Surgical", 112, 120) %>% 
-  pack_sub(., "RCT", 112, 118) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
+  pack_sub(., "RCT", 112, 119) %>% 
+  # pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
   pack_sub(., "Prospective Cohort", 120, 120) %>% 
   pack_top(., "Pediatric, Non-surgical", 121, 123) %>% 
   pack_sub(., "RCT", 121, 121) %>%
@@ -5036,8 +5051,8 @@ pt_char_table %>%
   pack_sub(., "Crossover", 101, 109) %>%
   pack_sub(., "Nonrandomized Studies of Interventions", 110, 111) %>% 
   pack_top(., "Pediatric, Surgical", 112, 120) %>% 
-  pack_sub(., "RCT", 112, 118) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
+  pack_sub(., "RCT", 112, 119) %>% 
+  # pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
   pack_sub(., "Prospective Cohort", 120, 120) %>% 
   pack_top(., "Pediatric, Non-surgical", 121, 123) %>% 
   pack_sub(., "RCT", 121, 121) %>%
@@ -5279,8 +5294,8 @@ study_fund_table %>%
   pack_sub(., "Crossover", 100-1, 108-1) %>%
   pack_sub(., "Nonrandomized Studies of Interventions", 109-1, 110-1) %>% 
   pack_top(., "Pediatric, Surgical", 111-1, 119-1) %>% 
-  pack_sub(., "RCT", 111-1, 117-1) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 118-1, 118-1) %>% 
+  pack_sub(., "RCT", 111-1, 118-1) %>% 
+  # pack_sub(., "Nonrandomized Studies of Interventions", 118-1, 118-1) %>% 
   pack_sub(., "Prospective Cohort", 119-1, 119-1) %>% 
   pack_top(., "Pediatric, Non-surgical", 120-1, 122-1) %>% 
   pack_sub(., "RCT", 120-1, 120-1) %>%
