@@ -168,7 +168,7 @@ soe.dat <- soe.dat %>%
 
 ## (updated 2021/05/13 13:48) soe_summary ---------------------------------
 soe_summary <- soe.dat %>%
-  select(n, comparison, outcome,  n_s, grade, uspstf, acc, out_import, result_summary, result_links) %>%
+  select(n, comparison, outcome, n_s, grade, uspstf, acc, out_import, result_summary, result_links) %>%
   mutate(
     grade = case_when(
       grade == "very low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
@@ -207,7 +207,7 @@ domain_summary <- soe.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for selected important preoperative (except aspiration and patient satisfaction) outcomes in randomized controlled trials comparing carbohydrate drinks with fasting in adults.  </font>
+<font size = 4> Table `r table_n`. Strength of evidence for important preoperative (except aspiration and patient satisfaction) outcomes in randomized controlled trials comparing carbohydrate drinks with fasting in adults.  </font>
 
 ```{r chofasting, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
