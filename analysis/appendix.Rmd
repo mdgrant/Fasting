@@ -9,7 +9,7 @@ output:
     toc: yes
     toc_depth: 3
     toc_float: 
-      collapsed: TRUE
+      collapsed: FALSE
       smooth_scroll: yes
     linkcolor: black
   latex_engine: xelatex
@@ -130,18 +130,19 @@ firstup <- function(x) {
 soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB103", sheet = "soe_050521") %>%
   clean_names() %>%
   mutate(
+    n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
     n = paste0(n, outcome),
     # outcome = tools::toTitleCase(outcome) %>%
     outcome = str_to_sentence(outcome),
-    outcome = ifelse(outcome == "Ph", "Gastric pH", outcome),
+    outcome = ifelse(outcome == "Ph", "pH", outcome),
     # outcome = str_replace(outcome, "Hunger", "Hunger (preop)"),
     # outcome = str_replace(outcome, "Nausea", "Nausea (preop)"),
     # outcome = str_replace(outcome, "Thirst", "Thirst (preop)"),
-    # outcome = str_replace(outcome, ", preoperative", " \\(preop\\)"),
-    # outcome = str_replace(outcome, ", postoperative", " \\(postop\\)"),
+    outcome = str_replace(outcome, ", preoperative", " \\(preop\\)"),
+    outcome = str_replace(outcome, ", postoperative", " \\(postop\\)"),
     outcome = str_replace(outcome, "<br> rct, nrsi, cohort|<br> rct|<br> non.*", ""),
     outcome = str_replace(outcome, "\\) \\(", ", "),
-    outcome = str_replace(outcome, "Gastric ph", "Gastric pH"),
+    outcome = str_replace(outcome, "Gastric ph", "pH"),
     outcome = str_replace(outcome, ", cohort", ""),
     design = str_replace(design, "Rct", "RCT"),
     design = str_replace(design, "rct", "RCT"),
@@ -163,7 +164,7 @@ soe.dat <- soe.dat %>%
 
 ## (updated 2021/05/13 13:48) soe_summary ---------------------------------
 soe_summary <- soe.dat %>%
-  select(n, comparison, outcome, grade, uspstf, acc, out_import, result_summary, result_links) %>%
+  select(n, comparison, outcome, n_s, grade, uspstf, acc, out_import, result_summary, result_links) %>%
   mutate(
     grade = case_when(
       grade == "very low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
@@ -206,25 +207,28 @@ domain_summary <- soe.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Supplemental strength of evidence in studies comparing carbohydrate drinks with fasting in adults. </font>
+<font size = 4> Table `r table_n`. Strength of evidence from nonrandomized studies or for limited importance outcomes — carbohydrate drinks vs. fasting in adults. </font>
 
 ```{r chofasting, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "CHO_fasting") %>% 
   select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
+    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:5), width = "6em") %>% 
+  column_spec(6, width = "em") %>% 
+  column_spec(7, width = "24em") %>% 
+  column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
            number = c("Zhang 2019 and Rizvanovic 2019 were not included in pooled result as both reported no pain/discomfort in either arm."),
@@ -237,7 +241,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### &ensp;&ensp;GRADE Domains 
 
 <br>
 
@@ -311,7 +315,7 @@ table_n <- tab_inc()
 
 ### *Carbohydrate vs. Clear Liquids, Water*
 
-### Strength of Evidence Ratings
+### &ensp;&ensp; Strength of Evidence Ratings
 
 <br/>
 
@@ -322,17 +326,21 @@ table_n <- tab_inc()
 soe_summary %>% 
   filter(comparison == "CHO_clear") %>% 
   select(!c(comparison, n)) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
+    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:5), width = "6em") %>% 
+  column_spec(6, width = "em") %>% 
+  column_spec(7, width = "24em") %>% 
+  column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -433,18 +441,21 @@ table_n <- tab_inc()
 soe_summary %>% 
   filter(comparison == "CHO_fasting_peds") %>% 
   select(!c(comparison, n)) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
+    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:5), width = "6em") %>% 
+  column_spec(6, width = "em") %>% 
+  column_spec(7, width = "24em") %>% 
+  column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -548,18 +559,21 @@ table_n <- tab_inc()
 soe_summary %>% 
   filter(comparison == "Prot_fasting") %>% 
   select(!c(comparison, n)) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
+    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:5), width = "6em") %>% 
+  column_spec(6, width = "em") %>% 
+  column_spec(7, width = "24em") %>% 
+  column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -657,18 +671,21 @@ table_n <- tab_inc()
 soe_summary %>% 
   filter(comparison == "Prot_clear") %>% 
   select(!c(comparison, n)) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
+    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:5), width = "6em") %>% 
+  column_spec(6, width = "em") %>% 
+  column_spec(7, width = "24em") %>% 
+  column_spec(8, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "RGV: residual gastric volume; NRSI: nonrandomized studies of intervensions; OR: odds ratio; SMD: standardized mean difference; MD: mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -767,18 +784,21 @@ soe_summary %>%
   mutate(outcome = str_replace(outcome, "ph", "pH")) %>% 
   filter(grepl("gum", comparison)) %>% 
   select(!c(comparison, n)) %>% 
-    kbl(booktabs = T, align = c("llcccll"), escape = FALSE,
-    col.names = c("Outcome", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
+    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  # add_header_above(c(" " = 4, "LI" = 1, " " = 2), line = FALSE, angle = -45, font_size = 3) %>% 
-  add_header_above(c(" " = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = TRUE, bold = TRUE) %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "12em") %>%  
-  column_spec(c(2:4), width = "6em") %>% 
-  column_spec(5, width = "7em") %>% 
-  column_spec(6, width = "26em") %>% 
-  column_spec(7, width = "9em") %>% 
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:5), width = "6em") %>% 
+  column_spec(6, width = "em") %>% 
+  column_spec(7, width = "24em") %>% 
+  column_spec(8, width = "7em") %>% 
   # pack_top(., "Gum vs.Fasting", 1, 3) %>%
   # pack_top(., "Gum vs. Water", 4, 4) %>%
   # pack_top(., "Gum vs. Fasting, Pediatric", 5, 6) %>%
