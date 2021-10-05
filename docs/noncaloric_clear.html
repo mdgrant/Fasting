@@ -1,0 +1,5225 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Non-caloric Clear Liquids vs. Fasting</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Fasting</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="soe_final.html">Strength of Evidence</a>
+</li>
+<li>
+  <a href="cho_final.html">Carbohydrate</a>
+</li>
+<li>
+  <a href="nma_final.html">Simple/Complex (Network)</a>
+</li>
+<li>
+  <a href="protein_final.html">Protein/Carbohydrate</a>
+</li>
+<li>
+  <a href="noncaloric_clear.html">Clear (non-caloric) vs. fasting</a>
+</li>
+<li>
+  <a href="gum_final.html">Chewing Gum</a>
+</li>
+<li>
+  <a href="appendix.html">Appendix</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Non-caloric Clear Liquids vs. Fasting</h1>
+<h4 class="date">05 October, 2021 (14:11)</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-10-05
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Fasting/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20201201code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20201201)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20201201code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20201201)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtreeb867edee60750a2c196e51c5b8701087e634e262targetblankb867edea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/Fasting/tree/b867edee60750a2c196e51c5b8701087e634e262" target="_blank">b867ede</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtreeb867edee60750a2c196e51c5b8701087e634e262targetblankb867edea" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/Fasting/tree/b867edee60750a2c196e51c5b8701087e634e262" target="_blank">b867ede</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    code/.DS_Store
+    Ignored:    foot_unique.csv
+    Ignored:    nauseaSimpCompl.csv
+    Ignored:    nausea_cho.csv
+    Ignored:    notes.txt
+    Ignored:    outcome_list.txt
+
+Untracked files:
+    Untracked:  Marsman2021BJA_liberalizeFluids.pdf
+    Untracked:  _@@/Carbohydrate Drinks.html
+    Untracked:  _@@/Fasting-master_old.zip
+    Untracked:  _site.yml_back
+    Untracked:  all_arms.csv
+    Untracked:  analysis/.gitignore
+    Untracked:  analysis/american-medical-association.csl
+    Untracked:  analysis/anesthesiology.csl
+    Untracked:  analysis/cho.bib
+    Untracked:  analysis/cho_nma.bib
+    Untracked:  analysis/gum.bib
+    Untracked:  analysis/jama.csl
+    Untracked:  analysis/nma_final copy.Rmd
+    Untracked:  analysis/nma_hunger_thirst.Rmd
+    Untracked:  analysis/protein.bib
+    Untracked:  cho_amts.csv
+    Untracked:  cho_clin_rob_summary.svg
+    Untracked:  cho_clin_rob_traffic.svg
+    Untracked:  cho_refs.csv
+    Untracked:  code/Untitled.R
+    Untracked:  code/a_temp_to_run.R
+    Untracked:  code/anchors_cho.txt
+    Untracked:  code/anchors_prot.txt
+    Untracked:  code/bayes_sensitivity.R
+    Untracked:  code/bugsnet_test_script.R
+    Untracked:  code/calc_mn_sd_med_iqr_range.R
+    Untracked:  code/calculations.R
+    Untracked:  code/cho_010420.Rmd
+    Untracked:  code/cho_nausea.R
+    Untracked:  code/clear_outcomes.R
+    Untracked:  code/createCinemaFile.R
+    Untracked:  code/discard.R
+    Untracked:  code/fasting_descriptive.R
+    Untracked:  code/functions.R
+    Untracked:  code/gum_summary_070121.R
+    Untracked:  code/helpers.R
+    Untracked:  code/helpers_old.R
+    Untracked:  code/hrs.R
+    Untracked:  code/hungerRateClear.R
+    Untracked:  code/meanLogFunctions.R
+    Untracked:  code/metaHungerClear.R
+    Untracked:  code/nma_debug_copy.R
+    Untracked:  code/nma_sensitivity.R
+    Untracked:  code/raw_log.R
+    Untracked:  code/readFilesSummary_120220_wfr.R
+    Untracked:  code/robGum.R
+    Untracked:  code/rob_021121.R
+    Untracked:  code/rob_protein.R
+    Untracked:  code/rob_summary.R
+    Untracked:  code/rob_summary_mg.R
+    Untracked:  code/rob_traffic_light.R
+    Untracked:  code/rob_traffic_light_mg copy.R
+    Untracked:  code/rob_traffic_light_mg.R
+    Untracked:  code/select_refids_summary.R
+    Untracked:  code/simp_comp_code.R
+    Untracked:  code/skeleton.bib
+    Untracked:  code/snips.R
+    Untracked:  code/summary_071921.html
+    Untracked:  code/summary_arxiv_072221.Rmd
+    Untracked:  code/summary_arxiv_072221.pdf
+    Untracked:  code/summary_arxiv_072221.tex
+    Untracked:  code/summary_gum_arxiv_072221.Rmd
+    Untracked:  code/summary_gum_arxiv_072221.pdf
+    Untracked:  code/summary_gum_arxiv_072221.tex
+    Untracked:  code/summary_prot_arxiv_072221.Rmd
+    Untracked:  code/summary_prot_arxiv_072221.pdf
+    Untracked:  code/summary_prot_arxiv_072221.tex
+    Untracked:  code/timePlot.R
+    Untracked:  code/used_files_dates.txt
+    Untracked:  data/CHOComplicationList_012521.xlsx
+    Untracked:  data/CHOProteinDetail_031021.xlsx
+    Untracked:  data/GumOutcomes_102820.xlsx
+    Untracked:  data/GumOutcomes_102820_old.xlsx
+    Untracked:  data/ProteinSOE_013121.xlsx
+    Untracked:  data/ProteinSOE_121620.xlsx
+    Untracked:  data/SOE_070621_final.xlsx
+    Untracked:  data/SOE_CHO_051721_up.xlsx
+    Untracked:  data/SOE_CHO_060721_up.xlsx
+    Untracked:  data/SOE_CHO_060721_up_mg.xlsx
+    Untracked:  data/SOE_Gum_020421.xlsx
+    Untracked:  data/SOE_Protein_021021.xlsx
+    Untracked:  data/_old/
+    Untracked:  data/contOutcomes_2021-04-17-11-47-32.csv
+    Untracked:  data/contOutcomes_2021-05-10-01-19-15.csv
+    Untracked:  data/contOutcomes_2021-06-22-12-11-51.csv
+    Untracked:  data/contOutcomes_2021-07-01-15-47-36.csv
+    Untracked:  data/contOutcomes_2021-08-17-15-31-43.csv
+    Untracked:  data/dichotOutcomes_2021-04-19-19-52-29.csv
+    Untracked:  data/dichotOutcomes_2021-05-07-22-28-20.csv
+    Untracked:  data/dichotOutcomes_2021-05-08-15-13-40.csv
+    Untracked:  data/dichotOutcomes_2021-06-22-12-00-28.csv
+    Untracked:  data/dichotOutcomes_2021-07-07-15-31-10.csv
+    Untracked:  data/dichotOutcomes_2021-07-07-15-57-51.csv
+    Untracked:  data/distillersr-Preoperative_Fasting_2020-07-08-17-59-49.xlsx
+    Untracked:  data/fasting_table_add_102720.csv
+    Untracked:  data/gum_soe_112120.xlsx
+    Untracked:  data/hdi_072021.csv
+    Untracked:  data/hunger_rob_summary.svg
+    Untracked:  data/hunger_rob_traffic.svg
+    Untracked:  data/incl_mg_distsr_fasting_2020-11-21_OLD.csv
+    Untracked:  data/incl_mg_distsr_fasting_2021-03-09-17-42-12.csv
+    Untracked:  data/likertOutcomes_2021-04-22-20-11-37.csv
+    Untracked:  data/likertOutcomes_2021-05-01-19-43-21.csv
+    Untracked:  data/likertOutcomes_2021-06-22-12-11-26.csv
+    Untracked:  data/likertOutcomes_2021-06-28-19-44-27.csv
+    Untracked:  data/likertOutcomes_2021-09-11-20-57-56.csv
+    Untracked:  data/likertOutcomes_2021-09-13-14-20-13.csv
+    Untracked:  data/protein_detail_102320.xlsx
+    Untracked:  data/rob_2021-04-17-11-47-25.csv
+    Untracked:  data/rob_2021-06-22-12-11-42.csv
+    Untracked:  data/rob_2021-06-22-15-06-55.csv
+    Untracked:  data/studyArm_2021-04-17-11-47-46.csv
+    Untracked:  data/studyArm_2021-06-22-12-12-07.csv
+    Untracked:  data/studyArm_2021-06-24-16-02-44.csv
+    Untracked:  data/studyChar_2021-04-17-11-47-58.csv
+    Untracked:  data/studyChar_2021-06-22-12-12-18.csv
+    Untracked:  data/studyChar_2021-07-07-15-30-50.csv
+    Untracked:  data/studyChar_2021-07-20-19-18-37.csv
+    Untracked:  data/studyChar_2021-09-11-16-54-32.csv
+    Untracked:  diff.csv
+    Untracked:  figures/
+    Untracked:  placebo.csv
+    Untracked:  pt_char_table_cho.csv
+    Untracked:  rgv_cinema.csv
+    Untracked:  rgv_cinema_12.13_7_5_2021.cnm
+    Untracked:  rgv_cinema_RoB_chart_old.png
+    Untracked:  rgv_cinema_netplot_old.png
+    Untracked:  rgv_cinema_random_MD_Report.csv
+    Untracked:  rgv_meta_dat.csv
+    Untracked:  study_char_table_cho.csv
+    Untracked:  used_files_dates.txt
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+    Modified:   analysis/cho_final.Rmd
+    Modified:   analysis/nma_final.Rmd
+    Modified:   analysis/protein_final.Rmd
+    Modified:   analysis/soe_final.Rmd
+    Modified:   code/README.md
+    Modified:   code/readFiles_120220_wfr.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/noncaloric_clear.Rmd</code>) and HTML (<code>docs/noncaloric_clear.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/Fasting/blob/b867edee60750a2c196e51c5b8701087e634e262/analysis/noncaloric_clear.Rmd" target="_blank">b867ede</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-10-05
+</td>
+<td>
+wflow_publish(c(“analysis/noncaloric_clear.Rmd,” “analysis/index.Rmd”))
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="section" class="section level4">
+<h4></h4>
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+</style>
+</div>
+<div id="clear-vs.-fasting" class="section level1">
+<h1>     <u>Clear vs. Fasting</u></h1>
+</div>
+<div id="included-studies" class="section level1">
+<h1><strong>Included Studies</strong></h1>
+<p><br/></p>
+<p><font size = 4> Table 1. Number of included studies according to age, surgery, and design. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Age
+</th>
+<th style="text-align:left;font-weight: bold;">
+Patients
+</th>
+<th style="text-align:left;font-weight: bold;">
+Design
+</th>
+<th style="text-align:right;font-weight: bold;">
+N
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 8em; ">
+Adult
+</td>
+<td style="text-align:left;width: 8em; ">
+Surgical
+</td>
+<td style="text-align:left;width: 10em; ">
+RCT
+</td>
+<td style="text-align:right;width: 3em; ">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 10em; ">
+Nonrandomized
+</td>
+<td style="text-align:right;width: 3em; ">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 10em; ">
+Retrospective Cohort
+</td>
+<td style="text-align:right;width: 3em; ">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 10em; ">
+Case-Control
+</td>
+<td style="text-align:right;width: 3em; ">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+Adult
+</td>
+<td style="text-align:left;width: 8em; ">
+Non-surgical
+</td>
+<td style="text-align:left;width: 10em; ">
+Crossover
+</td>
+<td style="text-align:right;width: 3em; ">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+Pediatric
+</td>
+<td style="text-align:left;width: 8em; ">
+Surgical
+</td>
+<td style="text-align:left;width: 10em; ">
+RCT
+</td>
+<td style="text-align:right;width: 3em; ">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 10em; ">
+Prospective Cohort
+</td>
+<td style="text-align:right;width: 3em; ">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 8em; ">
+Total
+</td>
+<td style="text-align:left;font-weight: bold;width: 8em; ">
+</td>
+<td style="text-align:left;font-weight: bold;width: 10em; ">
+</td>
+<td style="text-align:right;font-weight: bold;width: 3em; ">
+27
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<div id="surgical" class="section level2">
+<h2><em>Surgical</em></h2>
+<p><br/></p>
+<p><font size = 4> Table 2. Studies of adults undergoing surgery (see <a href="#references">References</a> for citations). </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+        ID
+</th>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+Analyzed (N)
+</th>
+<th style="text-align:center;font-weight: bold;">
+Centers
+</th>
+<th style="text-align:left;font-weight: bold;">
+Country<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+Surgery
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="22">
+<td colspan="6" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult</strong>
+</td>
+</tr>
+<tr grouplength="18">
+<td colspan="6" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+3823
+</td>
+<td style="text-align:left;width: 10em; ">
+DNascimento 2011
+</td>
+<td style="text-align:center;width: 6em; ">
+50
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Brazil<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Cholecystectomy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+3513
+</td>
+<td style="text-align:left;width: 10em; ">
+DNascimento 2012b
+</td>
+<td style="text-align:center;width: 6em; ">
+48
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Brazil<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Cholecystectomy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+5310
+</td>
+<td style="text-align:left;width: 10em; ">
+Maltby 2004
+</td>
+<td style="text-align:center;width: 6em; ">
+130
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Canada
+</td>
+<td style="text-align:left;width: 12em; ">
+Elective
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+4014
+</td>
+<td style="text-align:left;width: 10em; ">
+Wang 2010
+</td>
+<td style="text-align:center;width: 6em; ">
+52
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+China<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Colorectal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+160
+</td>
+<td style="text-align:left;width: 10em; ">
+Shi 2020
+</td>
+<td style="text-align:center;width: 6em; ">
+63
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+China<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Colorectal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+4766
+</td>
+<td style="text-align:left;width: 10em; ">
+Breuer 2006
+</td>
+<td style="text-align:center;width: 6em; ">
+160
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Germany
+</td>
+<td style="text-align:left;width: 12em; ">
+CABG
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+3891
+</td>
+<td style="text-align:left;width: 10em; ">
+Dalal 2010
+</td>
+<td style="text-align:center;width: 6em; ">
+100
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+India<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Gyn
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+2482
+</td>
+<td style="text-align:left;width: 10em; ">
+Singh 2015a
+</td>
+<td style="text-align:center;width: 6em; ">
+20
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+India<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Maxillofacial
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+2172
+</td>
+<td style="text-align:left;width: 10em; ">
+Singh 2015b
+</td>
+<td style="text-align:center;width: 6em; ">
+120
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+India<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Cholecystectomy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+6287
+</td>
+<td style="text-align:left;width: 10em; ">
+Hamid 2012
+</td>
+<td style="text-align:center;width: 6em; ">
+150
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Iran<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+No details
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+2564
+</td>
+<td style="text-align:left;width: 10em; ">
+Sada 2014
+</td>
+<td style="text-align:center;width: 6em; ">
+142
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Kosovo<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Colorectal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+1768
+</td>
+<td style="text-align:left;width: 10em; ">
+Ajuzieogu 2016
+</td>
+<td style="text-align:center;width: 6em; ">
+88
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Nigeria<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Other GI
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+926
+</td>
+<td style="text-align:left;width: 10em; ">
+Lee 2018
+</td>
+<td style="text-align:center;width: 6em; ">
+139
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+South Korea
+</td>
+<td style="text-align:left;width: 12em; ">
+Cholecystectomy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+4236
+</td>
+<td style="text-align:left;width: 10em; ">
+De Silva 2009
+</td>
+<td style="text-align:center;width: 6em; ">
+96
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Sri Lanka<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Other GI
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+5725
+</td>
+<td style="text-align:left;width: 10em; ">
+Hausel 2001
+</td>
+<td style="text-align:center;width: 6em; ">
+252
+</td>
+<td style="text-align:center;width: 6em; ">
+3
+</td>
+<td style="text-align:left;width: 10em; ">
+Sweden
+</td>
+<td style="text-align:left;width: 12em; ">
+Colorectal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+5091
+</td>
+<td style="text-align:left;width: 10em; ">
+Hausel 2005
+</td>
+<td style="text-align:center;width: 6em; ">
+172
+</td>
+<td style="text-align:center;width: 6em; ">
+3
+</td>
+<td style="text-align:left;width: 10em; ">
+Sweden
+</td>
+<td style="text-align:left;width: 12em; ">
+Cholecystectomy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+3371
+</td>
+<td style="text-align:left;width: 10em; ">
+Ljunggren 2012
+</td>
+<td style="text-align:center;width: 6em; ">
+57
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Sweden
+</td>
+<td style="text-align:left;width: 12em; ">
+TKA/THA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+4810
+</td>
+<td style="text-align:left;width: 10em; ">
+Noblett 2006
+</td>
+<td style="text-align:center;width: 6em; ">
+35
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+UK
+</td>
+<td style="text-align:left;width: 12em; ">
+Colorectal
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="6" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Nonrandomized Studies of Interventions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+1678
+</td>
+<td style="text-align:left;width: 10em; ">
+Xue 2017
+</td>
+<td style="text-align:center;width: 6em; ">
+129
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+China<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Other GI
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+2675
+</td>
+<td style="text-align:left;width: 10em; ">
+Ghorashi 2014
+</td>
+<td style="text-align:center;width: 6em; ">
+411
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Iran<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Cesarean delivery
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="6" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Retrospective Cohort
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+649
+</td>
+<td style="text-align:left;width: 10em; ">
+Li 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+1599
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+China<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Cesarean delivery
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="6" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Case-Control
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+3456
+</td>
+<td style="text-align:left;width: 10em; ">
+Power 2012
+</td>
+<td style="text-align:center;width: 6em; ">
+50
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Sweden
+</td>
+<td style="text-align:left;width: 12em; ">
+Colorectal
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="6" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Pediatic</strong>
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="6" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+7636
+</td>
+<td style="text-align:left;width: 10em; ">
+Klemetti 2009/10
+</td>
+<td style="text-align:center;width: 6em; ">
+116
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Finland
+</td>
+<td style="text-align:left;width: 12em; ">
+Tonsillectomy/adenoidectomy
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="6" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Prospective Cohort
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+1093
+</td>
+<td style="text-align:left;width: 10em; ">
+Jayasinghe 2018
+</td>
+<td style="text-align:center;width: 6em; ">
+404
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Sri Lanka<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Bone marrow aspirate
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Non very high <a href="https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index">Human Development Index</a> country.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="nonsurgical" class="section level2">
+<h2><em>Nonsurgical</em></h2>
+<p><br/></p>
+<p><font size = 4> Table 3. Studies of healthy adults not undergoing surgery (see <a href="#references">References</a> for citations). </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+        ID
+</th>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+Analyzed (N)
+</th>
+<th style="text-align:center;font-weight: bold;">
+Centers
+</th>
+<th style="text-align:left;font-weight: bold;">
+Country<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+Surgery
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="1">
+<td colspan="6" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Crossover</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+7600
+</td>
+<td style="text-align:left;width: 10em; ">
+Bisinotto 2017
+</td>
+<td style="text-align:center;width: 6em; ">
+80
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Brazil<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+None (healthy)
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Non very high <a href="https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index">Human Development Index</a> country.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+</div>
+</div>
+<div id="patient-reported-outcomes" class="section level1">
+<h1><strong>Patient Reported Outcomes</strong></h1>
+<div id="preoperative-hunger" class="section level2">
+<h2><em>Preoperative Hunger</em></h2>
+<p><font size = 4> (For carbohydrate or protein clear liquid comparisons see <a href="cho_final.html#Preoperative_Hunger">carbohydrate</a> and <a href="protein_final.html#Preoperative_Hunger">protein</a>.) </font></p>
+<div id="patient-rated-surgical" class="section level3">
+<h3>Patient-rated (surgical) <a id="choHungRating7"></a></h3>
+<p><br/></p>
+<p><font size = 4> Table 4. Patient-rated preoperative hunger — studies including non-caloric clear liquid and fasting arms — according to fasting, liquid and volume. (For comparisons with carbohydrate and protein containing liquids see <a href="cho_final.html#Preoperative_Hunger">carbohydrate</a> and <a href="protein_final.html#Preoperative_Hunger">protein</a> hunger results.) </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Volume (mL) Before Induction (hr)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Hunger Rating
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+&gt; 6
+</th>
+<th style="text-align:center;font-weight: bold;">
+6→2
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:left;font-weight: bold;">
+Scale<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+M (SD)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Med (IQR)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Range
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="9">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="9">
+<td colspan="10" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Hausel 2001
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+86
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+35 (10-62)
+</td>
+<td style="text-align:left;width: 4em; ">
+(3-77)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+86
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+800
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+34 (10-68)
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+(3-84)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+80
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+18 (5-42)
+</td>
+<td style="text-align:left;width: 4em; ">
+(1-73)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Breuer 2006
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+44
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+4
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-60)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+60
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+800
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+5
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+(0-80)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+56
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+3
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-100)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Wang 2010<sup>b</sup>
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+28
+</td>
+<td style="text-align:left;width: 4em; ">
+(13-50)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+16
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+22
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+(9-37)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+18
+</td>
+<td style="text-align:left;width: 4em; ">
+(7-37)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; NRS: numeric rating scale.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Arrow (→) indicates best to worst hunger (visual analogue scale).
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>b</sup> Change between 18 hours and 1 hour preop.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="pooled-adult-rcts-patient-rated" class="section level3">
+<h3>Pooled (adult RCTs, patient-rated)</h3>
+<p><font size = 4> Figure 1. Pooled mean difference in preoperative hunger ratings (100 point VAS) from randomized trials comparing non-caloric clear liquids with fasting in adult surgical patients. </font></p>
+<p><img src="figure/noncaloric_clear.Rmd/hungerClrFasting-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Mean differences estimated using medians, interquartile ranges, and overall ranges.</p>
+<p><br/></p>
+</div>
+</div>
+<div id="preoperative-thirst" class="section level2">
+<h2><em>Preoperative Thirst</em></h2>
+<p><font size = 4> (For carbohydrate or protein clear liquid comparisons see <a href="cho_final.html#Preoperative_Thirst">carbohydrate</a> and <a href="protein_final.html#Preoperative_Thirst">protein</a>.) </font></p>
+<div id="rates-surgical" class="section level3">
+<h3>Rates (surgical)</h3>
+<p><br/></p>
+<p><font size = 4> Table 5. Rates of preoperative hunger according to fasting, liquid and volume. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Volume (mL/kg) Before Induction (hr)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Thirst
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+OR (95% CI)
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+&gt; 6
+</th>
+<th style="text-align:center;font-weight: bold;">
+6→2
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:right;font-weight: bold;">
+N (%)
+</th>
+<th style="text-align:left;font-weight: bold;">
+</th>
+<th style="text-align:center;font-weight: bold;">
+Clear vs. Comparator
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="2">
+<td colspan="9" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Pediatric, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="9" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Klemetti 2010b
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+52
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:right;width: 5em; ">
+11 (19)
+</td>
+<td style="text-align:left;width: 5em; ">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: lightgray; width: 19.00%"> </span>
+</td>
+<td style="text-align:center;width: 11em; ">
+0.37 (0.12-1.16)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Other clear
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+55
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+216
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+227
+</td>
+<td style="text-align:right;width: 5em; color: brown !important;">
+5 (9)
+</td>
+<td style="text-align:left;width: 5em; color: brown !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: darksalmon; width: 9.00%"> </span>
+</td>
+<td style="text-align:center;width: 11em; color: brown !important;">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; OR: odds ratio; Non-cal: non-caloric.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="patient-rated-surgical-1" class="section level3">
+<h3>Patient-rated (surgical) <a id="choHungRating7"></a></h3>
+<p><br/></p>
+<p><font size = 4> Table 6. Patient-rated preoperative thirst according to fasting, liquid and volume. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Volume (mL) Before Induction (hr)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Thirst Rating
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+&gt; 6
+</th>
+<th style="text-align:center;font-weight: bold;">
+6→2
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:left;font-weight: bold;">
+Scale<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+M (SD)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Med (IQR)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Range
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="9">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="9">
+<td colspan="10" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Hausel 2001
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+86
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+40 (20-66)
+</td>
+<td style="text-align:left;width: 4em; ">
+(7-81)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+86
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+800
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+31 (14-65)
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+(4-79)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+80
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+24 (7-42)
+</td>
+<td style="text-align:left;width: 4em; ">
+(3-70)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Breuer 2006
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+44
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+30
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-90)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+60
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+800
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+8
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+(0-17)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+56
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+7
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-75)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Wang 2010<sup>b</sup>
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+34
+</td>
+<td style="text-align:left;width: 4em; ">
+(19-60)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+16
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+17
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+(6-53)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+20
+</td>
+<td style="text-align:left;width: 4em; ">
+(8-59)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; NRS: numeric rating scale.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Arrow (→) indicates best to worst thirst (visual analogue scale).
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>b</sup> Change between 18 hours and 1 hour preop.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="pooled-adult-rcts-patient-rated-1" class="section level3">
+<h3>Pooled (adult RCTs, patient-rated)</h3>
+<p><font size = 4> Figure 2. Pooled mean difference in preoperative thirst ratings (100 point VAS) from randomized trials comparing non-caloric clear liquids with fasting in adult surgical patients. </font></p>
+<p><img src="figure/noncaloric_clear.Rmd/thirstClrFasting-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Mean differences estimated using medians, interquartile ranges, and overall ranges.</p>
+<p><br/></p>
+</div>
+</div>
+<div id="preoperative-nausea" class="section level2">
+<h2><em>Preoperative Nausea</em></h2>
+<p><font size = 4> (For carbohydrate or protein clear liquid comparisons see <a href="cho_final.html#Preoperative_Nausea">carbohydrate</a> and <a href="protein_final.html#Preoperative_Nausea">protein</a>.) </font></p>
+<div id="patient-rated-surgical-2" class="section level3">
+<h3>Patient-rated (surgical) <a id="choHungRating7"></a></h3>
+<p><br/></p>
+<p><font size = 4> Table 7. Patient-rated preoperative nausea according to fasting, liquid and volume. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Volume (mL) Before Induction (hr)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+nausea Rating
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+&gt; 6
+</th>
+<th style="text-align:center;font-weight: bold;">
+6→2
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:left;font-weight: bold;">
+Scale<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+M (SD)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Med (IQR)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Range
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="9">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="9">
+<td colspan="10" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Hausel 2001
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+86
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+4 (2-12)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+86
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+800
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+5 (1-13)
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+80
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+4 (2-7)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Breuer 2006
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+44
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+0
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-100)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+60
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+800
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+2
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+(0-50)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+56
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+0
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-30)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Wang 2010<sup>b</sup>
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+8
+</td>
+<td style="text-align:left;width: 4em; ">
+(2-14)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+16
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+8
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+(4-12)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+8
+</td>
+<td style="text-align:left;width: 4em; ">
+(4-11)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; NRS: numeric rating scale.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Arrow (→) indicates best to worst nausea (visual analogue scale).
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>b</sup> Change between 18 hours and 1 hour preop.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="pooled-adult-rcts-patient-rated-2" class="section level3">
+<h3>Pooled (adult RCTs, patient-rated)</h3>
+<p><font size = 4> Figure 3. Pooled mean difference in preoperative nausea ratings (100 point VAS) from randomized trials comparing non-caloric clear liquids with fasting in adult surgical patients. </font></p>
+<p><img src="figure/noncaloric_clear.Rmd/nauseaClrFasting-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Mean differences estimated using medians, interquartile ranges, and overall ranges.</p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="discomfort" class="section level2">
+<h2><em>Discomfort</em></h2>
+<p><font size = 4> (For carbohydrate or protein clear liquid comparisons see <a href="cho_final.html#Preoperative_PainDiscomfort">carbohydrate</a> and <a href="protein_final.html#Preoperative_PainDiscomfort">protein</a>.) </font></p>
+<div id="patient-rated-surgical-3" class="section level3">
+<h3>Patient-rated (surgical)</h3>
+<p><br/></p>
+<p><font size = 4> Table 8. Patient-rated preoperative comfort according to fasting, liquid and volume. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Volume (mL) Before Induction (hr)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Discomfort Rating
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+&gt; 6
+</th>
+<th style="text-align:center;font-weight: bold;">
+6→2
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:left;font-weight: bold;">
+Scale<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+M (SD)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Med (IQR)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Range
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="2">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="9">
+<td colspan="10" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+De Silva 2009
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+53
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+9.7 (10-10)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Water
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+43
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+5.6 (4-8)
+</td>
+<td style="text-align:left;width: 4em; color: brown !important;">
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="10" style="padding-left:72%; border-bottom: 0px solid;color: gray !important;">
+<em>Lower water clear p ≤ 0.0001</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; M: mean; SD: standard deviation; Med: median; IQR: interquartile range.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Arrow (→) indicates best to worst comfort (10-point visual analogue scale).
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+</div>
+<div id="patient-satisfaction" class="section level2">
+<h2><em>Patient Satisfaction</em></h2>
+<p><font size = 4> (For carbohydrate or protein clear liquid comparisons see <a href="cho_final.html#Patient_Satisfaction_">carbohydrate</a> and <a href="protein_final.html#Patient_Satisfaction_">protein</a>.) </font></p>
+<p><font size = 4> Not reported in any studies.</font></p>
+<p><br/></p>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+</div>
+</div>
+<div id="clinical-outcomes" class="section level1">
+<h1><strong>Clinical Outcomes</strong></h1>
+<p><br/></p>
+<div id="aspiration" class="section level2">
+<h2><em>Aspiration</em></h2>
+<p><font size = 4> (For carbohydrate or protein clear liquid comparisons see <a href="cho_final.html#Aspiration">carbohydrate</a> and <a href="protein_final.html#Aspiration">protein</a>.) </font></p>
+<div id="adults" class="section level3">
+<h3>Adults</h3>
+<p><br/></p>
+<p><font size = 4> Table 9. Studies including comparison of non-caloric clear liquids with fasting and reporting no occurrence of aspiration in adults — number of participants according to liquid received. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="6">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Liquid and Participants Receiving
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+Fasting
+</th>
+<th style="text-align:center;font-weight: bold;">
+Water
+</th>
+<th style="text-align:center;font-weight: bold;">
+Placebo
+</th>
+<th style="text-align:center;font-weight: bold;">
+Other clear
+</th>
+<th style="text-align:center;font-weight: bold;">
+CHO
+</th>
+<th style="text-align:center;font-weight: bold;">
+CHO/Prot
+</th>
+<th style="text-align:right;font-weight: bold;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="9">
+<td colspan="8" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult</strong>
+</td>
+</tr>
+<tr grouplength="7">
+<td colspan="8" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Hausel 2001
+</td>
+<td style="text-align:center;width: 5em; ">
+86
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+86
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+80
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+252
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Breuer 2006
+</td>
+<td style="text-align:center;width: 5em; ">
+44
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+60
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+56
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+160
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Wang 2010
+</td>
+<td style="text-align:center;width: 5em; ">
+16
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+16
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+16
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Singh 2015a
+</td>
+<td style="text-align:center;width: 5em; ">
+5
+</td>
+<td style="text-align:center;width: 5em; ">
+5
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+5
+</td>
+<td style="text-align:center;width: 5em; ">
+5
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Lee 2018
+</td>
+<td style="text-align:center;width: 5em; ">
+49
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+44
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+46
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+139
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Shi 2020
+</td>
+<td style="text-align:center;width: 5em; ">
+21
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+21
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+21
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+    Total
+</td>
+<td style="text-align:center;width: 5em; ">
+221
+</td>
+<td style="text-align:center;width: 5em; ">
+5
+</td>
+<td style="text-align:center;width: 5em; ">
+227
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+224
+</td>
+<td style="text-align:center;width: 5em; ">
+5
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+682
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="8" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Nonrandomized Studies of Interventions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Ghorashi 2014
+</td>
+<td style="text-align:center;width: 5em; ">
+144
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+267
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+411
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+    Total
+</td>
+<td style="text-align:center;width: 5em; ">
+144
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+267
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+411
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Overall
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+365
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+5
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+227
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+267
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+224
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+5
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;font-weight: bold;">
+1093
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; CHO: carbohydrate; Prot: protein.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="pediatric" class="section level3">
+<h3>Pediatric</h3>
+<p><br/></p>
+<p><font size = 4> Table 10. Studies including comparison of non-caloric clear liquids with fasting and reporting no occurrence of aspiration in children — number of participants according to liquid received. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Liquid and Participants Receiving
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+Fasting
+</th>
+<th style="text-align:center;font-weight: bold;">
+Other Clear
+</th>
+<th style="text-align:right;font-weight: bold;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="1">
+<td colspan="4" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>No Aspiration</strong>
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="4" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Klemetti 2010a<sup>a</sup>
+</td>
+<td style="text-align:center;width: 5em; ">
+58
+</td>
+<td style="text-align:center;width: 5em; ">
+58
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+116
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; ">
+    Total
+</td>
+<td style="text-align:center;width: 5em; ">
+58
+</td>
+<td style="text-align:center;width: 5em; ">
+58
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+116
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Overall
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+58
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+58
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;font-weight: bold;">
+116
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Study did not specify precise liquid and that juices were allowed.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="adults-unreported" class="section level3">
+<h3>Adults Unreported</h3>
+<p><br></p>
+<p><font size = 4> Table 11. Studies including comparison of non-caloric clear liquids with fasting in adults and silent on whether or not aspiration occurred. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="6">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Liquid and Participants Receiving
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+Fasting
+</th>
+<th style="text-align:center;font-weight: bold;">
+Water
+</th>
+<th style="text-align:center;font-weight: bold;">
+Placebo
+</th>
+<th style="text-align:center;font-weight: bold;">
+Other clear
+</th>
+<th style="text-align:center;font-weight: bold;">
+CHO
+</th>
+<th style="text-align:center;font-weight: bold;">
+CHO/Prot
+</th>
+<th style="text-align:right;font-weight: bold;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="8">
+<td colspan="8" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult</strong>
+</td>
+</tr>
+<tr grouplength="6">
+<td colspan="8" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Hausel 2005
+</td>
+<td style="text-align:center;width: 5em; ">
+58
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+59
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+55
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+172
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Dalal 2010
+</td>
+<td style="text-align:center;width: 5em; ">
+50
+</td>
+<td style="text-align:center;width: 5em; ">
+50
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+DNascimento 2012b
+</td>
+<td style="text-align:center;width: 5em; ">
+12
+</td>
+<td style="text-align:center;width: 5em; ">
+12
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+12
+</td>
+<td style="text-align:center;width: 5em; ">
+12
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Ljunggren 2012
+</td>
+<td style="text-align:center;width: 5em; ">
+20
+</td>
+<td style="text-align:center;width: 5em; ">
+18
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+19
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+57
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Singh 2015b
+</td>
+<td style="text-align:center;width: 5em; ">
+40
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+40
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+40
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+    Total
+</td>
+<td style="text-align:center;width: 5em; ">
+180
+</td>
+<td style="text-align:center;width: 5em; ">
+80
+</td>
+<td style="text-align:center;width: 5em; ">
+99
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+126
+</td>
+<td style="text-align:center;width: 5em; ">
+12
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+497
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="8" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Retrospective Cohort
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Li 2019
+</td>
+<td style="text-align:center;width: 5em; ">
+501
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+1098
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+1599
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+    Total
+</td>
+<td style="text-align:center;width: 5em; ">
+501
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+1098
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+1599
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Overall
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+681
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+80
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+99
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+1098
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+126
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+12
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;font-weight: bold;">
+2096
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; CHO: carbohydrate; Prot: protein.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="pediatric-unreported" class="section level3">
+<h3>Pediatric Unreported <a id="choUnrepAspPeds21"></a></h3>
+<p><br></p>
+<p><font size = 4> Table 12. Studies including comparison of non-caloric clear liquids with fasting in children and silent on whether or not aspiration occurred. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Liquid and Participants Receiving
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+Fasting
+</th>
+<th style="text-align:center;font-weight: bold;">
+Other Clear
+</th>
+<th style="text-align:right;font-weight: bold;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="1">
+<td colspan="4" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Pediatric</strong>
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="4" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Prospective Cohort
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+Jayasinghe 2018<sup>a</sup>
+</td>
+<td style="text-align:center;width: 5em; ">
+202
+</td>
+<td style="text-align:center;width: 5em; ">
+202
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;">
+404
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; font-weight: bold;">
+Total
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+202
+</td>
+<td style="text-align:center;width: 5em; font-weight: bold;">
+202
+</td>
+<td style="text-align:right;width: 5em; font-weight: bold;font-weight: bold;">
+404
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Type of clear liquid not specified.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+</div>
+<div id="preoperative-regurgitation" class="section level2">
+<h2><em>Preoperative Regurgitation</em></h2>
+<div id="adults-surgical" class="section level3">
+<h3>Adults (surgical)</h3>
+<p><br/></p>
+<p><font size = 4> Table 13. Rates of regurgitation (preoperative) in adults according to fasting, liquid and volume. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Volume (mL) Before Induction (hr)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Regurgitation
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+OR (95% CI)
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+        Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+&gt; 6
+</th>
+<th style="text-align:center;font-weight: bold;">
+6→2
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:right;font-weight: bold;">
+N (%)
+</th>
+<th style="text-align:left;font-weight: bold;">
+</th>
+<th style="text-align:center;font-weight: bold;">
+CHO vs. Fasting
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="10">
+<td colspan="9" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="9" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+DNascimento 2012b
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+12
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+0 (0)
+</td>
+<td style="text-align:left;width: 5em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;color: brown !important;">
+Water
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;color: brown !important;">
+12
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;color: brown !important;">
+400
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;color: brown !important;">
+200
+</td>
+<td style="text-align:right;width: 4em; color: brown !important;color: brown !important;">
+0 (0)
+</td>
+<td style="text-align:left;width: 5em; color: brown !important;color: brown !important;">
+</td>
+<td style="text-align:center;width: 9em; color: brown !important;color: brown !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Prot
+</td>
+<td style="text-align:center;width: 3em; ">
+12
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:right;width: 4em; ">
+0 (0)
+</td>
+<td style="text-align:left;width: 5em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+12
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:right;width: 4em; ">
+0 (0)
+</td>
+<td style="text-align:left;width: 5em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Singh 2015a
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+5
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+0 (0)
+</td>
+<td style="text-align:left;width: 5em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;color: brown !important;">
+Water
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;color: brown !important;">
+5
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;color: brown !important;">
+400
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;color: brown !important;">
+200
+</td>
+<td style="text-align:right;width: 4em; color: brown !important;color: brown !important;">
+0 (0)
+</td>
+<td style="text-align:left;width: 5em; color: brown !important;color: brown !important;">
+</td>
+<td style="text-align:center;width: 9em; color: brown !important;color: brown !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Prot
+</td>
+<td style="text-align:center;width: 3em; ">
+5
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:right;width: 4em; ">
+0 (0)
+</td>
+<td style="text-align:left;width: 5em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+5
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:right;width: 4em; ">
+0 (0)
+</td>
+<td style="text-align:left;width: 5em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="9" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Nonrandomized Studies of Interventions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Ghorashi 2014
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+144
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+1 (1)
+</td>
+<td style="text-align:left;width: 5em; ">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: lightgray; width: 1.00%"> </span>
+</td>
+<td style="text-align:center;width: 9em; ">
+0.54 (0.03-8.66)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;color: brown !important;">
+Other clear
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;color: brown !important;">
+267
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;color: brown !important;">
+150
+</td>
+<td style="text-align:right;width: 4em; color: brown !important;color: brown !important;">
+1 (0)
+</td>
+<td style="text-align:left;width: 5em; color: brown !important;color: brown !important;">
+</td>
+<td style="text-align:center;width: 9em; color: brown !important;color: brown !important;">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; OR: odds ratio; CHO: carbohydrate; Prot: protein.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="pediatric-surgical" class="section level3">
+<h3>Pediatric (surgical)</h3>
+<p><font size = 4> Not reported in any studies.</font></p>
+<p><br/></p>
+</div>
+</div>
+<div id="preoperative-vomiting" class="section level2">
+<h2><em>Preoperative Vomiting</em></h2>
+<p><font size = 4> Not reported in any studies for adults or children. </font></p>
+<p><br/></p>
+</div>
+<div id="residual-gastric-volume" class="section level2">
+<h2><em>Residual Gastric Volume</em></h2>
+<div id="adults-surgical-1" class="section level3">
+<h3>Adults (surgical)</h3>
+<p><br/></p>
+<p><font size = 4> Table 14. Residual gastric volumes measured by aspiration at induction in studies of adult surgical patients according to fasting, liquid and volume. </font size></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Volume (mL) Before Induction (hr)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+RGV (mL)<sup>a</sup>
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+&gt; 6
+</th>
+<th style="text-align:center;font-weight: bold;">
+6→2
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:left;font-weight: bold;">
+M (SD)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Med (IQR)
+</th>
+<th style="text-align:left;font-weight: bold;">
+M or Med
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="20">
+<td colspan="9" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="18">
+<td colspan="9" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: #0E9AB9 !important;padding-left: 2em;" indentlevel="1">
+<span style="     color: black !important;">Maltby 2004<sup>b</sup></span>
+</td>
+<td style="text-align:left;width: 7em; color: #0E9AB9 !important;">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+65
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 4em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 11em; color: #0E9AB9 !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #0E9AB9; width: 34.67%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Other clear
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+65
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+300
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 11em; color: brown !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: darksalmon; width: 40.00%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: #0E9AB9 !important;padding-left: 2em;" indentlevel="1">
+<span style="     color: black !important;">De Silva 2009</span>
+</td>
+<td style="text-align:left;width: 7em; color: #0E9AB9 !important;">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+53
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 4em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 11em; color: #0E9AB9 !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #0E9AB9; width: 10.67%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Water
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+43
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 11em; color: brown !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: darksalmon; width: 13.33%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: #0E9AB9 !important;padding-left: 2em;" indentlevel="1">
+<span style="     color: black !important;">Dalal 2010</span>
+</td>
+<td style="text-align:left;width: 7em; color: #0E9AB9 !important;">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+50
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 4em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+17 (8)
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 11em; color: #0E9AB9 !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #0E9AB9; width: 22.80%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Water
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+50
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+150
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+6 (4)
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 11em; color: brown !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: darksalmon; width: 7.33%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: #0E9AB9 !important;padding-left: 2em;" indentlevel="1">
+<span style="     color: black !important;">DNascimento 2011</span>
+</td>
+<td style="text-align:left;width: 7em; color: #0E9AB9 !important;">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+12
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 4em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+12
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+5 (0.0-13)
+</td>
+<td style="text-align:left;width: 11em; color: #0E9AB9 !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #0E9AB9; width: 16.13%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Water
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+12
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+200
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+13
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+8 (4.8-19)
+</td>
+<td style="text-align:left;width: 11em; color: brown !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: darksalmon; width: 17.20%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Prot
+</td>
+<td style="text-align:center;width: 3em; ">
+14
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:left;width: 6em; ">
+5
+</td>
+<td style="text-align:left;width: 6em; ">
+4 (1.8-8.0)
+</td>
+<td style="text-align:left;width: 11em; ">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: lightgray; width: 6.53%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+12
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:left;width: 6em; ">
+13
+</td>
+<td style="text-align:left;width: 6em; ">
+7 (1.7-8.2)
+</td>
+<td style="text-align:left;width: 11em; ">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: lightgray; width: 16.80%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: #0E9AB9 !important;padding-left: 2em;" indentlevel="1">
+<span style="     color: black !important;">Hamid 2012</span>
+</td>
+<td style="text-align:left;width: 7em; color: #0E9AB9 !important;">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+30
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 4em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+18 (44)
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 11em; color: #0E9AB9 !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #0E9AB9; width: 24.00%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Water
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+30
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+26 (33)
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 11em; color: brown !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: darksalmon; width: 34.67%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+Gum sugared
+</td>
+<td style="text-align:center;width: 3em; ">
+30
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+25 (27)
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 11em; ">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: lightgray; width: 33.33%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+Gum sugar-free
+</td>
+<td style="text-align:center;width: 3em; ">
+30
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+27 (27)
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 11em; ">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: lightgray; width: 36.00%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+Lollipop
+</td>
+<td style="text-align:center;width: 3em; ">
+30
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+20 (27)
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 11em; ">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: lightgray; width: 26.67%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: #0E9AB9 !important;padding-left: 2em;" indentlevel="1">
+<span style="     color: black !important;">Ajuzieogu 2016</span>
+</td>
+<td style="text-align:left;width: 7em; color: #0E9AB9 !important;">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+30
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 4em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+26
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 11em; color: #0E9AB9 !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #0E9AB9; width: 34.67%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Water
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+30
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+800
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+400
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+27
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 11em; color: brown !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: darksalmon; width: 36.00%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO
+</td>
+<td style="text-align:center;width: 3em; ">
+28
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 6em; ">
+24
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 11em; ">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: lightgray; width: 32.00%"> </span>
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="9" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Nonrandomized Studies of Interventions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: #0E9AB9 !important;padding-left: 2em;" indentlevel="1">
+<span style="     color: black !important;">Xue 2017</span>
+</td>
+<td style="text-align:left;width: 7em; color: #0E9AB9 !important;">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+64
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 4em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:center;width: 3em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 6em; color: #0E9AB9 !important;">
+</td>
+<td style="text-align:left;width: 11em; color: #0E9AB9 !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #0E9AB9; width: 29.33%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; color: brown !important;padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; color: brown !important;">
+Other clear
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+65
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 4em; color: brown !important;">
+</td>
+<td style="text-align:center;width: 3em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 6em; color: brown !important;">
+</td>
+<td style="text-align:left;width: 11em; color: brown !important;">
+<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: darksalmon; width: 22.67%"> </span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RGV: residual gastric volumne; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; CHO: carbohydrate; Prot: protein; RCT: randomized controlled trial.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> RGV measured at induction in all studies.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>b</sup> Clear liquids included water, apple juice, black coffee, clear tea, and carbonated beverage.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="pediatric-1" class="section level3">
+<h3>Pediatric</h3>
+<p><br/></p>
+<p><font size = 4>Not reported in any studies. </font size></p>
+</div>
+<div id="pooled-adult-rcts" class="section level3">
+<h3>Pooled (adult RCTs)</h3>
+<p><br/></p>
+<p><font size = 4> Figure 4. Pooled residual gastric volume from randomized trials comparing carbohydrate drinks (excludes protein containing) with fasting in adult surgical patients. </font></p>
+<p><img src="figure/noncaloric_clear.Rmd/rgvChoMeta-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Mean differences estimated from means, standard deviations, medians, interquartile and overall ranges. Owing to skewed distributions of RGV, conducted sensitivity analysis on a log scale with consistent results.</p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="gastric-ph" class="section level2">
+<h2><em>Gastric pH</em></h2>
+<p><br/></p>
+</div>
+<div id="complications" class="section level2">
+<h2><em>Complications</em></h2>
+<p><br/></p>
+</div>
+<div id="length-of-stay" class="section level2">
+<h2><em>Length of Stay</em></h2>
+<p><br/></p>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+</div>
+</div>
+<div id="studyparticipant-detail" class="section level1">
+<h1><strong>Study/Participant Detail</strong></h1>
+<p><br/></p>
+</div>
+<div id="study-characteristics" class="section level1">
+<h1><em>Study Characteristics</em></h1>
+</div>
+<div id="sample-characteristics" class="section level1">
+<h1><em>Sample Characteristics</em></h1>
+</div>
+<div id="fasting-liquid-timing-and-amounts" class="section level1">
+<h1><em>Fasting, Liquid Timing and Amounts</em></h1>
+</div>
+<div id="funding" class="section level1">
+<h1><em>Funding</em></h1>
+<p><br/></p>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+</div>
+<div id="risk-of-bias" class="section level1">
+<h1><strong>Risk of Bias</strong></h1>
+<p><br/></p>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p><br/></p>
+<div id="refs" class="references csl-bib-body">
+<div id="ref-Anderson2013" class="csl-entry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Anderson O, Davis R, Hanna GB, Vincent CA. Surgical adverse events: A systematic review. <em>Am J Surg</em>. 2013;206(2):253-262. doi:<a href="https://doi.org/10.1016/j.amjsurg.2012.11.009">10.1016/j.amjsurg.2012.11.009</a></div>
+</div>
+<div id="ref-Karimian2020" class="csl-entry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Karimian N, Kaneva P, Donatelli F, et al. Simple versus complex preoperative carbohydrate drink to preserve perioperative insulin sensitivity in laparoscopic colectomy: A randomized controlled trial. 2020;271(5):819-826. doi:<a href="https://doi.org/10.1097/SLA.0000000000003488">10.1097/SLA.0000000000003488</a></div>
+</div>
+<div id="ref-Zhang2020" class="csl-entry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Zhang YL, Li H, Zeng H, Li Q, Qiu LP, Dai RP. Ultrasonographic evaluation of gastric emptying after ingesting carbohydrate-rich drink in young children: A randomized crossover study. 2020;30(5):599-606. doi:<a href="https://doi.org/10.1111/pan.13853">10.1111/pan.13853</a></div>
+</div>
+<div id="ref-Alimena2020" class="csl-entry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Alimena S, Falzone M, Feltmate CM, Prescott K, Contrino Slattery L, Elias K. Perioperative glycemic measures among non-fasting gynecologic oncology patients receiving carbohydrate loading in an enhanced recovery after surgery (ERAS) protocol. 2020;30(4):533-540. doi:<a href="https://doi.org/10.1136/ijgc-2019-000991">10.1136/ijgc-2019-000991</a></div>
+</div>
+<div id="ref-Talutis2020" class="csl-entry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Talutis SD, Lee SY, Cheng D, Rosenkranz P, Alexanian SM, McAneny D. The impact of preoperative carbohydrate loading on patients with type II diabetes in an enhanced recovery after surgery protocol. 2020. doi:<a href="https://doi.org/10.1016/j.amjsurg.2020.03.032">10.1016/j.amjsurg.2020.03.032</a></div>
+</div>
+<div id="ref-Shi2020" class="csl-entry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Shi M, Hu Z, Yang D, Cai Q, Zhu Z. Preoperative oral carbohydrate reduces postoperative insulin resistance by activating AMP-activated protein kinase after colorectal surgery. 2020:1-8. doi:<a href="https://doi.org/10.1159/000505515">10.1159/000505515</a></div>
+</div>
+<div id="ref-Marquini2020" class="csl-entry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Marquini GV, Silva Pinheiro FE da, Costa Vieira AU da, et al. Preoperative fasting abbreviation (enhanced recovery after surgery protocol) and its effects on the metabolism of patients undergoing gynecologic surgeries under spinal anesthesia: A randomized clinical trial. 2020;77:110790. doi:<a href="https://doi.org/10.1016/j.nut.2020.110790">10.1016/j.nut.2020.110790</a></div>
+</div>
+<div id="ref-Popivanov2020" class="csl-entry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Popivanov P, Irwin R, Walsh M, Leonard M, Tan T. Gastric emptying of carbohydrate drinks in term parturients before elective caesarean delivery: An observational study. 2020;41:29-34. doi:<a href="https://doi.org/10.1016/j.ijoa.2019.07.010">10.1016/j.ijoa.2019.07.010</a></div>
+</div>
+<div id="ref-Pai2020" class="csl-entry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Pai SL, Bojaxhi E, Logvinov I, et al. Gastric emptying of "clear liquid drinks" assessed with gastric ultrasonography: A blinded, randomized pilot study. 2020;86(2):165-171. doi:<a href="https://doi.org/10.23736/S0375-9393.19.13822-9">10.23736/S0375-9393.19.13822-9</a></div>
+</div>
+<div id="ref-Yi2020" class="csl-entry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Yi HC, Ibrahim Z, Abu Zaid Z, et al. Impact of enhanced recovery after surgery with preoperative whey protein-infused carbohydrate loading and postoperative early oral feeding among surgical gynecologic cancer patients: An open-labelled randomized controlled trial. 2020;12(1). doi:<a href="https://doi.org/10.3390/nu12010264">10.3390/nu12010264</a></div>
+</div>
+<div id="ref-Marquini2020a" class="csl-entry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Marquini GV, Pinheiro FES, Vieira AUC, et al. Effects of preoperative fasting abbreviation with carbohydrate and protein solution on postoperative symptoms of gynecological surgeries: Double-blind randomized controlled clinical trial. 2020;46(5):e20192295. doi:<a href="https://doi.org/10.1590/0100-6991e-20192295">10.1590/0100-6991e-20192295</a></div>
+</div>
+<div id="ref-Wendling2020" class="csl-entry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Wendling AL, Byun SY, Koenig M, Vasilopoulos T. Impact of oral carbohydrate consumption prior to cesarean delivery on preoperative well-being: A randomized interventional study. 2020;301(1):179-187. doi:<a href="https://doi.org/10.1007/s00404-020-05455-z">10.1007/s00404-020-05455-z</a></div>
+</div>
+<div id="ref-Panebianco2020" class="csl-entry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Panebianco A, Laforgia R, Volpi A, et al. Preoperative fasting - "nihil per os" a difficult myth to break down: A randomized controlled study. 2020;41(1):84-93. <a href="https://www.ncbi.nlm.nih.gov/pubmed/32038017">https://www.ncbi.nlm.nih.gov/pubmed/32038017</a>.</div>
+</div>
+<div id="ref-Pachella2019" class="csl-entry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Pachella LA, Mehran RJ, Curtin K, Schneider SM. Preoperative carbohydrate loading in patients undergoing thoracic surgery: A quality-improvement project. 2019;34(6):1250-1256. doi:<a href="https://doi.org/10.1016/j.jopan.2019.05.007">10.1016/j.jopan.2019.05.007</a></div>
+</div>
+<div id="ref-Liu2019" class="csl-entry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Liu B, Wang Y, Liu S, et al. A randomized controlled study of preoperative oral carbohydrate loading versus fasting in patients undergoing elective craniotomy. 2019;38(5):2106-2112. doi:<a href="https://doi.org/10.1016/j.clnu.2018.11.008">10.1016/j.clnu.2018.11.008</a></div>
+</div>
+<div id="ref-Rizvanovic2019" class="csl-entry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Rizvanovic N, Nesek Adam V, Causevic S, Dervisevic S, Delibegovic S. A randomised controlled study of preoperative oral carbohydrate loading versus fasting in patients undergoing colorectal surgery. 2019;34(9):1551-1561. doi:<a href="https://doi.org/10.1007/s00384-019-03349-4">10.1007/s00384-019-03349-4</a></div>
+</div>
+<div id="ref-Helminen2019" class="csl-entry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Helminen H, Branders H, Ohtonen P, Saarnio J. Effect of pre-operative oral carbohydrate loading on recovery after day-case cholecystectomy: A randomised controlled trial. 2019;36(8):605-611. doi:<a href="https://doi.org/10.1097/EJA.0000000000001002">10.1097/EJA.0000000000001002</a></div>
+</div>
+<div id="ref-Nascimento2019" class="csl-entry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Nascimento AC, Goveia CS, Guimaraes GMN, Filho RPL, Ladeira LCA, Silva HBG. Assessment of gastric emptying of maltodextrin, coffee with milk and orange juice during labour at term using point of care ultrasound: A non-inferiority randomised clinical trial. 2019;74(7):856-861. doi:<a href="https://doi.org/10.1111/anae.14671">10.1111/anae.14671</a></div>
+</div>
+<div id="ref-Onalan2019" class="csl-entry">
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Onalan E, Andsoy I, Ersoy OF. The effect of preoperative oral carbohydrate administration on insulin resistance and comfort level in patients undergoing surgery. 2019;34(3):539-550. doi:<a href="https://doi.org/10.1016/j.jopan.2018.07.007">10.1016/j.jopan.2018.07.007</a></div>
+</div>
+<div id="ref-Wang2019" class="csl-entry">
+<div class="csl-left-margin">20. </div><div class="csl-right-inline">Wang Y, Zhu Z, Li H, et al. Effects of preoperative oral carbohydrates on patients undergoing ESD surgery under general anesthesia: A randomized control study. 2019;98(20):e15669. doi:<a href="https://doi.org/10.1097/MD.0000000000015669">10.1097/MD.0000000000015669</a></div>
+</div>
+<div id="ref-Feguri2019" class="csl-entry">
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Feguri GR, Lima PRL, Franco AC, et al. Benefits of fasting abbreviation with carbohydrates and omega-3 infusion during CABG: A double-blind controlled randomized trial. 2019;34(2):125-135. doi:<a href="https://doi.org/10.21470/1678-9741-2018-0336">10.21470/1678-9741-2018-0336</a></div>
+</div>
+<div id="ref-Tewari2019" class="csl-entry">
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">Tewari N, Awad S, Duska F, et al. Postoperative inflammation and insulin resistance in relation to body composition, adiposity and carbohydrate treatment: A randomised controlled study. 2019;38(1):204-212. doi:<a href="https://doi.org/10.1016/j.clnu.2018.01.032">10.1016/j.clnu.2018.01.032</a></div>
+</div>
+<div id="ref-Zhang2019" class="csl-entry">
+<div class="csl-left-margin">23. </div><div class="csl-right-inline">Zhang Y, Min J. Preoperative carbohydrate loading in gynecological patients undergoing combined spinal and epidural anesthesia. 2019:1-9. doi:<a href="https://doi.org/10.1080/08941939.2018.1546352">10.1080/08941939.2018.1546352</a></div>
+</div>
+<div id="ref-Wongyingsinn2019" class="csl-entry">
+<div class="csl-left-margin">24. </div><div class="csl-right-inline">Wongyingsinn M, Luangchan S, Tungsongsawat S, Trakarnsanga A, Lohsiriwat V. A randomized controlled trial of preoperative carbohydrate drinks on postoperative walking capacity in elective colorectal surgery. 2019;28(4):727-733. doi:<a href="https://doi.org/10.6133/apjcn.201912{\_}28(4).0008">10.6133/apjcn.201912{\_}28(4).0008</a></div>
+</div>
+<div id="ref-Doo2018" class="csl-entry">
+<div class="csl-left-margin">25. </div><div class="csl-right-inline">Doo AR, Hwang H, Ki MJ, Lee JR, Kim DC. Effects of preoperative oral carbohydrate administration on patient well-being and satisfaction in thyroid surgery. 2018;71(5):394-400. doi:<a href="https://doi.org/10.4097/kja.d.18.27143">10.4097/kja.d.18.27143</a></div>
+</div>
+<div id="ref-Lee2018" class="csl-entry">
+<div class="csl-left-margin">26. </div><div class="csl-right-inline">Lee JS, Song Y, Kim JY, Park JS, Yoon DS. Effects of preoperative oral carbohydrates on quality of recovery in laparoscopic cholecystectomy: A randomized, double blind, placebo-controlled trial. 2018;42(10):3150-3157. doi:<a href="https://doi.org/10.1007/s00268-018-4717-4">10.1007/s00268-018-4717-4</a></div>
+</div>
+<div id="ref-Tudor-Drobjewski2018" class="csl-entry">
+<div class="csl-left-margin">27. </div><div class="csl-right-inline">Tudor-Drobjewski BA, Marhofer P, Kimberger O, Huber WD, Roth G, Triffterer L. Randomised controlled trial comparing preoperative carbohydrate loading with standard fasting in paediatric anaesthesia. 2018;121(3):656-661. doi:<a href="https://doi.org/10.1016/j.bja.2018.04.040">10.1016/j.bja.2018.04.040</a></div>
+</div>
+<div id="ref-Stijn2018" class="csl-entry">
+<div class="csl-left-margin">28. </div><div class="csl-right-inline">Stijn MFM van, Soeters MR, Leeuwen PAM van, et al. Effects of a carbohydrate-, glutamine-, and antioxidant-enriched oral nutrition supplement on major surgery-induced insulin resistance: A randomized pilot study. 2018;42(4):719-729. doi:<a href="https://doi.org/10.1177/0148607117711691">10.1177/0148607117711691</a></div>
+</div>
+<div id="ref-Gianotti2018" class="csl-entry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Gianotti L, Biffi R, Sandini M, et al. Preoperative oral carbohydrate load versus placebo in major elective abdominal surgery (PROCY): A randomized, placebo-controlled, multicenter, phase III trial. 2018;267(4):623-630. doi:<a href="https://doi.org/10.1097/SLA.0000000000002325">10.1097/SLA.0000000000002325</a></div>
+</div>
+<div id="ref-Jiang2018" class="csl-entry">
+<div class="csl-left-margin">30. </div><div class="csl-right-inline">Jiang W, Liu X, Liu F, et al. Safety and benefit of pre-operative oral carbohydrate in infants: A multi-center study in china. 2018;27(5):975-979. doi:<a href="https://doi.org/10.6133/apjcn.052018.08">10.6133/apjcn.052018.08</a></div>
+</div>
+<div id="ref-Esaki2018" class="csl-entry">
+<div class="csl-left-margin">31. </div><div class="csl-right-inline">Esaki K, Tsukamoto M, Sakamoto E, Yokoyama T. Effects of preoperative oral carbohydrate therapy on perioperative glucose metabolism during oral- maxillofacial surgery: Randomised clinical trial. 2018;27(1):137-143. doi:<a href="https://doi.org/10.6133/apjcn.022017.11">10.6133/apjcn.022017.11</a></div>
+</div>
+<div id="ref-Savluk2017" class="csl-entry">
+<div class="csl-left-margin">32. </div><div class="csl-right-inline">Savluk OF, Kuscu MA, Guzelmeric F, et al. Do preoperative oral carbohydrates improve postoperative outcomesin patients undergoing coronary artery bypass grafts? 2017;47(6):1681-1686. doi:<a href="https://doi.org/10.3906/sag-1703-19">10.3906/sag-1703-19</a></div>
+</div>
+<div id="ref-Cakar2017" class="csl-entry">
+<div class="csl-left-margin">33. </div><div class="csl-right-inline">Cakar E, Yilmaz E, Cakar E, Baydur H. The effect of preoperative oral carbohydrate solution intake on patient comfort: A randomized controlled study. 2017;32(6):589-599. doi:<a href="https://doi.org/10.1016/j.jopan.2016.03.008">10.1016/j.jopan.2016.03.008</a></div>
+</div>
+<div id="ref-Du2017" class="csl-entry">
+<div class="csl-left-margin">34. </div><div class="csl-right-inline">Du T, Hill L, Ding L, et al. Gastric emptying for liquids of different compositions in children. 2017;119(5):948-955. doi:<a href="https://doi.org/10.1093/bja/aex340">10.1093/bja/aex340</a></div>
+</div>
+<div id="ref-Lee2017" class="csl-entry">
+<div class="csl-left-margin">35. </div><div class="csl-right-inline">Lee B, Soh S, Shim JK, Kim HY, Lee H, Kwak YL. Evaluation of preoperative oral carbohydrate administration on insulin resistance in off-pump coronary artery bypass patients: A randomised trial. 2017;34(11):740-747. doi:<a href="https://doi.org/10.1097/EJA.0000000000000637">10.1097/EJA.0000000000000637</a></div>
+</div>
+<div id="ref-Okabe2017" class="csl-entry">
+<div class="csl-left-margin">36. </div><div class="csl-right-inline">Okabe T, Terashima H, Sakamoto A. What is the manner of gastric emptying after ingestion of liquids with differences in the volume under uniform glucose-based energy content? 2017;36(5):1283-1287. doi:<a href="https://doi.org/10.1016/j.clnu.2016.08.014">10.1016/j.clnu.2016.08.014</a></div>
+</div>
+<div id="ref-Labuschagne2017" class="csl-entry">
+<div class="csl-left-margin">37. </div><div class="csl-right-inline">Labuschagne GS, Morris RW. The effect of oral intake during the immediate pre-colonoscopy time period on volume depletion in patients who receive sodium picosulfate. 2017;45(4):485-489. doi:<a href="https://doi.org/10.1177/0310057X1704500412">10.1177/0310057X1704500412</a></div>
+</div>
+<div id="ref-Shiraishi2017" class="csl-entry">
+<div class="csl-left-margin">38. </div><div class="csl-right-inline">Shiraishi T, Kurosaki D, Nakamura M, et al. Gastric fluid volume change after oral rehydration solution intake in morbidly obese and normal controls: A magnetic resonance imaging-based analysis. 2017;124(4):1174-1178. doi:<a href="https://doi.org/10.1213/ANE.0000000000001886">10.1213/ANE.0000000000001886</a></div>
+</div>
+<div id="ref-Hellstrom2017" class="csl-entry">
+<div class="csl-left-margin">39. </div><div class="csl-right-inline">Hellstrom PM, Samuelsson B, Al-Ani AN, Hedstrom M. Normal gastric emptying time of a carbohydrate-rich drink in elderly patients with acute hip fracture: A pilot study. 2017;17(1):23. doi:<a href="https://doi.org/10.1186/s12871-016-0299-6">10.1186/s12871-016-0299-6</a></div>
+</div>
+<div id="ref-Dilmen2017" class="csl-entry">
+<div class="csl-left-margin">40. </div><div class="csl-right-inline">Dilmen OK, Yentur E, Tunali Y, Balci H, Bahar M. Does preoperative oral carbohydrate treatment reduce the postoperative surgical stress response in lumbar disc surgery? 2017;153:82-86. doi:<a href="https://doi.org/10.1016/j.clineuro.2016.12.016">10.1016/j.clineuro.2016.12.016</a></div>
+</div>
+<div id="ref-Gomes2017" class="csl-entry">
+<div class="csl-left-margin">41. </div><div class="csl-right-inline">Gomes PC, Caporossi C, Aguilar-Nascimento JE, Silva AM, Araujo VM. Residual gastric volume evaluation with ultrasonography after ingestion of carbohydrate- or carbohydrate plus glutamine-enriched beverages: A randomized, crossover clinical trial with healthy volunteers. 2017;54(1):33-36. doi:<a href="https://doi.org/10.1590/S0004-2803.2017v54n1-06">10.1590/S0004-2803.2017v54n1-06</a></div>
+</div>
+<div id="ref-Ajuzieogu2016" class="csl-entry">
+<div class="csl-left-margin">42. </div><div class="csl-right-inline">Ajuzieogu OV, Amucheazi AO, Nwagha UI, Ezike HA, Luka SK, Abam DS. Effect of routine preoperative fasting on residual gastric volume and acid in patients undergoing myomectomy. 2016;19(6):816-820. doi:<a href="https://doi.org/10.4103/1119-3077.180049">10.4103/1119-3077.180049</a></div>
+</div>
+<div id="ref-De-Jonghe2016" class="csl-entry">
+<div class="csl-left-margin">43. </div><div class="csl-right-inline">De Jonghe B, Fajardy A, Merian-Brosse L, et al. Reducing pre-operative fasting while preserving operating room scheduling flexibility: Feasibility and impact on patient discomfort. 2016;60(9):1222-1229. doi:<a href="https://doi.org/10.1111/aas.12756">10.1111/aas.12756</a></div>
+</div>
+<div id="ref-Tsutsumi2016" class="csl-entry">
+<div class="csl-left-margin">44. </div><div class="csl-right-inline">Tsutsumi R, Kakuta N, Kadota T, et al. Effects of oral carbohydrate with amino acid solution on the metabolic status of patients in the preoperative period: A randomized, prospective clinical trial. 2016;30(5):842-849. doi:<a href="https://doi.org/10.1007/s00540-016-2217-y">10.1007/s00540-016-2217-y</a></div>
+</div>
+<div id="ref-Celiksular2016" class="csl-entry">
+<div class="csl-left-margin">45. </div><div class="csl-right-inline">Celiksular MC, Saracoglu A, Yentur E. The influence of oral carbohydrate solution intake on stress response before total hip replacement surgery during epidural and general anaesthesia. 2016;44(3):117-123. doi:<a href="https://doi.org/10.5152/TJAR.2016.65265">10.5152/TJAR.2016.65265</a></div>
+</div>
+<div id="ref-Song2016" class="csl-entry">
+<div class="csl-left-margin">46. </div><div class="csl-right-inline">Song IK, Kim HJ, Lee JH, Kim EH, Kim JT, Kim HS. Ultrasound assessment of gastric volume in children after drinking carbohydrate-containing fluids. 2016;116(4):513-517. doi:<a href="https://doi.org/10.1093/bja/aew031">10.1093/bja/aew031</a></div>
+</div>
+<div id="ref-Bang2016" class="csl-entry">
+<div class="csl-left-margin">47. </div><div class="csl-right-inline">Bang P, Thorell A, Carlsson-Skwirut C, Ljungqvist O, Brismar K, Nygren J. Free dissociable IGF-i: Association with changes in IGFBP-3 proteolysis and insulin sensitivity after surgery. 2016;35(2):408-413. doi:<a href="https://doi.org/10.1016/j.clnu.2015.03.003">10.1016/j.clnu.2015.03.003</a></div>
+</div>
+<div id="ref-Karlsson2016" class="csl-entry">
+<div class="csl-left-margin">48. </div><div class="csl-right-inline">Karlsson A, Wendel K, Polits S, Gislason H, Hedenbro JL. Preoperative nutrition and postoperative discomfort in an ERAS setting: A randomized study in gastric bypass surgery. 2016;26(4):743-748. doi:<a href="https://doi.org/10.1007/s11695-015-1848-7">10.1007/s11695-015-1848-7</a></div>
+</div>
+<div id="ref-Singh2015a" class="csl-entry">
+<div class="csl-left-margin">49. </div><div class="csl-right-inline">Singh BN, Dahiya D, Bagaria D, et al. Effects of preoperative carbohydrates drinks on immediate postoperative outcome after day care laparoscopic cholecystectomy. 2015;29(11):3267-3272. doi:<a href="https://doi.org/10.1007/s00464-015-4071-7">10.1007/s00464-015-4071-7</a></div>
+</div>
+<div id="ref-Asakura2015" class="csl-entry">
+<div class="csl-left-margin">50. </div><div class="csl-right-inline">Asakura A, Mihara T, Goto T. The effect of preoperative oral carbohydrate or oral rehydration solution on postoperative quality of recovery: A randomized, controlled clinical trial. 2015;10(8):e0133309. doi:<a href="https://doi.org/10.1371/journal.pone.0133309">10.1371/journal.pone.0133309</a></div>
+</div>
+<div id="ref-Andrade-Gagheggi-Ravanini2015" class="csl-entry">
+<div class="csl-left-margin">51. </div><div class="csl-right-inline">Andrade Gagheggi Ravanini G de, Portari Filho PE, Abrantes Luna R, Almeida de Oliveira V. Organic inflammatory response to reduced preoperative fasting time, with a carbohydrate and protein enriched solution; a randomized trial. 2015;32(2):953-957. doi:<a href="https://doi.org/10.3305/nh.2015.32.2.8944">10.3305/nh.2015.32.2.8944</a></div>
+</div>
+<div id="ref-Pedziwiatr2015" class="csl-entry">
+<div class="csl-left-margin">52. </div><div class="csl-right-inline">Pedziwiatr M, Pisarska M, Matlok M, et al. Randomized clinical trial to compare the effects of preoperative oral carbohydrate loading versus placebo on insulin resistance and cortisol level after laparoscopic cholecystectomy. 2015;87(8):402-408. doi:<a href="https://doi.org/10.1515/pjs-2015-0079">10.1515/pjs-2015-0079</a></div>
+</div>
+<div id="ref-Singh2015" class="csl-entry">
+<div class="csl-left-margin">53. </div><div class="csl-right-inline">Singh M, Chaudhary M, Vashistha A, Kaur G. Evaluation of effects of a preoperative 2-hour fast with glutamine and carbohydrate rich drink on insulin resistance in maxillofacial surgery. 2015;5(1):34-39. doi:<a href="https://doi.org/10.1016/j.jobcr.2015.02.006">10.1016/j.jobcr.2015.02.006</a></div>
+</div>
+<div id="ref-Sada2014" class="csl-entry">
+<div class="csl-left-margin">54. </div><div class="csl-right-inline">Sada F, Krasniqi A, Hamza A, Gecaj-Gashi A, Bicaj B, Kavaja F. A randomized trial of preoperative oral carbohydrates in abdominal surgery. 2014;14:93. doi:<a href="https://doi.org/10.1186/1471-2253-14-93">10.1186/1471-2253-14-93</a></div>
+</div>
+<div id="ref-Canbay2014" class="csl-entry">
+<div class="csl-left-margin">55. </div><div class="csl-right-inline">Canbay O, Adar S, Karagoz AH, Celebi N, Bilen CY. Effect of preoperative consumption of high carbohydrate drink (pre-op) on postoperative metabolic stress reaction in patients undergoing radical prostatectomy. 2014;46(7):1329-1333. doi:<a href="https://doi.org/10.1007/s11255-013-0612-y">10.1007/s11255-013-0612-y</a></div>
+</div>
+<div id="ref-Nakamura2014" class="csl-entry">
+<div class="csl-left-margin">56. </div><div class="csl-right-inline">Nakamura M, Uchida K, Akahane M, Watanabe Y, Ohtomo K, Yamada Y. The effects on gastric emptying and carbohydrate loading of an oral nutritional supplement and an oral rehydration solution: A crossover study with magnetic resonance imaging. 2014;118(6):1268-1273. doi:<a href="https://doi.org/10.1213/ANE.0b013e3182a9956f">10.1213/ANE.0b013e3182a9956f</a></div>
+</div>
+<div id="ref-Ljunggren2014" class="csl-entry">
+<div class="csl-left-margin">57. </div><div class="csl-right-inline">Ljunggren S, Hahn RG, Nystrom T. Insulin sensitivity and beta-cell function after carbohydrate oral loading in hip replacement surgery: A double-blind, randomised controlled clinical trial. 2014;33(3):392-398. doi:<a href="https://doi.org/10.1016/j.clnu.2013.08.003">10.1016/j.clnu.2013.08.003</a></div>
+</div>
+<div id="ref-Raksakietisak2014" class="csl-entry">
+<div class="csl-left-margin">58. </div><div class="csl-right-inline">Raksakietisak M, Chinachoti T, Iamaroon A, et al. Oral rehydration with 10<span>%</span> carbohydrate drink for preventing postoperative nausea and vomiting (PONV) after low dose of spinal morphine. 2014;97(5):530-535. <a href="https://www.ncbi.nlm.nih.gov/pubmed/25065093">https://www.ncbi.nlm.nih.gov/pubmed/25065093</a>.</div>
+</div>
+<div id="ref-Gawecka2014" class="csl-entry">
+<div class="csl-left-margin">59. </div><div class="csl-right-inline">Gawecka A, Mierzewska-Schmidt M. Tolerance of, and metabolic effects of, preoperative oral carbohydrate administration in children - a preliminary report. 2014;46(2):61-64. doi:<a href="https://doi.org/10.5603/AIT.2014.0013">10.5603/AIT.2014.0013</a></div>
+</div>
+<div id="ref-Brianez2014" class="csl-entry">
+<div class="csl-left-margin">60. </div><div class="csl-right-inline">Brianez LR, Caporossi C, Moura YW de, Dias LA, Leal RV, Aguilar-Nascimento JE de. Gastric residual volume by magnetic ressonance after intake of maltodextrin and glutamine: A randomized double-blind, crossover study. 2014;51(2):123-127. doi:<a href="https://doi.org/10.1590/s0004-28032014000200010">10.1590/s0004-28032014000200010</a></div>
+</div>
+<div id="ref-Aguilar-Nascimento2014" class="csl-entry">
+<div class="csl-left-margin">61. </div><div class="csl-right-inline">Aguilar-Nascimento JE de, Caporossi C, Metelo JS, Tanajura GH, Canevari-de-Oliveira M, Cunha Costa R da. Safe intake of an oral supplement containing carbohydrates and whey protein shortly before sedation to gastroscopy; a double blind, randomized trial. 2014;29(3):681-686. doi:<a href="https://doi.org/10.3305/nh.2014.29.3.7161">10.3305/nh.2014.29.3.7161</a></div>
+</div>
+<div id="ref-Jabbari-Moghaddam2014" class="csl-entry">
+<div class="csl-left-margin">62. </div><div class="csl-right-inline">Jabbari Moghaddam Y, Seyedhejazi M, Naderpour M, Yaghooblua Y, Golzari SE. Is fasting duration important in post adenotonsillectomy feeding time? 2014;4(1):e10256. doi:<a href="https://doi.org/10.5812/aapm.10256">10.5812/aapm.10256</a></div>
+</div>
+<div id="ref-Webster2014" class="csl-entry">
+<div class="csl-left-margin">63. </div><div class="csl-right-inline">Webster J, Osborne SR, Gill R, et al. Does preoperative oral carbohydrate reduce hospital stay? A randomized trial. 2014;99(2):233-242. doi:<a href="https://doi.org/10.1016/j.aorn.2013.12.003">10.1016/j.aorn.2013.12.003</a></div>
+</div>
+<div id="ref-Koeppe2013" class="csl-entry">
+<div class="csl-left-margin">64. </div><div class="csl-right-inline">Koeppe AT, Lubini M, Bonadeo NM, Moraes Jr I., Fornari F. Comfort, safety and quality of upper gastrointestinal endoscopy after 2 hours fasting: A randomized controlled trial. 2013;13:158. doi:<a href="https://doi.org/10.1186/1471-230X-13-158">10.1186/1471-230X-13-158</a></div>
+</div>
+<div id="ref-Zelic2013" class="csl-entry">
+<div class="csl-left-margin">65. </div><div class="csl-right-inline">Zelic M, Stimac D, Mendrila D, et al. Preoperative oral feeding reduces stress response after laparoscopic cholecystectomy. 2013;60(127):1602-1606. <a href="https://www.ncbi.nlm.nih.gov/pubmed/24634929">https://www.ncbi.nlm.nih.gov/pubmed/24634929</a>.</div>
+</div>
+<div id="ref-Yilmaz2013" class="csl-entry">
+<div class="csl-left-margin">66. </div><div class="csl-right-inline">Yilmaz N, Cekmen N, Bilgin F, Erten E, Ozhan MO, Cosar A. Preoperative carbohydrate nutrition reduces postoperative nausea and vomiting compared to preoperative fasting. 2013;18(10):827-832. <a href="https://www.ncbi.nlm.nih.gov/pubmed/24497851">https://www.ncbi.nlm.nih.gov/pubmed/24497851</a>.</div>
+</div>
+<div id="ref-Tran2013" class="csl-entry">
+<div class="csl-left-margin">67. </div><div class="csl-right-inline">Tran S, Wolever TM, Errett LE, Ahn H, Mazer CD, Keith M. Preoperative carbohydrate loading in patients undergoing coronary artery bypass or spinal surgery. 2013;117(2):305-313. doi:<a href="https://doi.org/10.1213/ANE.0b013e318295e8d1">10.1213/ANE.0b013e318295e8d1</a></div>
+</div>
+<div id="ref-Pexe-Machado2013" class="csl-entry">
+<div class="csl-left-margin">68. </div><div class="csl-right-inline">Pexe-Machado PA, Oliveira BD de, Dock-Nascimento DB, Aguilar-Nascimento JE de. Shrinking preoperative fast time with maltodextrin and protein hydrolysate in gastrointestinal resections due to cancer. 2013;29(7-8):1054-1059. doi:<a href="https://doi.org/10.1016/j.nut.2013.02.003">10.1016/j.nut.2013.02.003</a></div>
+</div>
+<div id="ref-Lidder2013" class="csl-entry">
+<div class="csl-left-margin">69. </div><div class="csl-right-inline">Lidder P, Thomas S, Fleming S, Hosie K, Shaw S, Lewis S. A randomized placebo controlled trial of preoperative carbohydrate drinks and early postoperative nutritional supplement drinks in colorectal surgery. 2013;15(6):737-745. doi:<a href="https://doi.org/10.1111/codi.12130">10.1111/codi.12130</a></div>
+</div>
+<div id="ref-Yildiz2013" class="csl-entry">
+<div class="csl-left-margin">70. </div><div class="csl-right-inline">Yildiz H, Gunal SE, Yilmaz G, Yucel S. Oral carbohydrate supplementation reduces preoperative discomfort in laparoscopic cholecystectomy. 2013;26(2):89-95. doi:<a href="https://doi.org/10.3109/08941939.2012.699998">10.3109/08941939.2012.699998</a></div>
+</div>
+<div id="ref-Nakai2012" class="csl-entry">
+<div class="csl-left-margin">71. </div><div class="csl-right-inline">Nakai K, Niwa H, Kitayama M, Satoh Y, Hirota K. Effects of oral rehydration therapy on gastric volume and pH in patients with preanesthetic H2 antagonist. 2012;26(6):936-938. doi:<a href="https://doi.org/10.1007/s00540-012-1449-8">10.1007/s00540-012-1449-8</a></div>
+</div>
+<div id="ref-Dock-Nascimento2012" class="csl-entry">
+<div class="csl-left-margin">72. </div><div class="csl-right-inline">Dock-Nascimento DB, Aguilar-Nascimento JE, Linetzky Waitzberg D. Ingestion of glutamine and maltodextrin two hours preoperatively improves insulin sensitivity after surgery: A randomized, double blind, controlled trial. 2012;39(6):449-455. doi:<a href="https://doi.org/10.1590/s0100-69912012000600002">10.1590/s0100-69912012000600002</a></div>
+</div>
+<div id="ref-Vigano2012" class="csl-entry">
+<div class="csl-left-margin">73. </div><div class="csl-right-inline">Vigano J, Cereda E, Caccialanza R, et al. Effects of preoperative oral carbohydrate supplementation on postoperative metabolic stress response of patients undergoing elective abdominal surgery. 2012;36(8):1738-1743. doi:<a href="https://doi.org/10.1007/s00268-012-1590-4">10.1007/s00268-012-1590-4</a></div>
+</div>
+<div id="ref-Ljunggren2012" class="csl-entry">
+<div class="csl-left-margin">74. </div><div class="csl-right-inline">Ljunggren S, Hahn RG. Oral nutrition or water loading before hip replacement surgery; a randomized clinical trial. 2012;13:97. doi:<a href="https://doi.org/10.1186/1745-6215-13-97">10.1186/1745-6215-13-97</a></div>
+</div>
+<div id="ref-Harsten2012" class="csl-entry">
+<div class="csl-left-margin">75. </div><div class="csl-right-inline">Harsten A, Hjartarson H, Toksvig-Larsen S. Total hip arthroplasty and perioperative oral carbohydrate treatment: A randomised, double-blind, controlled trial. 2012;29(6):271-274. doi:<a href="https://doi.org/10.1097/EJA.0b013e3283525ba9">10.1097/EJA.0b013e3283525ba9</a></div>
+</div>
+<div id="ref-Itou2012" class="csl-entry">
+<div class="csl-left-margin">76. </div><div class="csl-right-inline">Itou K, Fukuyama T, Sasabuchi Y, et al. Safety and efficacy of oral rehydration therapy until 2 h before surgery: A multicenter randomized controlled trial. 2012;26(1):20-27. doi:<a href="https://doi.org/10.1007/s00540-011-1261-x">10.1007/s00540-011-1261-x</a></div>
+</div>
+<div id="ref-Braga2012" class="csl-entry">
+<div class="csl-left-margin">77. </div><div class="csl-right-inline">Braga M, Bissolati M, Rocchetti S, Beneduce A, Pecorelli N, Di Carlo V. Oral preoperative antioxidants in pancreatic surgery: A double-blind, randomized, clinical trial. 2012;28(2):160-164. doi:<a href="https://doi.org/10.1016/j.nut.2011.05.014">10.1016/j.nut.2011.05.014</a></div>
+</div>
+<div id="ref-Dock-Nascimento2012a" class="csl-entry">
+<div class="csl-left-margin">78. </div><div class="csl-right-inline">Dock-Nascimento DB, Aguilar-Nascimento JE de, Magalhaes Faria MS, Caporossi C, Slhessarenko N, Waitzberg DL. Evaluation of the effects of a preoperative 2-hour fast with maltodextrine and glutamine on insulin resistance, acute-phase response, nitrogen balance, and serum glutathione after laparoscopic cholecystectomy: A controlled randomized trial. 2012;36(1):43-52. doi:<a href="https://doi.org/10.1177/0148607111422719">10.1177/0148607111422719</a></div>
+</div>
+<div id="ref-Feguri2012" class="csl-entry">
+<div class="csl-left-margin">79. </div><div class="csl-right-inline">Feguri GR, Lima PR, Lopes AM, et al. Clinical and metabolic results of fasting abbreviation with carbohydrates in coronary artery bypass graft surgery. 2012;27(1):7-17. doi:<a href="https://doi.org/10.5935/1678-9741.20120004">10.5935/1678-9741.20120004</a></div>
+</div>
+<div id="ref-Yagmurdur2011" class="csl-entry">
+<div class="csl-left-margin">80. </div><div class="csl-right-inline">Yagmurdur H, Gunal S, Yildiz H, Gulec H, Topkaya C. The effects of carbohydrate-rich drink on perioperative discomfort, insulin response and arterial pressure in spinal aesthesia. 2011;16(11):1483-1489. <a href="https://www.ncbi.nlm.nih.gov/pubmed/22973351">https://www.ncbi.nlm.nih.gov/pubmed/22973351</a>.</div>
+</div>
+<div id="ref-Oyama2011" class="csl-entry">
+<div class="csl-left-margin">81. </div><div class="csl-right-inline">Oyama Y, Iwasaka H, Shiihara K, et al. Effects of preoperative oral carbohydrates and trace elements on perioperative nutritional status in elective surgery patients. 2011;21(3):375-383. <a href="https://www.ncbi.nlm.nih.gov/pubmed/22428492">https://www.ncbi.nlm.nih.gov/pubmed/22428492</a>.</div>
+</div>
+<div id="ref-Schmitz2011" class="csl-entry">
+<div class="csl-left-margin">82. </div><div class="csl-right-inline">Schmitz A, Kellenberger CJ, Liamlahi R, Studhalter M, Weiss M. Gastric emptying after overnight fasting and clear fluid intake: A prospective investigation using serial magnetic resonance imaging in healthy children. 2011;107(3):425-429. doi:<a href="https://doi.org/10.1093/bja/aer167">10.1093/bja/aer167</a></div>
+</div>
+<div id="ref-Perrone2011" class="csl-entry">
+<div class="csl-left-margin">83. </div><div class="csl-right-inline">Perrone F, da-Silva-Filho AC, Adorno IF, et al. Effects of preoperative feeding with a whey protein plus carbohydrate drink on the acute phase response and insulin resistance. A randomized trial. 2011;10:66. doi:<a href="https://doi.org/10.1186/1475-2891-10-66">10.1186/1475-2891-10-66</a></div>
+</div>
+<div id="ref-Awad2011" class="csl-entry">
+<div class="csl-left-margin">84. </div><div class="csl-right-inline">Awad S, Blackshaw PE, Wright JW, Macdonald IA, Perkins AC, Lobo DN. A randomized crossover study of the effects of glutamine and lipid on the gastric emptying time of a preoperative carbohydrate drink. 2011;30(2):165-171. doi:<a href="https://doi.org/10.1016/j.clnu.2010.09.008">10.1016/j.clnu.2010.09.008</a></div>
+</div>
+<div id="ref-Taniguchi2011" class="csl-entry">
+<div class="csl-left-margin">85. </div><div class="csl-right-inline">Taniguchi H, Sasaki T, Fujita H. Oral rehydration therapy for preoperative fluid and electrolyte management. 2011;8(6):501-509. doi:<a href="https://doi.org/10.7150/ijms.8.501">10.7150/ijms.8.501</a></div>
+</div>
+<div id="ref-Borges-Dock-Nascimento2011" class="csl-entry">
+<div class="csl-left-margin">86. </div><div class="csl-right-inline">Borges Dock-Nascimento D, Aguilar-Nascimento JE, Caporossi C, et al. Safety of oral glutamine in the abbreviation of preoperative fasting: A double-blind, controlled, randomized clinical trial. 2011;26(1):86-90. <a href="https://www.ncbi.nlm.nih.gov/pubmed/21519733">https://www.ncbi.nlm.nih.gov/pubmed/21519733</a>.</div>
+</div>
+<div id="ref-Mathur2010" class="csl-entry">
+<div class="csl-left-margin">87. </div><div class="csl-right-inline">Mathur S, Plank LD, McCall JL, et al. Randomized controlled trial of preoperative oral carbohydrate treatment in major abdominal surgery. 2010;97(4):485-494. doi:<a href="https://doi.org/10.1002/bjs.7026">10.1002/bjs.7026</a></div>
+</div>
+<div id="ref-Wang2010" class="csl-entry">
+<div class="csl-left-margin">88. </div><div class="csl-right-inline">Wang ZG, Wang Q, Wang WJ, Qin HL. Randomized clinical trial to compare the effects of preoperative oral carbohydrate versus placebo on insulin resistance after colorectal surgery. 2010;97(3):317-327. doi:<a href="https://doi.org/10.1002/bjs.6963">10.1002/bjs.6963</a></div>
+</div>
+<div id="ref-Protic2010" class="csl-entry">
+<div class="csl-left-margin">89. </div><div class="csl-right-inline">Protic A, Turina D, Matanic D, Spanjol J, Zuvic-Butorac M, Sustic A. Effect of preoperative feeding on gastric emptying following spinal anesthesia: A randomized controlled trial. 2010;122(1-2):50-53. doi:<a href="https://doi.org/10.1007/s00508-009-1301-9">10.1007/s00508-009-1301-9</a></div>
+</div>
+<div id="ref-Kaska2010" class="csl-entry">
+<div class="csl-left-margin">90. </div><div class="csl-right-inline">Kaska M, Grosmanova T, Havel E, et al. The impact and safety of preoperative oral or intravenous carbohydrate administration versus fasting in colorectal surgery–a randomized controlled trial. 2010;122(1-2):23-30. doi:<a href="https://doi.org/10.1007/s00508-009-1291-7">10.1007/s00508-009-1291-7</a></div>
+</div>
+<div id="ref-Lobo2009" class="csl-entry">
+<div class="csl-left-margin">91. </div><div class="csl-right-inline">Lobo DN, Hendry PO, Rodrigues G, et al. Gastric emptying of three liquid oral preoperative metabolic preconditioning regimens measured by magnetic resonance imaging in healthy adult volunteers: A randomised double-blind, crossover study. 2009;28(6):636-641. doi:<a href="https://doi.org/10.1016/j.clnu.2009.05.002">10.1016/j.clnu.2009.05.002</a></div>
+</div>
+<div id="ref-Faria2009" class="csl-entry">
+<div class="csl-left-margin">92. </div><div class="csl-right-inline">Faria MS, Aguilar-Nascimento JE de, Pimenta OS, Alvarenga Jr L. C., Dock-Nascimento DB, Slhessarenko N. Preoperative fasting of 2 hours minimizes insulin resistance and organic response to trauma after video-cholecystectomy: A randomized, controlled, clinical trial. 2009;33(6):1158-1164. doi:<a href="https://doi.org/10.1007/s00268-009-0010-x">10.1007/s00268-009-0010-x</a></div>
+</div>
+<div id="ref-Aronsson2009" class="csl-entry">
+<div class="csl-left-margin">93. </div><div class="csl-right-inline">Aronsson A, Al-Ani NA, Brismar K, Hedstrom M. A carbohydrate-rich drink shortly before surgery affected IGF-i bioavailability after a total hip replacement. A double-blind placebo controlled study on 29 patients. 2009;21(2):97-101. doi:<a href="https://doi.org/10.1007/BF03325216">10.1007/BF03325216</a></div>
+</div>
+<div id="ref-Spahn2009" class="csl-entry">
+<div class="csl-left-margin">94. </div><div class="csl-right-inline">Spahn TW, Wessels A, Grosse-Thie W, Mueller MK. Assessment of pre-gastroscopy fasting period using ultrasonography. 2009;54(3):621-626. doi:<a href="https://doi.org/10.1007/s10620-008-0394-8">10.1007/s10620-008-0394-8</a></div>
+</div>
+<div id="ref-Helminen2009" class="csl-entry">
+<div class="csl-left-margin">95. </div><div class="csl-right-inline">Helminen H, Viitanen H, Sajanti J. Effect of preoperative intravenous carbohydrate loading on preoperative discomfort in elective surgery patients. 2009;26(2):123-127. doi:<a href="https://doi.org/10.1097/EJA.0b013e328319be16">10.1097/EJA.0b013e328319be16</a></div>
+</div>
+<div id="ref-Lauwick2009" class="csl-entry">
+<div class="csl-left-margin">96. </div><div class="csl-right-inline">Lauwick SM, Kaba A, Maweja S, Hamoir EE, Joris JL. Effects of oral preoperative carbohydrate on early postoperative outcome after thyroidectomy. 2009;60(2):67-73. <a href="https://www.ncbi.nlm.nih.gov/pubmed/19594087">https://www.ncbi.nlm.nih.gov/pubmed/19594087</a>.</div>
+</div>
+<div id="ref-Gustafsson2008" class="csl-entry">
+<div class="csl-left-margin">97. </div><div class="csl-right-inline">Gustafsson UO, Nygren J, Thorell A, et al. Pre-operative carbohydrate loading may be used in type 2 diabetes patients. 2008;52(7):946-951. doi:<a href="https://doi.org/10.1111/j.1399-6576.2008.01599.x">10.1111/j.1399-6576.2008.01599.x</a></div>
+</div>
+<div id="ref-Jarvela2008" class="csl-entry">
+<div class="csl-left-margin">98. </div><div class="csl-right-inline">Jarvela K, Maaranen P, Sisto T. Pre-operative oral carbohydrate treatment before coronary artery bypass surgery. 2008;52(6):793-797. doi:<a href="https://doi.org/10.1111/j.1399-6576.2008.01660.x">10.1111/j.1399-6576.2008.01660.x</a></div>
+</div>
+<div id="ref-Yagci2008" class="csl-entry">
+<div class="csl-left-margin">99. </div><div class="csl-right-inline">Yagci G, Can MF, Ozturk E, et al. Effects of preoperative carbohydrate loading on glucose metabolism and gastric contents in patients undergoing moderate surgery: A randomized, controlled trial. 2008;24(3):212-216. doi:<a href="https://doi.org/10.1016/j.nut.2007.11.003">10.1016/j.nut.2007.11.003</a></div>
+</div>
+<div id="ref-Svanfeldt2007" class="csl-entry">
+<div class="csl-left-margin">100. </div><div class="csl-right-inline">Svanfeldt M, Thorell A, Hausel J, et al. Randomized clinical trial of the effect of preoperative oral carbohydrate treatment on postoperative whole-body protein and glucose kinetics. 2007;94(11):1342-1350. doi:<a href="https://doi.org/10.1002/bjs.5919">10.1002/bjs.5919</a></div>
+</div>
+<div id="ref-Rapp-Kesek2007" class="csl-entry">
+<div class="csl-left-margin">101. </div><div class="csl-right-inline">Rapp-Kesek D, Stridsberg M, Andersson LG, Berne C, Karlsson T. Insulin resistance after cardiopulmonary bypass in the elderly patient. 2007;41(2):102-108. doi:<a href="https://doi.org/10.1080/14017430601050355">10.1080/14017430601050355</a></div>
+</div>
+<div id="ref-Breuer2006" class="csl-entry">
+<div class="csl-left-margin">102. </div><div class="csl-right-inline">Breuer JP, Dossow V von, Heymann C von, et al. Preoperative oral carbohydrate administration to ASA III-IV patients undergoing elective cardiac surgery. 2006;103(5):1099-1108. doi:<a href="https://doi.org/10.1213/01.ane.0000237415.18715.1d">10.1213/01.ane.0000237415.18715.1d</a></div>
+</div>
+<div id="ref-Noblett2006" class="csl-entry">
+<div class="csl-left-margin">103. </div><div class="csl-right-inline">Noblett SE, Watson DS, Huong H, Davison B, Hainsworth PJ, Horgan AF. Pre-operative oral carbohydrate loading in colorectal surgery: A randomized controlled trial. 2006;8(7):563-569. doi:<a href="https://doi.org/10.1111/j.1463-1318.2006.00965.x">10.1111/j.1463-1318.2006.00965.x</a></div>
+</div>
+<div id="ref-Melis2006" class="csl-entry">
+<div class="csl-left-margin">104. </div><div class="csl-right-inline">Melis GC, Leeuwen PA van, Blomberg-van der Flier BM von, et al. A carbohydrate-rich beverage prior to surgery prevents surgery-induced immunodepression: A randomized, controlled, clinical trial. 2006;30(1):21-26. doi:<a href="https://doi.org/10.1177/014860710603000121">10.1177/014860710603000121</a></div>
+</div>
+<div id="ref-Castillo-Zamora2005" class="csl-entry">
+<div class="csl-left-margin">105. </div><div class="csl-right-inline">Castillo-Zamora C, Castillo-Peralta LA, Nava-Ocampo AA. Randomized trial comparing overnight preoperative fasting period vs oral administration of apple juice at 06:00-06:30 am in pediatric orthopedic surgical patients. 2005;15(8):638-642. doi:<a href="https://doi.org/10.1111/j.1460-9592.2005.01517.x">10.1111/j.1460-9592.2005.01517.x</a></div>
+</div>
+<div id="ref-Hausel2005" class="csl-entry">
+<div class="csl-left-margin">106. </div><div class="csl-right-inline">Hausel J, Nygren J, Thorell A, Lagerkranser M, Ljungqvist O. Randomized clinical trial of the effects of oral preoperative carbohydrates on postoperative nausea and vomiting after laparoscopic cholecystectomy. 2005;92(4):415-421. doi:<a href="https://doi.org/10.1002/bjs.4901">10.1002/bjs.4901</a></div>
+</div>
+<div id="ref-Yuill2005" class="csl-entry">
+<div class="csl-left-margin">107. </div><div class="csl-right-inline">Yuill KA, Richardson RA, Davidson HI, Garden OJ, Parks RW. The administration of an oral carbohydrate-containing fluid prior to major elective upper-gastrointestinal surgery preserves skeletal muscle mass postoperatively–a randomised clinical trial. 2005;24(1):32-37. doi:<a href="https://doi.org/10.1016/j.clnu.2004.06.009">10.1016/j.clnu.2004.06.009</a></div>
+</div>
+<div id="ref-Soop2004" class="csl-entry">
+<div class="csl-left-margin">108. </div><div class="csl-right-inline">Soop M, Nygren J, Thorell A, et al. Preoperative oral carbohydrate treatment attenuates endogenous glucose release 3 days after surgery. 2004;23(4):733-741. doi:<a href="https://doi.org/10.1016/j.clnu.2003.12.007">10.1016/j.clnu.2003.12.007</a></div>
+</div>
+<div id="ref-Bisgaard2004" class="csl-entry">
+<div class="csl-left-margin">109. </div><div class="csl-right-inline">Bisgaard T, Kristiansen VB, Hjortso NC, Jacobsen LS, Rosenberg J, Kehlet H. Randomized clinical trial comparing an oral carbohydrate beverage with placebo before laparoscopic cholecystectomy. 2004;91(2):151-158. doi:<a href="https://doi.org/10.1002/bjs.4412">10.1002/bjs.4412</a></div>
+</div>
+<div id="ref-Henriksen2003" class="csl-entry">
+<div class="csl-left-margin">110. </div><div class="csl-right-inline">Henriksen MG, Hessov I, Dela F, Hansen HV, Haraldsted V, Rodt SA. Effects of preoperative oral carbohydrates and peptides on postoperative endocrine response, mobilization, nutrition and muscle function in abdominal surgery. 2003;47(2):191-199. doi:<a href="https://doi.org/10.1034/j.1399-6576.2003.00047.x">10.1034/j.1399-6576.2003.00047.x</a></div>
+</div>
+<div id="ref-Hausel2001" class="csl-entry">
+<div class="csl-left-margin">111. </div><div class="csl-right-inline">Hausel J, Nygren J, Lagerkranser M, et al. A carbohydrate-rich drink reduces preoperative discomfort in elective surgery patients. 2001;93(5):1344-1350. doi:<a href="https://doi.org/10.1097/00000539-200111000-00063">10.1097/00000539-200111000-00063</a></div>
+</div>
+<div id="ref-Soop2001" class="csl-entry">
+<div class="csl-left-margin">112. </div><div class="csl-right-inline">Soop M, Nygren J, Myrenfors P, Thorell A, Ljungqvist O. Preoperative oral carbohydrate treatment attenuates immediate postoperative insulin resistance. 2001;280(4):E576-83. doi:<a href="https://doi.org/10.1152/ajpendo.2001.280.4.E576">10.1152/ajpendo.2001.280.4.E576</a></div>
+</div>
+<div id="ref-Moyao-Garcia2001" class="csl-entry">
+<div class="csl-left-margin">113. </div><div class="csl-right-inline">Moyao-Garcia D, Corrales-Fernandez MA, Blanco-Rodriguez G, Sanchez-Hernandez E, Nava-Ocampo AA. Benefits of oral administration of an electrolyte solution interrupting a prolonged preoperatory fasting period in pediatric patients. 2001;36(3):457-459. doi:<a href="https://doi.org/10.1053/jpsu.2001.21614">10.1053/jpsu.2001.21614</a></div>
+</div>
+<div id="ref-Blum2019" class="csl-entry">
+<div class="csl-left-margin">114. </div><div class="csl-right-inline">Blum CL, Akerman M, Callari M, Jordan E, Capozzi JD. Association of nausea and length of stay with carbohydrate loading prior to total joint arthroplasty. 2019;26(4):175-179. <a href="http://www.embase.com/search/results?subaction=viewrecord&amp;from=export&amp;id=L2002540077">http://www.embase.com/search/results?subaction=viewrecord&amp;from=export&amp;id=L2002540077</a>.</div>
+</div>
+<div id="ref-Bisinotto2019" class="csl-entry">
+<div class="csl-left-margin">115. </div><div class="csl-right-inline">Bisinotto FMB, Silveira L, Rossi TC, Martins LB, Zago GP, Mendonca MAL. <span><span class="math inline">\([\)</span></span>Comparative ultrasound study of gastric emptying between an isotonic solution and a nutritional supplement<span><span class="math inline">\(]\)</span></span>. 2019;69(2):115-121. doi:<a href="https://doi.org/10.1016/j.bjan.2018.09.006">10.1016/j.bjan.2018.09.006</a></div>
+</div>
+<div id="ref-Marquini2020b" class="csl-entry">
+<div class="csl-left-margin">116. </div><div class="csl-right-inline">Marquini GV, Pinheiro F, Vieira A, et al. Preoperative fasting abbreviation and its effects on postoperative nausea and vomiting incidence in gynecological surgery patients. 2020. doi:<a href="https://doi.org/10.1055/s-0040-1712994">10.1055/s-0040-1712994</a></div>
+</div>
+<div id="ref-Yang2012" class="csl-entry">
+<div class="csl-left-margin">117. </div><div class="csl-right-inline">Yang Y, bing ZY. Effects and safety of preoperative oral carbohydrate in radical distal gastrectomy –a randomized clinical trial. 2012;04(05):116-119. doi:<a href="https://doi.org/10.4172/1948-5956.1000123">10.4172/1948-5956.1000123</a></div>
+</div>
+<div id="ref-Jian2017" class="csl-entry">
+<div class="csl-left-margin">118. </div><div class="csl-right-inline">Jian WL, Zhang YL, Xu JM, et al. Effects of a carbohydrate loading on gastric emptying and fasting discomfort: An ultrasonography study. 2017;10(1):788-794. <a href="http://www.embase.com/search/results?subaction=viewrecord&amp;from=export&amp;id=L614002746">http://www.embase.com/search/results?subaction=viewrecord&amp;from=export&amp;id=L614002746</a>.</div>
+</div>
+<div id="ref-Adamova2017" class="csl-entry">
+<div class="csl-left-margin">119. </div><div class="csl-right-inline">Adamova Z, Slováček R. Effects of preoperative carbohydrate drinks on postoperative outcome after colorectal surgery. 2017;49(4):180-186. doi:<a href="https://doi.org/10.1007/s10353-017-0485-x">10.1007/s10353-017-0485-x</a></div>
+</div>
+<div id="ref-Weledji2017" class="csl-entry">
+<div class="csl-left-margin">120. </div><div class="csl-right-inline">Weledji EP, Njong SN, Chichom A, Verla V, Assob JC, Ngowe MN. The effects of preoperative carbohydrate loading on the metabolic response to surgery in a low resource setting. 2017;8:18-23. doi:<a href="https://doi.org/10.1016/j.ijso.2017.06.002">10.1016/j.ijso.2017.06.002</a></div>
+</div>
+<div id="ref-Bisinotto2017" class="csl-entry">
+<div class="csl-left-margin">121. </div><div class="csl-right-inline">Bisinotto FMB, Naves AA, Lima HM, et al. <span><span class="math inline">\([\)</span></span>Use of ultrasound for gastric volume evaluation after ingestion of different volumes of isotonic solution<span><span class="math inline">\(]\)</span></span>. 2017;67(4):376-382. doi:<a href="https://doi.org/10.1016/j.bjan.2016.07.003">10.1016/j.bjan.2016.07.003</a></div>
+</div>
+<div id="ref-Huang2020" class="csl-entry">
+<div class="csl-left-margin">122. </div><div class="csl-right-inline">Huang X, Zhang H, Lin Y, et al. Effect of oral glucose water administration 1 hour preoperatively in children with cyanotic congenital heart disease: A randomized controlled trial. 2020;26:e922642. doi:<a href="https://doi.org/10.12659/MSM.922642">10.12659/MSM.922642</a></div>
+</div>
+<div id="ref-Carvalho2020" class="csl-entry">
+<div class="csl-left-margin">123. </div><div class="csl-right-inline">Carvalho C, Carvalho AA, Preza ADG, et al. Metabolic and inflammatory benefits of reducing preoperative fasting time in pediatric surgery. 2020;47(1):e20202353. doi:<a href="https://doi.org/10.1590/0100-6991e-20202353">10.1590/0100-6991e-20202353</a></div>
+</div>
+<div id="ref-Joshi2020" class="csl-entry">
+<div class="csl-left-margin">124. </div><div class="csl-right-inline">Joshi Y, Dhamija S. Randomized control clinical trial of overnight fasting to clear fluid feeding 2 hours prior anaesthesia and surgery. 2020. doi:<a href="https://doi.org/10.1007/s12262-020-02369-7">10.1007/s12262-020-02369-7</a></div>
+</div>
+</div>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre><code>R version 4.1.1 (2021-08-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] netmeta_1.5-0     meta_4.19-2       formattable_0.2.1 naniar_0.6.1     
+ [5] forcats_0.5.1     stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4      
+ [9] readr_2.0.2       tidyr_1.1.4       tibble_3.1.5      ggplot2_3.3.5    
+[13] tidyverse_1.3.1   Cairo_1.5-12.2    countrycode_1.3.0 janitor_2.1.0    
+[17] kableExtra_1.3.4  multinma_0.3.0    workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+  [1] minqa_1.2.4            colorspace_2.0-2       ellipsis_0.3.2        
+  [4] visdat_0.5.3           evd_2.3-3              rprojroot_2.0.2       
+  [7] snakecase_0.11.0       fs_1.5.0               rstudioapi_0.13.0-9000
+ [10] rstan_2.21.2           bit64_4.0.5            fansi_0.5.0           
+ [13] lubridate_1.7.10       mathjaxr_1.4-0         xml2_1.3.2            
+ [16] codetools_0.2-18       splines_4.1.1          knitr_1.36            
+ [19] jsonlite_1.7.2         nloptr_1.2.2.2         broom_0.7.9           
+ [22] dbplyr_2.1.1           compiler_4.1.1         httr_1.4.2            
+ [25] backports_1.2.1        assertthat_0.2.1       Matrix_1.3-4          
+ [28] fastmap_1.1.0          cli_3.0.1              later_1.3.0           
+ [31] htmltools_0.5.2        prettyunits_1.1.1      tools_4.1.1           
+ [34] igraph_1.2.6           gtable_0.3.0           glue_1.4.2            
+ [37] V8_3.4.2               Rcpp_1.0.7             cellranger_1.1.0      
+ [40] jquerylib_0.1.4        vctrs_0.3.8            svglite_2.0.0         
+ [43] nlme_3.1-153           xfun_0.26              rbibutils_2.2.3       
+ [46] ps_1.6.0               lme4_1.1-27.1          rvest_1.0.1           
+ [49] CompQuadForm_1.4.3     lifecycle_1.0.1        MASS_7.3-54           
+ [52] scales_1.1.1           vroom_1.5.5            hms_1.1.1             
+ [55] promises_1.2.0.1       parallel_4.1.1         inline_0.3.19         
+ [58] metafor_3.0-2          yaml_2.2.1             curl_4.3.2            
+ [61] gridExtra_2.3          loo_2.4.1              StanHeaders_2.21.0-7  
+ [64] sass_0.4.0             truncdist_1.0-2        stringi_1.7.4         
+ [67] highr_0.9              boot_1.3-28            pkgbuild_1.2.0        
+ [70] Rdpack_2.1.2           rlang_0.4.11           pkgconfig_2.0.3       
+ [73] systemfonts_1.0.2      matrixStats_0.61.0     evaluate_0.14         
+ [76] lattice_0.20-45        htmlwidgets_1.5.4      bit_4.0.4             
+ [79] processx_3.5.2         tidyselect_1.1.1       magrittr_2.0.1        
+ [82] R6_2.5.1               generics_0.1.0         DBI_1.1.1             
+ [85] pillar_1.6.3           haven_2.4.3            whisker_0.4           
+ [88] withr_2.4.2            abind_1.4-5            modelr_0.1.8          
+ [91] crayon_1.4.1           utf8_1.2.2             tzdb_0.1.2            
+ [94] rmarkdown_2.11         grid_4.1.1             readxl_1.3.1          
+ [97] callr_3.7.0            git2r_0.28.0           reprex_2.0.1          
+[100] digest_0.6.28          webshot_0.5.2          httpuv_1.6.3          
+[103] RcppParallel_5.1.4     stats4_4.1.1           munsell_0.5.0         
+[106] viridisLite_0.4.0      bslib_0.3.0            magic_1.5-9           </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
