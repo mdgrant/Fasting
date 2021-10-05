@@ -44,11 +44,13 @@ display: none !important;
 
 <font size = 6> Evidence Tables and Pooled Results </font>
 
-[<font size = 5> Carbohydrate drinks </font>](cho_final.html)<br/>
+[<font size = 5> Carbohydrate clear liquids </font>](cho_final.html)<br/>
 
-[<font size = 5> Simple versus complex carbohydrate drinks (network meta-analyses) </font>](nma_final.html)
+[<font size = 5> Simple versus complex carbohydrate clear liquids (network meta-analyses) </font>](nma_final.html)
 
-[<font size = 5> Protein/carbohydrate drinks  </font>](protein_final.html)
+[<font size = 5> Protein/carbohydrate clear liquids  </font>](protein_final.html)
+
+[<font size = 5> Clear (non-caloric) vs. fasting </font>](noncaloric_clear.html)
 
 [<font size = 5> Chewing gum  </font>](gum_final.html)
 
