@@ -592,6 +592,7 @@ rm(dichot_n)
 # * (end)
 
 ## likert outcome data ####
+# note parsing error due to empty line in file; benign
 path <- path_csv(likert_out_file)
 
 likert.dat <- read_csv(path) %>%

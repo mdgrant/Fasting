@@ -5057,7 +5057,7 @@ pt_char_table %>%
   pack_sub(., "RCT", 121, 121) %>%
   pack_sub(., "Crossover", 122, 122) %>%
   pack_sub(., "Prospective Cohort", 123, 123) %>% 
-  footnote(alphabet = c("Multiple publications from he same study."),
+  footnote(alphabet = c("Multiple publications from the same study."),
     general = "Med: median",
     general_title = "",
     footnote_as_chunk = T)
@@ -5086,6 +5086,8 @@ fasting_table <- study_arm_cho.dat %>%
     fastliquid = na_if(fastliquid, "NA"),
     amtingest1 = round(amtingest1, 0),
     amtingest1 = na_if(amtingest1, 0),
+    amtingest2 = round(amtingest2, 0),
+    amtingest2 = na_if(amtingest2, 0),
     timeingest1 = round(timeingest1, 0),
     timeingest2 = round(timeingest2, 0)) %>%
   select(refid, age, surg_nosurg, design, study, year, arm_tx, arm_n, fastsolid, fastliquid, type_of_liquid, timeingest1, amtingest1, timeingest2, amtingest2) %>%
@@ -5314,7 +5316,6 @@ table_n <- tab_inc()
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <br>
-
 
 # **Risk of Bias** 
 

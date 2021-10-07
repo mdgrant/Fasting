@@ -2372,7 +2372,7 @@ ph.dat %>%
   # result_pack("Pooled fixed-effects MD for 2 studies, 0.48 (95% CI, 0.31-0.64), *I^2^* = 98% ", 18, padding = 24) %>%
   footnote(
     general = "RGV: residual gastric volumne; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; CHO: carbohydrate; Simp: simple; RCT: randomized controlled trial.",
-    alphabet = c("X", "Y"),
+    # alphabet = c("X", "Y"),
     general_title = "",
     footnote_as_chunk = FALSE
   )
