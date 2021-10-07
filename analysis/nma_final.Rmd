@@ -15,7 +15,7 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '3'
-bibliography: cho_nma.bib
+bibliography: "bib/cho_nma.bib"
 csl: jama.csl
 link-citations: yes
 workflowr:
@@ -48,7 +48,7 @@ display: none;
 display: none !important; 
 }
 </style>
-```
+``` 
 
 ```{r setupData, include = FALSE}
 ## * (updated 2021/01/06 11:34) preliminaries -------------------------------
@@ -441,7 +441,6 @@ table_n <- tab_inc()
 ```
 
 <br/>
-
 
 # **Residual Gastric Volume**
 

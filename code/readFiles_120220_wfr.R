@@ -1,5 +1,5 @@
 # 2020-10-08 ------------------------------
-## preliminaries -----------------------------------------------------------
+## preliminaries/functions ------------------------------------------------
 knitr::opts_chunk$set(echo = FALSE, options(knitr.kable.NA = '', dev = 'svg'), knitr.graphics.error = FALSE,
                       warning = FALSE, message = FALSE, fig.align = "left", comment = NA)
 library(kableExtra)
@@ -18,11 +18,16 @@ round_1 <- function(x) {formatC( round(x, 1), format = 'f', digits = 1)}
 round_1d <- function(x) {format(x, digits = 1)}
 round_0d <- function(x) {format(x, digits = 0)}
 round_2 <- function(x) {formatC( round(x, 2), format = 'f', digits = 2)}
-sd_conf_t <- function(low, up, n){(abs(up-low)/2)/abs(qt(0.025, n))}
+sd_conf_t <- function(low, up, n){(abs(up - low)/2)/abs(qt(0.025, n))}
 sd_confint <- function(low, up){(abs(up - low)/2)/1.96}
 conf_tl <- function(samp_mean, samp_sd, n, low_up){
   error <- qt(0.975, df = n - 1) * samp_sd/(sqrt(n))
   (ci_low <- samp_mean - error)
+}
+
+# variable coded as TF will give "n (XX.X)" percent, can specify digits
+n_per_tf <- function(var_name, n_dig = 1){
+  paste0(sum(var_name == TRUE), " (", format(round(100*(mean(var_name)), n_dig), nsmall = 1), ")")
 }
 
 conf_tu <- function(samp_mean, samp_sd, n, low_up){
@@ -42,14 +47,20 @@ combine_contin <- function(n_1, n_2, x_1, x_2, sd_1, sd_2){
   x_comb <-  (n_1 * x_1 + n_2 * x_2)/(n_comb)
   sd_comb <- sqrt(((n_1 - 1) * sd_1^2 + (n_2 - 1) * sd_2^2 + (n_1 * n_2)/(n_comb) * (x_1 - x_2)^2) / (n_comb - 1))
   return(c(n_comb, x_comb, sd_comb))}
+
 n_percent <- function(a, b){
   str_c(a," (", round_0(b), ")")
 }
 
-bwgrp_pval <- function(m1, m2, n1, n2, pVal){
-  sd2 <- abs((m2-m1)/qt(pVal/2, n1+n2-2))*sqrt(n2*n1/(n2+n1))
+bwgrp_pval <- function(m1, m2, n1, n2, pVal) {
+  sd2 <- abs((m2 - m1) / qt(pVal / 2, n1 + n2 - 2)) * sqrt(n2 * n1 / (n2 + n1))
   sd1 <- sd2
   print(c(n1, m1, sd1, n2, m2, sd2))
+}
+
+# return single value
+sd_bwgrp <- function(m1, m2, n1, n2, pVal) {
+  abs((m2 - m1) / qt(pVal / 2, n1 + n2 - 2)) * sqrt(n2 * n1 / (n2 + n1))
 }
 
 pack_sub <- function(kable_input, name, a, b) {
@@ -140,10 +151,11 @@ path_csv <- function(name_csv){
   return(path)
 }
 
-# function to calculate means, sd, and create analytical data set (w/log transform  )
+# function to calculate means, sd, and create analytical data set (w/log transform)
 calc_mn_sd <- function(n_e, m_e, sd_e, md_e, q1_e, q3_e, min_e, max_e, study, tx, subgroup = NULL, refid, data = NULL, log_trans = FALSE) {
   temp.dat <- data %>%
     select(all_of(c(n_e, m_e, sd_e, md_e, q1_e, q3_e, min_e, max_e, study, tx, subgroup, refid))) %>%
+    # placeholder control arm values to obtain standard deviations if missing
     mutate(n_c = 20, m_c = 2, sd_c = 1, md_c = 3, q1_c = 2, q3_c = 3, min_c = 1, max_c = 5)
   names(temp.dat)[1:11] <- c("n_e", "m_e", "sd_e", "md_e", "q1_e", "q3_e", "min_e", "max_e", "study", "tx", "subgroup")
 
@@ -257,7 +269,7 @@ study_char.dat <- read_csv(path)
   count())
 
 study_char.dat <- study_char.dat %>%
-  select(-c(5:7)) %>%
+  select(-c(6:8)) %>%  # change to add linked
   janitor::clean_names() %>%
   rename(author_dist = author, author = author_added) %>%  # author distiller, author entered
   # fix Karamian user for accounting purposes
@@ -271,7 +283,7 @@ study_char.dat <- study_char.dat %>%
   filter(!(design == "rct" & user != "Anne_Marbella")) %>%
   filter(!(design == "crossover" & user != "Anne_Marbella")) %>%
   filter(!(refid == 131 & user == "Anne_Marbella")) %>%
-  filter(!(refid == 5815 & user == "Anne_Marbella")) %>%
+  # filter(!(refid == 5815 & user == "Anne_Marbella")) %>%
   filter(!(refid == 1678 & user == "Anne_Marbella"))
 
 study_char.dat <- study_char.dat %>%
@@ -337,7 +349,8 @@ study_char.dat <- left_join(study_char.dat, refs.dat[, c(1,2)], by = "refid") %>
          study = ifelse(study == "Dock-Nascimento 2012b", "DNascimento 2012b", study),
          study = ifelse(study == "de Aguilar-Nascimento 2014", "deANascimento 2014", study),
          # Nascimento 2019 change to "surgical" as in labor
-         surg_nosurg = ifelse(refid == "499", "surgical", surg_nosurg))
+         surg_nosurg = ifelse(refid == "499", "surgical", surg_nosurg)) %>%
+  relocate(linked_references, .after = last_col())
 
 # verify 164 unique 2021/06/22 07:43
 study_char_n
@@ -580,6 +593,7 @@ rm(dichot_n)
 
 ## likert outcome data ####
 path <- path_csv(likert_out_file)
+
 likert.dat <- read_csv(path) %>%
   select(-c(5:7)) %>%
   janitor::clean_names() %>%
@@ -776,3 +790,4 @@ groupings <- function(data) {
     ungroup() %>%
     arrange(age, row)
 }
+

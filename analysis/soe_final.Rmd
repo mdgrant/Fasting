@@ -1246,7 +1246,7 @@ soe_summary %>%
   # pack_top(., "Gum vs. Fasting, Pediatric", 5, 6) %>%
   # pack_top(., "Gum", 7, 7) %>%
   # pack_top(., "Safety", 8, 8) %>%
-  footnote(general = "RCT: randomized controlled trial; SMD: standardized mean difference.",
+  footnote(general = "RCT: randomized controlled trial; MD: mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)

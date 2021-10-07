@@ -15,7 +15,7 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '3'
-bibliography: gum.bib
+bibliography: "bib/gum.bib"
 csl: jama.csl
 link-citations: yes
 workflowr:

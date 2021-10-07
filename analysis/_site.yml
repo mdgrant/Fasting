@@ -7,12 +7,14 @@ navbar:
     href: index.html
   - text: Strength of Evidence
     href: soe_final.html
-  - text: Carbohydrate Drinks
+  - text: Carbohydrate
     href: cho_final.html
   - text: Simple/Complex (Network)
     href: nma_final.html
-  - text: Protein/Carbohydrate Drinks
+  - text: Protein/Carbohydrate
     href: protein_final.html
+  - text: Clear (non-caloric) vs. fasting
+    href: noncaloric_clear.html
   - text: Chewing Gum
     href: gum_final.html
   - text: Appendix

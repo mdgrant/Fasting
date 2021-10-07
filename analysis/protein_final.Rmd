@@ -9,10 +9,10 @@ output:
     toc_float: 
       collapsed: TRUE
       smooth_scroll: TRUE
-    toc_depth: 3
+    toc_depth: 3 
     linkcolor: blue
   latex_engine: xelatex
-bibliography: protein.bib
+bibliography: "bib/protein.bib"
 csl: jama.csl
 link-citations: yes
 workflowr:

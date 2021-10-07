@@ -15,7 +15,7 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '3'
-bibliography: cho.bib
+bibliography: "bib/cho.bib"
 csl: jama.csl
 link-citations: yes
 workflowr:
@@ -265,6 +265,7 @@ dichot_cho.dat <- dichot_cho.dat %>%
 ## (updated 2021/01/05 09:15) Included Studies ----------------------------
 # list of studies, age, surgical/non surgical, design 
 study_char_cho.dat %>%
+  filter(!study %in% c("Marquini 2020b", "Marquini 2020c")) %>% 
   group_by(age, surg_nosurg, design, .groups = "drop") %>%
   summarise(total = n()) %>%
   ungroup() %>%
@@ -1667,7 +1668,7 @@ thirst_meta <- metabin(event_e, n_e, event_c, n_c,
   studlab = study,
   sm = "OR",
   method = "MH",
-  method.tau= "PM",
+  method.tau = "PM",
   hakn = FALSE,
   prediction = TRUE,
   digits = 2)
@@ -2719,7 +2720,6 @@ Too few studies to examine small study effects.
 
 <br/>
 
-
 ## *Patient Satisfaction*  <a id="choSatis17"></a> 
 
 <br/>
@@ -2836,7 +2836,6 @@ table_n <- tab_inc()
 <br/>
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
 
 # **Clinical Outcomes** 
 
@@ -4249,7 +4248,7 @@ surg_cat <- study_char_cho.dat %>%
       str_detect(surg_type, "craniotomy") ~ "Neurosurgical",
       str_detect(surg_type, "maxillofacial") ~ "Maxillofacial",
       str_detect(surg_type, "[Hh]ernia|herniorrhaphy") ~ "Herniorrhaphy",
-      str_detect(surg_type, "prostatectomy") ~ "prostatectomy",
+      str_detect(surg_type, "prostatectomy") ~ "Prostatectomy",
       str_detect(surg_type, "ariety") ~ "Various",
       str_detect(surg_type, "various|Hirschsprung's") ~ "Various",
       str_detect(surg_type, "CABG|[Cc]oronary artery bypass surgery") ~ "CABG",

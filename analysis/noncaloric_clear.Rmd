@@ -15,7 +15,7 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '3'
-bibliography: cho.bib
+bibliography: "bib/clear.bib"
 csl: jama.csl
 link-citations: yes
 workflowr:
@@ -388,11 +388,8 @@ dichot_clear.dat %>%
 
 # los
 
-
-
 ```
 
-# &emsp;&emsp;&emsp;&emsp;&emsp;<u>Clear vs. Fasting</u> 
 
 # **Included Studies** 
 
@@ -2078,7 +2075,7 @@ table_n <- tab_inc()
 
 <font size = 4> Table `r table_n`. Residual gastric volumes measured by aspiration at induction in studies of adult surgical patients according to fasting, liquid and volume. </font size>
 
-```{r choRgv, include = FALSE}
+```{r clearRgv, include = FALSE}
 ## (updated 2021/01/19 19:20) choRgv --------------------------------------
 rgv.dat <- contin_clear.dat %>%
   filter(refid %in% clear_refids) %>%
@@ -2311,27 +2308,155 @@ Owing to skewed distributions of RGV, conducted sensitivity analysis on a log sc
 
 <br/>
 
-## *Complications*
+<font size = 4> Table `r table_n`. Gastric pH in randomized trials according to fasting, liquid and volume. </font>
 
-<br/> 
+```{r clearpH, include = TRUE}
+## (updated 2021/05/10 18:33) ph data -------------------------------------
+ph.dat <- contin_clear.dat %>%
+  filter(refid %in% clear_refids) %>%
+  select(refid:age, arm_n, arm_tx, hr_gt6, hr_26, hr_2, starts_with("ph"), notes_continuous) %>%
+  rename(notes = notes_continuous) %>% 
+  # filter(surg_nosurg == "surgical") %>%
+  filter_at(vars(starts_with("ph")), any_vars(!is.na(.))) %>% 
+  mutate(
+    ph_mean = paste0(round_1(ph_mean_1), " (", round_1(ph_sd_1), ")"),
+    ph_mean = str_replace(ph_mean, "\\( NA\\)", ""),
+    ph_med = paste0(round_2(ph_median_1), " (", round_2(ph_range_low_1), "-", round_2(ph_range_up_1), ")"),
+    ph_med = str_replace(ph_med, "\\( NA.*|NA.*", ""),
+    ph_mean = str_replace(ph_mean, "NA \\(NA\\)", "")
+  ) %>% 
+  arrange(age, design, year, study, arm_tx)  
+  # add_foot(study, "Author YYYY", "a") %>% 
 
-## *Length of Stay*
+clear_row <- ph.dat %>%
+  # filter(age == "Adult") %>%  # note all adult
+  mutate(line = row_number()) %>%
+  filter(grepl("lear|Water", arm_tx)) %>%
+  pull(line)
+
+# two_hours(ph.dat$refid)
+  
+ph.dat %>%
+  # filter(age == "Adult") %>%
+  group_by(study) %>%
+  mutate(
+    id = row_number(),
+    study = ifelse(id > 1, NA, study)
+  ) %>%
+  ungroup() %>%
+  add_row() %>%
+  select(study, arm_tx, arm_n, hr_gt6:hr_2, ph_mean, ph_med, -id) %>%
+  mutate(
+    arm_tx = as.character(arm_tx),
+  ) %>%
+  kbl(
+    booktabs = T, align = c("llcccclc"), escape = FALSE,
+    col.names = c(
+      "        Study", "Liquid", "N", "> 6", "6→2", "2", "     M (SD)", "     Med (Range)"
+    )
+  ) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "pH" = 2), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "14em") %>%
+  column_spec(2, width = "7em") %>%
+  column_spec(3, width = "3em") %>%
+  column_spec(c(4, 6), width = "3em") %>%
+  column_spec(5, width = "4em") %>%
+  column_spec(7, width = "8em") %>%
+  column_spec(8, width = "8em") %>%
+  row_spec(clear_row, color = "brown") %>%
+  pack_top(., "Adult, Surgical", 1, 14) %>%
+  pack_sub(., "RCT", 1, 14) %>%
+  # result_pack("Pooled fixed-effects MD for 2 studies, 0.48 (95% CI, 0.31-0.64), *I^2^* = 98% ", 18, padding = 24) %>%
+  footnote(
+    general = "RGV: residual gastric volumne; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; CHO: carbohydrate; Simp: simple; RCT: randomized controlled trial.",
+    alphabet = c("X", "Y"),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
 
 <br/>
 
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+### Pooled (adult RCTs) <a id="choPhFig11"></a>
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled gastric pH from randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
+
+```{r metaPh, include = TRUE, fig.width = 10, fig.height = 3.5, fig.align = "center"}
+ph_meta.dat <- ph.dat %>% 
+  filter(age == "Adult") %>% 
+  arrange(design, year, study) %>%
+  filter(arm_tx == "Fasting" | grepl("lear|Water", arm_tx)) %>%
+  mutate(arm_tx = ifelse(grepl("Fasting", arm_tx), "fasting", "clear")) %>% 
+  select(study, arm_tx, arm_n, ph_mean_1, ph_sd_1, ph_median_1, ph_range_low_1, ph_range_up_1) %>% 
+  rename_with(~str_replace(., "_1", "")) %>% 
+  rename_with(~str_replace(., "ph_", "")) %>% 
+  pivot_wider(id_cols = "study", names_from = "arm_tx", values_from = c("arm_n", "mean", "sd", "median", "range_low", "range_up"))
+
+ph_meta <- metacont(
+  data = ph_meta.dat,
+  n.e = arm_n_clear,
+  n.c = arm_n_fasting,
+  mean.e = mean_clear,
+  mean.c = mean_fasting,
+  sd.e = sd_clear,
+  sd.c = sd_fasting,
+  median.e = median_clear,
+  median.c = median_fasting,
+  min.e = range_low_clear,
+  min.c = range_low_fasting,
+  max.e = range_up_clear,
+  max.c = range_up_fasting,
+  method.tau = "REML",
+  hakn = TRUE,
+  studlab = study
+)
+  
+forest(ph_meta,
+  comb.fixed = FALSE,
+  lab.e = "CHO     ",
+  lab.c = "Fasting     ",
+  digits = 2,
+  digits.sd = 1,
+  digits.mean = 1,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  print.byvar = FALSE,
+  overall = TRUE,
+  fs.xlab = 11,
+  xlim = c(-0.5, 2.0),
+  rightcols = c("effect", "ci"),
+  rightlabs = c("MD", "95% CI   "),
+  xlab = "pH\n Favors Fasting           Favors Clear"
+)
+
+figure_n <- fig_inc()
+
+```
+
+<br/>
+
+
+<br/>
 
 # **Study/Participant Detail** 
 
 <br/>
 
-# *Study Characteristics*
+### *Study Characteristics*
 
-# *Sample Characteristics*
+### *Sample Characteristics*
 
-# *Fasting, Liquid Timing and Amounts*
+### *Fasting, Liquid Timing and Amounts*
 
-# *Funding*
+### *Funding*
 
 <br/>
 
