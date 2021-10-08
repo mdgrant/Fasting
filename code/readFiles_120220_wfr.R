@@ -792,3 +792,32 @@ groupings <- function(data) {
     arrange(age, row)
 }
 
+
+
+## non caloric clear ####
+# non-caloric refids
+# table of all r
+# study_arm.dat %>% tabyl(arm_tx)
+# will need to remove Hamad 6287 other arm (lollipop)
+# filter(!(refid == 6287 & arm == "other")) %>%
+
+noncal_clr <- study_arm.dat %>%
+  filter(arm_tx %in% c("other_clear", "placebo", "water")) %>%
+  select(refid, study, arm_tx, tx_detail, placebo_detail, other_spec, age) %>%
+  select(refid) %>%
+  distinct()
+
+fast <- study_arm.dat %>%
+  filter(arm_tx %in% c("fasting")) %>%
+  select("refid") %>%
+  distinct()
+
+noncal_clr_fast_refid <- noncal_clr %>%
+  filter(refid %in% fast$refid) %>%
+  # delete schmidt 2018 941 if present
+  filter(refid != 941) %>%
+  pull(refid)
+
+rm(noncal_clr, fast)
+
+clear_refids <- noncal_clr_fast_refid
