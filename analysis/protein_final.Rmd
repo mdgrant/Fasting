@@ -2165,6 +2165,7 @@ rgv.dat <- contin_prot.dat %>%
     rgv_mean = ifelse(refid %in% c(3588, 1768), str_c(round_0d(rgv_mean_1), " (", round_0d(rgv_sd_1), ")"), rgv_mean),
     rgv_mean = na_if(rgv_mean, "  NA"),
     rgv_mean = str_replace(rgv_mean, "\\(NA\\)", ""),
+    rgv_mean = str_replace(rgv_mean, "NA", ""),
     rgv_mean = str_replace(rgv_mean, "^\\s", ""),
     rgv_mean = str_replace(rgv_mean, "\\( ", "\\("),
     rgv_med = str_c(round(rgv_median_1, 0), rgv_iqr, sep = " "),
