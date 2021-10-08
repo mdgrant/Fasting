@@ -128,7 +128,7 @@ firstup <- function(x) {
 
 ```{r soeData, include = TRUE}
 ## (updated 2021/05/13 11:45) soeData -------------------------------------
-soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB103", sheet = "soe_050521") %>%
+soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB105", sheet = "soe_050521") %>%
   clean_names() %>%
   mutate(
     n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
@@ -1213,6 +1213,233 @@ table_n <- tab_inc()
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <br/>
+
+
+# **Non-caloric Clear vs. Fasting**
+
+#    **Adult**
+
+### Strength of Evidence Ratings
+
+<br/>
+
+<font size = 4> Table `r table_n`. Strength of evidence for selected important preoperative outcomes (except aspiration and patient satisfaction) in randomized controlled trials including non-caloric clear liquid &ndash; fasting comparisons in adults.  </font>
+
+```{r clearfasting, include = TRUE}
+## (updated 2021/10/08 10:57) clear vs. fasting kable ---------------------
+soe_summary %>% 
+  filter(comparison == "clear_fast") %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
+  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
+  footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+           # number = c(""),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+
+```
+
+<br/>
+
+### GRADE Domains 
+
+<br>
+
+<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in randomized controlled trials including non-caloric clear liquid &ndash; fasting comparisons in adults. </font>
+
+```{r clearfastingDomain, include = TRUE, eval = TRUE}
+## (updated 2021/05/14 08:02) prot_domain_summary --------------------------
+prot_domain_summary <- domain_summary %>%
+  filter(comparison == "clear_fast") %>%
+  select(-summary) %>%
+  mutate(
+    design = str_replace(design, "Rct", "RCT"),
+    design = str_replace(design, "[Nn]rsi", "NRSI"),
+    design = str_replace(design, "cohort", "Cohort"),
+  )
+         
+## (updated 2021/05/14 07:42) get list of unique footnotes ----------------
+foot_unique <- prot_domain_summary %>% 
+  # slice(1:20) %>% 
+  select(ends_with("foot")) 
+
+foot_unique <- c(t(foot_unique)) %>% 
+  unlist(use.names = FALSE) %>% 
+  discard(is.na) 
+
+foot_unique <- unique(foot_unique)
+
+numbers <- c(1:100)
+prot_domain <- prot_domain_summary %>% 
+  mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
+         consist_let = numbers[match(consist_foot, foot_unique)],
+         direct_let  = numbers[match(direct_foot, foot_unique)],
+         prec_let    = numbers[match(prec_foot, foot_unique)],
+         other_let   = numbers[match(other_foot, foot_unique)],
+         )
+
+## (updated 2021/05/14 08:04) add footnotes -------------------------------
+for (i in 1:nrow(prot_domain)) {
+  for (j in 7:11) {
+    prot_domain[i, j] <- ifelse(!is.na(prot_domain[i, j + 10]), paste0(prot_domain[i, j], "^", prot_domain[i, j + 10], "^"), prot_domain[i, j])
+  }
+}
+
+## (updated 2021/05/14 08:27) domain summary table ------------------------
+prot_domain %>% 
+  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
+  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
+    kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
+    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "13em") %>%  
+  column_spec(2, width = "4em") %>% 
+  column_spec(3, width = "10em") %>% 
+  column_spec(4:8, width = "8em") %>% 
+  footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
+           number = foot_unique,
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br/>
+
+#    **Pediatric**
+### Strength of Evidence Ratings
+
+<br/>
+
+<font size = 4> Table `r table_n`. Strength of evidence for selected important preoperative outcomes (except aspiration and patient satisfaction) in randomized controlled trials including non-caloric clear liquid &ndash; fasting comparisons in children.  </font>
+
+```{r clearfastingPeds, include = TRUE}
+## (updated 2021/10/08 10:57) clear vs. fasting kable ---------------------
+soe_summary %>% 
+  filter(comparison == "peds_clear_fast") %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
+  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
+  footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+           # number = c(""),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+
+```
+
+<br/>
+
+### GRADE Domains 
+
+<br>
+
+<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in randomized controlled trials including non-caloric clear liquid &ndash; fasting comparisons in children. </font>
+
+```{r clearfastingDomainPeds, include = TRUE, eval = TRUE}
+## (updated 2021/05/14 08:02) prot_domain_summary --------------------------
+prot_domain_summary <- domain_summary %>%
+  filter(comparison == "peds_clear_fast") %>%
+  select(-summary) %>%
+  mutate(
+    design = str_replace(design, "Rct", "RCT"),
+    design = str_replace(design, "[Nn]rsi", "NRSI"),
+    design = str_replace(design, "cohort", "Cohort"),
+  )
+         
+## (updated 2021/05/14 07:42) get list of unique footnotes ----------------
+foot_unique <- prot_domain_summary %>% 
+  # slice(1:20) %>% 
+  select(ends_with("foot")) 
+
+foot_unique <- c(t(foot_unique)) %>% 
+  unlist(use.names = FALSE) %>% 
+  discard(is.na) 
+
+foot_unique <- unique(foot_unique)
+
+numbers <- c(1:100)
+prot_domain <- prot_domain_summary %>% 
+  mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
+         consist_let = numbers[match(consist_foot, foot_unique)],
+         direct_let  = numbers[match(direct_foot, foot_unique)],
+         prec_let    = numbers[match(prec_foot, foot_unique)],
+         other_let   = numbers[match(other_foot, foot_unique)],
+         )
+
+## (updated 2021/05/14 08:04) add footnotes -------------------------------
+for (i in 1:nrow(prot_domain)) {
+  for (j in 7:11) {
+    prot_domain[i, j] <- ifelse(!is.na(prot_domain[i, j + 10]), paste0(prot_domain[i, j], "^", prot_domain[i, j + 10], "^"), prot_domain[i, j])
+  }
+}
+
+## (updated 2021/05/14 08:27) domain summary table ------------------------
+prot_domain %>% 
+  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
+  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
+    kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
+    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "13em") %>%  
+  column_spec(2, width = "4em") %>% 
+  column_spec(3, width = "10em") %>% 
+  column_spec(4:8, width = "8em") %>% 
+  footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
+           number = foot_unique,
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br/>
+
 
 # **Chewing Gum**
 

@@ -73,31 +73,6 @@ figure_n <- 1
 ## * get current files; select clear refids; directory must have unique ####
 source("code/readFiles_120220_wfr.R")
 
-# non-caloric refids 
-# table of all r
-# study_arm.dat %>% tabyl(arm_tx)
-# will need to remove Hamad 6287 other arm (lollipop)
-# filter(!(refid == 6287 & arm == "other")) %>% 
-
-noncal_clr <- study_arm.dat %>%
-  filter(arm_tx %in% c("other_clear", "placebo", "water")) %>%
-  select(refid, study, arm_tx, tx_detail, placebo_detail, other_spec, age) %>%
-  select(refid) %>%
-  distinct()
-
-fast <- study_arm.dat %>%
-  filter(arm_tx %in% c("fasting")) %>%
-  select("refid") %>%
-  distinct()
-
-noncal_clr_fast_refid <- noncal_clr %>%
-  filter(refid %in% fast$refid) %>%
-  # delete schmidt 2018 941 if present
-  filter(refid != 941) %>% 
-  pull(refid)
-
-rm(noncal_clr, fast)
-
 ## (updated 2021/08/17 09:58) clear study datasets ------------------------
 likert_clear.dat <- likert.dat %>% 
   filter(refid %in% noncal_clr_fast_refid)
@@ -289,8 +264,7 @@ dichot_clear.dat <- dichot_clear.dat %>%
 
 ## remove cho files created in readFiles_120220_wfr.R
 # rm(list = c(ls(pattern = "._cho"), "gum_refids"))
-## for ease of use change vector name ####
-clear_refids <- noncal_clr_fast_refid
+
 ```
 
 ```{r identifyOutcomes, include = FALSE, eval = FALSE}
@@ -389,7 +363,6 @@ dichot_clear.dat %>%
 # los
 
 ```
-
 
 # **Included Studies** 
 
@@ -617,7 +590,9 @@ dichot_clear.dat <- dichot_clear.dat %>%
 
 <font size = 4> (For carbohydrate or protein clear liquid comparisons see [carbohydrate](cho_final.html#Preoperative_Hunger) and [protein](protein_final.html#Preoperative_Hunger).) </font>
 
-### Patient-rated (surgical) <a id="choHungRating7"></a>
+<a id="clrFastHungRatingTab4"></a> 
+
+### Patient-rated (surgical) 
 
 <br/>
 
@@ -693,6 +668,11 @@ likert_clear_hung_kbl.dat <- likert_clear_hung.dat %>%
   ) %>%
   ungroup() %>%
   select(-c(hr_minus2, hr_0))
+
+# likert_clear_hung.dat %>% 
+#   filter(pre_post_op %in% c("Preop")) %>% 
+#   summarize(total = sum(arm_n), arms = n())
+
 ```
 
 ```{r hungerAdultSurgKable, echo = FALSE}
@@ -775,6 +755,8 @@ likert_clear_hung_kbl.dat %>%
 ```
 
 <br/>
+
+<a id="clrFastHungFig1"></a>
 
 ### Pooled (adult RCTs, patient-rated)
 
@@ -884,11 +866,13 @@ Mean differences estimated using medians, interquartile ranges, and overall rang
 
 <font size = 4> (For carbohydrate or protein clear liquid comparisons see [carbohydrate](cho_final.html#Preoperative_Thirst) and [protein](protein_final.html#Preoperative_Thirst).) </font>
 
+<a id="clrFastHungRatingTab5"></a> 
+
 ### Rates (surgical) 
 
 <br/>
 
-<font size = 4> Table `r table_n`. Rates of preoperative hunger according to fasting, liquid and volume. </font>
+<font size = 4> Table `r table_n`. Rates of preoperative thirst according to fasting, liquid and volume. </font>
 
 ```{r thirstTableOr, include = TRUE} 
 ## (updated 2021/01/12 09:42) thirstTableOr -------------------------------
@@ -2084,6 +2068,7 @@ rgv.dat <- contin_clear.dat %>%
   rename(notes = notes_continuous) %>% 
   filter(surg_nosurg == "surgical") %>%
   filter(!is.na(rgv_us) | !is.na(rgv_imag) | !is.na(rgv_asp)) %>%
+  # select(refid, study, rgv_mean_1:rgv_iqr_up_1, rgv_type_meas) %>%  # debug
   mutate(
     rgv_type_meas = case_when(
       rgv_type_meas == "aspiration" ~ "Asp",
@@ -2100,7 +2085,8 @@ rgv.dat <- contin_clear.dat %>%
     rgv_mean = str_replace(rgv_mean, "NA", ""),
     rgv_mean = str_replace(rgv_mean, "^\\s", ""),
     rgv_mean = str_replace(rgv_mean, "\\( ", "\\("),
-    rgv_med = str_c(round(rgv_median_1, 0), rgv_iqr, sep = " "),
+    rgv_med = paste(round(rgv_median_1, 0), rgv_iqr, sep = " "),
+    rgv_med = str_replace(rgv_med, " NA|NA NA", ""),
     rgv_bar = ifelse(!is.na(rgv_mean_1), rgv_mean_1, rgv_median_1)
   ) %>%
   arrange(age, desc(surg_nosurg), design, year, study, arm_tx) %>%
@@ -2113,7 +2099,7 @@ rgv.dat <- contin_clear.dat %>%
     rgv_type_meas = ifelse(id > 1, NA, rgv_type_meas)
   ) %>%
   ungroup() %>%
-  select(refid, age, design, surg_nosurg, study, arm_tx, arm_n, hr_gt6, hr_26, hr_2, rgv_type_meas, rgv_time_1, rgv_med, rgv_mean, rgv_bar, notes)
+  select(refid, age, design, surg_nosurg, study, arm_tx, arm_n, hr_gt6, hr_26, hr_2, rgv_type_meas, rgv_time_1, rgv_med, rgv_range, rgv_mean, rgv_bar, notes)
 
 # standardize to 0 to 30
 cts30_format <- function(x) (x/75)
@@ -2127,7 +2113,7 @@ rgv_surg <- rgv.dat %>%
     # grepl("lear|Water", arm_tx) & age == "Pediatric" ~ color_bar("darksalmon", fun = cts1_format)(formattable::percent(rgv_bar)),
     # !grepl("lear|Water", arm_tx) & age == "Pediatric" ~ color_bar("lightgray", fun = cts1_format)(formattable::percent(rgv_bar))
   )) %>%
-  select(refid, study, arm_tx, arm_n, hr_gt6, hr_26, hr_2, rgv_time_1, rgv_mean, rgv_med, rgv_bar, age) %>%
+  select(refid, study, arm_tx, arm_n, hr_gt6, hr_26, hr_2, rgv_time_1, rgv_mean, rgv_med, rgv_range, rgv_bar, age) %>%
   mutate(
     rgv_bar = str_replace(rgv_bar, ">.*<", ">&nbsp;<"),
     rgv_time_1 = ifelse(rgv_time_1 == 0.0, round_0d(rgv_time_1), rgv_time_1),
@@ -2154,24 +2140,25 @@ rgv_surg %>%
   filter(age == "Adult") %>% 
   select(!c(refid, rgv_time_1, age)) %>%
     kbl(
-    booktabs = T, align = c("llcccclll"), escape = FALSE,
+    booktabs = T, align = c("llccccllll"), escape = FALSE,
     col.names = c(
-      "       Study", "Liquid", "N", "> 6", "6→2", "2", "M (SD)", "Med (IQR)", "M or Med"
+      "       Study", "Liquid", "N", "> 6", "6→2", "2", "M (SD)", "Med (IQR)", "Range", "M or Med"
     )
   ) %>%
-  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "RGV (mL)^a^" = 3), line = TRUE, bold = TRUE) %>%
+  add_header_above(c(" " = 3, "Volume (mL) Before Induction (hr)" = 3, "RGV (mL)^a^" = 4), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
   # NOTE: footnote a: includes at 2.5 hours
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "14em") %>%
-  column_spec(2, width = "7em") %>%
+  column_spec(2, width = "9em") %>%
   column_spec(3, width = "3em") %>%
   column_spec(c(4,6), width = "3em") %>%
   column_spec(5, width = "4em") %>%
   column_spec(7, width = "6em") %>%
   column_spec(8, width = "6em") %>%
-  column_spec(9, width = "11em") %>%
+  column_spec(9, width = "6em") %>%
+  column_spec(10, width = "9em") %>%
   row_spec(clear_row, color = "brown") %>%
   row_spec(fast_row, color = "#0E9AB9") %>%
   pack_top(., "Adult, Surgical", 1, 20) %>%
@@ -2360,7 +2347,7 @@ ph.dat %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "14em") %>%
-  column_spec(2, width = "7em") %>%
+  column_spec(2, width = "9em") %>%
   column_spec(3, width = "3em") %>%
   column_spec(c(4, 6), width = "3em") %>%
   column_spec(5, width = "4em") %>%
