@@ -213,22 +213,22 @@ domain_summary <- soe.dat %>%
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "CHO_fasting") %>% 
-  select(!c(comparison, n)) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
-  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = c("One additional RCT with no events not included in the pooled result.",
@@ -329,20 +329,20 @@ table_n <- tab_inc()
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "CHO_clear") %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -442,20 +442,20 @@ table_n <- tab_inc()
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "CHO_fasting_peds") %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  # add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
   footnote(general = "OR: odds ratio; SMD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
@@ -551,20 +551,20 @@ table_n <- tab_inc()
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "CHO_clear_peds") %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>%  
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
   # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -661,20 +661,20 @@ table_n <- tab_inc()
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "CHO_milk_peds") %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -784,20 +784,20 @@ table_n <- tab_inc()
 ## (updated 2021/05/14 08:53) prot vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "Prot_fasting") %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial; OR: odds ratio; MD: mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -894,20 +894,20 @@ table_n <- tab_inc()
 ## (updated 2021/05/14 08:53) prot vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "Prot_clear") %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -1004,20 +1004,20 @@ table_n <- tab_inc()
 ## (updated 2021/05/14 08:53) prot vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "Prot_CHO") %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "MD: mean difference.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -1116,20 +1116,20 @@ table_n <- tab_inc()
 ## (updated 2021/05/14 08:53) prot vs. fasting kable -----------------------
 soe_summary %>% 
   filter(comparison == "Prot_milk_peds") %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "RCT: randomized controlled trial; CHO: carbohydrate.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
@@ -1242,7 +1242,7 @@ soe_summary %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
   column_spec(c(3:4), width = "6em") %>% 
-  column_spec(5, width = "em") %>% 
+  column_spec(5, width = "5em") %>% 
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
@@ -1454,20 +1454,20 @@ table_n <- tab_inc()
 soe_summary %>% 
   mutate(outcome = str_replace(outcome, "ph", "pH")) %>% 
   filter(grepl("gum", comparison)) %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1:12) %>% 
-    kbl(booktabs = T, align = c("lclcccll"), escape = FALSE,
-    col.names = c("Outcome", "(pts)", " GRADE", "USPSTF/AHRQ", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
-  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 3, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "9em") %>%  
   column_spec(2, width = "5em") %>%  
-  column_spec(c(3:5), width = "6em") %>% 
-  column_spec(6, width = "em") %>% 
-  column_spec(7, width = "24em") %>% 
-  column_spec(8, width = "7em") %>% 
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
   # pack_top(., "Gum vs.Fasting", 1, 3) %>%
   # pack_top(., "Gum vs. Water", 4, 4) %>%
   # pack_top(., "Gum vs. Fasting, Pediatric", 5, 6) %>%
