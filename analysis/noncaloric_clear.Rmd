@@ -669,8 +669,9 @@ likert_clear_hung_kbl.dat <- likert_clear_hung.dat %>%
   ungroup() %>%
   select(-c(hr_minus2, hr_0))
 
-# likert_clear_hung.dat %>% 
-#   filter(pre_post_op %in% c("Preop")) %>% 
+# likert_clear_hung.dat %>%
+#   filter(pre_post_op %in% c("Preop")) %>%
+#   filter(arm_tx != "CHO") %>% 
 #   summarize(total = sum(arm_n), arms = n())
 
 ```
@@ -759,6 +760,8 @@ likert_clear_hung_kbl.dat %>%
 <a id="clrFastHungFig1"></a>
 
 ### Pooled (adult RCTs, patient-rated)
+
+<br/>
 
 ```{r hungerMetaDat, include = TRUE}
 # create data set
@@ -866,7 +869,7 @@ Mean differences estimated using medians, interquartile ranges, and overall rang
 
 <font size = 4> (For carbohydrate or protein clear liquid comparisons see [carbohydrate](cho_final.html#Preoperative_Thirst) and [protein](protein_final.html#Preoperative_Thirst).) </font>
 
-<a id="clrFastHungRatingTab5"></a> 
+<a id="clrFastThirstRatingTab5"></a> 
 
 ### Rates (surgical) 
 
@@ -966,6 +969,8 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="clrFastThirstRatingTab6"></a> 
+
 ### Patient-rated (surgical) <a id="choHungRating7"></a>
 
 <br/>
@@ -1042,6 +1047,12 @@ likert_clear_thirst_kbl.dat <- likert_clear_thirst.dat %>%
   ) %>%
   ungroup() %>%
   select(-c(hr_minus2, hr_0))
+
+# likert_clear_thirst.dat %>%
+#   filter(pre_post_op %in% c("Preop")) %>%
+#   filter(arm_tx != "CHO") %>% 
+#   summarize(total = sum(arm_n), arms = n())
+
 ```
 
 ```{r thirstAdultSurgKable, echo = FALSE}
@@ -1124,6 +1135,8 @@ table_n <- tab_inc()
 ```
 
 <br/>
+
+<a id="clrFastThirstFig2"></a>
 
 ### Pooled (adult RCTs, patient-rated)
 
@@ -1230,7 +1243,9 @@ Mean differences estimated using medians, interquartile ranges, and overall rang
 
 <font size = 4> (For carbohydrate or protein clear liquid comparisons see [carbohydrate](cho_final.html#Preoperative_Nausea) and [protein](protein_final.html#Preoperative_Nausea).) </font>
 
-### Patient-rated (surgical) <a id="choHungRating7"></a>
+<a id="clrFastNauseaTab7"></a>
+
+### Patient-rated (surgical) 
 
 <br/>
 
@@ -1389,7 +1404,11 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="clrFastNauseaFig3"></a>
+
 ### Pooled (adult RCTs, patient-rated)
+
+<br/>
 
 ```{r nauseaMetaDat, include = TRUE}
 # create data set
@@ -1493,6 +1512,8 @@ Mean differences estimated using medians, interquartile ranges, and overall rang
 ## *Discomfort* 
 
 <font size = 4> (For carbohydrate or protein clear liquid comparisons see [carbohydrate](cho_final.html#Preoperative_PainDiscomfort) and [protein](protein_final.html#Preoperative_PainDiscomfort).) </font>
+
+<a id="clrFastDiscomfortTab8"></a>
 
 ### Patient-rated (surgical)
 
@@ -1669,6 +1690,8 @@ table_n <- tab_inc()
 
 <font size = 4> (For carbohydrate or protein clear liquid comparisons see [carbohydrate](cho_final.html#Aspiration) and [protein](protein_final.html#Aspiration).) </font>
 
+<a id="clrFastAspirateTab9"></a>
+
 ### Adults
 
 <br/>
@@ -1743,6 +1766,8 @@ table_n <- tab_inc()
 ```
 
 <br/> 
+
+<a id="clrFastAspirateTab10"></a>
 
 ### Pediatric
 
@@ -1825,6 +1850,8 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="clrFastAspirateTab11"></a>
+
 ### Adults Unreported
 
 <br>
@@ -1899,6 +1926,8 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="clrFastAspirateTab12"></a>
+
 ### Pediatric Unreported <a id="choUnrepAspPeds21"></a>
 
 <br>
@@ -1952,6 +1981,8 @@ table_n <- tab_inc()
 <br/>
 
 ## *Preoperative Regurgitation* 
+
+<a id="clrFastRegurgTab13"></a>
 
 ### Adults (surgical) 
 
@@ -2052,6 +2083,8 @@ table_n <- tab_inc()
 <br/>
 
 ## *Residual Gastric Volume* 
+
+<a id="clrFastRgvTab14"></a>
 
 ### Adults (surgical) 
 
@@ -2183,6 +2216,8 @@ table_n <- tab_inc()
 
 <font size = 4>Not reported in any studies. </font size> 
 
+<a id="clrFastRgvFig4"></a>
+
 ### Pooled (adult RCTs)  
 
 <br/>
@@ -2291,6 +2326,8 @@ Owing to skewed distributions of RGV, conducted sensitivity analysis on a log sc
 
 <br/><br/>
 
+<a id="clrFastPhTab15"></a>
+
 ## *Gastric pH*
 
 <br/>
@@ -2368,6 +2405,8 @@ table_n <- tab_inc()
 ```
 
 <br/>
+
+<a id="clrFastPhFig5"></a>
 
 ### Pooled (adult RCTs) <a id="choPhFig11"></a>
 

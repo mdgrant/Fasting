@@ -128,7 +128,7 @@ firstup <- function(x) {
 
 ```{r soeData, include = TRUE}
 ## (updated 2021/05/13 11:45) soeData -------------------------------------
-soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB105", sheet = "soe_050521") %>%
+soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB113", sheet = "soe_050521") %>%
   clean_names() %>%
   mutate(
     n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
@@ -158,7 +158,7 @@ soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB105", s
   )
 
 soe.dat <- soe.dat %>% 
-    filter((grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea|Satisfaction", outcome) & design %in% c("RCT","Crossover")) | grepl("Aspir", outcome)) %>% 
+    filter((grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea|Satisfaction|Discomfort", outcome) & design %in% c("RCT","Crossover")) | grepl("Aspir", outcome)) %>% 
   # filter(grepl("Hunger|Residual", outcome)) %>%
   # remove post-op
   filter(!grepl("postop", outcome)) %>% 

@@ -9,12 +9,12 @@ navbar:
     href: soe_final.html
   - text: Carbohydrate
     href: cho_final.html
-  - text: Simple/Complex (Network)
-    href: nma_final.html
   - text: Protein/Carbohydrate
     href: protein_final.html
-  - text: Clear (non-caloric) vs. fasting
+  - text: Clear non-caloric vs. Fasting
     href: noncaloric_clear.html
+  - text: Network
+    href: nma_final.html
   - text: Chewing Gum
     href: gum_final.html
   - text: Appendix

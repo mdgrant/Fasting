@@ -46,13 +46,13 @@ display: none !important;
 
 [<font size = 5> Carbohydrate clear liquids </font>](cho_final.html)<br/>
 
-[<font size = 5> Simple versus complex carbohydrate clear liquids (network meta-analyses) </font>](nma_final.html)
-
 [<font size = 5> Protein/carbohydrate clear liquids  </font>](protein_final.html)
 
-[<font size = 5> Clear (non-caloric) vs. fasting </font>](noncaloric_clear.html)
+[<font size = 5> Clear non-caloric versus fasting </font>](noncaloric_clear.html)
 
-[<font size = 5> Chewing gum  </font>](gum_final.html)
+[<font size = 5> Residual gastric volume network meta-analysis <br/> (simple versus complex carbohydrates) </font>](nma_final.html)
+
+[<font size = 5> Chewing gum</font>](gum_final.html)
 
 <br/><br/>
 
@@ -60,7 +60,7 @@ display: none !important;
 
     <font size = 4>Supplemental strength of evidence ratings </font>
 <br/>
-    <font size = 4>Prisma</font>
+    <font size = 4>PRISMA</font>
 
 <br/><br/><br/>
 
