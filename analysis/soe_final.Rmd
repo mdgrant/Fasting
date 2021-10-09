@@ -1614,6 +1614,8 @@ table_n <- tab_inc()
 
 <!-- <br> -->
 
+<br/>
+
 #   ACC/AHA
 
 **Level A** --- High-quality evidence from more than 1 RCTs. Meta-analyses of high-quality RCTs. One or more RCTs corroborated by high-quality registry studies.
@@ -1629,6 +1631,11 @@ table_n <- tab_inc()
 </font>
 
 <font size = 3> RCT: randomized controlled trial; NR: nonrandomized; LD: limited data; EO: expert opinion </font>
+
+&nbsp; <br/>
+
+
+
 
 
 
