@@ -151,8 +151,9 @@ soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB113", s
     design = str_replace(design, "cohort", "Cohort"),
     design = str_replace(design, "observational", "Observational"),
     out_import = case_when(
-      out_import == "Limited" ~ "●○○",
-      out_import == "Important" ~ "●●○",
+      out_import == "Limited" ~ "●",
+      # out_import == "Limited" ~ "●○○",
+      out_import == "Important" ~ "●●",
       out_import == "Critical" ~ "●●●"
     )
   )
@@ -216,7 +217,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
@@ -231,7 +232,8 @@ soe_summary %>%
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
-           number = c("One additional RCT with no events not included in the pooled result.",
+           number = c("● Limited, ●● Important, ●●● Critical.",
+             "One additional RCT with no events not included in the pooled result.",
                       "Two additional studies (Rizvanovic 2019, Yagmurdur 2011) favoring CHO drinks judged to be outliers were not included in the pooled result."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -332,7 +334,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -345,7 +347,7 @@ soe_summary %>%
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
@@ -787,7 +789,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -800,7 +802,7 @@ soe_summary %>%
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial; OR: odds ratio; MD: mean difference.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
@@ -897,7 +899,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -910,7 +912,7 @@ soe_summary %>%
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
@@ -1007,7 +1009,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -1020,7 +1022,7 @@ soe_summary %>%
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "MD: mean difference.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
@@ -1119,7 +1121,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -1132,7 +1134,7 @@ soe_summary %>%
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "RCT: randomized controlled trial; CHO: carbohydrate.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
@@ -1232,7 +1234,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
@@ -1247,7 +1249,7 @@ soe_summary %>%
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
-           # number = c(""),
+           number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
@@ -1343,7 +1345,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
@@ -1358,7 +1360,7 @@ soe_summary %>%
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
   footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
-           # number = c(""),
+           number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
@@ -1457,7 +1459,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -1474,7 +1476,7 @@ soe_summary %>%
   # pack_top(., "Gum", 7, 7) %>%
   # pack_top(., "Safety", 8, 8) %>%
   footnote(general = "RCT: randomized controlled trial; MD: mean difference.",
-           # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
+           number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
