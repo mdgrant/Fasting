@@ -1558,6 +1558,8 @@ table_n <- tab_inc()
 
 <br/>
 
+# 
+
 # **Rating Systems Reference**
 
 #   GRADE
@@ -1599,18 +1601,18 @@ table_n <- tab_inc()
 
 <br>
 
-#   USPSTF/AHRQ
+<!-- #   USPSTF/AHRQ -->
 
-<font size = 3>
-**High** --- We are very confident that the estimate of effect lies close to the true effect for this outcome. The body of evidence has few or no deficiencies. We believe that the findings are stable, i.e., another study would not change the conclusions.
+<!-- <font size = 3> -->
+<!-- **High** --- We are very confident that the estimate of effect lies close to the true effect for this outcome. The body of evidence has few or no deficiencies. We believe that the findings are stable, i.e., another study would not change the conclusions. -->
 
-**Moderate** --- We are moderately confident that the estimate of effect lies close to the true effect for this outcome. The body of evidence has some deficiencies. We believe that the findings are likely to be stable, but some doubt remains.
+<!-- **Moderate** --- We are moderately confident that the estimate of effect lies close to the true effect for this outcome. The body of evidence has some deficiencies. We believe that the findings are likely to be stable, but some doubt remains. -->
 
-**Low** --- We have limited confidence that the estimate of effect lies close to the true effect for this outcome. The body of evidence has major or numerous deficiencies (or both). We believe that additional evidence is needed before concluding either that the findings are stable or that the estimate of effect is close to the true effect.
+<!-- **Low** --- We have limited confidence that the estimate of effect lies close to the true effect for this outcome. The body of evidence has major or numerous deficiencies (or both). We believe that additional evidence is needed before concluding either that the findings are stable or that the estimate of effect is close to the true effect. -->
 
-**Insufficient** --- We have no evidence, we are unable to estimate an effect, or we have no confidence in the estimate of effect for this outcome. No evidence is available or the body of evidence has unacceptable deficiencies, precluding reaching a conclusion. 
+<!-- **Insufficient** --- We have no evidence, we are unable to estimate an effect, or we have no confidence in the estimate of effect for this outcome. No evidence is available or the body of evidence has unacceptable deficiencies, precluding reaching a conclusion.  -->
 
-<br>
+<!-- <br> -->
 
 #   ACC/AHA
 
