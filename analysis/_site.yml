@@ -5,17 +5,17 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: Strength of Evidence
+  - text: Summary
     href: soe_final.html
   - text: Carbohydrate
     href: cho_final.html
-  - text: Protein/Carbohydrate
+  - text: Protein
     href: protein_final.html
-  - text: Clear non-caloric vs. Fasting
+  - text: Noncal clear vs. Fast
     href: noncaloric_clear.html
   - text: Network
     href: nma_final.html
-  - text: Chewing Gum
+  - text: Gum
     href: gum_final.html
   - text: Appendix
     href: appendix.html
