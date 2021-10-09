@@ -44,6 +44,14 @@ display: none;
 .btn-default {
 display: none !important; 
 }
+
+:target {  /* fix target location so caption appears */
+    display: block;    
+    position: relative;     
+    top: 10px;
+    visibility: hidden;
+}
+
 </style>
 ```
 
@@ -548,7 +556,9 @@ cho_amts <- study_arm_prot.dat %>%
 
 ## *Preoperative Hunger* 
 
-### Rates <a id="protHungRate5"></a>
+<a id="protTab5"></a>
+
+### Rates 
 
 <br/>
 
@@ -648,7 +658,9 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated  <a id="protHungRating6"></a>
+<a id="protTab6"></a>
+
+### Patient-rated  
 
 <br/>
 
@@ -793,7 +805,9 @@ kbl(
 
 ## *Preoperative Thirst* 
 
-### Rates <a id="protThirstRate7"></a> 
+<a id="protTab7"></a>
+
+### Rates  
 
 <br/>
 
@@ -888,7 +902,9 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated <a id="protThirstRating8"></a>
+<a id="protTab8"></a>
+
+### Patient-rated 
 
 <br/>
 
@@ -1044,7 +1060,9 @@ table_n <- tab_inc()
 
 ## *Preoperative Nausea* 
 
-### Rates <a id="protNauseaRate9"></a> 
+<a id="protTab9"></a> 
+
+### Rates 
 
 <br/>
 
@@ -1159,7 +1177,9 @@ table_n <- tab_inc()
 
 <br/>
 
-### Rates, nonsurgical studies <a id="protNauseaNonRate10"></a>
+<a id="protTab10"></a>
+
+### Rates, nonsurgical studies 
 
 <br/>
 
@@ -1233,7 +1253,9 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated <a id="protNauseaRating11"></a>
+<a id="protTab11"></a>
+
+### Patient-rated 
 
 <br/>
 
@@ -1375,7 +1397,9 @@ lik_prot_nausea_preop_kbl.dat %>%
 
 ## *Preoperative Pain/Discomfort* 
 
-### Rates <a id="protPainRate12"></a>
+<a id="protTab12"></a>
+
+### Rates 
 
 <br/>
 
@@ -1462,7 +1486,9 @@ table_n <- tab_inc()
 
 <br/>
 
-### Patient-rated <a id="protPainRating13"></a>
+<a id="protTab13"></a>
+
+### Patient-rated 
 
 <br/>
 
@@ -1590,7 +1616,9 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Patient Satisfaction* <a id="protSatisRating14"></a>
+<a id="protTab14"></a>
+
+## *Patient Satisfaction* 
 
 <br/>
 
@@ -1701,7 +1729,9 @@ table_n <- tab_inc()
 
 ## *Aspiration* 
 
-### None Reported (Adult) <a id="protAspAdult15"></a> 
+<a id="protTab15"></a>
+
+### None Reported (Adult)  
 
 <br/>
 
@@ -1784,7 +1814,9 @@ table_n <- tab_inc()
 
 <br/> 
 
-### Unreported (Adult) <a id="protNoAspAdult16"></a>
+<a id="protTab16"></a>
+
+### Unreported (Adult) 
 
 <br>
 
@@ -1867,7 +1899,9 @@ table_n <- tab_inc()
 
 ## *Preoperative Regurgitation* 
 
-### Adults (surgical) <a id="protRegurgAdult17"></a>
+<a id="protTab17"></a>
+
+### Adults (surgical) 
 
 <br/>
 
@@ -2021,7 +2055,9 @@ dichot_vomit_adult_postop <- dichot_vomit %>%
 
 ```
 
-### Rates, Adults <a id="protVomitAdult18"></a>
+<a id="protTab18"></a>
+
+### Rates, Adults 
 
 <br/>
 
@@ -2072,10 +2108,8 @@ table_n <- tab_inc()
 
 <br/>
 
-
-
 ```{r vomitPostopAdults, include = FALSE, eval = FALSE}
-### Rates, Adults (postop) <a id="protVomitPostAdult19"></a>
+### Rates, Adults (postop) 
 <br/>
 <font size = 4> Table `r table_n`. Rates of post-operative vomiting among adults according to fasting, liquid and volume. </font>
 ## (updated 2021/05/07 14:49) tables --------------------------------------
@@ -2119,7 +2153,9 @@ table_n <- tab_inc()
 
 ## *Residual Gastric Volume* 
 
-### Adults (surgical) <a id="protRgv20"></a>
+<a id="protTab19"></a>
+
+### Adults (surgical) 
 
 <br/>
 
@@ -2248,7 +2284,9 @@ table_n <- tab_inc()
 
 <br/>
 
-### Nonsurgical Studies <a id="protNonRgv21"></a>
+<a id="protTab20"></a>
+
+### Nonsurgical Studies 
 
 <br/>
 
@@ -2391,7 +2429,9 @@ rgv_no_table %>%
 
 <br/>
 
-### Pooled (adult surgical) <a id="protRgvFig1"></a>
+<a id="protFig1"></a>
+
+### Pooled (adult surgical) 
 
 <br/>
 
@@ -2491,7 +2531,9 @@ Owing to skewed distributions of RGV, conducted sensitivity analysis on a log sc
 
 <br/>
 
-### Pooled (adult nonsurgical) <a id="protNonRgvFig2"></a>
+<a id="protFig2"></a>
+
+### Pooled (adult nonsurgical) 
 
 <br/>
 
@@ -2629,7 +2671,9 @@ figure_n <- figure_n + 1
 
 ## *Complications* 
 
-### Adults <a id="protCompl22"></a>
+<a id="protTab21"></a>
+
+### Adults
 
 <br/>
 
@@ -2782,7 +2826,9 @@ table_n <- tab_inc()
 
 ## *Length of Stay* 
 
-### Adults <a id="protLos23"></a>
+<a id="protTab2"></a>
+
+### Adults 
 
 <br/>
 

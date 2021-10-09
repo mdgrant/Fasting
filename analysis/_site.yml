@@ -11,7 +11,7 @@ navbar:
     href: cho_final.html
   - text: Protein
     href: protein_final.html
-  - text: Noncal clear vs. Fast
+  - text: Clear (nocal) vs. Fast
     href: noncaloric_clear.html
   - text: Network
     href: nma_final.html

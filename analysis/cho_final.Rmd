@@ -47,6 +47,14 @@ display: none;
 .btn-default {
 display: none !important; 
 }
+
+:target {  /* fix target location so caption appears */
+    display: block;    
+    position: relative;     
+    top: 10px;
+    visibility: hidden;
+}
+
 </style>
 ```
 
@@ -4009,7 +4017,7 @@ temp <- metacont(
 Mean differences estimated from means, standard deviations, medians, interquartile and overall ranges.
 Owing to skewed distributions of RGV, conducted sensitivity analysis on a log scale with consistent results. 
 
-<a id="choRgvFig10"></a>
+<a id="choFig10"></a>
 
 <br/><br/>
 

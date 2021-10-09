@@ -48,6 +48,14 @@ display: none;
 .btn-default {
 display: none !important; 
 }
+
+:target {  /* fix target location so caption appears */
+    display: block;    
+    position: relative;     
+    top: 10px;
+    visibility: hidden;
+}
+
 </style>
 ```
 

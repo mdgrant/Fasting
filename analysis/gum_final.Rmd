@@ -40,6 +40,7 @@ nocite: '@*'
 .lightable-classic.lightable-hover tbody tr:hover {
     background-color: #c5d4e4;
 }
+
 .btn-xs, .btn-group-xs>.btn { 
 display: none; 
 }
@@ -47,7 +48,33 @@ display: none;
 .btn-default {
 display: none !important; 
 }
+
+.shortbr {
+line-height: 30px;
+}
+
+<!-- .manchor { -->
+<!--     display: block; -->
+<!--     position: relative; -->
+<!--     top: -250px; -->
+<!--     visibility: hidden; -->
+<!-- } -->
+
+<!-- .manchor { -->
+<!--   padding-top: 400px; -->
+<!--   margin-top: -40px; -->
+<!--   display: inline-block; /* required for webkit browsers */ -->
+<!-- } -->
+
+:target {  /* fix target location so caption appears */
+    display: block;    
+    position: relative;     
+    top: 10px;
+    visibility: hidden;
+}
+
 </style>
+
 ```
 
 ```{r setup, include = FALSE}
@@ -156,9 +183,11 @@ table_n <- tab_inc()
 
 # **Patient Reported Outcomes**
 
-<br>
+<a id="gumTab2"></a>
 
-## *Thirst* <a id="gumThirstRating2"></a>
+<!-- <manchor id="gumTab2"></manchor> -->
+
+## *Thirst* 
 
 <br/>
 
@@ -209,9 +238,11 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Hunger* <a id="gumHungerRatings"></a>
+<a id="gumTab3"></a>
 
-<br/>
+## *Hunger*  
+
+<br style="line-height: 5px" />
 
 <font size = 4> Table `r table_n`. Patient-rated hunger following fasting or gum. </font>
 
@@ -262,7 +293,9 @@ table_n <- tab_inc()
 
 # **Clinical Outcomes**
 
-## *Residual Gastric Volume* <a id="gumRgvTab3"></a>
+<a id="gumTab4"></a>
+
+## *Residual Gastric Volume*  
 
 <br/>
 
@@ -374,9 +407,11 @@ table_n <- table_n + 1
 
 <br>
 
-### Pooled Results <a id="gumRgvFig2"></a>
+<a id="gumFig1"></a>
 
-<br>
+### Pooled Results 
+
+<br/>
 
 <font size = 4> Figure `r figure_n`. Forest plot for pooled mean difference for residual gastric volume in randomized controlled trials of adult surgical patients --- gum chewing versus fasting. </font>
 
@@ -456,8 +491,9 @@ figure_n <- fig_inc()
 
 <br/>
 
+<a id="gumTab5"></a>
 
-## *Gastric pH* <a id="gumPhTab4"></a>
+## *Gastric pH* 
 
 <br/>
 
@@ -543,7 +579,9 @@ table_n <- tab_inc()
 
 <br/>
 
-### Pooled Results <a id="gumRgvFig3"></a>
+<a id="gumFig2"></a>
+
+### Pooled Results 
 
 <br/>
 
@@ -633,7 +671,7 @@ figure_n <- fig_inc()
 
 ## *Study Characteristics*
 
-<br>
+<br/>
 
 <font size = 4> Table `r table_n`. Characteristics of included studies examining chewing gum. </font>
 ```{r createStudyCharTable, include = FALSE}
