@@ -162,7 +162,7 @@ calc_mn_sd <- function(n_e, m_e, sd_e, md_e, q1_e, q3_e, min_e, max_e, study, tx
   temp <- metacont(
     n.e = n_e,
     n.c = n_c,
-    comb.fixed = TRUE,
+    fixed = TRUE,
     mean.e = m_e,
     sd.e = sd_e,
     median.e = md_e,

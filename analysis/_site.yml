@@ -14,7 +14,9 @@ navbar:
   - text: Clear (nocal) vs. Fast
     href: noncaloric_clear.html
   - text: Network
-    href: nma_final.html
+    menu:
+    - text: Residual Gastric Volume
+      href: nma_final.html
   - text: Gum
     href: gum_final.html
   - text: Appendix

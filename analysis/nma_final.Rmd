@@ -1,5 +1,5 @@
 ---
-title: "Network Meta-Analyses — Carbohydrates"
+title: "Network Meta-Analyses"
 date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
   html_document:
@@ -78,16 +78,21 @@ fig_inc <- function() {
 table_n <- 1
 figure_n <- 1
 
-## * get current files; select cho refids; directory must have unique ####
+## (updated 2021/10/15 08:32) get current files ---------------------------
 source("code/readFiles_120220_wfr.R")
 
-# study char cho refs 
-study_char_cho.dat <- study_char.dat %>% 
-  filter(refid %in% cho_refids)
+## (updated 2021/10/15 08:29) nma refids includes clear fasting -----------
+nma_refids <- c(cho_refids, clear_refids) %>% 
+  unique() %>% 
+  sort()
+
+## (updated 2021/10/15 08:33) nma tibbles; tx arm categories --------------
+study_char_nma.dat <- study_char.dat %>% 
+  filter(refid %in% nma_refids)
 
 # study arm protein refs 
-study_arm_cho.dat <- study_arm.dat %>%
-  filter(refid %in% cho_refids) %>%
+study_arm_nma.dat <- study_arm.dat %>%
+  filter(refid %in% nma_refids) %>%
   # remove Awad other, no "other" category
   filter(arm_tx != "other") %>%
   # remove duplicate arms tewari 2019 (refid 716)
@@ -109,7 +114,9 @@ study_arm_cho.dat <- study_arm.dat %>%
       "prot_simp",
       "prot_comp",
       "cho_simp",
-      "cho_comp"
+      "cho_comp",
+      "gum_sugared",
+      "gum_sugarfree"
     )
   )) %>%
   mutate(
@@ -124,120 +131,151 @@ study_arm_cho.dat <- study_arm.dat %>%
       "CHO/Simp/Prot" = "prot_simp",
       "CHO/Simp" = "cho_simp",
       "CHO/Comp" = "cho_comp",
+      "Gum/Sugared" = "gum_sugared",
+      "Gum/Sugarfree" = "gum_sugarfree",
     ),
     arm_tx = tx
   ) %>%
   select(-tx) 
 
+study_arm_nma.dat %>% tabyl(arm_tx)
+
 # tewari 2019
-study_arm_cho_tewari.dat <- study_arm.dat %>% 
+study_arm_nma_tewari.dat <- study_arm.dat %>% 
   filter(refid == 716)
 
 ## * dichot factor treatment arm outcome type for ordering (updated 2020/12/12 12:04) ####
 # save dichot.dat 
-dichot_cho.dat <- dichot.dat %>% 
-  filter(refid %in% cho_refids) %>% 
+dichot_nma.dat <- dichot.dat %>% 
+  filter(refid %in% nma_refids) %>% 
   # remove Awad other, no "other" category
   filter(arm_tx != "other") %>% 
   # factor arm_tx levels for cho studies
   mutate(tx = factor(arm_tx,
-  levels = c(
-    "fasting",
-    "water",
-    "placebo",
-    "other_clear",
-    "milk",
-    "prot",
-    "prot_simp",
-    "prot_comp",
-    "cho_simp",
-    "cho_comp"))) %>%
-  mutate(tx = fct_recode(tx,
-    Fasting = "fasting",
-    Water = "water",
-    Placebo = "placebo",
-    Clear = "other_clear",
-    Milk = "milk",
-    "Prot" = "prot",
-    "CHO/Simp/Prot" = "prot_simp",
-    "CHO/Comp/Prot" = "prot_comp",
-    "CHO/Simp" = "cho_simp",
-    "CHO/Comp" = "cho_comp",),
-    arm_tx = tx) %>%
-  select(-tx)
+    levels = c(
+      "fasting",
+      "water",
+      "placebo",
+      "other_clear",
+      "milk",
+      "prot",
+      "prot_simp",
+      "prot_comp",
+      "cho_simp",
+      "cho_comp",
+      "gum_sugared",
+      "gum_sugarfree"
+    )
+  )) %>%
+  mutate(
+    tx = fct_recode(tx,
+      Fasting = "fasting",
+      Water = "water",
+      Placebo = "placebo",
+      Clear = "other_clear",
+      Milk = "milk",
+      "Prot" = "prot",
+      "CHO/Comp/Prot" = "prot_comp",
+      "CHO/Simp/Prot" = "prot_simp",
+      "CHO/Simp" = "cho_simp",
+      "CHO/Comp" = "cho_comp",
+      "Gum/Sugared" = "gum_sugared",
+      "Gum/Sugarfree" = "gum_sugarfree",
+    ),
+    arm_tx = tx
+  ) %>%
+  select(-tx) 
 
-dichot_cho.dat %>% tabyl(arm_tx)
+dichot_nma.dat %>% tabyl(arm_tx)
 
 ## * contin factor treatment arm outcome type for ordering (updated 2020/12/12 12:04) ####
-contin_cho.dat <- contin.dat %>% 
-  filter(refid %in% cho_refids) %>% 
+contin_nma.dat <- contin.dat %>%
+  filter(refid %in% nma_refids) %>%
   # remove Awad other, no "other" category
   filter(arm_tx != "other") %>%
   # factor arm_tx levels for cho studies
   mutate(tx = factor(arm_tx,
-  levels = c(
-    "fasting",
-    "water",
-    "placebo",
-    "other_clear",
-    "milk",
-    "prot",
-    "prot_simp",
-    "prot_comp",
-    "cho_simp",
-    "cho_comp"))) %>%
-  mutate(tx = fct_recode(tx,
-    Fasting = "fasting",
-    Water = "water",
-    Placebo = "placebo",
-    Clear = "other_clear",
-    Milk = "milk",
-    "Prot" = "prot",
-    "CHO/Simp/Prot" = "prot_simp",
-    "CHO/Comp/Prot" = "prot_comp",
-    "CHO/Simp" = "cho_simp",
-    "CHO/Comp" = "cho_comp",),
-    arm_tx = tx) %>%
+    levels = c(
+      "fasting",
+      "water",
+      "placebo",
+      "other_clear",
+      "milk",
+      "prot",
+      "prot_simp",
+      "prot_comp",
+      "cho_simp",
+      "cho_comp",
+      "gum_sugared",
+      "gum_sugarfree"
+    )
+  )) %>%
+  mutate(
+    tx = fct_recode(tx,
+      Fasting = "fasting",
+      Water = "water",
+      Placebo = "placebo",
+      Clear = "other_clear",
+      Milk = "milk",
+      "Prot" = "prot",
+      "CHO/Comp/Prot" = "prot_comp",
+      "CHO/Simp/Prot" = "prot_simp",
+      "CHO/Simp" = "cho_simp",
+      "CHO/Comp" = "cho_comp",
+      "Gum/Sugared" = "gum_sugared",
+      "Gum/Sugarfree" = "gum_sugarfree",
+    ),
+    arm_tx = tx
+  ) %>%
   select(-tx)
 
-contin_cho.dat %>% tabyl(arm_tx)
+contin_nma.dat %>% tabyl(arm_tx)
 
 ## * likert factor treatment arm outcome type for ordering (updated 2020/12/12 12:04) ####
-likert_cho.dat <- likert.dat %>% 
-  filter(refid %in% cho_refids) %>% 
+likert_nma.dat <- likert.dat %>% 
+  filter(refid %in% nma_refids) %>% 
   # remove Awad other, no "other" category
   filter(arm_tx != "other") %>%
   # factor arm_tx levels for cho studies
   mutate(tx = factor(arm_tx,
-  levels = c(
-    "fasting",
-    "water",
-    "placebo",
-    "other_clear",
-    "milk",
-    "prot",
-    "prot_simp",
-    "prot_comp",
-    "cho_simp",
-    "cho_comp"))) %>%
-  mutate(tx = fct_recode(tx,
-    Fasting = "fasting",
-    Water = "water",
-    Placebo = "placebo",
-    Clear = "other_clear",
-    Milk = "milk",
-    "Prot" = "prot",
-    "CHO/Simp/Prot" = "prot_simp",
-    "CHO/Comp/Prot" = "prot_comp",
-    "CHO/Simp" = "cho_simp",
-    "CHO/Comp" = "cho_comp",),
-    arm_tx = tx) %>%
-  select(-tx)
+    levels = c(
+      "fasting",
+      "water",
+      "placebo",
+      "other_clear",
+      "milk",
+      "prot",
+      "prot_simp",
+      "prot_comp",
+      "cho_simp",
+      "cho_comp",
+      "gum_sugared",
+      "gum_sugarfree"
+    )
+  )) %>%
+  mutate(
+    tx = fct_recode(tx,
+      Fasting = "fasting",
+      Water = "water",
+      Placebo = "placebo",
+      Clear = "other_clear",
+      Milk = "milk",
+      "Prot" = "prot",
+      "CHO/Comp/Prot" = "prot_comp",
+      "CHO/Simp/Prot" = "prot_simp",
+      "CHO/Simp" = "cho_simp",
+      "CHO/Comp" = "cho_comp",
+      "Gum/Sugared" = "gum_sugared",
+      "Gum/Sugarfree" = "gum_sugarfree",
+    ),
+    arm_tx = tx
+  ) %>%
+  select(-tx) 
 
-likert_cho.dat %>% tabyl(arm_tx)
+likert_nma.dat %>% tabyl(arm_tx)
 
 ## * divide Sada 2014 and Celiksular 2016 into 2 studies ------------------
-likert_cho.dat <- likert_cho.dat %>%
+likert_nma.dat <- likert_nma.dat %>%
   mutate(
     study = ifelse(study == "Sada 2014" & grepl("cholecystectomy", out_l_notes), "Sada 2014 (CH)", study),
     study = ifelse(study == "Sada 2014" & !grepl("cholecystectomy", out_l_notes), "Sada 2014 (CR)", study),
@@ -245,7 +283,7 @@ likert_cho.dat <- likert_cho.dat %>%
     study = ifelse(study == "Celiksular 2016" & grepl("epidural", out_l_notes), "Celiksular 2016 (E)", study)
   )
 
-contin_cho.dat <- contin_cho.dat %>%
+contin_nma.dat <- contin_nma.dat %>%
   mutate(
     study = ifelse(study == "Sada 2014" & grepl("cholecystectomy", notes_continuous), "Sada 2014 (CH)", study),
     study = ifelse(study == "Sada 2014" & !grepl("cholecystectomy", notes_continuous), "Sada 2014 (CR)", study),
@@ -253,7 +291,7 @@ contin_cho.dat <- contin_cho.dat %>%
     study = ifelse(study == "Celiksular 2016" & grepl("epidural", notes_continuous), "Celiksular 2016 (E)", study)
   )
 
-dichot_cho.dat <- dichot_cho.dat %>%
+dichot_nma.dat <- dichot_nma.dat %>%
   mutate(
     study = ifelse(study == "Sada 2014" & grepl("cholecystectomy", out_dichot_notes), "Sada 2014 (CH)", study),
     study = ifelse(study == "Sada 2014" & !grepl("cholecystectomy", out_dichot_notes), "Sada 2014 (CR)", study),
@@ -263,25 +301,34 @@ dichot_cho.dat <- dichot_cho.dat %>%
 
 
 ## (updated 2021/07/05 10:39) rgv_meta_nma_studies ------------------------
-rgv_meta_nma_studies <- contin_cho.dat %>%
+rgv_meta_nma_studies <- contin_nma.dat %>%
+  filter(refid %in% nma_refids) %>% 
   arrange(design, year, study) %>%
-  filter(refid %in% cho_refids, surg_nosurg == "surgical") %>%
+  filter(refid %in% nma_refids, surg_nosurg == "surgical") %>%
   filter(!is.na(rgv_us) | !is.na(rgv_imag) | !is.na(rgv_asp)) %>%
   filter(design == "rct", age == "Adult") %>%
   select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1, hr_gt6:hr_2) %>%
   select(refid, study) %>%
-  distinct()
+  distinct() 
+
+rgv_refids <- rgv_meta_nma_studies %>% 
+  pull(refid)
+
 ```
 
 ```{r rgvNmaData, include = TRUE} 
 ## (updated 2021/07/02 11:33) prepare rgv_meta.dat for nma ----------------
-# arm_tx levels "Fasting", "Water", "Placebo", "Clear", "Milk", "Prot", "CHO/Simp/Prot", "CHO/Comp/Prot", "CHO/Simp", "CHO/Comp"
+# arm_tx "Fasting","Water","Placebo","Clear","Milk","Prot","CHO/Simp/Prot","CHO/Comp/Prot","CHO/Simp","CHO/Comp"
 ## (updated 2021/05/15 07:21) rgv_meta.dat --------------------------------
-rgv_meta.dat <- contin_cho.dat %>%
+rgv.dat <- contin_nma.dat %>%
   arrange(design, year, study) %>%
-  filter(refid %in% cho_refids, surg_nosurg == "surgical") %>%
+  filter(refid %in% rgv_refids, surg_nosurg == "surgical") %>%
   filter(!is.na(rgv_us) | !is.na(rgv_imag) | !is.na(rgv_asp)) %>%
   filter(design == "rct", age == "Adult") %>%
+  filter(!grepl("Gum", arm_tx)) %>% 
+  mutate(
+    arm_tx = fct_collapse(arm_tx, Clear = c("Water", "Clear")),
+    arm_tx = fct_drop(arm_tx)) %>% 
   select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1, hr_gt6:hr_2) %>%
   # calculate sd not reported using p-values 
   mutate(
@@ -291,6 +338,7 @@ rgv_meta.dat <- contin_cho.dat %>%
   arrange(refid, arm_tx)
 
 # use calc_mn_sd function (relies on meta) to calculate if missing mean, sd, and log transformed
+## (updated 2021/10/17 09:29) rgv_meta.dat --------------------------------
 rgv_meta.dat <- calc_mn_sd(
   "arm_n",
   "rgv_mean_1",
@@ -304,60 +352,60 @@ rgv_meta.dat <- calc_mn_sd(
   "arm_tx",
   refid = "refid",
   log_trans = TRUE,
-  data = rgv_meta.dat) %>%
-  bind_cols(., rgv_meta.dat %>% select(hr_gt6:hr_2))
+  data = rgv.dat) %>%
+  bind_cols(., rgv.dat %>% select(hr_gt6:hr_2))
 
-## (updated 2021/05/15 07:56) add ingestion time ----------------------------
-rgv_meta.dat <- rgv_meta.dat %>%
-  mutate(
-    arm_tx = fct_drop(arm_tx),
-    hr_2_liq = ifelse(!is.na(hr_2), "-2", "-gt2"),
-    temp_arm = as.character(arm_tx),
-    arm_tx_time = ifelse(arm_tx %in% c("CHO/Comp", "CHO/Simp", "CHO/Comp/Prot", "CHO/Simp/Prot", "Clear", "Water"),
-      paste0(temp_arm, hr_2_liq), temp_arm),
-    arm_tx_time = factor(arm_tx_time,
-      levels = c(
-        "Fasting",
-        "Water-2",
-        "Clear-2",
-        # "Placebo",
-        "CHO/Simp-2",
-        "CHO/Comp/Prot-2",
-        # "CHO/Simp/Prot-2",
-        "CHO/Comp-2",
-        "CHO/Simp-gt2",
-        "CHO/Comp/Prot-gt2",
-        "CHO/Comp-gt2"
-      )
-    ),
-    # arm_tx_sim_com = fct_collapse(arm_tx, "Protein" = c("CHO/Simp/Prot", "CHO/Comp/Prot")),
-    arm_tx_cho_prot = fct_collapse(arm_tx, # 3 categories
-      "CHO" = c("CHO/Simp", "CHO/Comp"),
-      "Protein" = c("CHO/Comp/Prot")),
-    arm_tx_time_no_prot = fct_collapse(arm_tx_time, # 3 categories
-      # Fasting = "Fasting",
-      # Water = "Water",
-      # Placebo = "Placebo",
-      # "CHO/Simp"   = c("CHO/Simp-2", "CHO/Simp-gt2"),
-      # "CHO/Comp-2"   = c("CHO/Comp-2", "CHO/Comp/Prot-2"),
-      # "CHO/Comp-gt2" = c("CHO/Comp-gt2", "CHO/Comp/Prot-gt2")
-      "CHO-gt2"   = c("CHO/Comp/Prot-gt2", "CHO/Simp-gt2", "CHO/Comp-gt2"),
-      "CHO-2"   = c("CHO/Simp-2", "CHO/Comp-2", "CHO/Comp/Prot-2")
-    ),
-    arm_tx_time2 = fct_collapse(arm_tx_time, # 2 categories
-      # Fasting = "Fasting",
-      # Water = "Water",
-      # Placebo = "Placebo",
-      # "CHO/Simp"   = c("CHO/Simp-2", "CHO/Simp-gt2", "CHO/Simp/Prot-2"),
-      "CHO 2hr"   = c("CHO/Comp-2", "CHO/Simp-2"),
-      "CHO >2hr" = c("CHO/Comp-gt2", "CHO/Simp-gt2"),
-      "Protein" = c("CHO/Comp/Prot-gt2", "CHO/Comp/Prot-2")
-    )
-  ) %>% 
-  select(-c(hr_2_liq, temp_arm))
+## (updated 2021/05/15 07:56) add ingestion time NOT run ------------------
+# rgv_meta.dat <- rgv_meta.dat %>%
+  # mutate(
+  #   arm_tx = fct_drop(arm_tx),
+  #   hr_2_liq = ifelse(!is.na(hr_2), "-2", "-gt2"),
+  #   temp_arm = as.character(arm_tx),
+  #   arm_tx_time = ifelse(arm_tx %in% c("CHO/Comp", "CHO/Simp", "CHO/Comp/Prot", "CHO/Simp/Prot", "Clear", "Water"),
+  #     paste0(temp_arm, hr_2_liq), temp_arm),
+  # arm_tx_time = factor(arm_tx_time,
+  #   levels = c(
+  #     "Fasting",
+  #     "Water-2",
+  #     "Clear-2",
+  #     # "Placebo",
+  #     "CHO/Simp-2",
+  #     "CHO/Comp/Prot-2",
+  #     # "CHO/Simp/Prot-2",
+  #     "CHO/Comp-2",
+  #     "CHO/Simp-gt2",
+  #     "CHO/Comp/Prot-gt2",
+  #     "CHO/Comp-gt2"
+  #   )
+  # ),
+  # arm_tx_sim_com = fct_collapse(arm_tx, "Protein" = c("CHO/Simp/Prot", "CHO/Comp/Prot")),
+  # arm_tx_cho_prot = fct_collapse(arm_tx, # 3 categories
+  #   "CHO" = c("CHO/Simp", "CHO/Comp"),
+  #   "Protein" = c("CHO/Comp/Prot")),
+  # arm_tx_time_no_prot = fct_collapse(arm_tx_time, # 3 categories
+  #   # Fasting = "Fasting",
+  #   # Water = "Water",
+  #   # Placebo = "Placebo",
+  #   # "CHO/Simp"   = c("CHO/Simp-2", "CHO/Simp-gt2"),
+  #   # "CHO/Comp-2"   = c("CHO/Comp-2", "CHO/Comp/Prot-2"),
+  #   # "CHO/Comp-gt2" = c("CHO/Comp-gt2", "CHO/Comp/Prot-gt2")
+  #   "CHO-gt2"   = c("CHO/Comp/Prot-gt2", "CHO/Simp-gt2", "CHO/Comp-gt2"),
+  #   "CHO-2"   = c("CHO/Simp-2", "CHO/Comp-2", "CHO/Comp/Prot-2")
+  # ),
+  # arm_tx_time2 = fct_collapse(arm_tx_time, # 2 categories
+  #   # Fasting = "Fasting",
+  #   # Water = "Water",
+  #   # Placebo = "Placebo",
+  #   # "CHO/Simp"   = c("CHO/Simp-2", "CHO/Simp-gt2", "CHO/Simp/Prot-2"),
+  #   "CHO 2hr"   = c("CHO/Comp-2", "CHO/Simp-2"),
+  #   "CHO >2hr" = c("CHO/Comp-gt2", "CHO/Simp-gt2"),
+  #   "Protein" = c("CHO/Comp/Prot-gt2", "CHO/Comp/Prot-2")
+  # )
+  # ) %>% 
+  # select(-c(hr_2_liq, temp_arm))
 
 ## not run (2021/05/15 07:25) for pairwise --------------------------------
-#rgv_meta.dat <- rgv_meta.dat %>%
+# rgv_meta.dat <- rgv_meta.dat %>%
 #  mutate(arm_tx = ifelse(grepl("CHO", arm_tx), "CHO", "Fasting")) %>%
 #  pivot_wider(
 #    id_cols = c("study"),
@@ -370,12 +418,12 @@ rgv_meta.dat <- rgv_meta.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Randomized controlled trials included in the network meta-analysis (all adults undergoing surgery).  See [References](#references) for citations. </font>
+<font size = 4> Table `r table_n`. Randomized controlled trials included in the network meta-analysis of residual gastric volume (all adults undergoing surgery).  See [References](#references) for citations. </font>
 
 ```{r studiesIncludedList, echo = FALSE, include = TRUE}
 ## * (updated 2021/03/01 09:25) included_studies ----------------------------
-included_studies <- study_char_cho.dat %>%
-  filter(refid %in% rgv_meta_nma_studies$refid) %>% 
+included_studies <- study_char.dat %>%
+  filter(refid %in% rgv_refids) %>% 
   select(refid, study, year, age, surg_nosurg, design, n_analyze, country, centers, non_vh_hdi, surg_type) %>%
   mutate(
     surg = case_when(
@@ -408,7 +456,8 @@ included_studies <- study_char_cho.dat %>%
       str_detect(surg_type, "Elective") ~ "Elective",
       str_detect(surg_type, "adenotonsillectomy") ~ "Adenotonsillectomy",
       str_detect(surg_type, "[Bb]reast") ~ "Breast",
-      str_detect(surg_type, "Endso|endoscopic|colonoscopy") ~ "Endoscopic"
+      str_detect(surg_type, "Endso|endoscopic|colonoscopy") ~ "Endoscopic",
+      refid == 6287 ~ "No details"
     ),
     surg_nosurg = ifelse(surg_nosurg == "non-surgical", "None", surg_nosurg),
     study = ifelse(grepl("Marquini", study), str_c(study, "^b^"), study),
@@ -436,7 +485,7 @@ included_studies %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  pack_top(., "RCT", 1, 15) %>%
+  pack_top(., "RCT", 1, 19) %>%
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
@@ -458,7 +507,66 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Network plot of comparators in included studies. </font>
 
+```{r rgvNetmeta, include = FALSE, eval = FALSE, echo = FALSE, fig.align = 'left', fig.width = 5, fig.height = 5}
+library(netmeta)
+pairs.dat <- pairwise(
+  treat = arm_tx,
+  n = n,
+  mean = mean,
+  sd = sd,
+  studlab = study,
+  data = rgv_meta.dat,
+  sm = "MD"
+)
+
+trts <- c("CHO/Simp", "CHO/Comp", "CHO/Comp/Prot", "Clear", "Fasting")
+
+rgv_netmeta_nma <- netmeta(
+  pairs.dat,
+  random = TRUE,
+  # backtransf = TRUE,
+  prediction = TRUE,
+  seq = trts,
+  reference.group = "Fasting"
+)
+
+rgv_netmeta_nma
+
+netheat(rgv_netmeta_nma)
+
+netpairwise(rgv_netmeta_nma)
+
+# size of nodes
+node_size <- rgv_meta.dat %>% 
+  mutate(arm_tx = fct_relevel(arm_tx, trts)) %>% 
+  group_by(arm_tx) %>% 
+  summarise(n = sum(n)) 
+
+node_size <- tibble(node_size, my_order = c(3, 1, 2, 4, 5))
+node_size <- node_size[order(my_order), ]
+
+netgraph(rgv_netmeta_nma,
+  lwd = 2,
+  plastic = FALSE,
+  thickness = TRUE,
+  points = TRUE,
+  alpha.transparency = 2,
+  col = "azure3",
+  number.of.studies = TRUE,
+  seq = trts,
+  # cex.points = c(1, 2, 3, 4, 5),
+  cex.points = node_size$n/80,
+  col.number.of.studies = "black",
+  cex.number.of.studies = 1,
+  col.highlight = "white"
+)
+
+netsplit(rgv_netmeta_nma) %>% forest()
+
+```
+
 ```{r rgvNMA, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 5, fig.height = 5}
+
 ## not run networks including time and protein ----------------------------
 # par(mfrow = c(1, 3))
 # for (outcome in c("arm_tx", "arm_tx_cho_prot", "arm_tx_time2")){
@@ -495,23 +603,13 @@ rgv.data <- data.prep(
 net.plot(rgv.data,
   node.scale = 3,
   edge.scale = 1.5,
-  # label.offset2 = 3,
-  # label.offset1 = 6,
+  label.offset2 = 3,
+  label.offset1 = 8,
   study.counts = TRUE,
   node.lab.cex = 1.3,
   edge.lab.cex = 1.2
 )
 
-# net.plot(rgv.data,
-#   node.scale = 3,
-#   edge.scale = 1.5,
-#   # label.offset2 = 3,
-#   # label.offset1 = 6,
-#   # study.counts = TRUE,
-#   node.lab.cex = 1.3,
-#   edge.lab.cex = .5,
-#   flag = "CHO/Comp/Prot"
-# )
 figure_n <- fig_inc()
 
 ```
@@ -609,27 +707,33 @@ re_results <- nma.run(rgv_re,
   n.iter = 50000
 )
 
-## (updated 2021/05/15 10:38) not run sucra and league --------------------
-# # nma.diag(re_results)
+# (updated 2021/05/15 10:38) not run sucra and league --------------------
+nma.diag(re_results)
+
 # $gelman.rubin
 # $psrf
 #       Point est. Upper C.I.
-# d[2]    1.000252   1.000931
-# d[3]    1.000356   1.001321
-# d[4]    1.000011   1.000023
-# d[5]    1.000088   1.000311
-# sigma   1.000130   1.000317
+# d[2]    1.000080   1.000326
+# d[3]    1.000044   1.000183
+# d[4]    1.000078   1.000314
+# d[5]    1.000100   1.000394
+# sigma   1.000048   1.000083
 # 
 # $mpsrf
-# [1] 1.000376
+# [1] 1.000175
+# 
+# attr(,"class")
+# [1] "gelman.rubin.results"
+# 
+# $geweke
+# $stats
+#           Chain 1  Chain 2    Chain 3
+# d[2]   1.05367435 0.819560  1.6582903
+# d[3]  -0.74268912 1.825681  1.1883572
+# d[4]  -0.04248801 1.891110  0.2093890
+# d[5]  -0.48211741 1.007270  1.0298366
+# sigma  0.48286007 1.047330 -0.5297035
 
-# nma.fit(re_results)
-
-# sigma        2.930e+00  4.202295  5.072117  6.141869  9.013046
-# tau 95% CrI 5.1 (2.9, 9.0)
-
-# SUCRA Plot
-# (sucra.out <- nma.rank(re_results, largerbetter = FALSE, sucra.palette = "Set1"))
 ```
 
 <br/>
@@ -650,8 +754,8 @@ df <- nma.league(re_results,
 
 as_tibble(df$table) %>%
   mutate(
-    across(Fasting:Water, ~ str_replace(., " \\(", "<br/>\\(")),
-    across(Fasting:Water, ~ if_else(.x %in% c("Fasting", "CHO/Comp", "CHO/Comp/Prot", "CHO/Simp", "Water"),
+    across(Fasting:Clear, ~ str_replace(., " \\(", "<br/>\\(")),
+    across(Fasting:Clear, ~ if_else(.x %in% c("Fasting", "CHO/Comp", "CHO/Comp/Prot", "CHO/Simp", "Clear"),
       cell_spec(.x, bold = TRUE), .x
     ))
   ) %>%
@@ -667,6 +771,7 @@ as_tibble(df$table) %>%
     general_title = "",
     footnote_as_chunk = FALSE
   )
+
 table_n <- tab_inc()
   
 ```
@@ -677,7 +782,7 @@ table_n <- tab_inc()
 
 ```{r rgvKable, include = TRUE}
 ## (updated 2021/05/15 10:44) table of estimates with cho_complex ---------
-order_dat <- tibble(Treatment = c("CHO/Simp", "CHO/Comp/Prot", "Water", "Fasting"))
+order_dat <- tibble(Treatment = c("CHO/Simp", "CHO/Comp/Prot", "Clear", "Fasting"))
 
 temp <- df$heatplot$data %>%
   filter(Comparator == "CHO/Comp") %>%
@@ -732,6 +837,22 @@ figure_n <- fig_inc()
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 ## *Supplemental *
+
+<br/>
+
+### &emsp;Rankings
+
+<font size = 4> Figure `r figure_n`. Comparative rankings for residual gastric volume. Although there were no apparent clinically meaningful differences across comparators, fasting ranked lowest while simple carbohydrate drinks the best.  </font>
+
+```{r sucraRgv, include = TRUE, fig.align = 'left', fig.width = 8, fig.height = 4}
+# SUCRA Plot
+sucra.out <- nma.rank(re_results, largerbetter = FALSE, sucra.palette = "Set1")
+
+sucra.out$sucraplot
+
+figure_n <- fig_inc()
+```
+
 
 ### &emsp;Inconsistency  
 
@@ -805,11 +926,45 @@ figure_n <- fig_inc()
 
 ```{r choAmtsFigure, include = TRUE, echo = FALSE, include = TRUE, fig.width = 6, fig.height = 2.5, fig.align = "left"}
 ## * (updated 2021/03/10 13:29) cho_amts adult rct ----------------------------
-cho_amts <- study_arm_cho.dat %>%
+cho_amts <- study_arm.dat %>%
+    mutate(tx = factor(arm_tx,
+    levels = c(
+      "fasting",
+      "water",
+      "placebo",
+      "other_clear",
+      "milk",
+      "prot",
+      "prot_simp",
+      "prot_comp",
+      "cho_simp",
+      "cho_comp",
+      "gum_sugared",
+      "gum_sugarfree"
+    )
+  )) %>%
+  mutate(
+    tx = fct_recode(tx,
+      Fasting = "fasting",
+      Water = "water",
+      Placebo = "placebo",
+      Clear = "other_clear",
+      Milk = "milk",
+      "Prot" = "prot",
+      "CHO/Comp/Prot" = "prot_comp",
+      "CHO/Simp/Prot" = "prot_simp",
+      "CHO/Simp" = "cho_simp",
+      "CHO/Comp" = "cho_comp",
+      "Gum/Sugared" = "gum_sugared",
+      "Gum/Sugarfree" = "gum_sugarfree",
+    ),
+    arm_tx = tx
+  ) %>%
+  select(-tx) %>% 
   filter(study %in% rgv_meta.dat$study) %>% 
   filter(design == "rct", age == "Adult", surg_nosurg == "surgical") %>%
   filter(arm_tx %in% c("CHO/Comp/Prot", "CHO/Simp/Prot", "CHO/Comp", "CHO/Simp")) %>%
-  filter(refid %in% cho_refids) %>% 
+  filter(refid %in% nma_refids) %>% 
   mutate(
     amtingest2 = replace_na(amtingest2, 0),
     amtingest1 = replace_na(amtingest1, 0),
@@ -853,6 +1008,33 @@ figure_n <- fig_inc()
 <br>
 
 # **Risk of Bias**
+
+```{r rgvCinema, eval = FALSE, include = FALSE, echo = FALSE}
+## (updated 2021/07/05 11:42) cinema --------------------------------------
+rgv_cinema <- rgv_meta.dat %>%
+  select(study, arm_tx, n, mean, sd) %>%
+  group_by(study) %>%
+  mutate(id = cur_group_id(), indirectness = 2) %>%
+  ungroup()
+
+# risk of bias
+rgv_cinema_rob <- cho_nma_rob.dat %>%
+  clean_names() %>%
+  select(study, overall)
+
+temp <- left_join(rgv_cinema, rgv_cinema_rob, by = "study") %>%
+  rename(t = arm_tx) %>%
+  mutate(rob = case_when(
+    overall == "Low" ~ 1,
+    overall == "Unclear" ~ 2,
+    overall == "High" ~ 3
+  )) %>%
+  select(study, id, t, n, mean, sd, rob, indirectness)
+
+write_csv(temp, "rgv_cinema.csv")
+
+```
+
 
 <br/>
 

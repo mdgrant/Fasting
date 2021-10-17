@@ -56,6 +56,12 @@ display: none !important;
 
 <br/><br/>
 
+<font size = 6> Recommendations Worksheet</font>
+
+[<font size = 5> CHO vs. Fasting </font>](cho_fasting_gradepro.html)
+
+<br/><br/>
+
 [<font size = 6> Appendix files </font>](appendix.html)
 
     <font size = 4>Supplemental strength of evidence ratings </font>
