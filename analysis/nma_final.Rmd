@@ -327,7 +327,7 @@ rgv.dat <- contin_nma.dat %>%
   filter(design == "rct", age == "Adult") %>%
   filter(!grepl("Gum", arm_tx)) %>% 
   mutate(
-    arm_tx = fct_collapse(arm_tx, Clear = c("Water", "Clear")),
+    arm_tx = fct_collapse(arm_tx, "Clear (nocal)" = c("Water", "Clear")),
     arm_tx = fct_drop(arm_tx)) %>% 
   select(refid, study, year, design, arm_n, arm_tx, rgv_mean_1, rgv_sd_1, rgv_median_1:rgv_iqr_up_1, hr_gt6:hr_2) %>%
   # calculate sd not reported using p-values 
@@ -519,7 +519,7 @@ pairs.dat <- pairwise(
   sm = "MD"
 )
 
-trts <- c("CHO/Simp", "CHO/Comp", "CHO/Comp/Prot", "Clear", "Fasting")
+trts <- c("CHO/Simp", "CHO/Comp", "CHO/Comp/Prot", "Clear (nocal)", "Fasting")
 
 rgv_netmeta_nma <- netmeta(
   pairs.dat,
@@ -754,8 +754,8 @@ df <- nma.league(re_results,
 
 as_tibble(df$table) %>%
   mutate(
-    across(Fasting:Clear, ~ str_replace(., " \\(", "<br/>\\(")),
-    across(Fasting:Clear, ~ if_else(.x %in% c("Fasting", "CHO/Comp", "CHO/Comp/Prot", "CHO/Simp", "Clear"),
+    across(Fasting:"Clear (nocal)", ~ str_replace(., " \\(", "<br/>\\(")),
+    across(Fasting:"Clear (nocal)", ~ if_else(.x %in% c("Fasting", "CHO/Comp", "CHO/Comp/Prot", "CHO/Simp", "Clear (nocal)"),
       cell_spec(.x, bold = TRUE), .x
     ))
   ) %>%
@@ -782,7 +782,7 @@ table_n <- tab_inc()
 
 ```{r rgvKable, include = TRUE}
 ## (updated 2021/05/15 10:44) table of estimates with cho_complex ---------
-order_dat <- tibble(Treatment = c("CHO/Simp", "CHO/Comp/Prot", "Clear", "Fasting"))
+order_dat <- tibble(Treatment = c("CHO/Simp", "CHO/Comp/Prot", "Clear (nocal)", "Fasting"))
 
 temp <- df$heatplot$data %>%
   filter(Comparator == "CHO/Comp") %>%
