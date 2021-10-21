@@ -738,7 +738,7 @@ nma.diag(re_results)
 
 <br/>
 
-<font size = 4> Table `r table_n`. Mean differences in residual gastric volumes (mL) and 95% CrI from network meta-analysis. Comparisons are top to bottom below the diagonal (eg, Fasting vs. CHO/Comp is 0.71 mL) and bottom to top above the diagonal (eg, CHO/Comp vs. Fasting is -0.71 mL). Note that differences were not identified betwen any comparators, nor were the 95% CrI bounds consistent with potential clinically important differences. </font>
+<font size = 4> Table `r table_n`. Mean differences in residual gastric volumes (mL) and 95% CrIs from network meta-analysis. Comparisons are top to bottom below the diagonal (eg, Fasting vs. CHO/Comp is 0.71 mL) and bottom to top above the diagonal (eg, CHO/Comp vs. Fasting is -0.71 mL). Note that differences were not identified betwen any comparators, nor were the 95% CrI bounds consistent with potential clinically important differences. </font>
 
 
 ```{r leagueTable, include = TRUE}

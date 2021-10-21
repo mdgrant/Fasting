@@ -50,7 +50,11 @@ display: none !important;
 
 [<font size = 5> Clear non-caloric versus fasting </font>](noncaloric_clear.html)
 
-[<font size = 5> Residual gastric volume network meta-analysis <br/> (simple versus complex carbohydrates) </font>](nma_final.html)
+<font size = 5> Network meta-analyses (simple versus complex carbohydrates)</font>
+
+[<font size = 4> Residual gastric volume</font>](nma_final.html)
+
+[<font size = 4> Hunger and thirst  </font>](nma_hunger_thirst.html)
 
 [<font size = 5> Chewing gum</font>](gum_final.html)
 

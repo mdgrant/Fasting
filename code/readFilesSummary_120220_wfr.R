@@ -1,5 +1,5 @@
 # 2020-10-08 ------------------------------
-## preliminaries/functions ------------------------------------------------
+## preliminaries -----------------------------------------------------------
 knitr::opts_chunk$set(echo = FALSE, options(knitr.kable.NA = '', dev = 'svg'), knitr.graphics.error = FALSE,
                       warning = FALSE, message = FALSE, fig.align = "left", comment = NA)
 library(kableExtra)
@@ -25,11 +25,6 @@ conf_tl <- function(samp_mean, samp_sd, n, low_up){
   (ci_low <- samp_mean - error)
 }
 
-# variable coded as TF will give "n (XX.X)" percent, can specify digits
-n_per_tf <- function(var_name, n_dig = 1){
-  paste0(sum(var_name == TRUE), " (", format(round(100*(mean(var_name)), n_dig), nsmall = 1), ")")
-}
-
 conf_tu <- function(samp_mean, samp_sd, n, low_up){
   error <- qt(0.975, df = n - 1) * samp_sd/(sqrt(n))
   (ci_up <- samp_mean + error)
@@ -47,7 +42,6 @@ combine_contin <- function(n_1, n_2, x_1, x_2, sd_1, sd_2){
   x_comb <-  (n_1 * x_1 + n_2 * x_2)/(n_comb)
   sd_comb <- sqrt(((n_1 - 1) * sd_1^2 + (n_2 - 1) * sd_2^2 + (n_1 * n_2)/(n_comb) * (x_1 - x_2)^2) / (n_comb - 1))
   return(c(n_comb, x_comb, sd_comb))}
-
 n_percent <- function(a, b){
   str_c(a," (", round_0(b), ")")
 }
@@ -147,7 +141,7 @@ opt_boot <- c("striped", "hover", "condensed")
 
 path_csv <- function(name_csv){
   sheet <- name_csv
-  path <- str_c("data/", sheet)
+  path <- str_c("../data/", sheet)
   return(path)
 }
 
@@ -162,7 +156,7 @@ calc_mn_sd <- function(n_e, m_e, sd_e, md_e, q1_e, q3_e, min_e, max_e, study, tx
   temp <- metacont(
     n.e = n_e,
     n.c = n_c,
-    fixed = TRUE,
+    comb.fixed = TRUE,
     mean.e = m_e,
     sd.e = sd_e,
     median.e = md_e,
@@ -201,7 +195,7 @@ calc_mn_sd <- function(n_e, m_e, sd_e, md_e, q1_e, q3_e, min_e, max_e, study, tx
 }
 
 ## data files ####
-data_files <- as_tibble(list.files("data/"))
+data_files <- as_tibble(list.files("../data/"))
 
 study_arm_file <- data_files %>%
   filter(str_detect(value, "studyArm")) %>%
@@ -234,12 +228,12 @@ rob_file <- data_files %>%
   slice(1)
 
 # display file characteristics
-a <- as.character(file.mtime(paste0("data/", study_arm_file)))
-b <- as.character(file.mtime(paste0("data/", study_char_file)))
-c <- as.character(file.mtime(paste0("data/", cont_out_file)))
-d <- as.character(file.mtime(paste0("data/", dichot_out_file)))
-e <- as.character(file.mtime(paste0("data/", likert_out_file)))
-f <- as.character(file.mtime(paste0("data/", rob_file)))
+a <- as.character(file.mtime(paste0("../data/", study_arm_file)))
+b <- as.character(file.mtime(paste0("../data/", study_char_file)))
+c <- as.character(file.mtime(paste0("../data/", cont_out_file)))
+d <- as.character(file.mtime(paste0("../data/", dichot_out_file)))
+e <- as.character(file.mtime(paste0("../data/", likert_out_file)))
+f <- as.character(file.mtime(paste0("../data/", rob_file)))
 z <- matrix(c(
   paste(b, study_char_file),
   paste(a, study_arm_file),
@@ -252,7 +246,7 @@ write_delim(data.frame(z), "used_files_dates.txt", delim = "--", col_names = FAL
 rm(a, b, c, d, e, f, z)
 
 ## get subgroups data (note old file) ####
-refs.dat <- suppressWarnings(read_csv("data/incl_mg_distsr_fasting_2021-03-09-17-42-12.csv")) %>%
+refs.dat <- suppressWarnings(read_csv("../data/incl_mg_distsr_fasting_2021-03-09-17-42-12.csv")) %>%
   janitor::clean_names() %>%
   # filter(user == "Anne_Marbella") %>%
   select(refid, age, starts_with("subgroup"))
@@ -269,7 +263,7 @@ study_char.dat <- read_csv(path)
   count())
 
 study_char.dat <- study_char.dat %>%
-  select(-c(6:8)) %>%  # change to add linked
+  select(-c(5:7)) %>%
   janitor::clean_names() %>%
   rename(author_dist = author, author = author_added) %>%  # author distiller, author entered
   # fix Karamian user for accounting purposes
@@ -349,8 +343,7 @@ study_char.dat <- left_join(study_char.dat, refs.dat[, c(1,2)], by = "refid") %>
          study = ifelse(study == "Dock-Nascimento 2012b", "DNascimento 2012b", study),
          study = ifelse(study == "de Aguilar-Nascimento 2014", "deANascimento 2014", study),
          # Nascimento 2019 change to "surgical" as in labor
-         surg_nosurg = ifelse(refid == "499", "surgical", surg_nosurg)) %>%
-  relocate(linked_references, .after = last_col())
+         surg_nosurg = ifelse(refid == "499", "surgical", surg_nosurg))
 
 # verify 164 unique 2021/06/22 07:43
 study_char_n
@@ -385,10 +378,6 @@ study_arm.dat <- left_join(study_arm.dat, study_names, by = "refid") %>%
     timeingest2 = ifelse(timeingest2 == 99, 12, timeingest2),
     # fix Karamian user for accounting purposes
     user = ifelse(refid %in% c(69, 7990), "Anne_Marbella", user))
-
-# fix missing placebo_detail entered in tx_detail field (2021/10/20 08:46)
-study_arm.dat <- study_arm.dat %>%
-  mutate(placebo_detail = ifelse(arm_tx == "placebo" & is.na(placebo_detail), tx_detail, placebo_detail))
 
 # add age and surg_nosurg
 study_arm.dat <- left_join(study_arm.dat, study_char.dat[, c("refid", "age", "surg_nosurg")], by = "refid")
@@ -596,9 +585,7 @@ rm(dichot_n)
 # * (end)
 
 ## likert outcome data ####
-# note parsing error due to empty line in file; benign
 path <- path_csv(likert_out_file)
-
 likert.dat <- read_csv(path) %>%
   select(-c(5:7)) %>%
   janitor::clean_names() %>%
@@ -795,33 +782,3 @@ groupings <- function(data) {
     ungroup() %>%
     arrange(age, row)
 }
-
-
-
-## non caloric clear ####
-# non-caloric refids
-# table of all r
-# study_arm.dat %>% tabyl(arm_tx)
-# will need to remove Hamad 6287 other arm (lollipop)
-# filter(!(refid == 6287 & arm == "other")) %>%
-
-noncal_clr <- study_arm.dat %>%
-  filter(arm_tx %in% c("other_clear", "placebo", "water")) %>%
-  select(refid, study, arm_tx, tx_detail, placebo_detail, other_spec, age) %>%
-  select(refid) %>%
-  distinct()
-
-fast <- study_arm.dat %>%
-  filter(arm_tx %in% c("fasting")) %>%
-  select("refid") %>%
-  distinct()
-
-noncal_clr_fast_refid <- noncal_clr %>%
-  filter(refid %in% fast$refid) %>%
-  # delete schmidt 2018 941 if present
-  filter(refid != 941) %>%
-  pull(refid)
-
-rm(noncal_clr, fast)
-
-clear_refids <- noncal_clr_fast_refid

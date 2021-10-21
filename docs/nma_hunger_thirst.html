@@ -1,0 +1,3824 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Network Meta-Analysis — Hunger &amp; Thirst</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Fasting</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="soe_final.html">Summary</a>
+</li>
+<li>
+  <a href="cho_final.html">Carbohydrate</a>
+</li>
+<li>
+  <a href="protein_final.html">Protein</a>
+</li>
+<li>
+  <a href="noncaloric_clear.html">Clear (nocal) vs. Fast</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Network
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="nma_final.html">Residual Gastric Volume</a>
+    </li>
+    <li>
+      <a href="nma_hunger_thirst.html">Hunger and thirst</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="gum_final.html">Gum</a>
+</li>
+<li>
+  <a href="appendix.html">Appendix</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Network Meta-Analysis — Hunger &amp; Thirst</h1>
+<h4 class="date">20 October, 2021 (18:56)</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-10-20
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Fasting/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20201201code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20201201)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20201201code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20201201)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtree25a30db28f63ae1be77c7d86e69de3a2b7fbea99targetblank25a30dba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/Fasting/tree/25a30db28f63ae1be77c7d86e69de3a2b7fbea99" target="_blank">25a30db</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtree25a30db28f63ae1be77c7d86e69de3a2b7fbea99targetblank25a30dba" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/Fasting/tree/25a30db28f63ae1be77c7d86e69de3a2b7fbea99" target="_blank">25a30db</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    _@@/.DS_Store
+    Ignored:    _@@/Fasting-master-old/.DS_Store
+    Ignored:    _@@/foot_unique.csv
+    Ignored:    _@@/notes.txt
+    Ignored:    _@@/outcome_list.txt
+    Ignored:    _@@/rgv_cinema.csv
+    Ignored:    _@@/rgv_cinema_12.13_7_5_2021.cnm
+    Ignored:    _@@/rgv_cinema_RoB_chart_old.png
+    Ignored:    _@@/rgv_cinema_netplot_old.png
+    Ignored:    _@@/rgv_cinema_random_MD_Report.csv
+    Ignored:    _@@/rgv_meta_dat.csv
+    Ignored:    _@@/study_char_table_cho.csv
+    Ignored:    code/.DS_Store
+    Ignored:    code/_oldCode/
+    Ignored:    code/a_temp_to_run.R
+    Ignored:    code/anchors_cho.txt
+    Ignored:    code/anchors_prot.txt
+    Ignored:    code/calc_mn_sd_med_iqr_range.R
+    Ignored:    code/nma_debug_copy.R
+    Ignored:    code/snips.R
+    Ignored:    code/used_files_dates.txt
+    Ignored:    data/CHOComplicationList_012521.xlsx
+    Ignored:    data/CHOProteinDetail_031021.xlsx
+    Ignored:    data/GumOutcomes_102820.xlsx
+    Ignored:    data/GumOutcomes_102820_old.xlsx
+    Ignored:    data/ProteinSOE_013121.xlsx
+    Ignored:    data/ProteinSOE_121620.xlsx
+    Ignored:    data/SOE_070621_final.xlsx
+    Ignored:    data/SOE_CHO_051721_up.xlsx
+    Ignored:    data/SOE_CHO_060721_up.xlsx
+    Ignored:    data/SOE_CHO_060721_up_mg.xlsx
+    Ignored:    data/SOE_Gum_020421.xlsx
+    Ignored:    data/SOE_Protein_021021.xlsx
+    Ignored:    data/_old/
+    Ignored:    data/contOutcomes_2021-10-06-20-34-40.csv
+    Ignored:    data/contOutcomes_2021-10-06-21-20-19.csv
+    Ignored:    data/dichotOutcomes_2021-07-07-15-57-51.csv
+    Ignored:    data/dichotOutcomes_2021-10-06-20-34-07.csv
+    Ignored:    data/distillersr-Preoperative_Fasting_2020-07-08-17-59-49.xlsx
+    Ignored:    data/fasting_table_add_102720.csv
+    Ignored:    data/gum_soe_112120.xlsx
+    Ignored:    data/hdi_072021.csv
+    Ignored:    data/hunger_rob_summary.svg
+    Ignored:    data/hunger_rob_traffic.svg
+    Ignored:    data/incl_mg_distsr_fasting_2020-11-21_OLD.csv
+    Ignored:    data/incl_mg_distsr_fasting_2021-03-09-17-42-12.csv
+    Ignored:    data/likertOutcomes_2021-10-06-20-34-20.csv
+    Ignored:    data/protein_detail_102320.xlsx
+    Ignored:    data/rob_2021-04-17-11-47-25.csv
+    Ignored:    data/rob_2021-06-22-12-11-42.csv
+    Ignored:    data/rob_2021-06-22-15-06-55.csv
+    Ignored:    data/rob_2021-10-07-16-40-09.csv
+    Ignored:    data/studyArm_2021-10-06-20-35-08.csv
+    Ignored:    data/studyChar_2021-10-07-15-30-19.csv
+    Ignored:    rgv_cinema.csv
+    Ignored:    used_files_dates.txt
+
+Untracked files:
+    Untracked:  _@@/Carbohydrate Drinks.html
+    Untracked:  _@@/Fasting-master_old.zip
+    Untracked:  _@@/all_arms.csv
+    Untracked:  _@@/american-medical-association.csl
+    Untracked:  _@@/anesthesiology.csl
+    Untracked:  _@@/cho_amts.csv
+    Untracked:  _@@/rgv_cinema_11.28_10_17_2021.cnm
+    Untracked:  _@@/thirst_nma_working.R
+    Untracked:  _site.yml_back
+    Untracked:  analysis/.gitignore
+    Untracked:  analysis/jama.csl
+    Untracked:  analysis/nma_final_working.Rmd
+    Untracked:  analysis/nma_hunger_thirst.Rmd
+    Untracked:  code/.gitignore
+    Untracked:  code/bayes_sensitivity.R
+    Untracked:  code/bugsnet_test_script.R
+    Untracked:  code/calculations.R
+    Untracked:  code/cho_010420.Rmd
+    Untracked:  code/cho_nausea.R
+    Untracked:  code/clear_outcomes.R
+    Untracked:  code/createCinemaFile.R
+    Untracked:  code/discard.R
+    Untracked:  code/fasting_descriptive.R
+    Untracked:  code/functions.R
+    Untracked:  code/gum_summary_070121.R
+    Untracked:  code/helpers.R
+    Untracked:  code/helpers_old.R
+    Untracked:  code/hrs.R
+    Untracked:  code/hungerRateClear.R
+    Untracked:  code/meanLogFunctions.R
+    Untracked:  code/metaHungerClear.R
+    Untracked:  code/nma_sensitivity.R
+    Untracked:  code/raw_log.R
+    Untracked:  code/readFilesSummary_120220_wfr.R
+    Untracked:  code/robGum.R
+    Untracked:  code/rob_021121.R
+    Untracked:  code/rob_protein.R
+    Untracked:  code/rob_summary.R
+    Untracked:  code/rob_summary_mg.R
+    Untracked:  code/rob_traffic_light.R
+    Untracked:  code/rob_traffic_light_mg copy.R
+    Untracked:  code/rob_traffic_light_mg.R
+    Untracked:  code/select_refids_summary.R
+    Untracked:  code/simp_comp_code.R
+    Untracked:  code/skeleton.bib
+    Untracked:  code/summary_071921.html
+    Untracked:  code/summary_arxiv_072221.Rmd
+    Untracked:  code/summary_arxiv_072221.pdf
+    Untracked:  code/summary_arxiv_072221.tex
+    Untracked:  code/summary_gum_arxiv_072221.Rmd
+    Untracked:  code/summary_gum_arxiv_072221.pdf
+    Untracked:  code/summary_gum_arxiv_072221.tex
+    Untracked:  code/summary_prot_arxiv_072221.Rmd
+    Untracked:  code/summary_prot_arxiv_072221.pdf
+    Untracked:  code/summary_prot_arxiv_072221.tex
+    Untracked:  code/timePlot.R
+    Untracked:  data/.gitignore
+    Untracked:  figures/
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/nma_final.Rmd
+    Modified:   code/readFiles_120220_wfr.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="section" class="section level4">
+<h4></h4>
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+
+:target {  /* fix target location so caption appears */
+    display: block;    
+    position: relative;     
+    top: 10px;
+    visibility: hidden;
+}
+
+</style>
+<!-- # **Included Studies**  -->
+<!-- <br/> -->
+<!-- <font size = 4> Table 1. Number of studies according to age, surgery, and design. Only randomized controlled trials are included in the network meta-analysis.</font> -->
+<p><br/></p>
+</div>
+<div id="hunger-patient-rated" class="section level1">
+<h1><strong>Hunger (patient-rated)</strong></h1>
+<p><br/></p>
+<p><font size = 4> Table 1. Adult randomized controlled trials. Patient-rated preoperative hunger according to fasting, liquid and volume. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Volume (mL) Before Induction (hr)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Hunger Rating
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+&gt; 6
+</th>
+<th style="text-align:center;font-weight: bold;">
+6→2
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:left;font-weight: bold;">
+Scale<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+M (SD)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Med (IQR)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Range
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="41">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="41">
+<td colspan="10" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Hausel 2001
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+86
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+35 (10-62)
+</td>
+<td style="text-align:left;width: 4em; ">
+(3-77)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; ">
+86
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+34 (10-68)
+</td>
+<td style="text-align:left;width: 4em; ">
+(3-84)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+80
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+18 (5-42)
+</td>
+<td style="text-align:left;width: 4em; ">
+(1-73)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Breuer 2006
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+44
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+4
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-60)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; ">
+60
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+5
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-80)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+56
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+3
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-100)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Melis 2006
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+9
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+-6 (25)<sup>b</sup>
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Simp
+</td>
+<td style="text-align:center;width: 3em; ">
+10
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+400
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+1 (68)<sup>b</sup>
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+10
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+400
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+-16 (31)<sup>b</sup>
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Helminen 2009
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+73
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+3 (0-5)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+70
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+0 (0-2)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Lauwick 2009
+</td>
+<td style="text-align:left;width: 7em; ">
+Water
+</td>
+<td style="text-align:center;width: 3em; ">
+100
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+100
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+21.0 (30.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+100
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+15.0 (30.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Wang 2010
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+28
+</td>
+<td style="text-align:left;width: 4em; ">
+(13-50)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+22
+</td>
+<td style="text-align:left;width: 4em; ">
+(9-37)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+18
+</td>
+<td style="text-align:left;width: 4em; ">
+(7-37)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Yagmurdur 2011
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+69
+</td>
+<td style="text-align:left;width: 4em; ">
+(65-73)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+22
+</td>
+<td style="text-align:left;width: 4em; ">
+(19-25)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Tran 2013
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+19
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+49 (29-64)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+19
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+25 (7-43)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Canbay 2014
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→3<sup>NRS</sup>
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+0 (0.0-1.0)
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+0 (0.0-0.0)
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Raksakietisak 2014
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+50
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10
+</td>
+<td style="text-align:left;width: 6em; ">
+2.3 (2.4)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Simp
+</td>
+<td style="text-align:center;width: 3em; ">
+48
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+2.6 (2.3)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Tsutsumi 2016
+</td>
+<td style="text-align:left;width: 7em; ">
+Water
+</td>
+<td style="text-align:center;width: 3em; ">
+12
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+450
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+43
+</td>
+<td style="text-align:left;width: 4em; ">
+(30-59)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Simp/Prot
+</td>
+<td style="text-align:center;width: 3em; ">
+12
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+600
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+13
+</td>
+<td style="text-align:left;width: 4em; ">
+(3-20)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Doo 2018
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10<sup>NRS</sup>
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+1 (0-2)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+1 (0-2)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Helminen 2019
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+56
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+18 (5-50)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp/Prot
+</td>
+<td style="text-align:center;width: 3em; ">
+57
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+10 (0-30)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Rizvanovic 2019
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+23.8 (15.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+1.6 (13.5)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Wang 2019
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+37
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10
+</td>
+<td style="text-align:left;width: 6em; ">
+4.0 (2.1)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+36
+</td>
+<td style="text-align:center;width: 3em; ">
+710
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+355
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+2.5 (1.5)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Zhang 2019
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+29
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+40 (40-50)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+29
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+10 (10-10)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Panebianco 2020
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→2<sup>NRS</sup>
+</td>
+<td style="text-align:left;width: 6em; ">
+1.00
+</td>
+<td style="text-align:left;width: 7em; ">
+1
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+10
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+0.30
+</td>
+<td style="text-align:left;width: 7em; ">
+0
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Wendling 2020
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+9.5 (3.4)<sup>c</sup>
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Simp
+</td>
+<td style="text-align:center;width: 3em; ">
+20
+</td>
+<td style="text-align:center;width: 3em; ">
+710
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+355
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+-6.0 (4.0)<sup>c</sup>
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+710
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+355
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+-11.2 (5.5)<sup>c</sup>
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; NRS: numeric rating scale.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Arrow (→) indicates best to worst hunger (visual analogue if not noted NRS).
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>b</sup> Within group change from baseline; reported IQR as a single value.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>c</sup> Difference from before beverage consumption to 1 hr post-consumption.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<p><a id="choTab8"></a></p>
+<div id="network-characteristics" class="section level2">
+<h2><em>Network Characteristics</em></h2>
+<p><br/></p>
+<p><font size = 4> Figure 1. Network plot of comparators in included studies. </font></p>
+<p><img src="figure/nma_hunger_thirst.Rmd/hungerAdultLikertMeta-1.png" width="384" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br/></p>
+<p><font size = 4> Table 2. Number of studies and patients in comparisons represented in the network. </font></p>
+<table class=" lightable-classic lightable-hover table table-striped table-hover table-condensed" style="font-family: Source Sans Pro; width: auto !important;  width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Comparison
+</th>
+<th style="text-align:center;font-weight: bold;">
+Studies
+</th>
+<th style="text-align:center;font-weight: bold;">
+Patients
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Comp vs. CHO/Simp
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:center;width: 6em; ">
+45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Comp vs. Clear (nocal)
+</td>
+<td style="text-align:center;width: 6em; ">
+4
+</td>
+<td style="text-align:center;width: 6em; ">
+514
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Comp vs. Fasting
+</td>
+<td style="text-align:center;width: 6em; ">
+14
+</td>
+<td style="text-align:center;width: 6em; ">
+996
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Simp vs. Clear (nocal)
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:center;width: 6em; ">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Simp vs. Fasting
+</td>
+<td style="text-align:center;width: 6em; ">
+2
+</td>
+<td style="text-align:center;width: 6em; ">
+140
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Clear (nocal) vs. Fasting
+</td>
+<td style="text-align:center;width: 6em; ">
+3
+</td>
+<td style="text-align:center;width: 6em; ">
+308
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> CHO: carbohydrate; Comp: complex; Prot: protein.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="results" class="section level2">
+<h2><em>Results</em></h2>
+<p><br/></p>
+<p><font size = 4> Table 3. Standardized mean differences in patient-rated hunger and 95% CIs from network meta-analysis. Comparisons are top to bottom below the diagonal (eg, CHO/Comp vs. CHO/Simp 0.49). Estimates above the diagonal include only the direct evidence for the same comparison. Discrepancies are reflect inconsistencies as displayed in Figure 1. Despite inconsistencies, the results offer no evidence to support a difference between complex and simple carbohydrates.</font></p>
+<table class="table table-hover" style="width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+<span style=" font-weight: bold;    ">CHO/Comp</span>
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-1.17 (-2.59, 0.26)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.27 (-0.94, 0.41)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.92 (-1.30, -0.55)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+0.49 (-0.37, 1.36)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+<span style=" font-weight: bold;    ">CHO/Simp</span>
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-4.27 (-6.20, -2.34)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-1.43 (-2.44, -0.42)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.72 (-1.33, -0.12)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-1.22 (-2.17, -0.26)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+<span style=" font-weight: bold;    ">Clear (nocal)</span>
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.17 (-0.95, 0.62)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.84 (-1.21, -0.47)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-1.34 (-2.18, -0.50)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.12 (-0.74, 0.50)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+<span style=" font-weight: bold;    ">Fasting</span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> I^2 88% (95% CI, 83%-92%)
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<p><font size = 4> Figure 1. Forest plot using using complex carbohydrates as the reference comparator. </font></p>
+<p><img src="figure/nma_hunger_thirst.Rmd/hungNetmetaForest-1.png" width="480" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br/></p>
+<p><font size = 4> Figure 2. Comparison of direct and indirect evidence for each comparison in the network. </font></p>
+<p><img src="figure/nma_hunger_thirst.Rmd/hungNodeSplit-1.png" width="768" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br/></p>
+</div>
+</div>
+<div id="thirst-patient-rated" class="section level1">
+<h1><strong>Thirst (patient-rated)</strong></h1>
+<p><br/></p>
+<p><font size = 4> Table 4. Adult randomized controlled trials. Patient-rated preoperative thirst according to fasting, liquid and volume. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="3">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Volume (mL) Before Induction (hr)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+thirst Rating
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+       Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+&gt; 6
+</th>
+<th style="text-align:center;font-weight: bold;">
+6→2
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:left;font-weight: bold;">
+Scale<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+M (SD)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Med (IQR)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Range
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="44">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="44">
+<td colspan="10" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Hausel 2001
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+86
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+40 (20-66)
+</td>
+<td style="text-align:left;width: 4em; ">
+(7-81)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; ">
+86
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+31 (14-65)
+</td>
+<td style="text-align:left;width: 4em; ">
+(4-79)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+80
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+24 (7-42)
+</td>
+<td style="text-align:left;width: 4em; ">
+(3-70)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Henriksen 2003
+</td>
+<td style="text-align:left;width: 7em; ">
+Water
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+3.38 (2-7)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp/Prot
+</td>
+<td style="text-align:center;width: 3em; ">
+15
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+400
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+3.14 (0-3)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+17
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+400
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+3.17 (1-3)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Breuer 2006
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+44
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+30
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-90)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; ">
+60
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+8
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-17)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+56
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+7
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-75)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Melis 2006
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+9
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+34 (34)<sup>b</sup>
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Simp
+</td>
+<td style="text-align:center;width: 3em; ">
+10
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+400
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+-7 (39)<sup>b</sup>
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+10
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+400
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+0 (18)<sup>b</sup>
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Helminen 2009
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+73
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+2 (0-5)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+70
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+1 (0-4)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Lauwick 2009
+</td>
+<td style="text-align:left;width: 7em; ">
+Water
+</td>
+<td style="text-align:center;width: 3em; ">
+100
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+100
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+28.0 (30.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+100
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+18.0 (20.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Wang 2010
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+34
+</td>
+<td style="text-align:left;width: 4em; ">
+(19-60)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+Placebo
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+17
+</td>
+<td style="text-align:left;width: 4em; ">
+(6-53)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+20
+</td>
+<td style="text-align:left;width: 4em; ">
+(8-59)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Yagmurdur 2011
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+60
+</td>
+<td style="text-align:left;width: 4em; ">
+(56-64)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+20
+</td>
+<td style="text-align:left;width: 4em; ">
+(16-24)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Tran 2013
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+19
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+50 (24-70)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+19
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+10 (7-34)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Canbay 2014
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→3<sup>NRS</sup>
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+1 (0.0-1.0)
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+0 (0.0-0.5)
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Raksakietisak 2014
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+50
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10
+</td>
+<td style="text-align:left;width: 6em; ">
+2.2 (2.2)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Simp
+</td>
+<td style="text-align:center;width: 3em; ">
+48
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+2.4 (2.4)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Tsutsumi 2016
+</td>
+<td style="text-align:left;width: 7em; ">
+Water
+</td>
+<td style="text-align:center;width: 3em; ">
+12
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+450
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+28
+</td>
+<td style="text-align:left;width: 4em; ">
+(13-30)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Simp/Prot
+</td>
+<td style="text-align:center;width: 3em; ">
+12
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+600
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+12
+</td>
+<td style="text-align:left;width: 4em; ">
+(10-15)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Doo 2018
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10<sup>NRS</sup>
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+2 (1-2)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+1 (0-2)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Helminen 2019
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+56
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+40 (8-63)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp/Prot
+</td>
+<td style="text-align:center;width: 3em; ">
+57
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+22 (6-50)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Rizvanovic 2019
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+20.8 (11.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+200
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+4.2 (18.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Wang 2019
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+37
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→10
+</td>
+<td style="text-align:left;width: 6em; ">
+4.0 (1.9)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+36
+</td>
+<td style="text-align:center;width: 3em; ">
+710
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+355
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+2.9 (1.4)
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Zhang 2019
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+29
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+55 (40-65)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+29
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+10 (10-20)
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Panebianco 2020
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→2<sup>NRS</sup>
+</td>
+<td style="text-align:left;width: 6em; ">
+1.20
+</td>
+<td style="text-align:left;width: 7em; ">
+1
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+10
+</td>
+<td style="text-align:center;width: 3em; ">
+800
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+400
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+0.20
+</td>
+<td style="text-align:left;width: 7em; ">
+0
+</td>
+<td style="text-align:left;width: 4em; ">
+(0-1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+Wendling 2020
+</td>
+<td style="text-align:left;width: 7em; ">
+Fasting
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+0→100
+</td>
+<td style="text-align:left;width: 6em; ">
+1.5 (5.8)<sup>c</sup>
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Simp
+</td>
+<td style="text-align:center;width: 3em; ">
+20
+</td>
+<td style="text-align:center;width: 3em; ">
+710
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+355
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+-15.6 (5.4)<sup>c</sup>
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 14em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 7em; ">
+CHO/Comp
+</td>
+<td style="text-align:center;width: 3em; ">
+25
+</td>
+<td style="text-align:center;width: 3em; ">
+710
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+355
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+-17.1 (7.5)<sup>c</sup>
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; M: mean; SD: standard deviation; Med: median; IQR: interquartile range; NRS: numeric rating scale.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Arrow (→) indicates best to worst thirst (visual analogue if not noted NRS).
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>b</sup> Within group change from baseline; reported IQR as a single value.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>c</sup> Difference from before beverage consumption to 1 hr post-consumption.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<p><a id="choTab8"></a></p>
+<div id="network-characteristics-1" class="section level2">
+<h2><em>Network Characteristics</em></h2>
+<p><br/></p>
+<p><font size = 4> Figure 3. Network plot of comparators in included studies. </font></p>
+<p><img src="figure/nma_hunger_thirst.Rmd/thirstAdultLikertMeta-1.png" width="384" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br/></p>
+<p><font size = 4> Table 5. Number of studies and patients in comparisons represented in the network. </font></p>
+<table class=" lightable-classic lightable-hover table table-striped table-hover table-condensed" style="font-family: Source Sans Pro; width: auto !important;  width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Comparison
+</th>
+<th style="text-align:center;font-weight: bold;">
+Studies
+</th>
+<th style="text-align:center;font-weight: bold;">
+Patients
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Comp vs. CHO/Comp
+</td>
+<td style="text-align:center;width: 6em; ">
+4
+</td>
+<td style="text-align:center;width: 6em; ">
+128
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Comp vs. CHO/Simp
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:center;width: 6em; ">
+45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Comp vs. Clear (nocal)
+</td>
+<td style="text-align:center;width: 6em; ">
+8
+</td>
+<td style="text-align:center;width: 6em; ">
+642
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Comp vs. Fasting
+</td>
+<td style="text-align:center;width: 6em; ">
+14
+</td>
+<td style="text-align:center;width: 6em; ">
+996
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Simp vs. Clear (nocal)
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:center;width: 6em; ">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CHO/Simp vs. Fasting
+</td>
+<td style="text-align:center;width: 6em; ">
+2
+</td>
+<td style="text-align:center;width: 6em; ">
+140
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Clear (nocal) vs. Fasting
+</td>
+<td style="text-align:center;width: 6em; ">
+3
+</td>
+<td style="text-align:center;width: 6em; ">
+308
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> CHO: carbohydrate; Comp: complex; Prot: protein.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="results-1" class="section level2">
+<h2><em>Results</em></h2>
+<p><br/></p>
+<p><font size = 4> Table 6. Standardized mean differences in patient-rated thirst and 95% CIs from network meta-analysis. Comparisons are top to bottom below the diagonal (eg, CHO/Comp vs. CHO/Simp 0.49). Estimates above the diagonal include only the direct evidence for the same comparison. Discrepancies are reflect inconsistencies as displayed in Figure 3. Despite inconsistencies, the results offer no evidence to support a difference between complex and simple carbohydrates.</font></p>
+<table class="table table-hover" style="width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+<span style=" font-weight: bold;    ">CHO/Comp</span>
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.23 (-1.68, 1.21)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.21 (-0.84, 0.41)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-1.09 (-1.47, -0.70)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+0.48 (-0.39, 1.35)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+<span style=" font-weight: bold;    ">CHO/Simp</span>
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-3.46 (-5.29, -1.64)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-1.16 (-2.17, -0.14)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.44 (-1.01, 0.13)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.92 (-1.87, 0.02)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+<span style=" font-weight: bold;    ">Clear (nocal)</span>
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.98 (-1.80, -0.17)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-1.03 (-1.41, -0.65)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-1.51 (-2.36, -0.66)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+-0.59 (-1.19, 0.01)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;">
+<span style=" font-weight: bold;    ">Fasting</span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> I^2 88% (95% CI, 83%-92%)
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<p><font size = 4> Figure 3. Forest plot using using complex carbohydrates as the reference comparator. </font></p>
+<p><img src="figure/nma_hunger_thirst.Rmd/thirstNetmetaForest-1.png" width="480" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br/></p>
+<p><font size = 4> Figure 4. Comparison of direct and indirect evidence for each comparison in the network. </font></p>
+<p><img src="figure/nma_hunger_thirst.Rmd/thirstNodeSplit-1.png" width="768" style="display: block; margin: auto auto auto 0;" /></p>
+<div id="refs" class="references csl-bib-body">
+<div id="ref-nikolakopoulou2020cinema" class="csl-entry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Nikolakopoulou A, Higgins JP, Papakonstantinou T, et al. CINeMA: An approach for assessing confidence in the results of a network meta-analysis. <em>PLoS medicine</em>. 2020;17(4):e1003082.</div>
+</div>
+<div id="ref-papakonstantinou2020cinema" class="csl-entry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Papakonstantinou T, Nikolakopoulou A, Higgins JP, Egger M, Salanti G. CINeMA: Software for semiautomated assessment of the confidence in the results of network meta-analysis. <em>Campbell Systematic Reviews</em>. 2020;16(1):e1080.</div>
+</div>
+<div id="ref-Aguilar-Nascimento2014" class="csl-entry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Aguilar-Nascimento JE de, Caporossi C, Metelo JS, Tanajura GH, Canevari-de-Oliveira M, Cunha Costa R da. Safe intake of an oral supplement containing carbohydrates and whey protein shortly before sedation to gastroscopy; a double blind, randomized trial. 2014;29(3):681-686. doi:<a href="https://doi.org/10.3305/nh.2014.29.3.7161">10.3305/nh.2014.29.3.7161</a></div>
+</div>
+<div id="ref-Ajuzieogu2016" class="csl-entry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Ajuzieogu OV, Amucheazi AO, Nwagha UI, Ezike HA, Luka SK, Abam DS. Effect of routine preoperative fasting on residual gastric volume and acid in patients undergoing myomectomy. 2016;19(6):816-820. doi:<a href="https://doi.org/10.4103/1119-3077.180049">10.4103/1119-3077.180049</a></div>
+</div>
+<div id="ref-Borges-Dock-Nascimento2011" class="csl-entry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Borges Dock-Nascimento D, Aguilar-Nascimento JE, Caporossi C, et al. Safety of oral glutamine in the abbreviation of preoperative fasting: A double-blind, controlled, randomized clinical trial. 2011;26(1):86-90. <a href="https://www.ncbi.nlm.nih.gov/pubmed/21519733">https://www.ncbi.nlm.nih.gov/pubmed/21519733</a></div>
+</div>
+<div id="ref-Braga2012" class="csl-entry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Braga M, Bissolati M, Rocchetti S, Beneduce A, Pecorelli N, Di Carlo V. Oral preoperative antioxidants in pancreatic surgery: A double-blind, randomized, clinical trial. 2012;28(2):160-164. doi:<a href="https://doi.org/10.1016/j.nut.2011.05.014">10.1016/j.nut.2011.05.014</a></div>
+</div>
+<div id="ref-Dock-Nascimento2012" class="csl-entry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Dock-Nascimento DB, Aguilar-Nascimento JE, Linetzky Waitzberg D. Ingestion of glutamine and maltodextrin two hours preoperatively improves insulin sensitivity after surgery: A randomized, double blind, controlled trial. 2012;39(6):449-455. doi:<a href="https://doi.org/10.1590/s0100-69912012000600002">10.1590/s0100-69912012000600002</a></div>
+</div>
+<div id="ref-Gianotti2018" class="csl-entry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Gianotti L, Biffi R, Sandini M, et al. Preoperative oral carbohydrate load versus placebo in major elective abdominal surgery (PROCY): A randomized, placebo-controlled, multicenter, phase III trial. 2018;267(4):623-630. doi:<a href="https://doi.org/10.1097/SLA.0000000000002325">10.1097/SLA.0000000000002325</a></div>
+</div>
+<div id="ref-Itou2012" class="csl-entry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Itou K, Fukuyama T, Sasabuchi Y, et al. Safety and efficacy of oral rehydration therapy until 2 h before surgery: A multicenter randomized controlled trial. 2012;26(1):20-27. doi:<a href="https://doi.org/10.1007/s00540-011-1261-x">10.1007/s00540-011-1261-x</a></div>
+</div>
+<div id="ref-Jarvela2008" class="csl-entry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Jarvela K, Maaranen P, Sisto T. Pre-operative oral carbohydrate treatment before coronary artery bypass surgery. 2008;52(6):793-797. doi:<a href="https://doi.org/10.1111/j.1399-6576.2008.01660.x">10.1111/j.1399-6576.2008.01660.x</a></div>
+</div>
+<div id="ref-Joshi2020" class="csl-entry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Joshi Y, Dhamija S. Randomized control clinical trial of overnight fasting to clear fluid feeding 2 hours prior anaesthesia and surgery. Published online 2020. doi:<a href="https://doi.org/10.1007/s12262-020-02369-7">10.1007/s12262-020-02369-7</a></div>
+</div>
+<div id="ref-Karimian2020" class="csl-entry">
+<div class="csl-left-margin">12. </div><div class="csl-right-inline">Karimian N, Kaneva P, Donatelli F, et al. Simple versus complex preoperative carbohydrate drink to preserve perioperative insulin sensitivity in laparoscopic colectomy: A randomized controlled trial. 2020;271(5):819-826. doi:<a href="https://doi.org/10.1097/SLA.0000000000003488">10.1097/SLA.0000000000003488</a></div>
+</div>
+<div id="ref-Nakai2012" class="csl-entry">
+<div class="csl-left-margin">13. </div><div class="csl-right-inline">Nakai K, Niwa H, Kitayama M, Satoh Y, Hirota K. Effects of oral rehydration therapy on gastric volume and pH in patients with preanesthetic H2 antagonist. 2012;26(6):936-938. doi:<a href="https://doi.org/10.1007/s00540-012-1449-8">10.1007/s00540-012-1449-8</a></div>
+</div>
+<div id="ref-Wang2019" class="csl-entry">
+<div class="csl-left-margin">14. </div><div class="csl-right-inline">Wang Y, Zhu Z, Li H, et al. Effects of preoperative oral carbohydrates on patients undergoing ESD surgery under general anesthesia: A randomized control study. 2019;98(20):e15669. doi:<a href="https://doi.org/10.1097/MD.0000000000015669">10.1097/MD.0000000000015669</a></div>
+</div>
+<div id="ref-Yagci2008" class="csl-entry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Yagci G, Can MF, Ozturk E, et al. Effects of preoperative carbohydrate loading on glucose metabolism and gastric contents in patients undergoing moderate surgery: A randomized, controlled trial. 2008;24(3):212-216. doi:<a href="https://doi.org/10.1016/j.nut.2007.11.003">10.1016/j.nut.2007.11.003</a></div>
+</div>
+<div id="ref-Yildiz2013" class="csl-entry">
+<div class="csl-left-margin">16. </div><div class="csl-right-inline">Yildiz H, Gunal SE, Yilmaz G, Yucel S. Oral carbohydrate supplementation reduces preoperative discomfort in laparoscopic cholecystectomy. 2013;26(2):89-95. doi:<a href="https://doi.org/10.3109/08941939.2012.699998">10.3109/08941939.2012.699998</a></div>
+</div>
+<div id="ref-Yilmaz2013" class="csl-entry">
+<div class="csl-left-margin">17. </div><div class="csl-right-inline">Yilmaz N, Cekmen N, Bilgin F, Erten E, Ozhan MO, Cosar A. Preoperative carbohydrate nutrition reduces postoperative nausea and vomiting compared to preoperative fasting. 2013;18(10):827-832. <a href="https://www.ncbi.nlm.nih.gov/pubmed/24497851">https://www.ncbi.nlm.nih.gov/pubmed/24497851</a></div>
+</div>
+</div>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre><code>R version 4.1.1 (2021-08-10)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] netmeta_2.0-0     meta_5.0-0        formattable_0.2.1 naniar_0.6.1     
+ [5] forcats_0.5.1     stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4      
+ [9] readr_2.0.2       tidyr_1.1.4       tibble_3.1.5      ggplot2_3.3.5    
+[13] tidyverse_1.3.1   Cairo_1.5-12.2    countrycode_1.3.0 janitor_2.1.0    
+[17] kableExtra_1.3.4  BUGSnet_1.0.4     rjags_4-12        coda_0.19-4      
+[21] multinma_0.3.0   
+
+loaded via a namespace (and not attached):
+  [1] minqa_1.2.4            colorspace_2.0-2       ellipsis_0.3.2        
+  [4] visdat_0.5.3           evd_2.3-3              rprojroot_2.0.2       
+  [7] snakecase_0.11.0       fs_1.5.0               rstudioapi_0.13.0-9000
+ [10] rstan_2.21.2           bit64_4.0.5            fansi_0.5.0           
+ [13] lubridate_1.8.0        mathjaxr_1.4-0         xml2_1.3.2            
+ [16] codetools_0.2-18       splines_4.1.1          extrafont_0.17        
+ [19] knitr_1.36             jsonlite_1.7.2         workflowr_1.6.2       
+ [22] nloptr_1.2.2.2         broom_0.7.9            Rttf2pt1_1.3.9        
+ [25] dbplyr_2.1.1           compiler_4.1.1         httr_1.4.2            
+ [28] backports_1.2.1        assertthat_0.2.1       Matrix_1.3-4          
+ [31] fastmap_1.1.0          cli_3.0.1              later_1.3.0           
+ [34] htmltools_0.5.2        prettyunits_1.1.1      tools_4.1.1           
+ [37] igraph_1.2.7           gtable_0.3.0           glue_1.4.2            
+ [40] V8_3.4.2               Rcpp_1.0.7             cellranger_1.1.0      
+ [43] jquerylib_0.1.4        vctrs_0.3.8            svglite_2.0.0         
+ [46] nlme_3.1-153           extrafontdb_1.0        xfun_0.26             
+ [49] rbibutils_2.2.4        ps_1.6.0               lme4_1.1-27.1         
+ [52] rvest_1.0.1            CompQuadForm_1.4.3     lifecycle_1.0.1       
+ [55] MASS_7.3-54            scales_1.1.1           vroom_1.5.5           
+ [58] hms_1.1.1              promises_1.2.0.1       parallel_4.1.1        
+ [61] inline_0.3.19          metafor_3.0-2          RColorBrewer_1.1-2    
+ [64] yaml_2.2.1             curl_4.3.2             gridExtra_2.3         
+ [67] loo_2.4.1              StanHeaders_2.21.0-7   sass_0.4.0            
+ [70] truncdist_1.0-2        stringi_1.7.5          highr_0.9             
+ [73] boot_1.3-28            pkgbuild_1.2.0         Rdpack_2.1.2          
+ [76] rlang_0.4.11           pkgconfig_2.0.3        systemfonts_1.0.2     
+ [79] matrixStats_0.61.0     evaluate_0.14          lattice_0.20-45       
+ [82] htmlwidgets_1.5.4      bit_4.0.4              processx_3.5.2        
+ [85] tidyselect_1.1.1       plyr_1.8.6             magrittr_2.0.1        
+ [88] R6_2.5.1               generics_0.1.0         DBI_1.1.1             
+ [91] pillar_1.6.3           haven_2.4.3            withr_2.4.2           
+ [94] abind_1.4-5            modelr_0.1.8           crayon_1.4.1          
+ [97] utf8_1.2.2             tzdb_0.1.2             rmarkdown_2.11        
+[100] readxl_1.3.1           grid_4.1.1             callr_3.7.0           
+[103] git2r_0.28.0           reprex_2.0.1           digest_0.6.28         
+[106] webshot_0.5.2          httpuv_1.6.3           RcppParallel_5.1.4    
+[109] stats4_4.1.1           munsell_0.5.0          viridisLite_0.4.0     
+[112] bslib_0.3.1            magic_1.5-9           </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
