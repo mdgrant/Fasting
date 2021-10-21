@@ -52,9 +52,11 @@ display: none !important;
 
 <font size = 5> Network meta-analyses (simple versus complex carbohydrates)</font>
 
-[<font size = 4> Residual gastric volume</font>](nma_final.html)
+[<font size = 4> &emsp;Residual gastric volume</font>](nma_final.html)
 
-[<font size = 4> Hunger and thirst  </font>](nma_hunger_thirst.html)
+[<font size = 4> &emsp;Hunger and thirst  </font>](nma_hunger_thirst.html)
+
+<br/>
 
 [<font size = 5> Chewing gum</font>](gum_final.html)
 
