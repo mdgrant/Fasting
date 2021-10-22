@@ -2489,8 +2489,8 @@ rgv_meta <- metacont(
 # rgv_meta
 
 forest(rgv_meta,
-  comb.random = TRUE,
-  comb.fixed = FALSE,
+  random = TRUE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
   digits = 1,
@@ -2605,8 +2605,8 @@ rgv_metagen <- metagen(yi, sd,
   data = temp.dat)
 
 forest(rgv_metagen,
-  comb.random = TRUE,
-  comb.fixed = FALSE,
+  random = TRUE,
+  fixed = FALSE,
   lab.e = "Prot/CHO      ",
   lab.c = "Carbohydrate     ",
   digits = 1,

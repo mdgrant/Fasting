@@ -465,12 +465,12 @@ rgv_meta <- metacont(
   max.c = rangel.x,
   data = rgv_meta.dat,
   method.tau = "REML",
-  byvar = smoker.x,
+  subgroup = smoker.x,
   studlab = study.x
 )
 
 forest(rgv_meta,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "Gum         ",
   lab.c = "Fasting     ",
   digits = 1,
@@ -480,10 +480,11 @@ forest(rgv_meta,
   rightlabs = c("MD", "95% CI"),
   xlim = c(-20, 30),
   fs.xlab = 11,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   rightcols = c("effect", "ci"),
   xlab = "RGV (mL)   \n Favors Gum                    Favors Fasting"
 )
+
 figure_n <- fig_inc()
 ```
 
@@ -587,33 +588,35 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Forest plot for pooled mean difference for pH in randomized controlled trials of adult surgical patients --- gum chewing versus fasting. </font>
 
-```{r phGumMeta, include = TRUE, echo = FALSE, fig.width = 9.75, fig.height = 4.5, fig.align = "top"}
+```{r phGumMeta, include = TRUE, echo = FALSE, fig.width = 9.75, fig.height = 5.5, fig.align = "top"}
 temp_ph <- readxl::read_xlsx("data/GumOutcomes_102820.xlsx", sheet = "pH", range = "A8:L39") %>% 
   janitor::clean_names()
 
-temp_ph <- temp_ph %>% 
-  filter(!is.na(refid)) %>% 
+temp_ph <- temp_ph %>%
+  filter(!is.na(refid)) %>%
   # keep combined arms for 6038 Dubin 6287 Hamid
-  slice(-c(2,3,6:9)) %>% 
+  slice(-c(2, 3, 6:9)) %>%
   filter(refid != 4926) %>% # Schoenfeld no n per arm
-  mutate(rangel = as.numeric(str_split(range, " to ", simplify = TRUE)[,1]),
-         rangeu = as.numeric(str_split(range, " to ", simplify = TRUE)[,2]),
-         iqrl = as.numeric(str_split(iqr, " to ", simplify = TRUE)[,1]),
-         iqru = as.numeric(str_split(iqr, " to ", simplify = TRUE)[,2]),
-         study = str_replace(study, "\\(", ""),
-         study = str_replace(study, "\\)", ""),
-         # tx = ifelse(str_detect(tx, "free"), "Gum sugarfree", tx),
-         # tx = ifelse(str_detect(tx, "sugared"), "Gum sugared", tx),
-         range = str_c("(", formatC(rangel, format = "f", 1), "-", round(rangeu, 1), ")"),
-         iqr = str_c("(", round(iqrl, 1), "-", round(iqru, 1), ")"),
-         mean_sd = paste0(round(as.numeric(mean), 1), " (", round(sd, 1), ")"),
-         mean_sd = str_replace(mean_sd, "\\( ", "\\("), 
-         mean_sd = str_trim(mean_sd),
-         mean_sd = na_if(mean_sd, "NA (NA)"),
-         # add subgroup for Soreide and suppl refid
-         refid = ifelse(refid == 8584 & n !=  30, 85840, refid),
-         study = ifelse(refid == 85840 & n == 21, "Soreide 1995", study),
-         smoker = ifelse(refid == 85840, "Smokers", "Non-smokers"))
+  mutate(
+    rangel = as.numeric(str_split(range, " to ", simplify = TRUE)[, 1]),
+    rangeu = as.numeric(str_split(range, " to ", simplify = TRUE)[, 2]),
+    iqrl = as.numeric(str_split(iqr, " to ", simplify = TRUE)[, 1]),
+    iqru = as.numeric(str_split(iqr, " to ", simplify = TRUE)[, 2]),
+    study = str_replace(study, "\\(", ""),
+    study = str_replace(study, "\\)", ""),
+    # tx = ifelse(str_detect(tx, "free"), "Gum sugarfree", tx),
+    # tx = ifelse(str_detect(tx, "sugared"), "Gum sugared", tx),
+    range = str_c("(", formatC(rangel, format = "f", 1), "-", round(rangeu, 1), ")"),
+    iqr = str_c("(", round(iqrl, 1), "-", round(iqru, 1), ")"),
+    mean_sd = paste0(round(as.numeric(mean), 1), " (", round(sd, 1), ")"),
+    mean_sd = str_replace(mean_sd, "\\( ", "\\("),
+    mean_sd = str_trim(mean_sd),
+    mean_sd = na_if(mean_sd, "NA (NA)"),
+    # add subgroup for Soreide and suppl refid
+    refid = ifelse(refid == 8584 & n != 30, 85840, refid),
+    study = ifelse(refid == 85840 & n == 21, "Soreide 1995", study),
+    smoker = ifelse(refid == 85840, "Smokers", "Non-smokers")
+  )
 
 # merge with design and age
 gum_ph <- left_join(temp_ph,
@@ -626,40 +629,45 @@ gum_ph <- left_join(temp_ph,
 ph_meta.dat <- left_join(gum_ph[c(1,3,5,7,9,11), ], gum_ph[c(2,4,6,8,10,12), ], 
                           by = c("refid"))
   
-ph_meta <- metacont(n.e = n.y, n.c = n.x, 
-         mean.e = mean.y,
-         sd.e = sd.y,
-         median.e = med.y, 
-         q1.e = iqrl.y, 
-         q3.e = iqru.y,
-         min.e = rangeu.y,
-         max.e = rangel.y,
-         mean.c = mean.x,
-         sd.c = sd.x,
-         median.c = med.x, 
-         q1.c = iqrl.x, 
-         q3.c = iqru.x,
-         min.c = rangeu.x,
-         max.c = rangel.x,
-         data = ph_meta.dat,
-         method.tau = "REML",
-         byvar = smoker.x,
-         studlab = study.x)
+ph_meta <- metacont(
+  n.e = n.y, n.c = n.x,
+  mean.e = mean.y,
+  sd.e = sd.y,
+  median.e = med.y,
+  q1.e = iqrl.y,
+  q3.e = iqru.y,
+  min.e = rangeu.y,
+  max.e = rangel.y,
+  mean.c = mean.x,
+  sd.c = sd.x,
+  median.c = med.x,
+  q1.c = iqrl.x,
+  q3.c = iqru.x,
+  min.c = rangeu.x,
+  max.c = rangel.x,
+  data = ph_meta.dat,
+  method.tau = "REML",
+  subgroup = smoker.x,
+  studlab = study.x
+)
 
 forest(ph_meta,
-       comb.fixed = FALSE,
-       lab.e = "Gum         ",
-       lab.c = "Fasting     ",
-       digits = 1,
-       digits.sd = 1,
-       digits.tau2 = 1,
-       prediction = FALSE,
-       rightlabs = c("MD","95% CI"),
+  fixed = FALSE,
+  lab.e = "Gum         ",
+  lab.c = "Fasting     ",
+  digits = 1,
+  digits.sd = 1,
+  digits.tau2 = 1,
+  prediction = FALSE,
+  rightlabs = c("MD", "95% CI"),
   rightcols = c("effect", "ci"),
-       xlim = c(-2, 3),
-       fs.xlab = 11,
-       print.byvar = FALSE,
-       xlab = "pH\n Favors Fasting                Favors Gum")
+  xlim = c(-2, 3),
+  fs.xlab = 11,
+  print.subgroup.name = FALSE,
+  subgroup = TRUE,
+  xlab = "pH\n Favors Fasting                Favors Gum"
+)
+
 figure_n <- fig_inc()
 ```
 
