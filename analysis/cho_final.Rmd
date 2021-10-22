@@ -1034,11 +1034,11 @@ hunger_meta <- metabin(cho_e, cho_n, fast_e, fast_n,
   method.tau = "PM",
   hakn = FALSE,
   prediction = FALSE,
-  # byvar = simp_comp,
+  # subgroup = simp_comp,
   digits = 2)
 
 forest(hunger_meta,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting    ",
   rightcols = c("effect", "ci"),
@@ -1051,7 +1051,7 @@ forest(hunger_meta,
   fs.xlab = 11,
   pooled.events = TRUE,
   subgroup = TRUE,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   xlim = c(0.01, 2),
   at = c(.01, .1, .25, 1, 2),
   xlab = "Favors CHO           Favors Fasting")
@@ -1121,7 +1121,7 @@ fast_meta.dat <- hung_lik_meta.dat %>%
 
 temp <- metacont(
   n.e = arm_n_CHO, n.c = arm_n_Fasting,
-  comb.fixed = TRUE,
+  fixed = TRUE,
   mean.e = hunger_m_CHO,
   sd.e = hunger_sd_CHO,
   median.e = hung_md_CHO,
@@ -1137,7 +1137,7 @@ temp <- metacont(
   min.c = hunger_rl_Fasting,
   max.c = hunger_ru_Fasting,
   data = fast_meta.dat[fast_meta.dat$pre_post_op == "Preop",],
-  # byvar = simp_comp,
+  # subgroup = simp_comp,
   # subset = study != "Wendling 2020",
   sm = "SMD",
   method.tau = "REML",
@@ -1148,7 +1148,7 @@ temp <- metacont(
 
 forest(temp,
   weight.study = "random",
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
   digits = 2,
@@ -1157,7 +1157,7 @@ forest(temp,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   bylab = FALSE,
   # overall = FALSE,
   fs.xlab = 11,
@@ -1229,7 +1229,7 @@ clear_meta.dat <- likert_cho_hung_kbl.dat %>%
 ## (updated 2021/04/09 14:26) hungerAdultLikertMetaClearForest ------------
 temp <- metacont(
   n.e = arm_n_CHO, n.c = arm_n_Clear,
-  comb.fixed = TRUE,
+  fixed = TRUE,
   mean.e = hunger_m_CHO,
   sd.e = hunger_sd_CHO,
   median.e = hung_md_CHO,
@@ -1253,7 +1253,7 @@ temp <- metacont(
 )
 
 forest(temp,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Clear/Water   ",
   digits = 2,
@@ -1262,7 +1262,7 @@ forest(temp,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   # overall = FALSE,
   fs.xlab = 11,
   # sortvar = -TE,
@@ -1283,7 +1283,7 @@ par(bty = "n", xaxt = "l", yaxt = "l")
 funnel(temp, contour = c(0.9, 0.95, 0.99))
 figure_n <- fig_inc()
 
-temp_1 <- update(temp, byvar = NULL)
+temp_1 <- update(temp, subgroup = NULL)
 
 metabias(temp_1, plotit = TRUE, k.min = 5, method = "Pustejovsky")
 
@@ -1700,7 +1700,7 @@ thirst_meta <- metabin(event_e, n_e, event_c, n_c,
   digits = 2)
 
 forest(thirst_meta,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting    ",
   digits = 2,
@@ -1841,14 +1841,14 @@ temp <- metacont(
   hakn = TRUE,
   method.tau = "REML",
   studlab = study,
-  comb.fixed = TRUE,
+  fixed = TRUE,
   data = fast_meta.dat
 )
 
 # dmetar::find.outliers(temp)
  
 forest(temp,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
   digits = 2,
@@ -1857,7 +1857,7 @@ forest(temp,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  print.byvar = TRUE,
+  print.subgroup.name = TRUE,
   # bylab = c("Preop", "Postop", "Unclear"),
   # overall = FALSE,
   fs.xlab = 11,
@@ -1927,14 +1927,14 @@ temp <- metacont(
   method.tau = "REML",
   hakn = FALSE,
   studlab = study,
-  comb.fixed = TRUE,
+  fixed = TRUE,
   data = wat_plac_meta.dat 
 )
 
 # dmetar::find.outliers(temp)
  
 forest(temp,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Water/Placebo",
   digits = 2,
@@ -1943,7 +1943,7 @@ forest(temp,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  print.byvar = TRUE,
+  print.subgroup.name = TRUE,
   # bylab = c("Preop", "Postop", "Unclear"),
   # overall = FALSE,
   fs.xlab = 11,
@@ -2381,7 +2381,7 @@ nausea_meta <- metabin(event_e, n_e, event_c, n_c,
   digits = 2)
 
 forest(nausea_meta,
-  comb.random = FALSE,
+  random = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting    ",
   digits = 2,
@@ -2727,14 +2727,14 @@ temp <- metacont(
   sm = "SMD",
   method.tau = "REML",
   studlab = study,
-  comb.fixed = TRUE,
+  fixed = TRUE,
   data = fast_meta.dat
 )
 
 # dmetar::find.outliers(temp)
  
 forest(temp,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
   digits = 2,
@@ -2742,7 +2742,7 @@ forest(temp,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   overall = TRUE,
   fs.xlab = 11,
   xlim = c(-2, 2),
@@ -3967,7 +3967,7 @@ rgv_meta <- metacont(
 )
 
 forest(rgv_meta,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
   digits = 1,
@@ -3975,7 +3975,7 @@ forest(rgv_meta,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   overall = TRUE,
   fs.xlab = 11,
   rightcols = c("effect", "ci"),
@@ -4087,7 +4087,7 @@ rgv_meta <- metacont(
 )
 
 forest(rgv_meta,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Water/Clear  ",
   digits = 1,
@@ -4095,7 +4095,7 @@ forest(rgv_meta,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   overall = TRUE,
   fs.xlab = 11,
   rightcols = c("effect", "ci"),
@@ -4230,7 +4230,7 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Pooled gastric pH from randomized trials comparing carbohydrate drinks with fasting in adult surgical patients. </font>
 
-```{r metaPh, include = TRUE, fig.width = 10, fig.height = 3.2, fig.align = "center"}
+```{r metaPh, include = TRUE, ECHO = FALSE, fig.width = 10, fig.height = 3, fig.align = "center"}
 ph_meta.dat <- ph.dat %>% 
   filter(age == "Adult") %>% 
   arrange(design, year, study) %>%
@@ -4262,9 +4262,17 @@ ph_meta <- metacont(
   hakn = TRUE,
   studlab = study
 )
+
+# fasting ph
+# metamean(
+#   n = arm_n_fasting,
+#   mean = mean_fasting,
+#   sd = sd_fasting,
+#   data = ph_meta.dat
+# )
   
 forest(ph_meta,
-  comb.fixed = FALSE,
+  fixed = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting     ",
   digits = 2,
@@ -4273,7 +4281,7 @@ forest(ph_meta,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   overall = TRUE,
   fs.xlab = 11,
   rightcols = c("effect", "ci"),
@@ -4609,16 +4617,16 @@ temp <- metabin(
   sm = "OR",
   method.tau = "PM",
   method = "MH",
-  byvar = surg,
-  print.byvar = TRUE,
+  subgroup = surg,
+  print.subgroup.name = TRUE,
   studlab = study,
   allstudies = FALSE,
   data = comp_meta_fast
 )
 
 forest(temp,
-  comb.fixed = TRUE,
-  comb.random = FALSE,
+  fixed = TRUE,
+  random = FALSE,
   lab.e = "CHO     ",
   lab.c = "Fasting    ",
   digits = 2,
@@ -4628,7 +4636,7 @@ forest(temp,
   prediction = FALSE,
   fs.xlab = 11,
   print.subgroup.labels = TRUE,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   test.subgroup = FALSE,
   subgroup = TRUE,
   addrow.subgroups = FALSE,
@@ -4656,7 +4664,7 @@ figure_n <- fig_inc()
 
 <font size = 4> Figure `r figure_n`. Pooled complications rates by type of surgery --- randomized trials comparing carbohydrate drinks with water or placebo in adult surgical patients. </font>
 
-```{r complicateMetaWaterPlac, include = TRUE, fig.width = 10, fig.height = 5.8, fig.align = "center"}
+```{r complicateMetaWaterPlac, include = TRUE, fig.width = 10, fig.height = 6, fig.align = "center"}
 ## (updated 2021/05/11 10:16) cho vs water/plac ---------------------------
 cho_water_plac_refids <- complicate_meta.dat %>% 
   filter(arm_tx == "water_plac") %>% 
@@ -4686,16 +4694,16 @@ temp <- metabin(
   sm = "OR",
   method.tau = "PM",
   method = "MH",
-  byvar = surg,
-  print.byvar = TRUE,
+  subgroup = surg,
+  print.subgroup.name = TRUE,
   studlab = study,
   allstudies = FALSE,
   data = comp_meta_water
 )
 
 forest(temp,
-  comb.fixed = TRUE,
-  comb.random = FALSE,
+  fixed = TRUE,
+  random = FALSE,
   lab.e = "CHO     ",
   lab.c = "Water/Placebo",
   digits = 2,
@@ -4706,7 +4714,7 @@ forest(temp,
   fs.xlab = 11,
   addrow.subgroups = FALSE,
   print.subgroup.labels = TRUE,
-  print.byvar = FALSE,
+  print.subgroup.name = FALSE,
   test.subgroup = FALSE,
   subgroup = TRUE,
   resid.hetstat = FALSE,
@@ -4731,19 +4739,19 @@ figure_n <- fig_inc()
 
 <font size = 4> Figure `r figure_n`. Pooled complications rates from randomized trials comparing carbohydrate drinks with protein with fasting in adult surgical patients. </font>
 
-```{r complicateMetaFastProt, include = TRUE, fig.width = 10, fig.height = 2, fig.align = "center"}
+```{r complicateMetaFastProt, include = TRUE, fig.width = 10, fig.height = 2.5, fig.align = "center"}
 ## (updated 2021/05/11 10:14) cho vs fasting ------------------------------
 temp <- metabin(
   event.e = comp_n_cho,
   n.e = arm_n_cho,
   event.c = comp_n_fasting,
   n.c = arm_n_fasting,
-  hakn = TRUE,
+  hakn = FALSE,
   sm = "OR",
   method.tau = "PM",
   method = "MH",
-  # byvar = surg,
-  # print.byvar = TRUE,
+  # subgroup = surg,
+  # print.subgroup.name = TRUE,
   studlab = study,
   allstudies = FALSE,
   subset = refid %in% comp_prot_refids,
@@ -4752,8 +4760,8 @@ temp <- metabin(
 
 forest(temp,
   sortvar = year,
-  comb.fixed = TRUE,
-  comb.random = FALSE,
+  fixed = TRUE,
+  random = FALSE,
   lab.e = "CHO/Prot ",
   lab.c = "Fasting ",
   digits = 2,
