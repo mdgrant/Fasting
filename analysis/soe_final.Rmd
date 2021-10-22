@@ -47,19 +47,19 @@ display: none;
 display: none !important; 
 }
 
-@font-face {
-    font-family: "GRADE-quality";
-    src: url();
-    src: url('https://gradepro.org/fonts/GRADE-quality.eot');
-    src: url('https://gradepro.org/fonts/GRADE-quality.eot?#iefix')
-        format('embedded-opentype'),
-      url('https://gradepro.org/fonts/GRADE-quality.woff') format('woff'),
-      url('https://gradepro.org/fonts/GRADE-quality.ttf') format('truetype'),
-      url('https://gradepro.org/fonts/GRADE-quality.svg#GRADE-quality')
-        format('svg');
-    font-weight: normal;
-    font-style: normal;
-  }
+<!-- @font-face { -->
+<!--     font-family: "GRADE-quality"; -->
+<!--     src: url(); -->
+<!--     src: url('https://gradepro.org/fonts/GRADE-quality.eot'); -->
+<!--     src: url('https://gradepro.org/fonts/GRADE-quality.eot?#iefix') -->
+<!--         format('embedded-opentype'), -->
+<!--       url('https://gradepro.org/fonts/GRADE-quality.woff') format('woff'), -->
+<!--       url('https://gradepro.org/fonts/GRADE-quality.ttf') format('truetype'), -->
+<!--       url('https://gradepro.org/fonts/GRADE-quality.svg#GRADE-quality') -->
+<!--         format('svg'); -->
+<!--     font-weight: normal; -->
+<!--     font-style: normal; -->
+<!--   } -->
 
 .quality-sign {
       font-family: 'GRADE-quality', Cambria, Helvetica, Arial;
