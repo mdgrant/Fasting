@@ -60,11 +60,6 @@ display: none !important;
 
 [<font size = 5> Chewing gum</font>](gum_final.html)
 
-<br/><br/>
-
-<font size = 6> Recommendations Worksheet</font>
-
-[<font size = 5> CHO vs. Fasting </font>](cho_fasting_gradepro.html)
 
 <br/><br/>
 
