@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Peds 1 hour</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Fasting</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="soe_final.html">Summary</a>
+</li>
+<li>
+  <a href="cho_final.html">Carbohydrate</a>
+</li>
+<li>
+  <a href="protein_final.html">Protein</a>
+</li>
+<li>
+  <a href="noncaloric_clear.html">Clear (nocal) vs. Fast</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Network
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="nma_final.html">Residual Gastric Volume</a>
+    </li>
+    <li>
+      <a href="nma_hunger_thirst.html">Hunger and thirst</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="gum_final.html">Gum</a>
+</li>
+<li>
+  <a href="peds1hr.html">Pediatric 1 hour</a>
+</li>
+<li>
+  <a href="appendix.html">Appendix</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Peds 1 hour</h1>
+<h4 class="date">28 January, 2022 (10:23)</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-01-28
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Fasting/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20201201code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20201201)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20201201code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20201201)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtreeddadf62588af6dfba1047a8e16de4b9fe93d18d9targetblankddadf62a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/Fasting/tree/ddadf62588af6dfba1047a8e16de4b9fe93d18d9" target="_blank">ddadf62</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtreeddadf62588af6dfba1047a8e16de4b9fe93d18d9targetblankddadf62a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/Fasting/tree/ddadf62588af6dfba1047a8e16de4b9fe93d18d9" target="_blank">ddadf62</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    _@@/.DS_Store
+    Ignored:    _@@/Carbohydrate Drinks.html
+    Ignored:    _@@/Fasting-master-old/.DS_Store
+    Ignored:    _@@/Fasting-master_old.zip
+    Ignored:    _@@/all_arms.csv
+    Ignored:    _@@/american-medical-association.csl
+    Ignored:    _@@/anesthesiology.csl
+    Ignored:    _@@/assets/
+    Ignored:    _@@/cho_amts.csv
+    Ignored:    _@@/fasting_slides.Rmd
+    Ignored:    _@@/fasting_slides.html
+    Ignored:    _@@/foot_unique.csv
+    Ignored:    _@@/kq3_from_nmb.Rmd
+    Ignored:    _@@/libs/
+    Ignored:    _@@/nma_final_working.Rmd
+    Ignored:    _@@/notes.txt
+    Ignored:    _@@/outcome_list.txt
+    Ignored:    _@@/rgv_cinema.csv
+    Ignored:    _@@/rgv_cinema_11.28_10_17_2021.cnm
+    Ignored:    _@@/rgv_cinema_12.13_7_5_2021.cnm
+    Ignored:    _@@/rgv_cinema_RoB_chart_old.png
+    Ignored:    _@@/rgv_cinema_netplot_old.png
+    Ignored:    _@@/rgv_cinema_random_MD_Report.csv
+    Ignored:    _@@/rgv_meta_dat.csv
+    Ignored:    _@@/study_char_table_cho.csv
+    Ignored:    _@@/thirst_nma_working.R
+    Ignored:    code/.DS_Store
+    Ignored:    code/_oldCode/
+    Ignored:    code/a_temp_to_run.R
+    Ignored:    code/anchors_cho.txt
+    Ignored:    code/anchors_prot.txt
+    Ignored:    code/calc_mn_sd_med_iqr_range.R
+    Ignored:    code/nma_debug_copy.R
+    Ignored:    code/snips.R
+    Ignored:    code/used_files_dates.txt
+    Ignored:    data/CHOComplicationList_012521.xlsx
+    Ignored:    data/CHOProteinDetail_031021.xlsx
+    Ignored:    data/GumOutcomes_102820.xlsx
+    Ignored:    data/SOE_070621_final.xlsx
+    Ignored:    data/SOE_CHO_060721_up.xlsx
+    Ignored:    data/SOE_Gum_020421.xlsx
+    Ignored:    data/SOE_Protein_021021.xlsx
+    Ignored:    data/_old/
+    Ignored:    data/contOutcomes_2022-01-27-14-20-20.csv
+    Ignored:    data/dichotOutcomes_2022-01-27-14-20-44.csv
+    Ignored:    data/fasting_table_add_102720.csv
+    Ignored:    data/gum_soe_112120.xlsx
+    Ignored:    data/hdi_072021.csv
+    Ignored:    data/incl_mg_distsr_fasting_2022-01-27-14-21-36.csv
+    Ignored:    data/likertOutcomes_2022-01-27-14-21-04.csv
+    Ignored:    data/protein_detail_102320.xlsx
+    Ignored:    data/rob_2022-01-27-14-21-19.csv
+    Ignored:    data/robinsClinical_2022-01-27-14-25-46.csv
+    Ignored:    data/robinsPro_2022-01-27-14-26-35.csv
+    Ignored:    data/studyArm_2022-01-27-14-20-08.csv
+    Ignored:    data/studyChar_2022-01-27-14-19-44.csv
+    Ignored:    data/studyChar_2022-01-27-14-22-57.csv
+    Ignored:    rgv_cinema.csv
+    Ignored:    used_files_dates.txt
+
+Untracked files:
+    Untracked:  _@@/.gitignore
+    Untracked:  _site.yml_back
+    Untracked:  analysis/.gitignore
+    Untracked:  analysis/bib/peds1hr.bib
+    Untracked:  analysis/jama.csl
+    Untracked:  analysis/nma_hunger_thirst.Rmd
+    Untracked:  analysis/peds1hr (original).Rmd
+    Untracked:  analysis/peds1hr.Rmd
+    Untracked:  code/.gitignore
+    Untracked:  code/bayes_sensitivity.R
+    Untracked:  code/bugsnet_test_script.R
+    Untracked:  code/calculations.R
+    Untracked:  code/cho_010420.Rmd
+    Untracked:  code/cho_nausea.R
+    Untracked:  code/clear_outcomes.R
+    Untracked:  code/createCinemaFile.R
+    Untracked:  code/discard.R
+    Untracked:  code/fasting_descriptive.R
+    Untracked:  code/functions.R
+    Untracked:  code/gum_summary_070121.R
+    Untracked:  code/helpers.R
+    Untracked:  code/helpers_old.R
+    Untracked:  code/hrs.R
+    Untracked:  code/hungerRateClear.R
+    Untracked:  code/meanLogFunctions.R
+    Untracked:  code/metaHungerClear.R
+    Untracked:  code/nma_sensitivity.R
+    Untracked:  code/raw_log.R
+    Untracked:  code/robGum.R
+    Untracked:  code/rob_021121.R
+    Untracked:  code/rob_protein.R
+    Untracked:  code/rob_summary.R
+    Untracked:  code/rob_summary_mg.R
+    Untracked:  code/rob_traffic_light.R
+    Untracked:  code/rob_traffic_light_mg copy.R
+    Untracked:  code/rob_traffic_light_mg.R
+    Untracked:  code/select_refids_summary.R
+    Untracked:  code/simp_comp_code.R
+    Untracked:  code/skeleton.bib
+    Untracked:  code/summary_071921.html
+    Untracked:  code/summary_arxiv_072221.Rmd
+    Untracked:  code/summary_arxiv_072221.pdf
+    Untracked:  code/summary_arxiv_072221.tex
+    Untracked:  code/summary_gum_arxiv_072221.Rmd
+    Untracked:  code/summary_gum_arxiv_072221.pdf
+    Untracked:  code/summary_gum_arxiv_072221.tex
+    Untracked:  code/summary_prot_arxiv_072221.Rmd
+    Untracked:  code/summary_prot_arxiv_072221.pdf
+    Untracked:  code/summary_prot_arxiv_072221.tex
+    Untracked:  code/timePlot.R
+    Untracked:  data/.gitignore
+    Untracked:  data/GRADE-quality.ttf
+    Untracked:  data/PedsOneHour_012522.xlsx
+    Untracked:  data/PedsOneHour_012522_up.xlsx
+    Untracked:  data/~$PedsOneHour_012522.xlsx
+    Untracked:  figures/
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+    Modified:   code/readFiles_120220_wfr.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="section" class="section level4">
+<h4></h4>
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+
+:target {  /* fix target location so caption appears */
+    display: block;    
+    position: relative;     
+    top: 10px;
+    visibility: hidden;
+}
+
+</style>
+</div>
+<div id="included-studies" class="section level1">
+<h1><strong>Included Studies</strong></h1>
+<p><br/></p>
+<p><font size = 4> Table 1. Included studies relevant to 1 hour fasting in children. See <a href="#references">References</a> for citations. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+        ID
+</th>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+N<sup>a</sup>
+</th>
+<th style="text-align:center;font-weight: bold;">
+Centers
+</th>
+<th style="text-align:left;font-weight: bold;">
+Country<sup>b</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+Surgery
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="5">
+<td colspan="6" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>RCT</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+7747
+</td>
+<td style="text-align:left;width: 10em; ">
+Huang 2020
+</td>
+<td style="text-align:left;width: 3em; ">
+344
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+China<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+Cardiac
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+8608
+</td>
+<td style="text-align:left;width: 10em; ">
+Sethi 1999
+</td>
+<td style="text-align:left;width: 3em; ">
+60
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+India<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+None (healthy)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+1315
+</td>
+<td style="text-align:left;width: 10em; ">
+Du 2017
+</td>
+<td style="text-align:left;width: 3em; ">
+48
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+USA
+</td>
+<td style="text-align:left;width: 12em; ">
+None (healthy)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+2393
+</td>
+<td style="text-align:left;width: 10em; ">
+Schmidt 2015
+</td>
+<td style="text-align:left;width: 3em; ">
+131
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Switzerland
+</td>
+<td style="text-align:left;width: 12em; ">
+Orthopedic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+9038
+</td>
+<td style="text-align:left;width: 10em; ">
+Taye 2021
+</td>
+<td style="text-align:left;width: 3em; ">
+44
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+India<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="6" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Crossover</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+81
+</td>
+<td style="text-align:left;width: 10em; ">
+Zhang 2020a
+</td>
+<td style="text-align:left;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+China<sup>a</sup>
+</td>
+<td style="text-align:left;width: 12em; ">
+None (healthy)
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="6" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Nonrandomized Studies of Interventions</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+8624
+</td>
+<td style="text-align:left;width: 10em; ">
+Beck 2020a
+</td>
+<td style="text-align:left;width: 3em; ">
+24
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Germany
+</td>
+<td style="text-align:left;width: 12em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+1450
+</td>
+<td style="text-align:left;width: 10em; ">
+Newton 2017
+</td>
+<td style="text-align:left;width: 3em; ">
+4828
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+UK
+</td>
+<td style="text-align:left;width: 12em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+515
+</td>
+<td style="text-align:left;width: 10em; ">
+Isserman 2019
+</td>
+<td style="text-align:left;width: 3em; ">
+16000
+</td>
+<td style="text-align:center;width: 6em; ">
+5
+</td>
+<td style="text-align:left;width: 10em; ">
+USA
+</td>
+<td style="text-align:left;width: 12em; ">
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="6" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Prospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+3598
+</td>
+<td style="text-align:left;width: 10em; ">
+Schmitz 2011b
+</td>
+<td style="text-align:left;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 6em; ">
+1
+</td>
+<td style="text-align:left;width: 10em; ">
+Switzerland
+</td>
+<td style="text-align:left;width: 12em; ">
+None (healthy)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 6em; padding-left: 2em;" indentlevel="1">
+6813
+</td>
+<td style="text-align:left;width: 10em; ">
+Beck 2020b
+</td>
+<td style="text-align:left;width: 3em; ">
+12093
+</td>
+<td style="text-align:center;width: 6em; ">
+15
+</td>
+<td style="text-align:left;width: 10em; ">
+Germany
+</td>
+<td style="text-align:left;width: 12em; ">
+Other GI
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Analyzed
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>b</sup> Non very high <a href="https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index">Human Development Index</a> country.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="patient-reported-outcomes" class="section level1">
+<h1><strong>Patient Reported Outcomes</strong></h1>
+<p><br/></p>
+<div id="preoperative-hunger" class="section level2">
+<h2><em>Preoperative Hunger</em></h2>
+<p><a id="pedsTabX"></a></p>
+<p><br/></p>
+</div>
+<div id="preoperative-thirst" class="section level2">
+<h2><em>Preoperative Thirst</em></h2>
+<p><a id="pedsTabX"></a></p>
+<p><br/></p>
+</div>
+<div id="preoperative-nausea" class="section level2">
+<h2><em>Preoperative Nausea</em></h2>
+<p><a id="pedsTabX"></a></p>
+<p><br/></p>
+</div>
+<div id="preoperative-vomitin" class="section level2">
+<h2><em>Preoperative Vomitin</em></h2>
+<p><a id="pedsTabX"></a></p>
+<p><br/></p>
+</div>
+</div>
+<div id="clinical-outcomes" class="section level1">
+<h1><strong>Clinical Outcomes</strong></h1>
+<p><br/></p>
+<div id="aspiration" class="section level2">
+<h2><em>Aspiration</em></h2>
+<p><a id="pedsTabX"></a></p>
+<p><br/></p>
+</div>
+<div id="preoperative-vomiting" class="section level2">
+<h2><em>Preoperative Vomiting</em></h2>
+<p><br/></p>
+</div>
+<div id="gastric-volume-and-emptying" class="section level2">
+<h2><em>Gastric Volume and Emptying</em></h2>
+<p><br/></p>
+<p><font size = 4> Table 2. Studies reporting gastric volumes prior to surgery, patient age, liquids, volume, and time of measures for comparison. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Age
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Measure      
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+M (SD)
+</th>
+<th style="text-align:center;font-weight: bold;">
+Med (range)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:left;font-weight: bold;">
+Volume
+</th>
+<th style="text-align:left;font-weight: bold;">
+Time<sup>a</sup> (hrs)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="4">
+<td colspan="7" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Residual Gastric Volumes (surgical)</strong>
+</td>
+</tr>
+<tr grouplength="4">
+<td colspan="7" style="border-bottom: 0px solid;color: #646971 !important;background-color: white !important;">
+<strong>RCT</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Schmidt 2015
+</td>
+<td style="text-align:left;width: 3em; ">
+65
+</td>
+<td style="text-align:center;width: 6em; ">
+</td>
+<td style="text-align:center;width: 8em; ">
+7.3
+</td>
+<td style="text-align:left;width: 12em; ">
+1 hr fast, clear
+</td>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:left;width: 3em; ">
+66
+</td>
+<td style="text-align:center;width: 6em; ">
+</td>
+<td style="text-align:center;width: 8em; ">
+9
+</td>
+<td style="text-align:left;width: 12em; ">
+2 hr fast, clear
+</td>
+<td style="text-align:left;width: 10em; ">
+150 ml max
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Taye 2021
+</td>
+<td style="text-align:left;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 6em; ">
+</td>
+<td style="text-align:center;width: 8em; ">
+10.5 (6-14)
+</td>
+<td style="text-align:left;width: 12em; ">
+Clear (5% dextrose)
+</td>
+<td style="text-align:left;width: 10em; ">
+5 ml/kg
+</td>
+<td style="text-align:left;width: 7em; ">
+-1.5, -1.17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:left;width: 3em; ">
+22
+</td>
+<td style="text-align:center;width: 6em; ">
+</td>
+<td style="text-align:center;width: 8em; ">
+8.0 (6-14)
+</td>
+<td style="text-align:left;width: 12em; ">
+Clear (5% dextrose)
+</td>
+<td style="text-align:left;width: 10em; ">
+3 ml/kg
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> M: mean; SD: standard deviation; Med: median.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Prior to surgery.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<p><font size = 4> Table 3. Results from studies reporting gastric volumes prior to surgery. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="4">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Time
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+RGV Measure
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:left;font-weight: bold;">
+Volume
+</th>
+<th style="text-align:left;font-weight: bold;">
+ Hours
+</th>
+<th style="text-align:center;font-weight: bold;">
+Asp
+</th>
+<th style="text-align:center;font-weight: bold;">
+US
+</th>
+<th style="text-align:center;font-weight: bold;">
+Med (IQR)<sup>a</sup>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="6">
+<td colspan="8" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>RCT</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Schmidt 2015
+</td>
+<td style="text-align:center;width: 3em; ">
+65
+</td>
+<td style="text-align:left;width: 10em; ">
+1 hr fast, clear
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+0.43 (0.21-0.84)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+66
+</td>
+<td style="text-align:left;width: 10em; ">
+2 hr fast, clear
+</td>
+<td style="text-align:left;width: 8em; ">
+150 ml max
+</td>
+<td style="text-align:left;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+0.46 (0.19-0.78)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Taye 2021
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:left;width: 10em; ">
+Clear (5% dextrose)
+</td>
+<td style="text-align:left;width: 8em; ">
+3 ml/kg
+</td>
+<td style="text-align:left;width: 4em; ">
+-1.5
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 9em; ">
+1.82 (1.29-2.33)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+-1.17
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+1.73 (1.31-2.24)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+5 ml/kg
+</td>
+<td style="text-align:left;width: 4em; ">
+-1.5
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+2.33 (1.48-2.91)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+22
+</td>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+-1.17
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 9em; ">
+1.75 (1.46-2.79)
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> US: ultrasound; Asp: aspiration; IQR: interquartile range.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Time-related differences not detected in either trial.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<p><font size = 4> Table 4. Studies reporting gastric volumes over time, patient age, liquids, volume, and measurement of gastric volume. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Age
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Measurement
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+M (SD)
+</th>
+<th style="text-align:center;font-weight: bold;">
+Med (range)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:left;font-weight: bold;">
+Volume
+</th>
+<th style="text-align:center;font-weight: bold;">
+US
+</th>
+<th style="text-align:center;font-weight: bold;">
+MRI
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="7">
+<td colspan="8" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Gastric Emptying (healthy or before surgery Beck 2020)</strong>
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="8" style="border-bottom: 0px solid;color: #646971 !important;background-color: white !important;">
+<strong>RCT</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Sethi 1999<sup>a</sup>
+</td>
+<td style="text-align:left;width: 3em; ">
+15
+</td>
+<td style="text-align:center;width: 7em; ">
+3.2 (1.2)
+</td>
+<td style="text-align:center;width: 8em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+Simple CHO
+</td>
+<td style="text-align:left;width: 11em; ">
+10 ml/kg, 100 ml max
+</td>
+<td style="text-align:center;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Du 2017
+</td>
+<td style="text-align:left;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 7em; ">
+</td>
+<td style="text-align:center;width: 8em; ">
+11
+</td>
+<td style="text-align:left;width: 8em; ">
+Simple CHO
+</td>
+<td style="text-align:left;width: 11em; ">
+296 ml
+</td>
+<td style="text-align:center;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:left;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 7em; ">
+</td>
+<td style="text-align:center;width: 8em; ">
+10
+</td>
+<td style="text-align:left;width: 8em; ">
+Protein
+</td>
+<td style="text-align:left;width: 11em; ">
+296 ml
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="border-bottom: 0px solid;color: #646971 !important;background-color: white !important;">
+<strong>Nonrandomized Studies of Interventions</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Beck 2020
+</td>
+<td style="text-align:left;width: 3em; ">
+24
+</td>
+<td style="text-align:center;width: 7em; ">
+</td>
+<td style="text-align:center;width: 8em; ">
+5.3 (0-18)
+</td>
+<td style="text-align:left;width: 8em; ">
+Clear liquids
+</td>
+<td style="text-align:left;width: 11em; ">
+Unlimited
+</td>
+<td style="text-align:center;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="border-bottom: 0px solid;color: #646971 !important;background-color: white !important;">
+<strong>Prospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Schmitz (b) 2011
+</td>
+<td style="text-align:left;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 7em; ">
+</td>
+<td style="text-align:center;width: 8em; ">
+9.2 (6.4-12.8)
+</td>
+<td style="text-align:left;width: 8em; ">
+Simple CHO
+</td>
+<td style="text-align:left;width: 11em; ">
+7 ml/kg
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+×
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="8" style="border-bottom: 0px solid;color: #646971 !important;background-color: white !important;">
+<strong>Crossover</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Zhang 2020
+</td>
+<td style="text-align:left;width: 3em; ">
+16
+</td>
+<td style="text-align:center;width: 7em; ">
+4.9 (0.9)
+</td>
+<td style="text-align:center;width: 8em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+Simple CHO
+</td>
+<td style="text-align:left;width: 11em; ">
+5 ml/kg
+</td>
+<td style="text-align:center;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+</td>
+<td style="text-align:left;width: 3em; ">
+</td>
+<td style="text-align:center;width: 7em; ">
+</td>
+<td style="text-align:center;width: 8em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+Complex CHO
+</td>
+<td style="text-align:left;width: 11em; ">
+5 ml/kg
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> M: mean; SD: standard deviation; Med: median.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Clear liquid arm from trial.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<p><font size = 4> Table 5. Results from studies reporting gastric volumes over time. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="4">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+M (SD or 95% CI), <u>Med (IQR)</u> Gastric Volume Measure
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:left;font-weight: bold;">
+Liquid
+</th>
+<th style="text-align:left;font-weight: bold;">
+Volume
+</th>
+<th style="text-align:left;font-weight: bold;">
+Measure
+</th>
+<th style="text-align:left;font-weight: bold;">
+Fasted
+</th>
+<th style="text-align:left;font-weight: bold;">
+1 hour
+</th>
+<th style="text-align:left;font-weight: bold;">
+2 hour
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="7">
+<td colspan="8" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Gastric Emptying (healthy or before surgery Beck 2020)</strong>
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="8" style="border-bottom: 0px solid;color: #646971 !important;background-color: white !important;">
+<strong>RCT</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 9em; ">
+Sethi 1999<sup>a</sup>
+</td>
+<td style="text-align:center;width: 3em; ">
+15
+</td>
+<td style="text-align:left;width: 7em; ">
+Simple CHO
+</td>
+<td style="text-align:left;width: 6em; ">
+10 ml/kg
+</td>
+<td style="text-align:left;width: 7em; ">
+GAA mm<sup>2</sup>
+</td>
+<td style="text-align:left;width: 8em; ">
+61.2 (17.4)
+</td>
+<td style="text-align:left;width: 8em; ">
+92.5 (19.5)
+</td>
+<td style="text-align:left;width: 8em; ">
+50.8 (12.1)
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="padding-left:55%; border-bottom: 0px solid;color: gray !important;">
+<em>Did not report 1 vs. 2 hr comparison</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 9em; ">
+Du 2017
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:left;width: 7em; ">
+Simple CHO
+</td>
+<td style="text-align:left;width: 6em; ">
+296 ml
+</td>
+<td style="text-align:left;width: 7em; ">
+GAA/max GAA
+</td>
+<td style="text-align:left;width: 8em; ">
+0.02 (0.00-0.04)
+</td>
+<td style="text-align:left;width: 8em; ">
+0.54 (0.44-0.66)
+</td>
+<td style="text-align:left;width: 8em; ">
+0.16 (0.09-0.24)
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="padding-left:55%; border-bottom: 0px solid;color: gray !important;">
+<em>‘Safe time<sup>b</sup>’ 177 min</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 9em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:left;width: 7em; ">
+Protein
+</td>
+<td style="text-align:left;width: 6em; ">
+296 ml
+</td>
+<td style="text-align:left;width: 7em; ">
+ml/kg
+</td>
+<td style="text-align:left;width: 8em; ">
+0.02 (0.00-0.05)
+</td>
+<td style="text-align:left;width: 8em; ">
+0.69 (0.58-0.79)
+</td>
+<td style="text-align:left;width: 8em; ">
+0.27 (0.18-0.36)
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="padding-left:55%; border-bottom: 0px solid;color: gray !important;">
+<em>‘Safe time<sup>b</sup>’ 199 min</em>
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="border-bottom: 0px solid;color: #646971 !important;background-color: white !important;">
+<strong>Nonrandomized Studies of Interventions</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 9em; ">
+Beck 2020
+</td>
+<td style="text-align:center;width: 3em; ">
+24
+</td>
+<td style="text-align:left;width: 7em; ">
+Clear liquids
+</td>
+<td style="text-align:left;width: 6em; ">
+Unlimited
+</td>
+<td style="text-align:left;width: 7em; ">
+GAA cm<sup>2</sup>
+</td>
+<td style="text-align:left;width: 8em; ">
+<u>3.3 (2.4-5.3)</u>
+</td>
+<td style="text-align:left;width: 8em; ">
+<u>3.3 (1.9-4.7)</u>
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="padding-left:55%; border-bottom: 0px solid;color: gray !important;">
+<em>Difference between 1 and 2 hours not detected</em>
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="border-bottom: 0px solid;color: #646971 !important;background-color: white !important;">
+<strong>Prospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 9em; ">
+Schmitz (b) 2011
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:left;width: 7em; ">
+Simple CHO
+</td>
+<td style="text-align:left;width: 6em; ">
+7 ml/kg
+</td>
+<td style="text-align:left;width: 7em; ">
+ml/kg
+</td>
+<td style="text-align:left;width: 8em; ">
+<u>0.62 (0.15-0.97)</u>
+</td>
+<td style="text-align:left;width: 8em; ">
+<u>1.27 (0.28-3.62)</u>
+</td>
+<td style="text-align:left;width: 8em; ">
+<u>0.32 (0.04-1.13)</u>
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="padding-left:55%; border-bottom: 0px solid;color: gray !important;">
+<em>Median emptying t<sub>1/2</sub> 30 min; did not compare 1 vs. 2 hr</em>
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="8" style="border-bottom: 0px solid;color: #646971 !important;background-color: white !important;">
+<strong>Crossover</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 9em; ">
+Zhang 2020
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:left;width: 7em; ">
+Simple CHO
+</td>
+<td style="text-align:left;width: 6em; ">
+5 ml/kg
+</td>
+<td style="text-align:left;width: 7em; ">
+log(GFV)
+</td>
+<td style="text-align:left;width: 8em; ">
+2.16 (2.04-2.28)
+</td>
+<td style="text-align:left;width: 8em; ">
+2.02 (1.85-2.20)
+</td>
+<td style="text-align:left;width: 8em; ">
+1.85 (1.69-2.00)
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="padding-left:55%; border-bottom: 0px solid;color: gray !important;">
+<em>1 hr vs fasted, MD -0.14 (-0.40 to 0.13)</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 9em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+16
+</td>
+<td style="text-align:left;width: 7em; ">
+Complex CHO
+</td>
+<td style="text-align:left;width: 6em; ">
+5 ml/kg
+</td>
+<td style="text-align:left;width: 7em; ">
+ml/kg
+</td>
+<td style="text-align:left;width: 8em; ">
+2.12 (1.94-2.30)
+</td>
+<td style="text-align:left;width: 8em; ">
+2.54 (2.30-2.79)
+</td>
+<td style="text-align:left;width: 8em; ">
+1.93 (1.73-2.12)
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="padding-left:55%; border-bottom: 0px solid;color: gray !important;">
+<em>1 hr &gt; faste, MD 0.43 (-0.01 to 0.86)</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 9em; ">
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> M: mean; SD: standard deviation; Med: median; GAA: gastric antral area; GFV: gastric fluid volume; CHO: carbohydrate; MD: mean difference.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Clear liquid arm from trial.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>b</sup> Time when probability of returning to baseline &gt; 0.95.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="gastric-ph" class="section level2">
+<h2><em>Gastric pH</em></h2>
+</div>
+</div>
+<div id="studyparticipant-detail" class="section level1">
+<h1><strong>Study/Participant Detail</strong></h1>
+<p><br/></p>
+<div id="study-characteristics" class="section level3">
+<h3><em>Study Characteristics</em></h3>
+<p><br></p>
+<p><font size = 4> Table 6. Characteristics of studies examining carbohydrate drinks. </font></p>
+<p><br/></p>
+</div>
+<div id="sample-characteristics" class="section level3">
+<h3><em>Sample Characteristics</em></h3>
+<p><br></p>
+<p><font size = 4> Table 6. Characteristics of patients in included studies. </font></p>
+<p><br/></p>
+</div>
+<div id="fasting-liquid-timing-and-amounts" class="section level3">
+<h3><em>Fasting, Liquid Timing and Amounts</em></h3>
+<p><br/></p>
+<p><font size = 4> Table 6. Liquid consumption prior to surgery or outcome measurement and amounts according to study arm. </font></p>
+<p><br/></p>
+</div>
+<div id="funding" class="section level3">
+<h3><em>Funding</em></h3>
+<p><br></p>
+<p><font size = 4> Table 6. Reported funding sources. </font></p>
+<p><br></p>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+<p><br></p>
+</div>
+</div>
+<div id="risk-of-bias" class="section level1">
+<h1><strong>Risk of Bias</strong></h1>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p><br/></p>
+<div id="refs" class="references csl-bib-body">
+<div id="ref-Beck2020" class="csl-entry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Beck CE, Chandrakumar T, Sümpelmann R, et al. Ultrasound assessment of gastric emptying time after intake of clear fluids in children scheduled for general anesthesia-a prospective observational study. 2020;30(12):1384-1389.</div>
+</div>
+<div id="ref-Beck2020a" class="csl-entry">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Beck CE, Rudolph D, Mahn C, et al. Impact of clear fluids fasting on pulmonary aspiration in children undergoing general anesthesia: Results of the german prospective multicenter observational (NiKs) study. Published online 2020. doi:<a href="https://doi.org/10.1111/pan.13948">10.1111/pan.13948</a></div>
+</div>
+<div id="ref-Du2017" class="csl-entry">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Du T, Hill L, Ding L, et al. Gastric emptying for liquids of different compositions in children. 2017;119(5):948-955. doi:<a href="https://doi.org/10.1093/bja/aex340">10.1093/bja/aex340</a></div>
+</div>
+<div id="ref-Huang2020" class="csl-entry">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Huang X, Zhang H, Lin Y, et al. Effect of oral glucose water administration 1 hour preoperatively in children with cyanotic congenital heart disease: A randomized controlled trial. 2020;26. doi:<a href="https://doi.org/10.12659/MSM.922642">10.12659/MSM.922642</a></div>
+</div>
+<div id="ref-Isserman2019" class="csl-entry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Isserman R, Elliott E, Subramanyam R, et al. Quality improvement project to reduce pediatric clear liquid fasting times prior to anesthesia. 2019;29(7):698-704. doi:<a href="https://doi.org/10.1111/pan.13661">10.1111/pan.13661</a></div>
+</div>
+<div id="ref-Newton2017" class="csl-entry">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Newton RJG, Stuart GM, Willdridge DJ, Thomas M. Using quality improvement methods to reduce clear fluid fasting times in children on a preoperative ward. 2017;27(8):793-800. doi:<a href="https://doi.org/10.1111/pan.13174">10.1111/pan.13174</a></div>
+</div>
+<div id="ref-Schmidt2015" class="csl-entry">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Schmidt AR, Buehler P, Seglias L, et al. Gastric pH and residual volume after 1 and 2 h fasting time for clear fluids in childrendagger. 2015;114(3):477-482. doi:<a href="https://doi.org/10.1093/bja/aeu399">10.1093/bja/aeu399</a></div>
+</div>
+<div id="ref-Schmitz2011" class="csl-entry">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Schmitz A, Kellenberger CJ, Liamlahi R, Studhalter M, Weiss M. Gastric emptying after overnight fasting and clear fluid intake: A prospective investigation using serial magnetic resonance imaging in healthy children. 2011;107(3):425-429. doi:<a href="https://doi.org/10.1093/bja/aer167">10.1093/bja/aer167</a></div>
+</div>
+<div id="ref-Sethi1999" class="csl-entry">
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Sethi AK, Chatterji C, Bhargava SK, Narang P, Tyagi A. Safe pre-operative fasting times after milk or clear fluid in children. A preliminary study using real-time ultrasound. 1999;54(1):51-59. <a href="https://www.ncbi.nlm.nih.gov/pubmed/10209370https://associationofanaesthetists-publications.onlinelibrary.wiley.com/doi/pdfdirect/10.1046/j.1365-2044.1999.00660.x?download=true">https://www.ncbi.nlm.nih.gov/pubmed/10209370https://associationofanaesthetists-publications.onlinelibrary.wiley.com/doi/pdfdirect/10.1046/j.1365-2044.1999.00660.x?download=true</a></div>
+</div>
+<div id="ref-Taye2021" class="csl-entry">
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Taye S, Mohammed S, Bhatia P, et al. Gastric emptying time of two different quantities of clear fluids in children: A double-blinded randomized controlled study. 2021;31(11):1187-1193.</div>
+</div>
+<div id="ref-Zhang2020" class="csl-entry">
+<div class="csl-left-margin">11. </div><div class="csl-right-inline">Zhang YL, Li H, Zeng H, Li Q, Qiu LP, Dai RP. Ultrasonographic evaluation of gastric emptying after ingesting carbohydrate-rich drink in young children: A randomized crossover study. 2020;30(5):599-606. doi:<a href="https://doi.org/10.1111/pan.13853">10.1111/pan.13853</a></div>
+</div>
+</div>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] meta_5.1-1        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
+ [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_2.1.1      
+ [9] tidyr_1.1.4       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
+[13] Cairo_1.5-14      countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
+
+loaded via a namespace (and not attached):
+ [1] nlme_3.1-155           fs_1.5.2               bit64_4.0.5           
+ [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
+ [7] rprojroot_2.0.2        tools_4.1.2            backports_1.4.1       
+[10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
+[13] R6_2.5.1               DBI_1.1.2              colorspace_2.0-2      
+[16] withr_2.4.3            tidyselect_1.1.1       rematch_1.0.1         
+[19] bit_4.0.4              compiler_4.1.2         git2r_0.29.0          
+[22] cli_3.1.1              rvest_1.0.2            xml2_1.3.3            
+[25] sass_0.4.0             scales_1.1.1           systemfonts_1.0.3     
+[28] digest_0.6.29          minqa_1.2.4            rmarkdown_2.11        
+[31] svglite_2.0.0          pkgconfig_2.0.3        htmltools_0.5.2       
+[34] lme4_1.1-27.1          highr_0.9              dbplyr_2.1.1          
+[37] fastmap_1.1.0          htmlwidgets_1.5.4      rlang_0.4.12          
+[40] readxl_1.3.1           rstudioapi_0.13.0-9000 jquerylib_0.1.4       
+[43] generics_0.1.1         jsonlite_1.7.3         vroom_1.5.7           
+[46] magrittr_2.0.1         Matrix_1.4-0           Rcpp_1.0.8            
+[49] munsell_0.5.0          fansi_1.0.2            lifecycle_1.0.1       
+[52] visdat_0.5.3           stringi_1.7.6          yaml_2.2.2            
+[55] CompQuadForm_1.4.3     snakecase_0.11.0       mathjaxr_1.4-0        
+[58] MASS_7.3-55            grid_4.1.2             parallel_4.1.2        
+[61] promises_1.2.0.1       crayon_1.4.2           lattice_0.20-45       
+[64] haven_2.4.3            splines_4.1.2          hms_1.1.1             
+[67] knitr_1.37             pillar_1.6.5           boot_1.3-28           
+[70] reprex_2.0.1           glue_1.6.1             evaluate_0.14         
+[73] modelr_0.1.8           nloptr_1.2.2.3         vctrs_0.3.8           
+[76] tzdb_0.2.0             httpuv_1.6.5           cellranger_1.1.0      
+[79] gtable_0.3.0           assertthat_0.2.1       xfun_0.29             
+[82] broom_0.7.11           later_1.3.0            viridisLite_0.4.0     
+[85] workflowr_1.7.0        ellipsis_0.3.2        </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
