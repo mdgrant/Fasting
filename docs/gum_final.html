@@ -38,7 +38,7 @@
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -382,6 +382,9 @@ div.tocify {
   </ul>
 </li>
 <li>
+  <a href="peds1hr.html">Pediatric 1 hr</a>
+</li>
+<li>
   <a href="gum_final.html">Gum</a>
 </li>
 <li>
@@ -403,7 +406,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Chewing Gum</h1>
-<h4 class="date">22 October, 2021 (13:48)</h4>
+<h4 class="date">28 January, 2022 (17:23)</h4>
 
 </div>
 
@@ -428,7 +431,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-10-22
+<strong>Last updated:</strong> 2022-01-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -437,8 +440,8 @@ div.tocify {
 <strong>Knit directory:</strong> <code>Fasting/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -519,16 +522,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtree2ccda0f5ff90da546759c339d0a6c6f41a200e9atargetblank2ccda0fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/Fasting/tree/2ccda0f5ff90da546759c339d0a6c6f41a200e9a" target="_blank">2ccda0f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtree0142b16103f7de593202ca2278fd16c4c8e8cbe2targetblank0142b16a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/Fasting/tree/0142b16103f7de593202ca2278fd16c4c8e8cbe2" target="_blank">0142b16</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtree2ccda0f5ff90da546759c339d0a6c6f41a200e9atargetblank2ccda0fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantFastingtree0142b16103f7de593202ca2278fd16c4c8e8cbe2targetblank0142b16a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/mdgrant/Fasting/tree/2ccda0f5ff90da546759c339d0a6c6f41a200e9a" target="_blank">2ccda0f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/Fasting/tree/0142b16103f7de593202ca2278fd16c4c8e8cbe2" target="_blank">0142b16</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -539,17 +542,32 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    _@@/.DS_Store
+    Ignored:    _@@/Carbohydrate Drinks.html
     Ignored:    _@@/Fasting-master-old/.DS_Store
+    Ignored:    _@@/Fasting-master_old.zip
+    Ignored:    _@@/all_arms.csv
+    Ignored:    _@@/american-medical-association.csl
+    Ignored:    _@@/anesthesiology.csl
+    Ignored:    _@@/assets/
+    Ignored:    _@@/cho_amts.csv
+    Ignored:    _@@/fasting_slides.Rmd
+    Ignored:    _@@/fasting_slides.html
     Ignored:    _@@/foot_unique.csv
+    Ignored:    _@@/kq3_from_nmb.Rmd
+    Ignored:    _@@/libs/
+    Ignored:    _@@/nma_final_working.Rmd
     Ignored:    _@@/notes.txt
     Ignored:    _@@/outcome_list.txt
     Ignored:    _@@/rgv_cinema.csv
+    Ignored:    _@@/rgv_cinema_11.28_10_17_2021.cnm
     Ignored:    _@@/rgv_cinema_12.13_7_5_2021.cnm
     Ignored:    _@@/rgv_cinema_RoB_chart_old.png
     Ignored:    _@@/rgv_cinema_netplot_old.png
     Ignored:    _@@/rgv_cinema_random_MD_Report.csv
     Ignored:    _@@/rgv_meta_dat.csv
     Ignored:    _@@/study_char_table_cho.csv
+    Ignored:    _@@/thirst_nma_working.R
+    Ignored:    analysis/figure/
     Ignored:    code/.DS_Store
     Ignored:    code/_oldCode/
     Ignored:    code/a_temp_to_run.R
@@ -562,53 +580,37 @@ Ignored files:
     Ignored:    data/CHOComplicationList_012521.xlsx
     Ignored:    data/CHOProteinDetail_031021.xlsx
     Ignored:    data/GumOutcomes_102820.xlsx
-    Ignored:    data/GumOutcomes_102820_old.xlsx
-    Ignored:    data/ProteinSOE_013121.xlsx
-    Ignored:    data/ProteinSOE_121620.xlsx
     Ignored:    data/SOE_070621_final.xlsx
-    Ignored:    data/SOE_CHO_051721_up.xlsx
     Ignored:    data/SOE_CHO_060721_up.xlsx
-    Ignored:    data/SOE_CHO_060721_up_mg.xlsx
     Ignored:    data/SOE_Gum_020421.xlsx
     Ignored:    data/SOE_Protein_021021.xlsx
     Ignored:    data/_old/
-    Ignored:    data/contOutcomes_2021-10-06-20-34-40.csv
-    Ignored:    data/contOutcomes_2021-10-06-21-20-19.csv
-    Ignored:    data/dichotOutcomes_2021-07-07-15-57-51.csv
-    Ignored:    data/dichotOutcomes_2021-10-06-20-34-07.csv
-    Ignored:    data/distillersr-Preoperative_Fasting_2020-07-08-17-59-49.xlsx
+    Ignored:    data/contOutcomes_2022-01-27-14-20-20.csv
+    Ignored:    data/dichotOutcomes_2022-01-27-14-20-44.csv
     Ignored:    data/fasting_table_add_102720.csv
     Ignored:    data/gum_soe_112120.xlsx
     Ignored:    data/hdi_072021.csv
-    Ignored:    data/hunger_rob_summary.svg
-    Ignored:    data/hunger_rob_traffic.svg
-    Ignored:    data/incl_mg_distsr_fasting_2020-11-21_OLD.csv
-    Ignored:    data/incl_mg_distsr_fasting_2021-03-09-17-42-12.csv
-    Ignored:    data/likertOutcomes_2021-10-06-20-34-20.csv
+    Ignored:    data/incl_mg_distsr_fasting_2022-01-27-14-21-36.csv
+    Ignored:    data/likertOutcomes_2022-01-27-14-21-04.csv
     Ignored:    data/protein_detail_102320.xlsx
-    Ignored:    data/rob_2021-04-17-11-47-25.csv
-    Ignored:    data/rob_2021-06-22-12-11-42.csv
-    Ignored:    data/rob_2021-06-22-15-06-55.csv
-    Ignored:    data/rob_2021-10-07-16-40-09.csv
-    Ignored:    data/studyArm_2021-10-06-20-35-08.csv
-    Ignored:    data/studyChar_2021-10-07-15-30-19.csv
+    Ignored:    data/rob_2022-01-27-14-21-19.csv
+    Ignored:    data/robinsClinical_2022-01-27-14-25-46.csv
+    Ignored:    data/robinsPro_2022-01-27-14-26-35.csv
+    Ignored:    data/studyArm_2022-01-27-14-20-08.csv
+    Ignored:    data/studyChar_2022-01-27-14-19-44.csv
+    Ignored:    data/studyChar_2022-01-27-14-22-57.csv
     Ignored:    rgv_cinema.csv
     Ignored:    used_files_dates.txt
 
 Untracked files:
-    Untracked:  _@@/Carbohydrate Drinks.html
-    Untracked:  _@@/Fasting-master_old.zip
-    Untracked:  _@@/all_arms.csv
-    Untracked:  _@@/american-medical-association.csl
-    Untracked:  _@@/anesthesiology.csl
-    Untracked:  _@@/cho_amts.csv
-    Untracked:  _@@/nma_final_working.Rmd
-    Untracked:  _@@/rgv_cinema_11.28_10_17_2021.cnm
-    Untracked:  _@@/thirst_nma_working.R
+    Untracked:  _@@/.gitignore
     Untracked:  _site.yml_back
     Untracked:  analysis/.gitignore
+    Untracked:  analysis/bib/peds1hr.bib
     Untracked:  analysis/jama.csl
     Untracked:  analysis/nma_hunger_thirst.Rmd
+    Untracked:  analysis/peds1hr (original).Rmd
+    Untracked:  analysis/peds1hr.Rmd
     Untracked:  code/.gitignore
     Untracked:  code/bayes_sensitivity.R
     Untracked:  code/bugsnet_test_script.R
@@ -653,12 +655,15 @@ Untracked files:
     Untracked:  code/timePlot.R
     Untracked:  data/.gitignore
     Untracked:  data/GRADE-quality.ttf
-    Untracked:  data/~$SOE_070621_final.xlsx
+    Untracked:  data/PedsOneHour_012522_mg.xlsx
+    Untracked:  data/PedsOneHour_012522_up.xlsx
+    Untracked:  data/~$PedsOneHour_012522_mg.xlsx
     Untracked:  figures/
 
 Unstaged changes:
+    Modified:   analysis/cho_final.Rmd
     Modified:   analysis/gum_final.Rmd
-    Modified:   analysis/protein_final.Rmd
+    Modified:   code/readFiles_120220_wfr.R
 
 </code></pre>
 <p>
@@ -697,6 +702,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/Fasting/blob/233165758f24d12b63446bfe73d8f3c3d23d1022/analysis/gum_final.Rmd" target="_blank">2331657</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-10-22
+</td>
+<td>
+update to gum and soe
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/Fasting/233165758f24d12b63446bfe73d8f3c3d23d1022/docs/gum_final.html" target="_blank">2331657</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-10-22
+</td>
+<td>
+update to gum and soe
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1689,7 +1728,7 @@ NR
 </tr>
 <tr grouplength="1">
 <td colspan="8" style="padding-left:75%; border-bottom: 0px solid;color: gray !important;">
-<em>Lower in gum arm, P &lt; .001</em>
+<em>Lower in gum arm, p &lt; .001</em>
 </td>
 </tr>
 <tr>
@@ -2761,7 +2800,7 @@ Induction
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>e</sup> p &lt; 0.001 for comparison with fasting.
+<sup>e</sup> p &amp;lt; 0.001 for comparison with fasting.
 </td>
 </tr>
 </tfoot>
@@ -2795,6 +2834,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/mdgrant/Fasting/blob/233165758f24d12b63446bfe73d8f3c3d23d1022/docs/figure/gum_final.Rmd/rgvGumMeta-1.png" target="_blank">2331657</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-10-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/mdgrant/Fasting/blob/bdc49388feb2dc851b05007032f1838ab5d5abf4/docs/figure/gum_final.Rmd/rgvGumMeta-1.png" target="_blank">bdc4938</a>
@@ -3425,6 +3475,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/mdgrant/Fasting/blob/233165758f24d12b63446bfe73d8f3c3d23d1022/docs/figure/gum_final.Rmd/phGumMeta-1.png" target="_blank">2331657</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-10-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/mdgrant/Fasting/blob/bdc49388feb2dc851b05007032f1838ab5d5abf4/docs/figure/gum_final.Rmd/phGumMeta-1.png" target="_blank">bdc4938</a>
@@ -4223,7 +4284,7 @@ Case Series
 Shanmugam 2016
 </td>
 <td style="text-align:center;">
-9
+18
 </td>
 <td style="text-align:right;width: 3em; ">
 </td>
@@ -4267,7 +4328,7 @@ Crossover
 Bouvet 2017
 </td>
 <td style="text-align:center;">
-40
+80
 </td>
 <td style="text-align:right;width: 3em; ">
 </td>
@@ -4308,7 +4369,7 @@ Case Series
 Valencia 2019
 </td>
 <td style="text-align:center;">
-55
+110
 </td>
 <td style="text-align:right;width: 3em; ">
 </td>
@@ -4933,6 +4994,26 @@ Crossover
 </td>
 </tr>
 <tr>
+<td style="text-align:left;color: brown !important;width: 11em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;color: brown !important;width: 8em; ">
+Gum (any)
+</td>
+<td style="text-align:center;color: brown !important;">
+9
+</td>
+<td style="text-align:center;color: brown !important;width: 6em; ">
+</td>
+<td style="text-align:center;color: brown !important;width: 6em; ">
+</td>
+<td style="text-align:center;color: brown !important;width: 1em; ">
+</td>
+<td style="text-align:left;color: brown !important;">
+</td>
+<td style="text-align:left;color: brown !important;">
+</td>
+</tr>
+<tr>
 <td style="text-align:left;width: 11em; padding-left: 2em;" indentlevel="1">
 Bouvet 2017
 </td>
@@ -4953,6 +5034,43 @@ Fasting
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="8" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Single Arm Trial
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 11em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 8em; ">
+Water
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;width: 6em; ">
+6
+</td>
+<td style="text-align:center;width: 6em; ">
+2
+</td>
+<td style="text-align:center;width: 1em; ">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="8" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Pediatric, Surgical</strong>
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="8" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
 </td>
 </tr>
 <tr>
@@ -4978,9 +5096,27 @@ Gum Sugared
 <td style="text-align:left;color: brown !important;">
 </td>
 </tr>
-<tr grouplength="1">
-<td colspan="8" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
-Single Arm Trial
+<tr>
+<td style="text-align:left;color: brown !important;width: 11em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;color: brown !important;width: 8em; ">
+Gum Sugared
+</td>
+<td style="text-align:center;color: brown !important;">
+20
+</td>
+<td style="text-align:center;color: brown !important;width: 6em; ">
+6
+</td>
+<td style="text-align:center;color: brown !important;width: 6em; ">
+2
+</td>
+<td style="text-align:center;color: brown !important;width: 1em; ">
+</td>
+<td style="text-align:left;color: brown !important;">
+45 min chewing
+</td>
+<td style="text-align:left;color: brown !important;">
 </td>
 </tr>
 <tr>
@@ -5007,18 +5143,31 @@ Gum Sugarfree
 <td style="text-align:left;color: brown !important;">
 </td>
 </tr>
-<tr grouplength="3">
-<td colspan="8" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
-<strong>Pediatric, Surgical</strong>
+<tr>
+<td style="text-align:left;color: brown !important;width: 11em; ">
 </td>
-</tr>
-<tr grouplength="3">
-<td colspan="8" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
-RCT
+<td style="text-align:left;color: brown !important;width: 8em; ">
+Gum Sugarfree
+</td>
+<td style="text-align:center;color: brown !important;">
+55
+</td>
+<td style="text-align:center;color: brown !important;width: 6em; ">
+8
+</td>
+<td style="text-align:center;color: brown !important;width: 6em; ">
+2
+</td>
+<td style="text-align:center;color: brown !important;width: 1em; ">
+</td>
+<td style="text-align:left;color: brown !important;">
+60 min chewing
+</td>
+<td style="text-align:left;color: brown !important;">
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 11em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 11em; ">
 Schoenfelder 2006
 </td>
 <td style="text-align:left;width: 8em; ">
@@ -5038,7 +5187,7 @@ Fasting
 </td>
 </tr>
 <tr>
-<td style="text-align:left;color: brown !important;width: 11em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;color: brown !important;width: 11em; ">
 </td>
 <td style="text-align:left;color: brown !important;width: 8em; ">
 Gum Sugared
@@ -5059,7 +5208,7 @@ call to OR
 </td>
 </tr>
 <tr>
-<td style="text-align:left;color: brown !important;width: 11em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;color: brown !important;width: 11em; ">
 </td>
 <td style="text-align:left;color: brown !important;width: 8em; ">
 Gum Sugarfree
@@ -5401,6 +5550,18 @@ Crossover
 </td>
 </tr>
 <tr>
+<td style="text-align:left;color: brown !important;width: 15em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;color: brown !important;width: 5em; ">
+9
+</td>
+<td style="text-align:left;color: brown !important;width: 8em; ">
+Gum (any)
+</td>
+<td style="text-align:left;color: brown !important;">
+</td>
+</tr>
+<tr>
 <td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
 Bouvet 2017
 </td>
@@ -5412,6 +5573,34 @@ Fasting
 </td>
 <td style="text-align:left;">
 6 h fasting for solids and 2 h fasting for clear fluids
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="4" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Single Arm Trial
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;width: 5em; ">
+20
+</td>
+<td style="text-align:left;width: 8em; ">
+Water
+</td>
+<td style="text-align:left;">
+6 h fasting for solids and 2 h fasting for clear fluids
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="4" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Pediatric, Surgical</strong>
+</td>
+</tr>
+<tr groupLength="3">
+<td colspan="4" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
 </td>
 </tr>
 <tr>
@@ -5427,9 +5616,17 @@ Gum Sugared
 250 ml water in &lt;10 s and chewed sugared gum [HollywoodVR, Mondelez International, USA; chlorophyll (spearmint) flavor, with 2.1 g carbohydrate, 8 kcal] for 45 min.
 </td>
 </tr>
-<tr grouplength="1">
-<td colspan="4" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
-Single Arm Trial
+<tr>
+<td style="text-align:left;color: brown !important;width: 15em; padding-left: 2em;" indentlevel="1">
+</td>
+<td style="text-align:left;color: brown !important;width: 5em; ">
+20
+</td>
+<td style="text-align:left;color: brown !important;width: 8em; ">
+Gum Sugared
+</td>
+<td style="text-align:left;color: brown !important;">
+250 ml water in &lt;10 s and chewed sugared gum [HollywoodVR, Mondelez International, USA; chlorophyll (spearmint) flavor, with 2.1 g carbohydrate, 8 kcal] for 45 min.
 </td>
 </tr>
 <tr>
@@ -5446,18 +5643,21 @@ Gum Sugarfree
 3 pieces of sugar-free gum (1.7 g of Trident flavor mint®) in 1 h
 </td>
 </tr>
-<tr grouplength="3">
-<td colspan="4" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
-<strong>Pediatric, Surgical</strong>
+<tr>
+<td style="text-align:left;color: brown !important;width: 15em; ">
 </td>
-</tr>
-<tr groupLength="3">
-<td colspan="4" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
-RCT
+<td style="text-align:left;color: brown !important;width: 5em; ">
+55
+</td>
+<td style="text-align:left;color: brown !important;width: 8em; ">
+Gum Sugarfree
+</td>
+<td style="text-align:left;color: brown !important;">
+3 pieces of sugar-free gum (1.7 g of Trident flavor mint®) in 1 h
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 15em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 15em; ">
 Schoenfelder 2006
 </td>
 <td style="text-align:left;width: 5em; ">
@@ -5470,7 +5670,7 @@ No gum
 </td>
 </tr>
 <tr>
-<td style="text-align:left;color: brown !important;width: 15em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;color: brown !important;width: 15em; ">
 </td>
 <td style="text-align:left;color: brown !important;width: 5em; ">
 </td>
@@ -5482,7 +5682,7 @@ Sugared chewing gum, for 30 minutes prior to OR
 </td>
 </tr>
 <tr>
-<td style="text-align:left;color: brown !important;width: 15em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;color: brown !important;width: 15em; ">
 </td>
 <td style="text-align:left;color: brown !important;width: 5em; ">
 </td>
@@ -5782,7 +5982,7 @@ Schoenfelder 2006
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 4.1.1 (2021-08-10)
+<pre><code>R version 4.1.2 (2021-11-01)
 Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Big Sur 10.16
 
@@ -5797,48 +5997,48 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] meta_5.0-1        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
- [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_2.0.2      
- [9] tidyr_1.1.4       tibble_3.1.5      ggplot2_3.3.5     tidyverse_1.3.1  
-[13] Cairo_1.5-12.2    countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
+ [1] meta_5.1-1        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
+ [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_2.1.1      
+ [9] tidyr_1.1.4       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
+[13] Cairo_1.5-14      countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
- [1] nlme_3.1-153           fs_1.5.0               bit64_4.0.5           
+ [1] nlme_3.1-155           fs_1.5.2               bit64_4.0.5           
  [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
- [7] rprojroot_2.0.2        tools_4.1.1            backports_1.2.1       
+ [7] rprojroot_2.0.2        tools_4.1.2            backports_1.4.1       
 [10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
-[13] R6_2.5.1               DBI_1.1.1              colorspace_2.0-2      
-[16] withr_2.4.2            tidyselect_1.1.1       rematch_1.0.1         
-[19] bit_4.0.4              compiler_4.1.1         git2r_0.28.0          
-[22] cli_3.0.1              rvest_1.0.1            xml2_1.3.2            
-[25] sass_0.4.0             scales_1.1.1           systemfonts_1.0.2     
-[28] digest_0.6.28          minqa_1.2.4            rmarkdown_2.11        
+[13] R6_2.5.1               DBI_1.1.2              colorspace_2.0-2      
+[16] withr_2.4.3            tidyselect_1.1.1       rematch_1.0.1         
+[19] bit_4.0.4              compiler_4.1.2         git2r_0.29.0          
+[22] cli_3.1.1              rvest_1.0.2            xml2_1.3.3            
+[25] sass_0.4.0             scales_1.1.1           systemfonts_1.0.3     
+[28] digest_0.6.29          minqa_1.2.4            rmarkdown_2.11        
 [31] svglite_2.0.0          pkgconfig_2.0.3        htmltools_0.5.2       
 [34] lme4_1.1-27.1          highr_0.9              dbplyr_2.1.1          
 [37] fastmap_1.1.0          htmlwidgets_1.5.4      rlang_0.4.12          
 [40] readxl_1.3.1           rstudioapi_0.13.0-9000 jquerylib_0.1.4       
-[43] generics_0.1.0         jsonlite_1.7.2         vroom_1.5.5           
-[46] magrittr_2.0.1         Matrix_1.3-4           Rcpp_1.0.7            
-[49] munsell_0.5.0          fansi_0.5.0            lifecycle_1.0.1       
-[52] visdat_0.5.3           stringi_1.7.5          whisker_0.4           
-[55] yaml_2.2.1             CompQuadForm_1.4.3     snakecase_0.11.0      
-[58] mathjaxr_1.4-0         MASS_7.3-54            grid_4.1.1            
-[61] parallel_4.1.1         promises_1.2.0.1       crayon_1.4.1          
-[64] lattice_0.20-45        haven_2.4.3            splines_4.1.1         
-[67] hms_1.1.1              knitr_1.36             pillar_1.6.4          
-[70] boot_1.3-28            reprex_2.0.1           glue_1.4.2            
-[73] evaluate_0.14          modelr_0.1.8           nloptr_1.2.2.2        
-[76] vctrs_0.3.8            tzdb_0.1.2             httpuv_1.6.3          
+[43] generics_0.1.1         jsonlite_1.7.3         vroom_1.5.7           
+[46] magrittr_2.0.1         Matrix_1.4-0           Rcpp_1.0.8            
+[49] munsell_0.5.0          fansi_1.0.2            lifecycle_1.0.1       
+[52] visdat_0.5.3           stringi_1.7.6          whisker_0.4           
+[55] yaml_2.2.2             CompQuadForm_1.4.3     snakecase_0.11.0      
+[58] mathjaxr_1.4-0         MASS_7.3-55            grid_4.1.2            
+[61] parallel_4.1.2         promises_1.2.0.1       crayon_1.4.2          
+[64] lattice_0.20-45        haven_2.4.3            splines_4.1.2         
+[67] hms_1.1.1              knitr_1.37             pillar_1.6.5          
+[70] boot_1.3-28            reprex_2.0.1           glue_1.6.1            
+[73] evaluate_0.14          modelr_0.1.8           nloptr_1.2.2.3        
+[76] vctrs_0.3.8            tzdb_0.2.0             httpuv_1.6.5          
 [79] cellranger_1.1.0       gtable_0.3.0           assertthat_0.2.1      
-[82] xfun_0.27              broom_0.7.9            later_1.3.0           
-[85] viridisLite_0.4.0      workflowr_1.6.2        ellipsis_0.3.2        </code></pre>
+[82] xfun_0.29              broom_0.7.11           later_1.3.0           
+[85] viridisLite_0.4.0      workflowr_1.7.0        ellipsis_0.3.2        </code></pre>
 </div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
