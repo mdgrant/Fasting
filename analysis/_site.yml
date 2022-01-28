@@ -19,6 +19,8 @@ navbar:
       href: nma_final.html
     - text: Hunger and thirst
       href: nma_hunger_thirst.html
+  - text: Pediatric 1 hr
+    href: peds1hr.html
   - text: Gum
     href: gum_final.html
   - text: Appendix

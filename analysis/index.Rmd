@@ -56,12 +56,12 @@ display: none !important;
 
 [<font size = 5> &emsp; Hunger and thirst  </font>](nma_hunger_thirst.html)
 
-<br/>
+
+[<font size = 5> Pediatrics 1 hour</font>](peds1hr.html)
 
 [<font size = 5> Chewing gum</font>](gum_final.html)
 
-
-<br/><br/>
+<br/>
 
 [<font size = 6> Appendix files </font>](appendix.html)
 
