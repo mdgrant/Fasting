@@ -13,7 +13,7 @@
 
 <title>Strength of Evidence</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -35,8 +35,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="site_libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="site_libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -77,6 +78,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -97,6 +99,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -322,7 +327,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -347,7 +352,7 @@ div.tocify {
   <a href="noncaloric_clear.html">Clear (nocal) vs. Fast</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Network
      
     <span class="caret"></span>
@@ -386,7 +391,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Strength of Evidence</h1>
-<h4 class="date">11 February, 2022 (12:50)</h4>
+<h4 class="date">09 July, 2022 (15:52)</h4>
 
 </div>
 
@@ -447,21 +452,28 @@ exception of regurgitation, all outcomes are preoperative. Ratings for
 other outcomes and study designs can be found in the <a
 href="appendix.html#supplSoe">Appendix</a>. </font></p>
 </div>
-<div id="carbohydrate-drinks" class="section level1">
-<h1><strong>Carbohydrate Drinks</strong></h1>
+<div id="carbohydrate-drinks" class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Carbohydrate Drinks</strong><a
+href="#carbohydrate-drinks" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
 <p><br/></p>
 </div>
-<div id="adult" class="section level1">
-<h1>   <strong>Adult</strong></h1>
-<div id="carbohydrate-vs.-fasting" class="section level2">
-<h2><em>Carbohydrate vs. Fasting</em></h2>
-<div id="strength-of-evidence-ratings" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="adult" class="section level1 hasAnchor">
+<h1 class="hasAnchor">   <strong>Adult</strong><a href="#adult"
+class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="carbohydrate-vs.-fasting" class="section level2 hasAnchor">
+<h2 class="hasAnchor"><em>Carbohydrate vs. Fasting</em><a
+href="#carbohydrate-vs.-fasting" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
+<div id="strength-of-evidence-ratings" class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
-<p><font size = 4> Table 1. Strength of evidence for important
-preoperative (except aspiration and patient satisfaction) outcomes in
-randomized controlled trials comparing carbohydrate drinks with fasting
-in adults. </font></p>
+<p><font size = 4> Table 1. Summary findings and strength of evidence
+for relevant outcomes comparing carbohydrate-containing clear liquids
+with fasting in adults (randomized controlled trials except aspiration).
+</font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; border-bottom: 0;">
 <thead>
 <tr>
@@ -493,7 +505,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -509,7 +521,7 @@ Result Detail
 <tbody>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Hunger <br>(rate)
+Hunger <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 5 <br>(496)
@@ -526,8 +538,9 @@ A
 ●●
 </td>
 <td style="text-align:left;width: 24em; ">
-Pooled analysis of 5 RCTs was consistent with CHO being accompanied by a
-less hunger. <br> RR 0.55 (95% CI, 0.39-0.79), I<sup>2</sup> = 15%
+Pooled analysis of 5 RCTs was consistent with CHO-containing clear
+liquids being accompanied by less preoperative hunger. <br> RR 0.55 (95%
+CI, 0.43-0.71), <em>I </em><sup>2</sup> = 15%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab6">Table 6</a> <br> <a
@@ -539,7 +552,7 @@ href="cho_final.html#choFig1">Figure 1</a>
 Hunger <br>(patient ratings)
 </td>
 <td style="text-align:center;width: 5em; ">
-18 <br>(1376)
+19 <br>(1439)
 </td>
 <td style="text-align:left;width: 6em; ">
 <span><span class="quality-sign">⨁</span><span
@@ -553,10 +566,10 @@ A
 ●●
 </td>
 <td style="text-align:left;width: 24em; ">
-Pooled analysis of 18 RCTs showed lower patient-rated hunger with CHO
-drinks vs. fasting. <br> SMD -0.62 (95% CI, -0.85 to -0.38),
-<em>I</em><sup>2</sup> = 71% <br> Equivalent to an approximate MD -17.2
-(95% CI, -23.6 to -10.8)
+Pooled analysis of 19 RCTs showed lower patient-rated hunger with
+CHO-containing clear liquids vs. fasting. <br> SMD -0.62 (95% CI, -0.85
+to -0.41), <em>I </em><sup>2</sup> = 69% <br> Re-expressed as an
+approximate 100 point VAS <br> MD -16.7 (95% CI, -22.6 to -10.9)
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab7">Table 7</a><br><a
@@ -565,26 +578,26 @@ href="cho_final.html#choFig2">Figure 2</a>
 </tr>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Thirst <br>(rate)
+Thirst <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
-4 <br>(240)
+6 <br>(673)
 </td>
 <td style="text-align:left;width: 6em; ">
 <span><span class="quality-sign">⨁</span><span
-class="quality-sign">⨁</span><span class="quality-sign">◯</span><span
+class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span
 class="quality-sign">◯</span> </span>
 </td>
 <td style="text-align:center;width: 6em; ">
-B-R
+A-R
 </td>
 <td style="text-align:center;width: 5em; ">
 ●●
 </td>
 <td style="text-align:left;width: 24em; ">
-Pooled analysis of 4 RCTs was consistent with CHO drinks accompanied by
-a lower rate of thirst than fasting. <br> OR 0.09 (95% CI, 0.02-0.50),
-I<sup>2</sup> = 87%
+Pooled analysis of 6 RCTs was consistent with CHO drinks accompanied by
+a lower rate of thirst than fasting. <br> RR 0.43 (95% CI, 0.24-0.74),
+<em>I </em><sup>2</sup> = 71%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab9">Table 9</a><br><a
@@ -596,7 +609,7 @@ href="cho_final.html#choFig4">Figure 4</a>
 Thirst <br>(patient ratings)
 </td>
 <td style="text-align:center;width: 5em; ">
-13 <br>(995)
+18 <br>(1378)
 </td>
 <td style="text-align:left;width: 6em; ">
 <span><span class="quality-sign">⨁</span><span
@@ -610,9 +623,10 @@ A
 ●●
 </td>
 <td style="text-align:left;width: 24em; ">
-Pooled analysis of 13 RCTs<sup>2</sup> found lower patient-rated thirst
-with CHO drinks vs. fasting. <br> SMD -1.0 (95% CI, -1.6 to -0.5),
-<em>I</em><sup>2</sup> = 88%
+Pooled analysis of 18 RCTs found lower patient-rated thirst with CHO
+drinks vs. fasting. <br> SMD -1.0 (95% CI, -1.4 to -0.6), <em>I
+</em><sup>2</sup> = 86% <br> Re-expressed as an approximate 100 point
+VAS <br> MD -24.0 (95% CI, -33.0 to -15.0)
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab10">Table 10</a><br><a
@@ -621,10 +635,10 @@ href="cho_final.html#choFig5">Figure 5</a>
 </tr>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
-3 <br>(190)
+6 <br>(440)
 </td>
 <td style="text-align:left;width: 6em; ">
 <span><span class="quality-sign">⨁</span><span
@@ -638,9 +652,11 @@ B-R
 ●●●
 </td>
 <td style="text-align:left;width: 24em; ">
-Pooled analysis of 3 RCTs<sup>3</sup> did not detect a difference in
-rates of nausea with CHO drinks vs. fasting. <br> OR 0.83 (95% CI,
-0.32-2.18), I<sup>2</sup> = 47%
+Pooled analysis of 6 RCTs suggestive of a lower rate of preoperative
+nausea with CHO drinks vs. fasting. <br> RR 0.57 (95% CI, 0.34-0.96),
+<em>I </em><sup>2</sup> = 45% <br> One study with no events not included
+in the RR estimate. When added, the 95% CI for the risk difference
+crossed the null (-0.12 to 0.04)
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab12">Table 12</a><br><a
@@ -652,7 +668,7 @@ href="cho_final.html#choFig7">Figure 7</a>
 Nausea <br>(patient ratings)
 </td>
 <td style="text-align:center;width: 5em; ">
-11 <br>(793)
+8 <br>(659)
 </td>
 <td style="text-align:left;width: 6em; ">
 <span><span class="quality-sign">⨁</span><span
@@ -666,11 +682,14 @@ B-R
 ●●●
 </td>
 <td style="text-align:left;width: 24em; ">
-Eleven RCTs did not detect a difference in patient ratings of nausea
-with CHO drinks vs. fasting.
+Pooled analysis of 8 RCTs did not detect a difference in patient-rated
+preoperative nausea with CHO drinks vs. fasting. <br> SMD -0.03 (95% CI,
+-0.48 to 0.43), <em>I </em><sup>2</sup> = 75% <br> Re-expressed as an
+approximate 100 point VAS <br> MD -0.2 (95% CI, -4.0 to -3.5)
 </td>
 <td style="text-align:left;width: 7em; ">
-<a href="cho_final.html#choTab14">Table 14</a>
+<a href="cho_final.html#choTab14">Table 14</a><br> <a
+href="choNauseaLik">Figure X</a>
 </td>
 </tr>
 <tr>
@@ -801,8 +820,8 @@ A
 <td style="text-align:left;width: 24em; ">
 Pooled analysis of 11 RCTs did not detect a meaningful difference in
 residual gastric volume between CHO drinks and fasting.<br> MD -2.4 mL
-(95% CI, -6.4 to 1.7), I<sup>2</sup> = 82%; <br>95% prediction interval
-(-14.7 to 9.9)
+(95% CI, -6.4 to 1.7), <em>I </em><sup>2</sup> = 82%; <br>95% prediction
+interval (-14.7 to 9.9)
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab25">Table 25</a><br><a
@@ -829,7 +848,8 @@ B-R
 </td>
 <td style="text-align:left;width: 24em; ">
 Pooled analysis of 4 RCTs did not detect a difference in pH with CHO
-vs. fasting. <br> MD 0.00 (95% CI, -0.23 to 0.22), I<sup>2</sup> = 3%
+vs. fasting. <br> MD 0.00 (95% CI, -0.23 to 0.22), <em>I
+</em><sup>2</sup> = 3%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab28">Table 28</a><br><a
@@ -840,9 +860,12 @@ href="cho_final.html#choFig11">Figure 11</a>
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> OR: odds ratio; SMD: standardized mean difference; MD: mean
-difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI:
-nonrandomized study of interventions.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RR: risk ratio; OR: odds ratio;
+SMD: standardized mean difference; MD: mean difference; CHO:
+carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized
+studies of interventions.
 </td>
 </tr>
 <tr>
@@ -850,25 +873,13 @@ nonrandomized study of interventions.
 <sup>1</sup> ● Limited, ●● Important, ●●● Critical.
 </td>
 </tr>
-<tr>
-<td style="padding: 0; " colspan="100%">
-<sup>2</sup> One additional RCT with no events not included in the
-pooled result.
-</td>
-</tr>
-<tr>
-<td style="padding: 0; " colspan="100%">
-<sup>3</sup> Two additional studies (Rizvanovic 2019, Yagmurdur 2011)
-favoring CHO drinks judged to be outliers were not included in the
-pooled result.
-</td>
-</tr>
 </tfoot>
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br></p>
 <p><font size = 4> Table 2. GRADE domains for strength of evidence
 ratings in studies comparing carbohydrate drinks with fasting in adults.
@@ -919,7 +930,7 @@ Other
 <tbody>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Hunger <br>(rate)
+Hunger <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -951,7 +962,7 @@ Hunger <br>(patient ratings)
 RCT
 </td>
 <td style="text-align:left;width: 10em; ">
-18 (1376)
+19 (1439)
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
@@ -971,13 +982,13 @@ none
 </tr>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Thirst <br>(rate)
+Thirst <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
 </td>
 <td style="text-align:left;width: 10em; ">
-4 (240)
+6 (673)
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
@@ -989,7 +1000,7 @@ serious<sup>4</sup>
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>5</sup>
+not serious
 </td>
 <td style="text-align:left;width: 8em; ">
 none
@@ -1003,13 +1014,13 @@ Thirst <br>(patient ratings)
 RCT
 </td>
 <td style="text-align:left;width: 10em; ">
-13 (995)
+18 (1378)
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>6</sup>
+serious<sup>5</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
@@ -1023,25 +1034,25 @@ none
 </tr>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
 </td>
 <td style="text-align:left;width: 10em; ">
-3 (190)
+6 (440)
+</td>
+<td style="text-align:left;width: 8em; ">
+not serious
+</td>
+<td style="text-align:left;width: 8em; ">
+serious<sup>6</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
 serious<sup>7</sup>
-</td>
-<td style="text-align:left;width: 8em; ">
-not serious
-</td>
-<td style="text-align:left;width: 8em; ">
-serious<sup>8</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 none
@@ -1055,19 +1066,19 @@ Nausea <br>(patient ratings)
 RCT
 </td>
 <td style="text-align:left;width: 10em; ">
-11 (793)
+8 (659)
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
-not serious
+serious<sup>4</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
-very serious<sup>9</sup>
+serious<sup>7</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 none
@@ -1087,13 +1098,13 @@ RCT
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>10</sup>
+serious<sup>8</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>11</sup>
+serious<sup>9</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 none
@@ -1136,16 +1147,16 @@ RCT
 5 (402)
 </td>
 <td style="text-align:left;width: 8em; ">
-not serious<sup>12</sup>
+not serious<sup>10</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>13</sup>
+serious<sup>11</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
-very serious<sup>14</sup>
+very serious<sup>12</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 none
@@ -1162,16 +1173,16 @@ RCT
 4 (460)
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>15</sup>
+serious<sup>13</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>16</sup>
+serious<sup>14</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>17</sup>
+serious<sup>15</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 none
@@ -1188,13 +1199,13 @@ RCT
 12 (907)
 </td>
 <td style="text-align:left;width: 8em; ">
-not serious<sup>18</sup>
+not serious<sup>16</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
-not serious<sup>19</sup>
+not serious<sup>17</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>20</sup>
+serious<sup>18</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
@@ -1217,10 +1228,10 @@ RCT
 not serious
 </td>
 <td style="text-align:left;width: 8em; ">
-not serious<sup>21</sup>
+not serious<sup>19</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
-serious<sup>20</sup>
+serious<sup>18</sup>
 </td>
 <td style="text-align:left;width: 8em; ">
 not serious
@@ -1233,126 +1244,119 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial; NRSI: nonrandomized study
-of interventions.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial;
+NRSI: nonrandomized studies of interventions.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>1</sup> Prediction interval includes the null effect. I<sup>2</sup>
-not large using for pooled RR, but moderate when OR pooled (58%).
+<sup>1</sup> Prediction interval includes the null effect. <em>I
+</em><sup>2</sup> not large for pooled RR, but moderate when OR pooled
+(58%).
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
 <sup>2</sup> Too few studies to examine small study effects, but smaller
-studies showed larger reductions.
+studies showed larger relative reductions.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>3</sup> Considerable heterogeneity (I<sup>2</sup> = 71%) and
-prediction interval includes the null effect.
+<sup>3</sup> Considerable heterogeneity (<em>I </em><sup>2</sup> = 69%)
+and prediction interval includes the null effect.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>4</sup> Considerable heterogeneity (I<sup>2</sup> = 87%).
+<sup>4</sup> Wide prediction interval.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>5</sup> Limited number of events.
+<sup>5</sup> Wide prediction interval (considerably smaller excluding
+outliers, -1.74 to -0.14).
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>6</sup> Considerable heterogeneity (I<sup>2</sup> = 88%).
+<sup>6</sup> Wide prediction interval accompanying heterogeneity (<em>I
+</em><sup>2</sup> = 47%).
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>7</sup> Moderate heterogeneity (I<sup>2</sup> = 47%).
+<sup>7</sup> Wide pooled confidence interval.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>8</sup> Wide pooled confidence interval.
+<sup>8</sup> Studies report inconsistent results.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>9</sup> Limited by absence of nausea (6 of 11 studies reported no
-nausea), and small sample sizes of individual studies (8 of 11 studies
-with population &lt;100).
+<sup>9</sup> Small sample sizes.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>10</sup> Studies report inconsistent results.
-</td>
-</tr>
-<tr>
-<td style="padding: 0; " colspan="100%">
-<sup>11</sup> Small sample sizes.
-</td>
-</tr>
-<tr>
-<td style="padding: 0; " colspan="100%">
-<sup>12</sup> Unclear ascertainment accuracy except Koeppe 2013
+<sup>10</sup> Unclear ascertainment accuracy except Koeppe 2013
 (endoscopy).
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>13</sup> Only 1 study reported regurgitation.
+<sup>11</sup> Only 1 study reported regurgitation.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>14</sup> Wide confidence interval in one RCT and not events in
+<sup>12</sup> Wide confidence interval in one RCT and not events in
 other trials.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>15</sup> One study with high percentage of missing values.
+<sup>13</sup> One study with high percentage of missing values.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>16</sup> One study reported events (14%-17%) and 3 studies reported
+<sup>14</sup> One study reported events (14%-17%) and 3 studies reported
 no events.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>17</sup> Wide confidence interval for one effect estimate
+<sup>15</sup> Wide confidence interval for one effect estimate
 consistent with either CHO or fasting being accompanied by less
 vomiting, and remaining studies reporting no events.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>18</sup> Two of 12 studies with high percentage of missing values;
+<sup>16</sup> Two of 12 studies with high percentage of missing values;
 remaining studies low risk of bias.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>19</sup> Considerable heterogeneity (I<sup>2</sup> = 82%) but not
-clinically relevant (between study mean difference 2.4 mL).
+<sup>17</sup> Considerable heterogeneity (<em>I </em><sup>2</sup> = 82%)
+but not clinically relevant (between study mean difference 2.4 mL).
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>20</sup> Strength of relationship with aspiration unclear, but for
+<sup>18</sup> Strength of relationship with aspiration unclear, but for
 comparative purposes may be direct.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>21</sup> Heterogeneity I<sup>2</sup> = 3%.
+<sup>19</sup> Heterogeneity <em>I </em><sup>2</sup> = 3%.
 </td>
 </tr>
 </tfoot>
@@ -1362,10 +1366,16 @@ comparative purposes may be direct.
 <p><br/></p>
 </div>
 </div>
-<div id="carbohydrate-vs.-clear-liquids-water" class="section level2">
-<h2><em>Carbohydrate vs. Clear Liquids, Water</em></h2>
-<div id="strength-of-evidence-ratings-1" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="carbohydrate-vs.-clear-liquids-water"
+class="section level2 hasAnchor">
+<h2 class="hasAnchor"><em>Carbohydrate vs. Clear Liquids, Water</em><a
+href="#carbohydrate-vs.-clear-liquids-water" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
+<div id="strength-of-evidence-ratings-1"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-1" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 3. Strength of evidence for selected important
 outcomes in randomized controlled trials comparing carbohydrate drinks
@@ -1401,7 +1411,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -1435,9 +1445,9 @@ A
 </td>
 <td style="text-align:left;width: 24em; ">
 Pooled analysis of 9 RCTs showed lower patient-rated hunger with CHO
-drinks vs. clear liquids. <br> SMD -0.52 (95% CI, -0.83 to -0.21),
-<em>I</em><sup>2</sup> = 66% <br> Equivalent to an approximate MD -13.3
-(95% CI, -21.2.3 to -5.4)
+drinks vs. clear liquids. <br> SMD -0.52 (95% CI, -0.83 to -0.21), <em>I
+</em><sup>2</sup> = 66% <br> Equivalent to an approximate MD -12.8 (95%
+CI, -20.9 to -5.2)
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab7">Table 7</a><br><a
@@ -1446,7 +1456,7 @@ href="cho_final.html#choFig3">Figure 3</a>
 </tr>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Thirst <br>(rate)
+Thirst <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 1 <br>(40)
@@ -1490,8 +1500,8 @@ B-R
 </td>
 <td style="text-align:left;width: 24em; ">
 Pooled analysis of 6 RCTs did not detect a difference in patient-rated
-thirst with CHO vs. water. <br>SMD -0.60 (95% CI, -1.52 to 0.32),
-I<sup>2</sup> = 86%
+thirst with CHO vs. water. <br>SMD -0.60 (95% CI, -1.52 to 0.32), <em>I
+</em><sup>2</sup> = 86%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab10">Table 10</a><br><a
@@ -1500,7 +1510,7 @@ href="cho_final.html#choFig6">Figure 6</a>
 </tr>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 2 <br>(679)
@@ -1677,7 +1687,7 @@ B-R
 <td style="text-align:left;width: 24em; ">
 Pooled results from 3 RCTs did not detect a meaningful difference in
 residual gastric volume between CHO drinks and water.<br> MD -0.5 mL
-(95% CI, -6.7 to 5.8), I<sup>2</sup> = 6%
+(95% CI, -6.7 to 5.8), <em>I </em><sup>2</sup> = 6%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab25">Table 25</a><br><a
@@ -1713,9 +1723,11 @@ Two small RCTs did not detect a difference in pH with CHO vs. water.
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> OR: odds ratio; SMD: standardized mean difference; MD: mean
-difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI:
-nonrandomized study of interventions.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; OR: odds ratio; SMD: standardized
+mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized
+controlled trial; NRSI: nonrandomized studies of interventions.
 </td>
 </tr>
 <tr>
@@ -1727,8 +1739,9 @@ nonrandomized study of interventions.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-1" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-1" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-1"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 4. GRADE domains for strength of evidence
 ratings in studies comparing carbohydrate drinks with clear liquids or
@@ -1805,7 +1818,7 @@ none
 </tr>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Thirst <br>(rate)
+Thirst <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -1857,7 +1870,7 @@ none
 </tr>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -2067,14 +2080,16 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>1</sup> Substantial heterogeneity (I<sup>2</sup> =66%) yielding a
-prediction interval consistent with lower hunger scores accompanied by
-either CHO.
+<sup>1</sup> Substantial heterogeneity (<em>I </em><sup>2</sup> =66%)
+yielding a prediction interval consistent with lower hunger scores
+accompanied by either CHO.
 </td>
 </tr>
 <tr>
@@ -2089,9 +2104,9 @@ either CHO.
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>4</sup> Considerable heterogeneity (I<sup>2</sup> =86%) yielding a
-prediction interval consistent with lower thirst scores accompanied by
-either CHO or clear liquids.
+<sup>4</sup> Considerable heterogeneity (<em>I </em><sup>2</sup> =86%)
+yielding a prediction interval consistent with lower thirst scores
+accompanied by either CHO or clear liquids.
 </td>
 </tr>
 <tr>
@@ -2174,12 +2189,18 @@ defined.
 </div>
 </div>
 </div>
-<div id="pediatric" class="section level1">
-<h1>   <strong>Pediatric</strong></h1>
-<div id="carbohydrate-vs.-fasting-1" class="section level2">
-<h2><em>Carbohydrate vs. Fasting</em></h2>
-<div id="strength-of-evidence-ratings-2" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="pediatric" class="section level1 hasAnchor">
+<h1 class="hasAnchor">   <strong>Pediatric</strong><a href="#pediatric"
+class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="carbohydrate-vs.-fasting-1" class="section level2 hasAnchor">
+<h2 class="hasAnchor"><em>Carbohydrate vs. Fasting</em><a
+href="#carbohydrate-vs.-fasting-1" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
+<div id="strength-of-evidence-ratings-2"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-2" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 5. Strength of evidence for selected important
 preoperative (except aspiration) outcomes in randomized controlled
@@ -2216,7 +2237,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance
@@ -2232,7 +2253,7 @@ Result Detail
 <tbody>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Hunger <br>(rate)
+Hunger <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 1 <br>(120)
@@ -2285,7 +2306,7 @@ drinks vs. fasting: OR 0.05 (95% CI, 0.01-0.17), OR 0.92 (95% CI,
 </tr>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 1 <br>(120)
@@ -2407,8 +2428,8 @@ C-LD
 </td>
 <td style="text-align:left;width: 24em; ">
 One RCT did not detect a difference and one RCT reported higher pH with
-CHO drinks vs. fasting.<br> Pooled MD 0.48 (95% CI, 0.31-0.64),
-I<sup>2</sup> = 98%
+CHO drinks vs. fasting.<br> Pooled MD 0.48 (95% CI, 0.31-0.64), <em>I
+</em><sup>2</sup> = 98%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="cho_final.html#choTab28">Table 28</a>
@@ -2418,16 +2439,19 @@ I<sup>2</sup> = 98%
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> OR: odds ratio; SMD: mean difference; CHO: carbohydrate;
-RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; OR: odds ratio; SMD: mean
+difference; CHO: carbohydrate; RCT: randomized controlled trial.
 </td>
 </tr>
 </tfoot>
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-2" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-2" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-2"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br></p>
 <p><font size = 4> Table 6. GRADE domains for strength of evidence
 ratings in studies comparing carbohydrate drinks with fasting in the
@@ -2478,7 +2502,7 @@ Other
 <tbody>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Hunger <br>(rate)
+Hunger <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -2530,7 +2554,7 @@ none
 </tr>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -2662,7 +2686,9 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial.
 </td>
 </tr>
 <tr>
@@ -2726,10 +2752,16 @@ results.
 <p><br/></p>
 </div>
 </div>
-<div id="carbohydrate-vs.-clear-liquids-water-1" class="section level2">
-<h2><em>Carbohydrate vs. Clear Liquids, Water</em></h2>
-<div id="strength-of-evidence-ratings-3" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="carbohydrate-vs.-clear-liquids-water-1"
+class="section level2 hasAnchor">
+<h2 class="hasAnchor"><em>Carbohydrate vs. Clear Liquids, Water</em><a
+href="#carbohydrate-vs.-clear-liquids-water-1" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
+<div id="strength-of-evidence-ratings-3"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-3" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 7. Strength of evidence for selected important
 outcomes in randomized controlled trials comparing carbohydrate drinks
@@ -2765,7 +2797,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance
@@ -2809,15 +2841,19 @@ drinks vs. clear liquids.
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> CHO: carbohydrate; RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; CHO: carbohydrate; RCT:
+randomized controlled trial.
 </td>
 </tr>
 </tfoot>
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-3" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-3" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-3"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 8. GRADE domains for strength of evidence
 ratings in studies comparing carbohydrate drinks with clear liquids or
@@ -2899,10 +2935,15 @@ none
 <p><br/></p>
 </div>
 </div>
-<div id="carbohydrate-vs.-milk" class="section level2">
-<h2><em>Carbohydrate vs. Milk</em></h2>
-<div id="strength-of-evidence-ratings-4" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="carbohydrate-vs.-milk" class="section level2 hasAnchor">
+<h2 class="hasAnchor"><em>Carbohydrate vs. Milk</em><a
+href="#carbohydrate-vs.-milk" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
+<div id="strength-of-evidence-ratings-4"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-4" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 9. Strength of evidence for selected important
 outcomes in randomized controlled trials comparing carbohydrate drinks
@@ -2938,7 +2979,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance
@@ -2982,7 +3023,10 @@ drinks vs. milk.
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> CHO: carbohydrate; RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; CHO: carbohydrate; RCT:
+randomized controlled trial.
 </td>
 </tr>
 </tfoot>
@@ -2991,8 +3035,9 @@ drinks vs. milk.
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 <p><br/></p>
 </div>
-<div id="grade-domains-4" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-4" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-4"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 10. GRADE domains for strength of evidence
 ratings in studies comparing carbohydrate drinks with milk in the
@@ -3071,7 +3116,9 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial.
 </td>
 </tr>
 <tr>
@@ -3092,16 +3139,24 @@ none
 </div>
 </div>
 </div>
-<div id="protein-containing-drinks" class="section level1">
-<h1><strong>Protein-containing Drinks</strong></h1>
+<div id="protein-containing-drinks" class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Protein-containing Drinks</strong><a
+href="#protein-containing-drinks" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
 <p><br/></p>
 </div>
-<div id="adult-1" class="section level1">
-<h1>   <strong>Adult</strong></h1>
-<div id="protein-vs.-fasting" class="section level2">
-<h2><em>Protein vs. Fasting</em></h2>
-<div id="strength-of-evidence-ratings-5" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="adult-1" class="section level1 hasAnchor">
+<h1 class="hasAnchor">   <strong>Adult</strong><a href="#adult-1"
+class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="protein-vs.-fasting" class="section level2 hasAnchor">
+<h2 class="hasAnchor"><em>Protein vs. Fasting</em><a
+href="#protein-vs.-fasting" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
+<div id="strength-of-evidence-ratings-5"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-5" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 11. Strength of evidence for selected important
 preoperative outcomes (except aspiration and patient satisfaction) in
@@ -3138,7 +3193,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -3154,7 +3209,7 @@ Result Detail
 <tbody>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Hunger <br>(rate)
+Hunger <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 1 <br>(98)
@@ -3206,7 +3261,7 @@ vs. fasting.
 </tr>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Thirst <br>(rate)
+Thirst <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 1 <br>(98)
@@ -3258,7 +3313,7 @@ CHO/protein vs. fasting.
 </tr>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 1 <br>(98)
@@ -3419,8 +3474,10 @@ href="protein_final.html#protFig1">Figure 1</a>
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> CHO: carbohydrate; RCT: randomized controlled trial; OR:
-odds ratio; MD: mean difference.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; CHO: carbohydrate; RCT:
+randomized controlled trial; OR: odds ratio; MD: mean difference.
 </td>
 </tr>
 <tr>
@@ -3432,8 +3489,9 @@ odds ratio; MD: mean difference.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-5" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-5" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-5"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br></p>
 <p><font size = 4> Table 12. GRADE domains for strength of evidence
 ratings in studies comparing carbohydrate drinks with fasting in adults.
@@ -3484,7 +3542,7 @@ Other
 <tbody>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Hunger <br>(rate)
+Hunger <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -3536,7 +3594,7 @@ none
 </tr>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Thirst <br>(rate)
+Thirst <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -3588,7 +3646,7 @@ none
 </tr>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -3746,8 +3804,10 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial; NRSI: nonrandomized
-studies of intervensions.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial;
+NRSI: nonrandomized studies of intervensions.
 </td>
 </tr>
 <tr>
@@ -3798,7 +3858,7 @@ CHO/protein drinks or fasting being accompanied by less risk of thirst.
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>10</sup> Heterogeneity I<sup>2</sup> = 11%.
+<sup>10</sup> Heterogeneity <em>I </em><sup>2</sup> = 11%.
 </td>
 </tr>
 <tr>
@@ -3814,10 +3874,16 @@ defined.
 <p><br/></p>
 </div>
 </div>
-<div id="protein-vs.-clear-liquids-water" class="section level2">
-<h2><em>Protein vs. Clear Liquids, Water</em></h2>
-<div id="strength-of-evidence-ratings-6" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="protein-vs.-clear-liquids-water"
+class="section level2 hasAnchor">
+<h2 class="hasAnchor"><em>Protein vs. Clear Liquids, Water</em><a
+href="#protein-vs.-clear-liquids-water" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
+<div id="strength-of-evidence-ratings-6"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-6" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 13. Strength of evidence for selected important
 outcomes in randomized controlled trials comparing protein/carbohydrate
@@ -3853,7 +3919,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -3922,7 +3988,7 @@ patient ratings with CHO/protein drinks.
 </tr>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 2 <br>(86)
@@ -4081,7 +4147,10 @@ liquids, reported no preoperative vomiting in either arm.
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> CHO: carbohydrate; RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; CHO: carbohydrate; RCT:
+randomized controlled trial.
 </td>
 </tr>
 <tr>
@@ -4093,8 +4162,9 @@ liquids, reported no preoperative vomiting in either arm.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-6" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-6" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-6"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 14. GRADE domains for strength of evidence
 ratings in studies comparing protein/carbohydrate drinks with clear
@@ -4197,7 +4267,7 @@ none
 </tr>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Nausea <br>(rate)
+Nausea <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -4355,7 +4425,9 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial.
 </td>
 </tr>
 <tr>
@@ -4401,10 +4473,16 @@ reported.
 <p><br/></p>
 </div>
 </div>
-<div id="proteincarbohydrate-vs.-carbohydrate" class="section level2">
-<h2><em>Protein/Carbohydrate vs. Carbohydrate</em></h2>
-<div id="strength-of-evidence-ratings-7" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="proteincarbohydrate-vs.-carbohydrate"
+class="section level2 hasAnchor">
+<h2 class="hasAnchor"><em>Protein/Carbohydrate vs. Carbohydrate</em><a
+href="#proteincarbohydrate-vs.-carbohydrate" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
+<div id="strength-of-evidence-ratings-7"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-7" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 15. Strength of evidence for selected important
 outcomes in randomized controlled trials comparing protein/carbohydrate
@@ -4440,7 +4518,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -4488,7 +4566,9 @@ href="protein_final.html#protFig2">Figure 2</a>
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> MD: mean difference.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; MD: mean difference.
 </td>
 </tr>
 <tr>
@@ -4500,8 +4580,9 @@ href="protein_final.html#protFig2">Figure 2</a>
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-7" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-7" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-7"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 16. GRADE domains for strength of evidence
 ratings in studies comparing protein/carbohydrate with carbohydrate
@@ -4580,7 +4661,9 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup>
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association;
 </td>
 </tr>
 <tr>
@@ -4590,7 +4673,7 @@ none
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>2</sup> Heterogeneity I<sup>2</sup> = 100%.
+<sup>2</sup> Heterogeneity <em>I </em><sup>2</sup> = 100%.
 </td>
 </tr>
 <tr>
@@ -4614,12 +4697,19 @@ volume.
 </div>
 </div>
 </div>
-<div id="pediatric-1" class="section level1">
-<h1>   <strong>Pediatric</strong></h1>
-<div id="proteincarbohydrate-vs.-milk" class="section level2">
-<h2><em>Protein/Carbohydrate vs. Milk</em></h2>
-<div id="strength-of-evidence-ratings-8" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="pediatric-1" class="section level1 hasAnchor">
+<h1 class="hasAnchor">   <strong>Pediatric</strong><a
+href="#pediatric-1" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
+<div id="proteincarbohydrate-vs.-milk" class="section level2 hasAnchor">
+<h2 class="hasAnchor"><em>Protein/Carbohydrate vs. Milk</em><a
+href="#proteincarbohydrate-vs.-milk" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
+<div id="strength-of-evidence-ratings-8"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-8" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 17.Strength of evidence for selected important
 outcomes in randomized controlled trials comparing protein/carbohydrate
@@ -4655,7 +4745,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -4699,7 +4789,10 @@ CHO/protein drinks vs. milk.
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial; CHO: carbohydrate.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial;
+CHO: carbohydrate.
 </td>
 </tr>
 <tr>
@@ -4711,8 +4804,9 @@ CHO/protein drinks vs. milk.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-8" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-8" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-8"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 18. GRADE domains for strength of evidence
 ratings in studies comparing protein/carbohydrate with milk in a
@@ -4791,7 +4885,9 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial.
 </td>
 </tr>
 <tr>
@@ -4812,13 +4908,20 @@ none
 </div>
 </div>
 </div>
-<div id="non-caloric-clear-vs.-fasting" class="section level1">
-<h1><strong>Non-caloric Clear vs. Fasting</strong></h1>
+<div id="non-caloric-clear-vs.-fasting"
+class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Non-caloric Clear vs. Fasting</strong><a
+href="#non-caloric-clear-vs.-fasting" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
 </div>
-<div id="adult-2" class="section level1">
-<h1>   <strong>Adult</strong></h1>
-<div id="strength-of-evidence-ratings-9" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="adult-2" class="section level1 hasAnchor">
+<h1 class="hasAnchor">   <strong>Adult</strong><a href="#adult-2"
+class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="strength-of-evidence-ratings-9"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-9" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 19. Strength of evidence for selected important
 preoperative outcomes (except aspiration and patient satisfaction) in
@@ -4855,7 +4958,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -4890,7 +4993,7 @@ B-R
 <td style="text-align:left;width: 24em; ">
 Pooled estimate from 3 RCTs was inconsistent with clinically meaningully
 difference in patient-rated hunger.<br> MD (100 pt VAS) -1.3 (95% CI,
--7.1 to 4.4), I<sup>2</sup> = 53%
+-7.1 to 4.4), <em>I </em><sup>2</sup> = 53%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="noncaloric_clear.html#clrFastHungRatingTab4">Table 4</a><br><a
@@ -4918,8 +5021,8 @@ A
 <td style="text-align:left;width: 24em; ">
 Pooled estimate from 3 RCTs consistent with clinically meaningully
 difference in patient-rated thirst for non-caloric clear liquids
-vs. fasting.<br> MD (100 pt VAS) -15.0 (95% CI, -26.4 to 3.6),
-I<sup>2</sup> = 87%
+vs. fasting.<br> MD (100 pt VAS) -15.0 (95% CI, -26.4 to 3.6), <em>I
+</em><sup>2</sup> = 87%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="noncaloric_clear.html#clrFastThirstRatingTab6">Table
@@ -4947,8 +5050,8 @@ A
 <td style="text-align:left;width: 24em; ">
 Pooled estimate from 3 RCTs consistent with no clinically meaningully
 difference in patient-rated nausea for non-caloric clear liquids
-vs. fasting.<br> MD (100 pt VAS) -0.1 (95% CI, -1.6 to 1.5),
-I<sup>2</sup> = 0%
+vs. fasting.<br> MD (100 pt VAS) -0.1 (95% CI, -1.6 to 1.5), <em>I
+</em><sup>2</sup> = 0%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="noncaloric_clear.html#clrFastNauseaTab7">Table 7</a><br><a
@@ -5053,7 +5156,7 @@ A
 <td style="text-align:left;width: 24em; ">
 Pooled result of 6 RCTs did not detect a meaningful difference in
 residual gastric volume between non-caloric clear liquids and
-fasting.<br> MD -0.4 mL (95% CI, -8.1 to 8.9), <em>I</em><sup>2</sup> =
+fasting.<br> MD -0.4 mL (95% CI, -8.1 to 8.9), <em>I </em><sup>2</sup> =
 86%; <br>95% prediction interval (-22.3 to 23.0)
 </td>
 <td style="text-align:left;width: 7em; ">
@@ -5082,7 +5185,7 @@ C-LD
 <td style="text-align:left;width: 24em; ">
 Pooled estimate from RCTs yielded wide range for difference in pH
 between non-caloric clear liquids and fasting.<br> MD pH 0.41 (95% CI,
--0.37 to 1.2), <em>I</em><sup>2</sup> = 92%.
+-0.37 to 1.2), <em>I </em><sup>2</sup> = 92%.
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="noncaloric_clear.html#clrFastPhTab15">Table 15</a><br><a
@@ -5093,9 +5196,11 @@ href="noncaloric_clear.html#clrFastPhFig5">Figure 5</a>
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> OR: odds ratio; SMD: standardized mean difference; MD: mean
-difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI:
-nonrandomized study of interventions.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; OR: odds ratio; SMD: standardized
+mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized
+controlled trial; NRSI: nonrandomized studies of interventions.
 </td>
 </tr>
 <tr>
@@ -5107,8 +5212,9 @@ nonrandomized study of interventions.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-9" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-9" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-9"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br></p>
 <p><font size = 4> Table 20. GRADE domains for strength of evidence
 ratings in randomized controlled trials including non-caloric clear
@@ -5369,13 +5475,15 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial; NRSI: nonrandomized
-studies of intervensions.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial;
+NRSI: nonrandomized studies of intervensions.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>1</sup> Moderate heterogeneity (<em>I</em><sup>2</sup>=53%), but
+<sup>1</sup> Moderate heterogeneity (<em>I </em><sup>2</sup>=53%), but
 very uncertain (95% CI, 0% to 86%).
 </td>
 </tr>
@@ -5387,7 +5495,7 @@ from plausible MCID.
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>3</sup> Considerable heterogeneity (<em>I</em><sup>2</sup>=87%).
+<sup>3</sup> Considerable heterogeneity (<em>I </em><sup>2</sup>=87%).
 </td>
 </tr>
 <tr>
@@ -5398,7 +5506,7 @@ clear liquids.
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>5</sup> Although <em>I</em><sup>2</sup> point estimate of 0%,
+<sup>5</sup> Although <em>I </em><sup>2</sup> point estimate of 0%,
 considerable uncertainty in heterogeneity (95% CI, 0%, 90%).
 </td>
 </tr>
@@ -5424,7 +5532,7 @@ considerable uncertainty in heterogeneity (95% CI, 0%, 90%).
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>10</sup> Considerable heterogeneity (<em>I</em><sup>2</sup> = 86%)
+<sup>10</sup> Considerable heterogeneity (<em>I </em><sup>2</sup> = 86%)
 but not clinically relevant (between study mean difference 0.4 mL.
 </td>
 </tr>
@@ -5436,7 +5544,7 @@ comparative purposes may be direct.
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>12</sup> Considerable heterogeneity (<em>I</em><sup>2</sup>=92%).
+<sup>12</sup> Considerable heterogeneity (<em>I </em><sup>2</sup>=92%).
 </td>
 </tr>
 <tr>
@@ -5451,10 +5559,15 @@ comparative purposes may be direct.
 <p><br/></p>
 </div>
 </div>
-<div id="pediatric-2" class="section level1">
-<h1>   <strong>Pediatric</strong></h1>
-<div id="strength-of-evidence-ratings-10" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="pediatric-2" class="section level1 hasAnchor">
+<h1 class="hasAnchor">   <strong>Pediatric</strong><a
+href="#pediatric-2" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
+<div id="strength-of-evidence-ratings-10"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-10" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 21. Strength of evidence for selected important
 preoperative outcomes (except aspiration and patient satisfaction) in
@@ -5491,7 +5604,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -5507,7 +5620,7 @@ Result Detail
 <tbody>
 <tr>
 <td style="text-align:left;width: 9em; ">
-Thirst <br>(rate)
+Thirst <br>(incidence proportion)
 </td>
 <td style="text-align:center;width: 5em; ">
 1 <br>(107)
@@ -5561,9 +5674,11 @@ href="noncaloric_clear.html#clrFastAspirateTab12">Table 12</a>
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> OR: odds ratio; SMD: standardized mean difference; MD: mean
-difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI:
-nonrandomized study of interventions.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; OR: odds ratio; SMD: standardized
+mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized
+controlled trial; NRSI: nonrandomized studies of interventions.
 </td>
 </tr>
 <tr>
@@ -5575,8 +5690,9 @@ nonrandomized study of interventions.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-10" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-10" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-10"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br></p>
 <p><font size = 4> Table 22. GRADE domains for strength of evidence
 ratings in randomized controlled trials including non-caloric clear
@@ -5627,7 +5743,7 @@ Other
 <tbody>
 <tr>
 <td style="text-align:left;width: 13em; ">
-Thirst <br>(rate)
+Thirst <br>(incidence proportion)
 </td>
 <td style="text-align:left;width: 4em; ">
 RCT
@@ -5681,8 +5797,10 @@ not rated
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial; NRSI: nonrandomized
-studies of intervensions.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial;
+NRSI: nonrandomized studies of intervensions.
 </td>
 </tr>
 <tr>
@@ -5702,10 +5820,15 @@ studies of intervensions.
 <p><br/></p>
 </div>
 </div>
-<div id="pediatric-1-vs.-2-hour" class="section level1">
-<h1><strong>Pediatric 1 vs. 2 Hour</strong></h1>
-<div id="strength-of-evidence-ratings-11" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="pediatric-1-vs.-2-hour" class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Pediatric 1 vs. 2 Hour</strong><a
+href="#pediatric-1-vs.-2-hour" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
+<div id="strength-of-evidence-ratings-11"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-11" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 23. Strength of evidence for selected important
 outcomes comparing 1 and 2 hour clear liquid fasting. </font></p>
@@ -5740,7 +5863,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -5980,7 +6103,9 @@ hour fasting protocols.
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial.
 </td>
 </tr>
 <tr>
@@ -5992,8 +6117,9 @@ hour fasting protocols.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-11" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-11" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-11"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br></p>
 <p><font size = 4> Table 24. GRADE domains for strength of evidence
 ratings in randomized controlled trials including non-caloric clear
@@ -6254,8 +6380,10 @@ not serious
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial; NRSI: nonrandomized
-studies of intervensions.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial;
+NRSI: nonrandomized studies of intervensions.
 </td>
 </tr>
 <tr>
@@ -6348,10 +6476,14 @@ clearly defined.
 <div id="section-1" class="section level1">
 <h1></h1>
 </div>
-<div id="chewing-gum" class="section level1">
-<h1><strong>Chewing Gum</strong></h1>
-<div id="strength-of-evidence-ratings-12" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="chewing-gum" class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Chewing Gum</strong><a href="#chewing-gum"
+class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="strength-of-evidence-ratings-12"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-12" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 25. Strength of evidence in chewing gum
 studies. </font></p>
@@ -6386,7 +6518,7 @@ Outcome
  GRADE
 </th>
 <th style="text-align:center;font-weight: bold;">
-ACC/AHA
+ACCF/AHA
 </th>
 <th style="text-align:center;font-weight: bold;">
 Importance<sup>1</sup>
@@ -6523,7 +6655,7 @@ B-R
 <td style="text-align:left;width: 24em; ">
 Pooled analysis of 5 RCTs found that gum chewing increases residual
 gastric volume versus fasting alone. <br> MD 7.6 mL (95% CI, 3.0-12.2),
-I<sup>2</sup> = 42%
+<em>I </em><sup>2</sup> = 42%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="gum_final.html#gumTab4">Table 4</a><br><a
@@ -6602,8 +6734,8 @@ B-R
 </td>
 <td style="text-align:left;width: 24em; ">
 Pooled analysis of 5 RCTs did not detect a difference in pH with gum
-chewing vs. fasting. <br> MD 0.1 (95% CI, -0.5 to 0.7), I<sup>2</sup> =
-56%
+chewing vs. fasting. <br> MD 0.1 (95% CI, -0.5 to 0.7), <em>I
+</em><sup>2</sup> = 56%
 </td>
 <td style="text-align:left;width: 7em; ">
 <a href="gum_final.html#gumTab5">Table 5</a> <br> <a
@@ -6640,7 +6772,10 @@ in children.
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial; MD: mean difference.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled trial;
+MD: mean difference.
 </td>
 </tr>
 <tr>
@@ -6652,8 +6787,9 @@ in children.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-12" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-12" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-12"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 26. GRADE domains for strength of evidence
 ratings in n chewing gum studies. </font></p>
@@ -6939,7 +7075,10 @@ none
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trials.
+<sup></sup> GRADE: Grading of Recommendations Assessment, Development
+and Evaluation; ACCF/AHA; American College of Cardiology
+Foundation/American Heart Association; RCT: randomized controlled
+trials.
 </td>
 </tr>
 <tr>
@@ -6986,14 +7125,14 @@ threshold.
 <p><br/></p>
 </div>
 </div>
-<div id="section-2" class="section level1">
-<h1></h1>
+<div id="rating-systems-reference" class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Rating Systems Reference</strong><a
+href="#rating-systems-reference" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
 </div>
-<div id="rating-systems-reference" class="section level1">
-<h1><strong>Rating Systems Reference</strong></h1>
-</div>
-<div id="grade" class="section level1">
-<h1>  GRADE</h1>
+<div id="grade" class="section level1 hasAnchor">
+<h1 class="hasAnchor">  GRADE<a href="#grade" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
 <p><br> <font size = 4> <strong>High</strong> — We are very confident
 that the true effect lies close to that of the estimate of the
 effect.</p>
@@ -7008,8 +7147,10 @@ estimate of the effect.</p>
 effect estimate: The true effect is likely to be substantially different
 from the estimate of effect.</p>
 <p></font></p>
-<div id="domains-downgrading" class="section level2">
-<h2>Domains (downgrading)</h2>
+<div id="domains-downgrading" class="section level2 hasAnchor">
+<h2 class="hasAnchor">Domains (downgrading)<a
+href="#domains-downgrading" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
 <p><font size = 3></p>
 <p><em>Bias</em> — Systematic error (eg, selection bias, confounding
 bias, measurement bias).</p>
@@ -7024,8 +7165,9 @@ the outcomes important to patients.</p>
 <p><em>Other (eg, publication bias)</em> Selective publication or
 reporting of results (typically of positive results).</p>
 </div>
-<div id="domains-updgrading" class="section level2">
-<h2>Domains (updgrading)</h2>
+<div id="domains-updgrading" class="section level2 hasAnchor">
+<h2 class="hasAnchor">Domains (updgrading)<a href="#domains-updgrading"
+class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>Effect Size</em></p>
 <p><em>Dose-response</em></p>
 <p><em>Plausible Residual Confounding</em></p>
@@ -7041,8 +7183,13 @@ reporting of results (typically of positive results).</p>
 <p><br/></p>
 </div>
 </div>
-<div id="accaha" class="section level1">
-<h1>  ACC/AHA</h1>
+<div
+id="accfaha-american-college-of-cardiology-foundationamerican-heart-association"
+class="section level1 hasAnchor">
+<h1 class="hasAnchor">  ACCF/AHA American College of Cardiology
+Foundation/American Heart Association<a
+href="#accfaha-american-college-of-cardiology-foundationamerican-heart-association"
+class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><strong>Level A</strong> — High-quality evidence from more than 1
 RCTs. Meta-analyses of high-quality RCTs. One or more RCTs corroborated
 by high-quality registry studies.</p>
@@ -7071,13 +7218,13 @@ Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre><code>R version 4.2.0 (2022-04-22)
 Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur 10.16
+Running under: macOS Big Sur/Monterey 10.16
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -7087,34 +7234,29 @@ attached base packages:
 
 other attached packages:
  [1] formattable_0.2.1 naniar_0.6.1      forcats_0.5.1     stringr_1.4.0    
- [5] dplyr_1.0.8       purrr_0.3.4       readr_2.1.2       tidyr_1.2.0      
- [9] tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1   Cairo_1.5-14     
-[13] countrycode_1.3.1 janitor_2.1.0     kableExtra_1.3.4 
+ [5] dplyr_1.0.9       purrr_0.3.4       readr_2.1.2       tidyr_1.2.0      
+ [9] tibble_3.1.7      ggplot2_3.3.6     tidyverse_1.3.1   Cairo_1.6-0      
+[13] countrycode_1.4.0 janitor_2.1.0     kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8             svglite_2.1.0          lubridate_1.8.0       
- [4] assertthat_0.2.1       rprojroot_2.0.2        digest_0.6.29         
- [7] utf8_1.2.2             cellranger_1.1.0       R6_2.5.1              
-[10] backports_1.4.1        visdat_0.5.3           reprex_2.0.1          
-[13] evaluate_0.14          httr_1.4.2             pillar_1.7.0          
-[16] rlang_1.0.1            rematch_1.0.1          readxl_1.3.1          
-[19] rstudioapi_0.13.0-9000 jquerylib_0.1.4        rmarkdown_2.11        
-[22] webshot_0.5.2          htmlwidgets_1.5.4      munsell_0.5.0         
-[25] broom_0.7.12           modelr_0.1.8           compiler_4.1.2        
-[28] httpuv_1.6.5           xfun_0.29              pkgconfig_2.0.3       
-[31] systemfonts_1.0.3      htmltools_0.5.2        tidyselect_1.1.1      
-[34] workflowr_1.7.0        fansi_1.0.2            viridisLite_0.4.0     
-[37] withr_2.4.3            tzdb_0.2.0             crayon_1.4.2          
-[40] dbplyr_2.1.1           later_1.3.0            grid_4.1.2            
-[43] jsonlite_1.7.3         gtable_0.3.0           lifecycle_1.0.1       
-[46] DBI_1.1.2              git2r_0.29.0           magrittr_2.0.2        
-[49] scales_1.1.1           cli_3.1.1              stringi_1.7.6         
-[52] fs_1.5.2               promises_1.2.0.1       snakecase_0.11.0      
-[55] xml2_1.3.3             bslib_0.3.1            ellipsis_0.3.2        
-[58] generics_0.1.2         vctrs_0.3.8            tools_4.1.2           
-[61] glue_1.6.1             hms_1.1.1              fastmap_1.1.0         
-[64] yaml_2.2.2             colorspace_2.0-2       rvest_1.0.2           
-[67] knitr_1.37             haven_2.4.3            sass_0.4.0            </code></pre>
+ [1] Rcpp_1.0.8.3      svglite_2.1.0     lubridate_1.8.0   assertthat_0.2.1 
+ [5] rprojroot_2.0.3   digest_0.6.29     utf8_1.2.2        cellranger_1.1.0 
+ [9] R6_2.5.1          backports_1.4.1   visdat_0.5.3      reprex_2.0.1     
+[13] evaluate_0.15     httr_1.4.3        pillar_1.7.0      rlang_1.0.3      
+[17] rematch_1.0.1     readxl_1.4.0      rstudioapi_0.13   jquerylib_0.1.4  
+[21] rmarkdown_2.14    webshot_0.5.3     htmlwidgets_1.5.4 munsell_0.5.0    
+[25] broom_1.0.0       modelr_0.1.8      compiler_4.2.0    httpuv_1.6.5     
+[29] xfun_0.31         pkgconfig_2.0.3   systemfonts_1.0.4 htmltools_0.5.2  
+[33] tidyselect_1.1.2  workflowr_1.7.0   fansi_1.0.3       viridisLite_0.4.0
+[37] withr_2.5.0       tzdb_0.3.0        crayon_1.5.1      dbplyr_2.2.1     
+[41] later_1.3.0       grid_4.2.0        jsonlite_1.8.0    gtable_0.3.0     
+[45] lifecycle_1.0.1   DBI_1.1.3         git2r_0.30.1      magrittr_2.0.3   
+[49] scales_1.2.0      cli_3.3.0         stringi_1.7.6     fs_1.5.2         
+[53] promises_1.2.0.1  snakecase_0.11.0  xml2_1.3.3        bslib_0.3.1      
+[57] ellipsis_0.3.2    generics_0.1.3    vctrs_0.4.1       tools_4.2.0      
+[61] glue_1.6.2        hms_1.1.1         fastmap_1.1.0     yaml_2.3.5       
+[65] colorspace_2.0-3  rvest_1.0.2       knitr_1.39        haven_2.5.0      
+[69] sass_0.4.1       </code></pre>
 </div>
 </div>
 
