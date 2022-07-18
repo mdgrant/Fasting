@@ -224,7 +224,7 @@ gum_thirst %>%
   column_spec(8, width = "5em") %>%
   pack_top(., "Adult, Surgical", 1, 6) %>% 
   pack_sub(., "RCT", 1, 6) %>% 
-  result_pack("Lower in gum arm, P < .001", 3, padding = 75) %>% 
+  result_pack("Lower in gum arm, p &lt; .001", 3, padding = 75) %>% 
   result_pack("Difference not detected", 5, padding = 75) %>% 
   result_pack("Less in gum arm, P = .03", 7, padding = 75) %>% 
   footnote(general = "IQR: interquartile range; RCT: randomized controlled trial; NR: not reported; VAS: visual analogue scale.", 
@@ -399,7 +399,7 @@ gum_rgv %>%
                  "Smokers.",
                  "mL/kg.",
                  "2 hr after ingestion of 250 mL and gum chewing.",
-                 "p < 0.001 for comparison with fasting."),
+                 "p &lt; 0.001 for comparison with fasting."),
     footnote_as_chunk = FALSE)
 
 table_n <- table_n + 1

@@ -128,7 +128,7 @@ firstup <- function(x) {
 
 ```{r soeData, include = TRUE}
 ## (updated 2021/05/13 11:45) soeData -------------------------------------
-soe.dat <- readxl::read_xlsx("data/SOE_070621_final.xlsx", range = "A1:AB113", sheet = "soe_050521") %>%
+soe.dat <- readxl::read_xlsx("/Users/mgrant/Desktop/SOE_060522_final_mg.xlsx", range = "A1:AB110", sheet = "soe_060622") %>%
   clean_names() %>%
   mutate(
     n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
@@ -209,7 +209,7 @@ domain_summary <- soe.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for important preoperative (except aspiration and patient satisfaction) outcomes in randomized controlled trials comparing carbohydrate drinks with fasting in adults.  </font>
+<font size = 4> Table `r table_n`. Summary findings and strength of evidence for relevant outcomes comparing carbohydrate-containing clear liquids with fasting in adults (randomized controlled trials except aspiration).  </font>
 
 ```{r chofasting, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
@@ -218,7 +218,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
@@ -232,10 +232,8 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
-           number = c("● Limited, ●● Important, ●●● Critical.",
-             "One additional RCT with no events not included in the pooled result.",
-                      "Two additional studies (Rizvanovic 2019, Yagmurdur 2011) favoring CHO drinks judged to be outliers were not included in the pooled result."),
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RR: risk ratio; SMD: standardized mean difference; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized studies of interventions.",
+           number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
 
@@ -306,7 +304,7 @@ cho_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -335,7 +333,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -347,7 +345,7 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized studies of interventions.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -416,7 +414,7 @@ cho_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trial.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -448,7 +446,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -459,7 +457,7 @@ soe_summary %>%
   column_spec(5, width = "5em") %>% 
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
-  footnote(general = "OR: odds ratio; SMD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; OR: odds ratio; SMD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -528,7 +526,7 @@ cho_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trial.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -557,7 +555,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -569,7 +567,7 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>%  
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; CHO: carbohydrate; RCT: randomized controlled trial.",
   # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
   general_title = "",
   footnote_as_chunk = FALSE)
@@ -638,7 +636,7 @@ cho_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em")
-  # footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
+  # footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
   #          number = foot_unique,
   #          general_title = "",  
   #          footnote_as_chunk = FALSE)
@@ -667,7 +665,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -679,7 +677,7 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; CHO: carbohydrate; RCT: randomized controlled trial.",
            # alphabet = c("At time of endocoscopy = 0","'Did you feel hunger during the fasting period?'"),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -754,7 +752,7 @@ cho_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trial.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -790,7 +788,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -802,7 +800,7 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial; OR: odds ratio; MD: mean difference.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; CHO: carbohydrate; RCT: randomized controlled trial; OR: odds ratio; MD: mean difference.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -871,7 +869,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -900,7 +898,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -912,7 +910,7 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "CHO: carbohydrate; RCT: randomized controlled trial.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; CHO: carbohydrate; RCT: randomized controlled trial.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -981,7 +979,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trial.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1010,7 +1008,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -1022,7 +1020,7 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "MD: mean difference.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; MD: mean difference.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1091,7 +1089,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = " ",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association;  ",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1122,7 +1120,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -1134,7 +1132,7 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "RCT: randomized controlled trial; CHO: carbohydrate.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial; CHO: carbohydrate.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1203,7 +1201,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trial.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1235,7 +1233,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
@@ -1249,7 +1247,7 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized studies of interventions.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1318,7 +1316,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1346,7 +1344,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
@@ -1360,7 +1358,7 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized studies of interventions.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1429,7 +1427,7 @@ prot_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1444,8 +1442,192 @@ table_n <- tab_inc()
 <br/>
 
 
-# **Chewing Gum**
+# **Pediatric 1 vs. 2 Hour**
+```{r soePeds1hrData, include = TRUE}
+## (updated 2021/05/13 11:45) soeData -------------------------------------
+soe_peds1hr.dat <- readxl::read_xlsx("/Users/mgrant/Desktop/SOE_060522_final_mg.xlsx", range = "A1:AB9", sheet = "peds1hr") %>%
+  clean_names() %>%
+  mutate(
+    n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
+    n = paste0(n, outcome),
+    # outcome = tools::toTitleCase(outcome) %>%
+    outcome = str_to_sentence(outcome),
+    outcome = ifelse(outcome == "Ph", "pH", outcome),
+    outcome = str_replace(outcome, "Hunger", "Hunger (preop)"),
+    outcome = str_replace(outcome, "Nausea", "Nausea (preop)"),
+    outcome = str_replace(outcome, "Thirst", "Thirst (preop)"),
+    outcome = str_replace(outcome, ", preoperative", " \\(preop\\)"),
+    outcome = str_replace(outcome, ", postoperative", " \\(postop\\)"),
+    outcome = str_replace(outcome, "<br> rct, nrsi, cohort|<br> rct|<br> non.*", ""),
+    outcome = str_replace(outcome, "\\) \\(", ", "),
+    outcome = str_replace(outcome, "Gastric ph", "Gastric pH"),
+    outcome = str_replace(outcome, "Residual gastric volume", "Residual Gastric Volume"),
+    outcome = str_replace(outcome, ", cohort", ""),
+    design = str_replace(design, "Rct", "RCT"),
+    design = str_replace(design, "rct", "RCT"),
+    design = str_replace(design, "[Nn]rsi", "NRSI"),
+    design = str_replace(design, "cohort", "Cohort"),
+    design = str_replace(design, "observational", "Observational"),
+    out_import = case_when(
+      out_import == "Limited" ~ "●",
+      # out_import == "Limited" ~ "●○○",
+      out_import == "Important" ~ "●●",
+      out_import == "Critical" ~ "●●●"
+    )
+  )
 
+# soe_peds1hr.dat <- soe_peds1hr.dat %>% 
+    # filter((grepl("Hunger|Thirst|Regur|Vomit|Residual|pH|Nausea|Satisfaction|Discomfort", outcome) & design %in% c("RCT","Crossover")) | grepl("Aspir", outcome)) %>% 
+  # filter(grepl("Hunger|Residual", outcome)) %>%
+  # remove post-op
+  # filter(!grepl("postop", outcome)) %>% 
+  # delete "(preop)" from labels
+  # mutate(outcome = str_replace(outcome, "\\(preop\\)", ""))
+  
+
+## (updated 2021/05/13 13:48) soe_summary ---------------------------------
+soe_summary_peds1hr <- soe_peds1hr.dat %>%
+  select(n, comparison, outcome, n_s, grade, uspstf, acc, out_import, result_summary, result_links) %>%
+  mutate(
+    grade = case_when(
+      grade == "very low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "moderate" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span>',
+      grade == "high" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span>', # )%>%
+      TRUE ~ grade
+    )
+  )
+
+## (updated 2021/05/14 06:08) domain_summary ------------------------------
+domain_summary_peds1hr <- soe_peds1hr.dat %>% 
+  select(n, comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot"))
+  # mutate(design = str_to_sentence(design),
+  #        consist_foot = ifelse(!grepl("\\.$", consist_foot) & !is.na(consist_foot), paste0(consist_foot, "."), consist_foot),
+  #        direct_foot  = ifelse(!grepl("\\.$", direct_foot ) & !is.na(direct_foot ), paste0(direct_foot , "."), direct_foot ),
+  #        prec_foot    = ifelse(!grepl("\\.$", prec_foot   ) & !is.na(prec_foot   ), paste0(prec_foot   , "."), prec_foot   ),
+  #        rob_foot     = ifelse(!grepl("\\.$", rob_foot    ) & !is.na(rob_foot    ), paste0(rob_foot    , "."), rob_foot    ),
+  #        other_foot   = ifelse(!grepl("\\.$", other_foot  ) & !is.na(other_foot  ), paste0(other_foot  , "."), other_foot  ),
+  #        across(ends_with("foot"), firstup)
+  #        ) 
+
+```
+
+### Strength of Evidence Ratings
+
+<br/>
+
+<font size = 4> Table `r table_n`. Strength of evidence for selected important outcomes comparing 1 and 2 hour clear liquid fasting.  </font>
+
+```{r clearfastingPeds1hr, include = TRUE}
+## (updated 2021/10/08 10:57) clear vs. fasting kable ---------------------
+soe_summary_peds1hr %>% 
+  # filter(comparison == "peds_clear_fast") %>% 
+  select(!c(comparison, n, uspstf)) %>% 
+  # slice(5:6) %>%
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
+  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial.",
+           number = c("● Limited, ●● Important, ●●● Critical."),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+
+```
+
+<br/>
+
+### GRADE Domains 
+
+<br>
+
+<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in randomized controlled trials including non-caloric clear liquid &ndash; fasting comparisons in children. </font>
+
+```{r clearfastingDomainPeds1hr, include = TRUE, eval = TRUE}
+## (updated 2021/05/14 08:02) prot_domain_summary --------------------------
+peds1hr_domain_summary <- domain_summary_peds1hr %>%
+  select(-summary) %>%
+  mutate(
+    design = str_replace(design, "Rct", "RCT"),
+    design = str_replace(design, "[Nn]rsi", "NRSI"),
+    design = str_replace(design, "cohort", "Cohort"),
+    design = str_replace(design, "crossover", "Crossover"),
+    design = str_replace(design, "prospective", "Prospective"),
+  )
+         
+## (updated 2021/05/14 07:42) get list of unique footnotes ----------------
+foot_unique <- peds1hr_domain_summary %>% 
+  # slice(1:20) %>% 
+  select(ends_with("foot")) 
+
+foot_unique <- c(t(foot_unique)) %>% 
+  unlist(use.names = FALSE) %>% 
+  discard(is.na) 
+
+foot_unique <- unique(foot_unique)
+
+numbers <- c(1:100)
+peds1hr_domain <- peds1hr_domain_summary %>% 
+  mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
+         consist_let = numbers[match(consist_foot, foot_unique)],
+         direct_let  = numbers[match(direct_foot, foot_unique)],
+         prec_let    = numbers[match(prec_foot, foot_unique)],
+         other_let   = numbers[match(other_foot, foot_unique)],
+         )
+
+## (updated 2021/05/14 08:04) add footnotes -------------------------------
+for (i in 1:nrow(peds1hr_domain)) {
+  for (j in 7:11) {
+    peds1hr_domain[i, j] <- ifelse(!is.na(peds1hr_domain[i, j + 10]), paste0(peds1hr_domain[i, j], "^", peds1hr_domain[i, j + 10], "^"), peds1hr_domain[i, j])
+  }
+}
+
+## (updated 2021/05/14 08:27) domain summary table ------------------------
+peds1hr_domain %>% 
+  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
+  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
+    kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
+    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "13em") %>%  
+  column_spec(2, width = "4em") %>% 
+  column_spec(3, width = "10em") %>% 
+  column_spec(4:8, width = "8em") %>% 
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial; NRSI: nonrandomized studies of intervensions.",
+           number = foot_unique,
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br/>
+
+
+
+
+#
+# **Chewing Gum**
 ### Strength of Evidence Ratings
 
 <br/>
@@ -1460,7 +1642,7 @@ soe_summary %>%
   select(!c(comparison, n, uspstf)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  col.names = c("Outcome", "(pts)", " GRADE", "ACCF/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
   row_spec(0, bold = TRUE) %>% 
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
@@ -1476,7 +1658,7 @@ soe_summary %>%
   # pack_top(., "Gum vs. Fasting, Pediatric", 5, 6) %>%
   # pack_top(., "Gum", 7, 7) %>%
   # pack_top(., "Safety", 8, 8) %>%
-  footnote(general = "RCT: randomized controlled trial; MD: mean difference.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trial; MD: mean difference.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1545,7 +1727,7 @@ gum_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
-  footnote(general = "RCT: randomized controlled trials.",
+  footnote(general = "GRADE: Grading of Recommendations Assessment, Development and Evaluation; ACCF/AHA; American College of Cardiology Foundation/American Heart Association; RCT: randomized controlled trials.",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -1559,7 +1741,6 @@ table_n <- tab_inc()
 
 <br/>
 
-# 
 
 # **Rating Systems Reference**
 
@@ -1617,7 +1798,9 @@ table_n <- tab_inc()
 
 <br/>
 
-#   ACC/AHA
+#   ACCF/AHA 
+
+American College of Cardiology Foundation/American Heart Association
 
 **Level A** --- High-quality evidence from more than 1 RCTs. Meta-analyses of high-quality RCTs. One or more RCTs corroborated by high-quality registry studies.
 
